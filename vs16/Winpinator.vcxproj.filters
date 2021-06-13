@@ -1,17 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Pliki źródłowe">
+    <Filter Include="vcpkg">
+      <UniqueIdentifier>{e6961e7f-0cd8-4d54-8dd3-c056a43a7667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Pliki nagłówkowe">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Pliki zasobów">
+    <Filter Include="Resources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Sources\zeroconf">
+      <UniqueIdentifier>{8483c585-8c6c-41ed-8710-85ce5e6938ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\zeroconf">
+      <UniqueIdentifier>{2c8ca931-6a08-4034-8bfe-e7921a71514d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\vcpkg.json">
+      <Filter>vcpkg</Filter>
+    </None>
+    <None Include="..\res\winpinator.aps">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\res\winpinator.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\zeroconf\mdns.h">
+      <Filter>Headers\zeroconf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\zeroconf\mdns_service.hpp">
+      <Filter>Headers\zeroconf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\zeroconf\mdns_client.hpp">
+      <Filter>Headers\zeroconf</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
+      <Filter>Sources\zeroconf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\zeroconf\mdns_client.cpp">
+      <Filter>Sources\zeroconf</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
