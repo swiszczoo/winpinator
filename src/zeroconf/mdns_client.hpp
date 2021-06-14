@@ -30,6 +30,9 @@ struct MdnsServiceData
     // uniquely identifying a particular host.
     std::string name;
 
+    // A name of the server in .local. domain
+    std::string srvName;
+
     // An IPv4 address of the service. If unavailable, this string is empty.
     std::string ipv4;
 
@@ -65,6 +68,10 @@ public:
     void stopListening();
     bool isListening() const;
 
+    // You may call this function from time to time to ensure that no services
+    // haven't been discovered due to UDP packet loss.
+    void repeatQuery();
+
 private:
     std::string m_srvType;
 
@@ -76,6 +83,11 @@ private:
 
     AddListenerType m_addListener;
     RemoveListenerType m_removeListener;
+
+    std::map<std::string, std::string> m_aRecords;
+    std::map<std::string, std::string> m_aaaaRecords;
+
+    std::map<std::string, MdnsServiceData> m_activeServices;
 
     int workerImpl();
 

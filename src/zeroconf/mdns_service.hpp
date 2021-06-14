@@ -53,11 +53,12 @@ private:
     bool m_running;
     std::thread m_worker;
 
-    std::shared_ptr<std::mutex> m_mtRunning;
+    std::shared_ptr<std::recursive_mutex> m_mtRunning;
 
     std::map<std::string, std::string> m_txtRecords;
 
     int workerImpl();
+    void unlockThread();
 
     // mDNS.c implementations
     sockaddr_in m_serviceAddressIpv4;
@@ -74,7 +75,7 @@ private:
     int openServiceSockets( int* sockets, int maxSockets );
     int serviceMdns( const char* hostname, 
         const char* serviceNname, int servicePort,
-        std::shared_ptr<std::mutex> mutexRef );
+        std::shared_ptr<std::recursive_mutex> mutexRef );
 
     static int serviceCallback( int sock, const sockaddr* from,
         size_t addrlen, mdns_entry_type entry, uint16_t query_id,

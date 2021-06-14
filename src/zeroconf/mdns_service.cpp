@@ -43,15 +43,20 @@ MdnsService::MdnsService( const std::string& serviceType )
 {
     // Create a shared mutex
 
-    m_mtRunning = std::make_shared<std::mutex>();
+    m_mtRunning = std::make_shared<std::recursive_mutex>();
 }
 
 MdnsService::~MdnsService()
 {
+    std::unique_lock<std::recursive_mutex> lock( *m_mtRunning );
     if ( m_running )
     {
         unregisterService();
     }
+
+    unlockThread();
+
+    lock.unlock();
 
     if ( m_worker.joinable() )
     {
@@ -122,12 +127,13 @@ void MdnsService::registerService()
         return;
     }
 
-    m_running = true;
-
     if ( m_worker.joinable() )
     {
-        m_worker.detach();
+        unlockThread();
+        m_worker.join();
     }
+
+    m_running = true;
 
     m_worker = std::thread( [this]() -> int {
         return workerImpl();
@@ -136,7 +142,7 @@ void MdnsService::registerService()
 
 void MdnsService::unregisterService()
 {
-    std::lock_guard<std::mutex> lock( *m_mtRunning );
+    std::lock_guard<std::recursive_mutex> lock( *m_mtRunning );
 
     if ( !m_running )
     {
@@ -315,6 +321,42 @@ int MdnsService::workerImpl()
 
     serviceMdns( hostname.get(), servName.get(), m_port, m_mtRunning );
     return EXIT_SUCCESS;
+}
+
+void MdnsService::unlockThread()
+{
+    // HACK: Send an empty datagram to ensure select does not wait forever
+    // (we're sure that m_running equals false at this moment)
+
+    int sock = (int)socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
+
+    if ( sock == 0 ) {
+        return;
+    }
+
+    char buf = '\0';
+
+    // Create destination address
+
+    sockaddr_storage addr_storage;
+    sockaddr_in addr;
+    sockaddr_in6 addr6;
+    sockaddr* saddr = (struct sockaddr*)&addr_storage;
+    socklen_t saddrlen = sizeof( struct sockaddr_storage );
+
+    memset( &addr, 0, sizeof( addr ) );
+    addr.sin_family = AF_INET;
+#ifdef __APPLE__
+    addr.sin_len = sizeof( addr );
+#endif
+    addr.sin_addr.s_addr = htonl( ( ( (uint32_t)127U ) << 24U ) | ( (uint32_t)1U ) );
+    addr.sin_port = htons( (unsigned short)MDNS_PORT );
+    saddr = (struct sockaddr*)&addr;
+    saddrlen = sizeof( addr );
+
+    mdns_unicast_send( sock, saddr, saddrlen, &buf, sizeof( buf ) );
+
+    mdns_socket_close( sock );
 }
 
 int MdnsService::openClientSockets( int* sockets, int maxSockets, int port )
@@ -591,15 +633,15 @@ int MdnsService::openServiceSockets( int* sockets, int maxSockets )
 // Provide a mDNS service, answering incoming DNS-SD and mDNS queries
 int MdnsService::serviceMdns( const char* hostname,
     const char* serviceName, int servicePort,
-    std::shared_ptr<std::mutex> mutexRef )
+    std::shared_ptr<std::recursive_mutex> mutexRef )
 {
     // We hold a mutex reference here to prevent it from being destoyed
     // along with class instance and detaching this thread, in case
     // mutex is busy or will ever be used in the future
     (void)mutexRef;
 
-    const uint32_t ttl = 60; // minutes
-    const uint32_t ucttl = 10; // minutes
+    const uint32_t ttl = 3600; // seconds
+    const uint32_t ucttl = 600; // seconds
 
     int sockets[32];
     int numSockets = openServiceSockets( sockets,
@@ -766,9 +808,9 @@ int MdnsService::serviceMdns( const char* hostname,
 
         if ( select( nfds, &readfs, 0, 0, 0 ) >= 0 )
         {
-            std::lock_guard<std::mutex> lock( *mutexRef );
+            std::lock_guard<std::recursive_mutex> lock( *mutexRef );
 
-            if ( !m_running )
+            if ( mutexRef.use_count() < 2 || !m_running )
             {
                 // Exit the thread if we are asked to
                 // unregister the service
@@ -808,8 +850,8 @@ int MdnsService::serviceCallback( int sock, const sockaddr* from,
     size_t name_offset, size_t name_length, size_t record_offset,
     size_t record_length, void* user_data )
 {
-    const uint32_t mcttl = 60; // minutes
-    const uint32_t ucttl = 10; // minutes
+    const uint32_t mcttl = 3600; // seconds
+    const uint32_t ucttl = 600; // seconds
 
     if ( entry != MDNS_ENTRYTYPE_QUESTION )
         return 0;

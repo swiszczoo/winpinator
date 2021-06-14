@@ -3,7 +3,7 @@
 
 int main()
 {
-    {
+    //{
         WORD versionWanted = MAKEWORD( 1, 1 );
         WSADATA wsaData;
         if ( WSAStartup( versionWanted, &wsaData ) )
@@ -19,10 +19,10 @@ int main()
         service.setTxtRecord( "type", "real" );
         service.registerService();
 
-        Sleep( 5000 );
-    }
+        Sleep( 2000 );
+    //}
 
-    Sleep( 2000 );
+    //Sleep( 2000 );
 
     zc::MdnsClient client( "_warpinator._tcp.local." );
     client.startListening();
