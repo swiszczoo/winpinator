@@ -22,6 +22,15 @@
     <Filter Include="Headers\zeroconf">
       <UniqueIdentifier>{2c8ca931-6a08-4034-8bfe-e7921a71514d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="protobuf/grpc">
+      <UniqueIdentifier>{c4eb4dc7-6f51-48f8-953a-e644c09f9511}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\proto-gen">
+      <UniqueIdentifier>{969a887f-cd2d-494b-9d71-f63dfb58aafc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\proto-gen">
+      <UniqueIdentifier>{77730da5-4418-4e03-a42e-8eac1c61469f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -29,6 +38,12 @@
     </None>
     <None Include="..\res\winpinator.aps">
       <Filter>Resources</Filter>
+    </None>
+    <None Include="..\proto\warp.proto">
+      <Filter>protobuf/grpc</Filter>
+    </None>
+    <None Include="..\proto\generate-protobuf.bat">
+      <Filter>protobuf/grpc</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +61,12 @@
     <ClInclude Include="..\src\zeroconf\mdns_client.hpp">
       <Filter>Headers\zeroconf</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\proto-gen\warp.grpc.pb.h">
+      <Filter>Headers\proto-gen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\proto-gen\warp.pb.h">
+      <Filter>Headers\proto-gen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -56,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="..\src\zeroconf\mdns_client.cpp">
       <Filter>Sources\zeroconf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\proto-gen\warp.grpc.pb.cc">
+      <Filter>Sources\proto-gen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\proto-gen\warp.pb.cc">
+      <Filter>Sources\proto-gen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

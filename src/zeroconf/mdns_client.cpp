@@ -10,6 +10,8 @@ MdnsClient::MdnsClient( const std::string& serviceType )
     , m_running( false )
     , m_addListener( []( const MdnsServiceData& dummy ) {} )
     , m_removeListener( []( const std::string& dummy ) {} )
+    , m_lastServiceName( "" )
+    , m_lastServiceTtl( 0 )
     , m_serviceAddressIpv4( { 0 } )
     , m_serviceAddressIpv6( { 0 } )
     , m_hasIpv4( false )
@@ -112,6 +114,44 @@ int MdnsClient::workerImpl()
 {
     sendMdnsQuery( m_srvType.c_str(), MDNS_RECORDTYPE_ANY );
     return EXIT_SUCCESS;
+}
+
+bool MdnsClient::isValidService(const std::string& name)
+{
+    const MdnsServiceData& data = m_activeServices.at( name );
+
+    return !data.ipv4.empty() || !data.ipv6.empty();
+}
+
+void MdnsClient::processEvents()
+{
+    int counter = m_addedServices.size();
+    while ( counter > 0 )
+    {
+        const std::string name = m_addedServices.front();
+
+        if ( m_activeServices.find( name ) != m_activeServices.end() 
+            && isValidService( name ) )
+        {
+            m_addListener( m_activeServices[name] );
+        }
+        else
+        {
+            m_addedServices.push( name );
+        }
+
+        m_addedServices.pop();
+        counter--;
+    }
+
+    while ( !m_removedServices.empty() )
+    {
+        const std::string name = m_removedServices.front();
+           
+        m_removeListener( name );
+
+        m_removedServices.pop();
+    }
 }
 
 mdns_string_t MdnsClient::ipv4AddressToString( char* buffer, size_t capacity,
@@ -246,15 +286,6 @@ int MdnsClient::openClientSockets( int* sockets, int max_sockets, int port )
                             logAddr = 0;
                         }
                     }
-                    /*
-                    if ( log_addr )
-                    {
-                        char buffer[128];
-                        mdns_string_t addr = ipv4_address_to_string( buffer, sizeof( buffer ), saddr,
-                            sizeof( struct sockaddr_in ) );
-                        printf( "Local IPv4 address: %.*s\n", MDNS_STRING_FORMAT( addr ) );
-                    }
-                    */
                 }
             }
             else if ( unicast->Address.lpSockaddr->sa_family == AF_INET6 )
@@ -407,7 +438,7 @@ int MdnsClient::sendMdnsQuery( const char* service, int record )
         printf( "Failed to open any client sockets\n" );
         return -1;
     }
-    printf( "Opened %d socket%s for mDNS query\n", num_sockets, num_sockets ? "s" : "" );
+    //printf( "Opened %d socket%s for mDNS query\n", num_sockets, num_sockets ? "s" : "" );
 
     size_t capacity = 65536;
     void* buffer = malloc( capacity );
@@ -424,7 +455,7 @@ int MdnsClient::sendMdnsQuery( const char* service, int record )
     else
         record = MDNS_RECORDTYPE_PTR;
 
-    printf( "Sending mDNS query: %s %s\n", service, record_name );
+    //printf( "Sending mDNS query: %s %s\n", service, record_name );
     for ( int isock = 0; isock < num_sockets; ++isock )
     {
         query_id[isock] = mdns_query_send( sockets[isock],
@@ -441,7 +472,7 @@ int MdnsClient::sendMdnsQuery( const char* service, int record )
 
     // This is a simple implementation that loops for 5 seconds or as long as we get replies
     int res;
-    printf( "Reading mDNS query replies\n" );
+    //printf( "Reading mDNS query replies\n" );
     do
     {
         int nfds = 0;
@@ -464,6 +495,8 @@ int MdnsClient::sendMdnsQuery( const char* service, int record )
                 {
                     records += mdns_query_recv( sockets[isock], buffer, capacity,
                         MdnsClient::queryCallback, user_data, query_id[isock] );
+
+                    processEvents();
                 }
                 FD_SET( sockets[isock], &readfs );
             }
@@ -474,7 +507,7 @@ int MdnsClient::sendMdnsQuery( const char* service, int record )
 
     for ( int isock = 0; isock < num_sockets; ++isock )
         mdns_socket_close( sockets[isock] );
-    printf( "Closed socket%s\n", num_sockets ? "s" : "" );
+    //printf( "Closed socket%s\n", num_sockets ? "s" : "" );
 
     return 0;
 }
@@ -519,17 +552,22 @@ int MdnsClient::queryCallback( int sock, const struct sockaddr* from,
                     data.name = name;
 
                     obj->m_activeServices[name] = data;
+
+                    // Remember the name of this service to send an event later
+                    obj->m_addedServices.push( name );
                 }
             }
             else
             {
                 obj->m_activeServices.erase( name );
+
+                if ( obj->m_removedServices.empty() 
+                    || obj->m_removedServices.back() != name )
+                {
+                    obj->m_removedServices.push( name );
+                }
             }
         }
-        
-        /* printf( "%.*s : %s %.*s PTR %.*s rclass 0x%x ttl %u length %d TTL=%d\n",
-            MDNS_STRING_FORMAT( fromaddrstr ), entrytype, MDNS_STRING_FORMAT( entrystr ),
-            MDNS_STRING_FORMAT( namestr ), rclass, ttl, (int)record_length, ttl ); */
     }
     else if ( rtype == MDNS_RECORDTYPE_SRV )
     {
@@ -554,11 +592,6 @@ int MdnsClient::queryCallback( int sock, const struct sockaddr* from,
                 obj->m_activeServices[entry].ipv6 = obj->m_aaaaRecords[srvName];
             }
         }
-
-        /* printf( "%.*s : %s %.*s SRV %.*s priority %d weight %d port %d TTL=%d\n",
-            MDNS_STRING_FORMAT( fromaddrstr ), entrytype,
-            MDNS_STRING_FORMAT( entrystr ), MDNS_STRING_FORMAT( srv.name ),
-            srv.priority, srv.weight, srv.port, ttl ); */
     }
     else if ( rtype == MDNS_RECORDTYPE_A )
     {
@@ -586,10 +619,6 @@ int MdnsClient::queryCallback( int sock, const struct sockaddr* from,
                 }
             }
         }
-
-        /* printf( "%.*s : %s %.*s A %.*s TTL=%d\n", MDNS_STRING_FORMAT( fromaddrstr ), 
-            entrytype, MDNS_STRING_FORMAT( entrystr ), 
-            MDNS_STRING_FORMAT( addrstr ), ttl );*/
     }
     else if ( rtype == MDNS_RECORDTYPE_AAAA )
     {
@@ -617,10 +646,6 @@ int MdnsClient::queryCallback( int sock, const struct sockaddr* from,
                 }
             }
         }
-
-        /* printf( "%.*s : %s %.*s AAAA %.*s TTL=%d\n", 
-            MDNS_STRING_FORMAT( fromaddrstr ), entrytype,
-            MDNS_STRING_FORMAT( entrystr ), MDNS_STRING_FORMAT( addrstr ), ttl );*/
     }
     else if ( rtype == MDNS_RECORDTYPE_TXT )
     {
@@ -643,11 +668,6 @@ int MdnsClient::queryCallback( int sock, const struct sockaddr* from,
                         obj->m_txtbuffer[itxt].value.length );
 
                     txts[key] = value;
-                    /* printf( "%.*s : %s %.*s TXT %.*s = %.*s TTL=%d\n",
-                    MDNS_STRING_FORMAT( fromaddrstr ),
-                    entrytype, MDNS_STRING_FORMAT( entrystr ),
-                    MDNS_STRING_FORMAT( obj->m_txtbuffer[itxt].key ),
-                    MDNS_STRING_FORMAT( obj->m_txtbuffer[itxt].value ), ttl ); */
                 }
                 else
                 {
@@ -655,20 +675,16 @@ int MdnsClient::queryCallback( int sock, const struct sockaddr* from,
                         obj->m_txtbuffer[itxt].key.length );
 
                     txts[key] = "";
-                    /* printf( "%.*s : %s %.*s TXT %.*s TTL=%d\n",
-                    MDNS_STRING_FORMAT( fromaddrstr ), entrytype,
-                    MDNS_STRING_FORMAT( entrystr ),
-                    MDNS_STRING_FORMAT( obj->m_txtbuffer[itxt].key ), ttl ); */
                 }
             }
         }
     }
     else
     {
-        printf( "%.*s : %s %.*s type %u rclass 0x%x ttl %u length %d\n",
+        /* printf( "%.*s : %s %.*s type %u rclass 0x%x ttl %u length %d\n",
             MDNS_STRING_FORMAT( fromaddrstr ), entrytype,
             MDNS_STRING_FORMAT( entrystr ), rtype,
-            rclass, ttl, (int)record_length );
+            rclass, ttl, (int)record_length ); */
     }
     return 0;
 }

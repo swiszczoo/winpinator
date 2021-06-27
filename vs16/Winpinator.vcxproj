@@ -146,6 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\proto\generate-protobuf.bat" />
+    <None Include="..\proto\warp.proto" />
     <None Include="..\res\winpinator.aps" />
     <None Include="..\vcpkg.json" />
   </ItemGroup>
@@ -153,12 +155,16 @@
     <ResourceCompile Include="..\res\winpinator.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\proto-gen\warp.grpc.pb.h" />
+    <ClInclude Include="..\src\proto-gen\warp.pb.h" />
     <ClInclude Include="..\src\zeroconf\mdns.h" />
     <ClInclude Include="..\src\zeroconf\mdns_client.hpp" />
     <ClInclude Include="..\src\zeroconf\mdns_service.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\proto-gen\warp.grpc.pb.cc" />
+    <ClCompile Include="..\src\proto-gen\warp.pb.cc" />
     <ClCompile Include="..\src\zeroconf\mdns_client.cpp" />
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp" />
   </ItemGroup>

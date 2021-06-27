@@ -839,7 +839,7 @@ int MdnsService::serviceMdns( const char* hostname,
 
     for ( int isock = 0; isock < numSockets; ++isock )
         mdns_socket_close( sockets[isock] );
-    printf( "Closed socket%s\n", numSockets ? "s" : "" );
+    //printf( "Closed socket%s\n", numSockets ? "s" : "" );
 
     return 0;
 }
@@ -880,7 +880,7 @@ int MdnsService::serviceCallback( int sock, const sockaddr* from,
     else
         return 0;
 
-    printf( "Query %s %.*s\n", recordName, MDNS_STRING_FORMAT( name ) );
+    // printf( "Query %s %.*s\n", recordName, MDNS_STRING_FORMAT( name ) );
 
     if ( ( name.length == ( sizeof( dns_sd ) - 1 ) )
         && ( strncmp( name.str, dns_sd, sizeof( dns_sd ) - 1 ) == 0 ) )
@@ -900,9 +900,9 @@ int MdnsService::serviceCallback( int sock, const sockaddr* from,
 
             // Send the answer, unicast or multicast depending on flag in query
             uint16_t unicast = ( rclass & MDNS_UNICAST_RESPONSE );
-            printf( "  --> answer %.*s (%s)\n",
+            /* printf( "  --> answer %.*s (%s)\n",
                 MDNS_STRING_FORMAT( answer.data.ptr.name ),
-                ( unicast ? "unicast" : "multicast" ) );
+                ( unicast ? "unicast" : "multicast" ) ); */
 
             if ( unicast )
             {

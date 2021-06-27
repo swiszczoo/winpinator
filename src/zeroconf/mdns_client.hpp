@@ -4,6 +4,7 @@
 #include <functional>
 #include <map>
 #include <mutex>
+#include <queue>
 #include <string>
 #include <thread>
 
@@ -68,8 +69,8 @@ public:
     void stopListening();
     bool isListening() const;
 
-    // You may call this function from time to time to ensure that no services
-    // haven't been discovered due to UDP packet loss.
+    // You may call this function from time to time to ensure that there are
+    // no services left undiscovered due to the UDP packet loss.
     void repeatQuery();
 
 private:
@@ -89,7 +90,14 @@ private:
 
     std::map<std::string, MdnsServiceData> m_activeServices;
 
+    std::queue<std::string> m_addedServices;
+    std::queue<std::string> m_removedServices;
+    std::string m_lastServiceName;
+    int m_lastServiceTtl;
+
     int workerImpl();
+    bool isValidService( const std::string& name );
+    void processEvents();
 
     // mDNS.c implementations
     sockaddr_in m_serviceAddressIpv4;

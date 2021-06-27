@@ -1,6 +1,8 @@
 #include "zeroconf/mdns_service.hpp"
 #include "zeroconf/mdns_client.hpp"
 
+#include <iostream>
+
 int main()
 {
     //{
@@ -25,6 +27,13 @@ int main()
     //Sleep( 2000 );
 
     zc::MdnsClient client( "_warpinator._tcp.local." );
+    client.setOnAddServiceListener( [&]( zc::MdnsServiceData sdata ) {
+        std::cout << sdata.name << " is at " << sdata.ipv4 << " ("
+                  << sdata.txtRecords["hostname"] << ") " << std::endl;
+    } );
+    client.setOnRemoveServiceListener( [&]( std::string name ) {
+        std::cout << name << " disappeared" << std::endl;
+    } );
     client.startListening();
 
     Sleep( 600000 );
