@@ -91,9 +91,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -106,9 +107,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -121,9 +123,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -136,9 +139,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -155,6 +159,11 @@
     <ResourceCompile Include="..\res\winpinator.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\res\resource.h" />
+    <ClInclude Include="..\src\gui\utils.h" />
+    <ClInclude Include="..\src\gui\winpinator_app.hpp" />
+    <ClInclude Include="..\src\gui\winpinator_banner.hpp" />
+    <ClInclude Include="..\src\gui\winpinator_frame.hpp" />
     <ClInclude Include="..\src\proto-gen\warp.grpc.pb.h" />
     <ClInclude Include="..\src\proto-gen\warp.pb.h" />
     <ClInclude Include="..\src\zeroconf\mdns.h" />
@@ -162,11 +171,23 @@
     <ClInclude Include="..\src\zeroconf\mdns_service.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\gui\utils.cpp" />
+    <ClCompile Include="..\src\gui\winpinator_app.cpp" />
+    <ClCompile Include="..\src\gui\winpinator_banner.cpp" />
+    <ClCompile Include="..\src\gui\winpinator_frame.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\proto-gen\warp.grpc.pb.cc" />
     <ClCompile Include="..\src\proto-gen\warp.pb.cc" />
     <ClCompile Include="..\src\zeroconf\mdns_client.cpp" />
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="..\res\manifest.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\res\blop.png" />
+    <Image Include="..\res\blot.png" />
+    <Image Include="blop.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

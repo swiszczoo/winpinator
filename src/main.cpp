@@ -1,42 +1,70 @@
-#include "zeroconf/mdns_service.hpp"
-#include "zeroconf/mdns_client.hpp"
+#include "gui/winpinator_app.hpp"
 
+#include <stdlib.h>
+#include <Windows.h>
+
+#include <google/protobuf/message_lite.h>
+
+#include <functional>
 #include <iostream>
+#include <thread>
 
-int main()
+
+int serviceMain( int argc, char* argv[] );
+int uiMain( int argc, char* argv[] );
+
+
+int genericMain( int argc, char* argv[] )
 {
-    //{
-        WORD versionWanted = MAKEWORD( 1, 1 );
-        WSADATA wsaData;
-        if ( WSAStartup( versionWanted, &wsaData ) )
-        {
-            printf( "Failed to initialize WinSock\n" );
-            return -1;
-        }
+    // Run two threads - the first one running background services
+    // (zeroconf, grpc, etc.) and the second one running graphical
+    // user interface
 
-        zc::MdnsService service( "_warpinator._tcp.local." );
-        service.setHostname( "Testhost" );
-        service.setPort( 42000 );
-        service.setTxtRecord( "hostname", "Test device" );
-        service.setTxtRecord( "type", "real" );
-        service.registerService();
+    std::thread srvThread( std::bind( serviceMain, argc, argv ) );
+    std::thread uiThread( std::bind( uiMain, argc, argv ) );
+    
+    // Wait for both of them to finish before exiting the process
 
-        Sleep( 2000 );
-    //}
+    srvThread.join();
+    uiThread.join();
 
-    //Sleep( 2000 );
+    // Shut down protobuf
+    google::protobuf::ShutdownProtobufLibrary();
 
-    zc::MdnsClient client( "_warpinator._tcp.local." );
-    client.setOnAddServiceListener( [&]( zc::MdnsServiceData sdata ) {
-        std::cout << sdata.name << " is at " << sdata.ipv4 << " ("
-                  << sdata.txtRecords["hostname"] << ") " << std::endl;
-    } );
-    client.setOnRemoveServiceListener( [&]( std::string name ) {
-        std::cout << name << " disappeared" << std::endl;
-    } );
-    client.startListening();
-
-    Sleep( 600000 );
-
-    return 0;
+    return EXIT_SUCCESS;
 }
+
+int serviceMain( int argc, char* argv[] )
+{
+    return EXIT_SUCCESS;
+}
+
+int uiMain( int argc, char* argv[] )
+{
+    gui::WinpinatorApp* app = new gui::WinpinatorApp();
+    gui::WinpinatorApp::SetInstance( app );
+
+    wxEntry( argc, argv );
+    wxEntryCleanup();
+
+    return EXIT_SUCCESS;
+}
+
+#ifdef _WIN32
+
+INT WINAPI WinMain( _In_ HINSTANCE hInstance, 
+    _In_opt_ HINSTANCE hPrevInstance, 
+    _In_ LPSTR lpCmdLine, 
+    _In_ int nShowCmd )
+{
+    return genericMain( __argc, __argv );
+}
+
+#else
+
+int main(int argc, char* argv[])
+{
+    return genericMain( argc, argv );
+}
+
+#endif

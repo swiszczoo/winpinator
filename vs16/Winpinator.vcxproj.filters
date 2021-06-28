@@ -22,14 +22,20 @@
     <Filter Include="Headers\zeroconf">
       <UniqueIdentifier>{2c8ca931-6a08-4034-8bfe-e7921a71514d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="protobuf/grpc">
-      <UniqueIdentifier>{c4eb4dc7-6f51-48f8-953a-e644c09f9511}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\proto-gen">
       <UniqueIdentifier>{969a887f-cd2d-494b-9d71-f63dfb58aafc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Headers\proto-gen">
       <UniqueIdentifier>{77730da5-4418-4e03-a42e-8eac1c61469f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\gui">
+      <UniqueIdentifier>{91f42bd7-ceee-474c-8e07-46620049312d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\gui">
+      <UniqueIdentifier>{9e11dcb8-28d8-4a3b-bdf7-916b2638bb2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protos">
+      <UniqueIdentifier>{c4eb4dc7-6f51-48f8-953a-e644c09f9511}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,10 +46,10 @@
       <Filter>Resources</Filter>
     </None>
     <None Include="..\proto\warp.proto">
-      <Filter>protobuf/grpc</Filter>
+      <Filter>Protos</Filter>
     </None>
     <None Include="..\proto\generate-protobuf.bat">
-      <Filter>protobuf/grpc</Filter>
+      <Filter>Protos</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +73,21 @@
     <ClInclude Include="..\src\proto-gen\warp.pb.h">
       <Filter>Headers\proto-gen</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\winpinator_app.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\winpinator_frame.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\res\resource.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\winpinator_banner.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\utils.h">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -84,5 +105,33 @@
     <ClCompile Include="..\src\proto-gen\warp.pb.cc">
       <Filter>Sources\proto-gen</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\gui\winpinator_app.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\winpinator_frame.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\winpinator_banner.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\utils.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="..\res\manifest.manifest">
+      <Filter>Resources</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="blop.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\blop.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\blot.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
