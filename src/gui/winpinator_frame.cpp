@@ -1,9 +1,13 @@
 #include "winpinator_frame.hpp"
 
+#include "../../win32/resource.h"
+#include "page_starting.h"
+#include "utils.h"
+
 #include <wx/aboutdlg.h>
 
 #define ID_OPENDESTDIR 10000
-
+#define ID_RELEASENOTES 10001
 
 namespace gui
 {
@@ -13,10 +17,16 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     , m_menuBar( nullptr )
     , m_fileMenu( nullptr )
     , m_helpMenu( nullptr )
+    , m_statusBar( nullptr )
     , m_banner( nullptr )
 {
     SetSize( FromDIP( 800 ), FromDIP( 600 ) );
     SetMinSize( FromDIP( wxSize( 500, 400 ) ) );
+
+    wxIconBundle icons( Utils::makeIntResource( IDI_WINPINATOR ), 
+        GetModuleHandle( NULL ) );
+    SetIcons( icons );
+
     CenterOnScreen();
     SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
 
@@ -28,7 +38,21 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     m_banner = new WinpinatorBanner( this, 80 );
     mainSizer->Add( m_banner, 0, wxEXPAND, 0 );
 
+    StartingPage* p = new StartingPage( this );
+    mainSizer->Add( p, 1, wxEXPAND, 0 );
+
     SetSizer( mainSizer );
+
+
+    m_statusBar = new wxStatusBar( this, wxID_ANY );
+
+    int statusWidths[] = { -1, 130 };
+    m_statusBar->SetFieldsCount( sizeof( statusWidths ) / sizeof( int ) );
+    m_statusBar->SetStatusWidths( m_statusBar->GetFieldsCount(), statusWidths );
+    m_statusBar->SetStatusText( wxT( "username@hostname" ), 0 );
+    m_statusBar->SetStatusText( wxT( "IP: 192.168.1.1" ), 1 );
+    
+    SetStatusBar( m_statusBar );
 
     // Events
     Bind( wxEVT_MENU, &WinpinatorFrame::onMenuItemSelected, this );
@@ -49,6 +73,7 @@ void WinpinatorFrame::setupMenuBar()
 
     m_helpMenu = new wxMenu();
     m_helpMenu->Append( wxID_HELP, _( "&Help topics...\tF1" ) );
+    m_helpMenu->Append( ID_RELEASENOTES, _( "&What's new?..." ) );
     m_helpMenu->Append( wxID_ABOUT, _( "&About Winpinator..." ) );
 
     m_menuBar->Append( m_helpMenu, _( "&Help" ) );

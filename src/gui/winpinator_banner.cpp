@@ -1,6 +1,6 @@
 #include "winpinator_banner.hpp"
 
-#include "../../res/resource.h"
+#include "../../win32/resource.h"
 #include "utils.h"
 
 
@@ -67,7 +67,7 @@ void WinpinatorBanner::loadResources()
     float scale = FromDIP( 80 ) / 160.f;
 
     m_logo = logoImg.Scale( logoImg.GetWidth() * scale, 
-        logoImg.GetHeight() * scale );
+        logoImg.GetHeight() * scale, wxIMAGE_QUALITY_BICUBIC );
 }
 
 void WinpinatorBanner::draw( wxDC& dc )
@@ -82,8 +82,8 @@ void WinpinatorBanner::draw( wxDC& dc )
     dc.SetTextForeground( *wxWHITE );
     dc.SetFont( *m_headerFont );
 
-    const wxString text = _( "Winpinator \u2013 share files across LAN" );
-    wxSize textSize = dc.GetTextExtent( text );
+    const wxString text = _( "Share your files across LAN" );
+    wxSize textSize = dc.GetTextExtent( "MM" );
 
     int textY = (int)( size.y - textSize.y ) / 2;
 

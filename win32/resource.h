@@ -797,11 +797,14 @@
 #define VK_NUMPAD7                      0x67
 #define LANG_FULAH                      0x67
 #define LANG_PULAR                      0x67
+#define IDB_PNG1                        103
 #define VK_NUMPAD8                      0x68
 #define LANG_HAUSA                      0x68
 #define VK_NUMPAD9                      0x69
+#define IDB_PNG2                        105
 #define VK_MULTIPLY                     0x6A
 #define LANG_YORUBA                     0x6a
+#define IDB_WARNING                     106
 #define VK_ADD                          0x6B
 #define LANG_QUECHUA                    0x6b
 #define VK_SEPARATOR                    0x6C
@@ -1511,6 +1514,7 @@
 #define OCR_NORMAL                      32512
 #define OIC_SAMPLE                      32512
 #define IDI_APPLICATION                 32512
+#define IDI_WINPINATOR                  100
 #define OCR_IBEAM                       32513
 #define OIC_HAND                        32513
 #define IDI_HAND                        32513
@@ -1611,7 +1615,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        102
+#define _APS_NEXT_RESOURCE_VALUE        107
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101

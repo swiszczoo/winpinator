@@ -16,6 +16,7 @@ private:
     wxMenuBar* m_menuBar;
     wxMenu* m_fileMenu;
     wxMenu* m_helpMenu;
+    wxStatusBar* m_statusBar;
 
     WinpinatorBanner* m_banner;
 

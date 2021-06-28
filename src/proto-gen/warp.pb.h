@@ -54,6 +54,7 @@ struct TableStruct_warp_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_warp_2eproto;
 ::PROTOBUF_NAMESPACE_ID::Metadata descriptor_table_warp_2eproto_metadata_getter(int index);
+namespace proto {
 class FileChunk;
 struct FileChunkDefaultTypeInternal;
 extern FileChunkDefaultTypeInternal _FileChunk_default_instance_;
@@ -87,24 +88,26 @@ extern TransferOpRequestDefaultTypeInternal _TransferOpRequest_default_instance_
 class VoidType;
 struct VoidTypeDefaultTypeInternal;
 extern VoidTypeDefaultTypeInternal _VoidType_default_instance_;
+}  // namespace proto
 PROTOBUF_NAMESPACE_OPEN
-template<> ::FileChunk* Arena::CreateMaybeMessage<::FileChunk>(Arena*);
-template<> ::HaveDuplex* Arena::CreateMaybeMessage<::HaveDuplex>(Arena*);
-template<> ::LookupName* Arena::CreateMaybeMessage<::LookupName>(Arena*);
-template<> ::OpInfo* Arena::CreateMaybeMessage<::OpInfo>(Arena*);
-template<> ::RegRequest* Arena::CreateMaybeMessage<::RegRequest>(Arena*);
-template<> ::RegResponse* Arena::CreateMaybeMessage<::RegResponse>(Arena*);
-template<> ::RemoteMachineAvatar* Arena::CreateMaybeMessage<::RemoteMachineAvatar>(Arena*);
-template<> ::RemoteMachineInfo* Arena::CreateMaybeMessage<::RemoteMachineInfo>(Arena*);
-template<> ::StopInfo* Arena::CreateMaybeMessage<::StopInfo>(Arena*);
-template<> ::TransferOpRequest* Arena::CreateMaybeMessage<::TransferOpRequest>(Arena*);
-template<> ::VoidType* Arena::CreateMaybeMessage<::VoidType>(Arena*);
+template<> ::proto::FileChunk* Arena::CreateMaybeMessage<::proto::FileChunk>(Arena*);
+template<> ::proto::HaveDuplex* Arena::CreateMaybeMessage<::proto::HaveDuplex>(Arena*);
+template<> ::proto::LookupName* Arena::CreateMaybeMessage<::proto::LookupName>(Arena*);
+template<> ::proto::OpInfo* Arena::CreateMaybeMessage<::proto::OpInfo>(Arena*);
+template<> ::proto::RegRequest* Arena::CreateMaybeMessage<::proto::RegRequest>(Arena*);
+template<> ::proto::RegResponse* Arena::CreateMaybeMessage<::proto::RegResponse>(Arena*);
+template<> ::proto::RemoteMachineAvatar* Arena::CreateMaybeMessage<::proto::RemoteMachineAvatar>(Arena*);
+template<> ::proto::RemoteMachineInfo* Arena::CreateMaybeMessage<::proto::RemoteMachineInfo>(Arena*);
+template<> ::proto::StopInfo* Arena::CreateMaybeMessage<::proto::StopInfo>(Arena*);
+template<> ::proto::TransferOpRequest* Arena::CreateMaybeMessage<::proto::TransferOpRequest>(Arena*);
+template<> ::proto::VoidType* Arena::CreateMaybeMessage<::proto::VoidType>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
+namespace proto {
 
 // ===================================================================
 
 class RemoteMachineInfo PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RemoteMachineInfo) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.RemoteMachineInfo) */ {
  public:
   inline RemoteMachineInfo() : RemoteMachineInfo(nullptr) {}
   virtual ~RemoteMachineInfo();
@@ -194,7 +197,7 @@ class RemoteMachineInfo PROTOBUF_FINAL :
   void InternalSwap(RemoteMachineInfo* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "RemoteMachineInfo";
+    return "proto.RemoteMachineInfo";
   }
   protected:
   explicit RemoteMachineInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -251,7 +254,7 @@ class RemoteMachineInfo PROTOBUF_FINAL :
   std::string* _internal_mutable_user_name();
   public:
 
-  // @@protoc_insertion_point(class_scope:RemoteMachineInfo)
+  // @@protoc_insertion_point(class_scope:proto.RemoteMachineInfo)
  private:
   class _Internal;
 
@@ -266,7 +269,7 @@ class RemoteMachineInfo PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class RemoteMachineAvatar PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RemoteMachineAvatar) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.RemoteMachineAvatar) */ {
  public:
   inline RemoteMachineAvatar() : RemoteMachineAvatar(nullptr) {}
   virtual ~RemoteMachineAvatar();
@@ -356,7 +359,7 @@ class RemoteMachineAvatar PROTOBUF_FINAL :
   void InternalSwap(RemoteMachineAvatar* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "RemoteMachineAvatar";
+    return "proto.RemoteMachineAvatar";
   }
   protected:
   explicit RemoteMachineAvatar(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -396,7 +399,7 @@ class RemoteMachineAvatar PROTOBUF_FINAL :
   std::string* _internal_mutable_avatar_chunk();
   public:
 
-  // @@protoc_insertion_point(class_scope:RemoteMachineAvatar)
+  // @@protoc_insertion_point(class_scope:proto.RemoteMachineAvatar)
  private:
   class _Internal;
 
@@ -410,7 +413,7 @@ class RemoteMachineAvatar PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class LookupName PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:LookupName) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.LookupName) */ {
  public:
   inline LookupName() : LookupName(nullptr) {}
   virtual ~LookupName();
@@ -500,7 +503,7 @@ class LookupName PROTOBUF_FINAL :
   void InternalSwap(LookupName* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "LookupName";
+    return "proto.LookupName";
   }
   protected:
   explicit LookupName(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -557,7 +560,7 @@ class LookupName PROTOBUF_FINAL :
   std::string* _internal_mutable_readable_name();
   public:
 
-  // @@protoc_insertion_point(class_scope:LookupName)
+  // @@protoc_insertion_point(class_scope:proto.LookupName)
  private:
   class _Internal;
 
@@ -572,7 +575,7 @@ class LookupName PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class HaveDuplex PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:HaveDuplex) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.HaveDuplex) */ {
  public:
   inline HaveDuplex() : HaveDuplex(nullptr) {}
   virtual ~HaveDuplex();
@@ -662,7 +665,7 @@ class HaveDuplex PROTOBUF_FINAL :
   void InternalSwap(HaveDuplex* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "HaveDuplex";
+    return "proto.HaveDuplex";
   }
   protected:
   explicit HaveDuplex(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -695,7 +698,7 @@ class HaveDuplex PROTOBUF_FINAL :
   void _internal_set_response(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:HaveDuplex)
+  // @@protoc_insertion_point(class_scope:proto.HaveDuplex)
  private:
   class _Internal;
 
@@ -709,7 +712,7 @@ class HaveDuplex PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class VoidType PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:VoidType) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.VoidType) */ {
  public:
   inline VoidType() : VoidType(nullptr) {}
   virtual ~VoidType();
@@ -799,7 +802,7 @@ class VoidType PROTOBUF_FINAL :
   void InternalSwap(VoidType* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "VoidType";
+    return "proto.VoidType";
   }
   protected:
   explicit VoidType(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -832,7 +835,7 @@ class VoidType PROTOBUF_FINAL :
   void _internal_set_dummy(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:VoidType)
+  // @@protoc_insertion_point(class_scope:proto.VoidType)
  private:
   class _Internal;
 
@@ -846,7 +849,7 @@ class VoidType PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class OpInfo PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:OpInfo) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.OpInfo) */ {
  public:
   inline OpInfo() : OpInfo(nullptr) {}
   virtual ~OpInfo();
@@ -936,7 +939,7 @@ class OpInfo PROTOBUF_FINAL :
   void InternalSwap(OpInfo* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "OpInfo";
+    return "proto.OpInfo";
   }
   protected:
   explicit OpInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1013,7 +1016,7 @@ class OpInfo PROTOBUF_FINAL :
   void _internal_set_use_compression(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:OpInfo)
+  // @@protoc_insertion_point(class_scope:proto.OpInfo)
  private:
   class _Internal;
 
@@ -1030,7 +1033,7 @@ class OpInfo PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class StopInfo PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:StopInfo) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.StopInfo) */ {
  public:
   inline StopInfo() : StopInfo(nullptr) {}
   virtual ~StopInfo();
@@ -1120,7 +1123,7 @@ class StopInfo PROTOBUF_FINAL :
   void InternalSwap(StopInfo* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "StopInfo";
+    return "proto.StopInfo";
   }
   protected:
   explicit StopInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1145,23 +1148,23 @@ class StopInfo PROTOBUF_FINAL :
     kInfoFieldNumber = 1,
     kErrorFieldNumber = 2,
   };
-  // .OpInfo info = 1;
+  // .proto.OpInfo info = 1;
   bool has_info() const;
   private:
   bool _internal_has_info() const;
   public:
   void clear_info();
-  const ::OpInfo& info() const;
-  ::OpInfo* release_info();
-  ::OpInfo* mutable_info();
-  void set_allocated_info(::OpInfo* info);
+  const ::proto::OpInfo& info() const;
+  ::proto::OpInfo* release_info();
+  ::proto::OpInfo* mutable_info();
+  void set_allocated_info(::proto::OpInfo* info);
   private:
-  const ::OpInfo& _internal_info() const;
-  ::OpInfo* _internal_mutable_info();
+  const ::proto::OpInfo& _internal_info() const;
+  ::proto::OpInfo* _internal_mutable_info();
   public:
   void unsafe_arena_set_allocated_info(
-      ::OpInfo* info);
-  ::OpInfo* unsafe_arena_release_info();
+      ::proto::OpInfo* info);
+  ::proto::OpInfo* unsafe_arena_release_info();
 
   // bool error = 2;
   void clear_error();
@@ -1172,14 +1175,14 @@ class StopInfo PROTOBUF_FINAL :
   void _internal_set_error(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:StopInfo)
+  // @@protoc_insertion_point(class_scope:proto.StopInfo)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::OpInfo* info_;
+  ::proto::OpInfo* info_;
   bool error_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_warp_2eproto;
@@ -1187,7 +1190,7 @@ class StopInfo PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class TransferOpRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:TransferOpRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.TransferOpRequest) */ {
  public:
   inline TransferOpRequest() : TransferOpRequest(nullptr) {}
   virtual ~TransferOpRequest();
@@ -1277,7 +1280,7 @@ class TransferOpRequest PROTOBUF_FINAL :
   void InternalSwap(TransferOpRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "TransferOpRequest";
+    return "proto.TransferOpRequest";
   }
   protected:
   explicit TransferOpRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1413,23 +1416,23 @@ class TransferOpRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_mime_if_single();
   public:
 
-  // .OpInfo info = 1;
+  // .proto.OpInfo info = 1;
   bool has_info() const;
   private:
   bool _internal_has_info() const;
   public:
   void clear_info();
-  const ::OpInfo& info() const;
-  ::OpInfo* release_info();
-  ::OpInfo* mutable_info();
-  void set_allocated_info(::OpInfo* info);
+  const ::proto::OpInfo& info() const;
+  ::proto::OpInfo* release_info();
+  ::proto::OpInfo* mutable_info();
+  void set_allocated_info(::proto::OpInfo* info);
   private:
-  const ::OpInfo& _internal_info() const;
-  ::OpInfo* _internal_mutable_info();
+  const ::proto::OpInfo& _internal_info() const;
+  ::proto::OpInfo* _internal_mutable_info();
   public:
   void unsafe_arena_set_allocated_info(
-      ::OpInfo* info);
-  ::OpInfo* unsafe_arena_release_info();
+      ::proto::OpInfo* info);
+  ::proto::OpInfo* unsafe_arena_release_info();
 
   // uint64 size = 5;
   void clear_size();
@@ -1449,7 +1452,7 @@ class TransferOpRequest PROTOBUF_FINAL :
   void _internal_set_count(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:TransferOpRequest)
+  // @@protoc_insertion_point(class_scope:proto.TransferOpRequest)
  private:
   class _Internal;
 
@@ -1462,7 +1465,7 @@ class TransferOpRequest PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr receiver_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_if_single_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mime_if_single_;
-  ::OpInfo* info_;
+  ::proto::OpInfo* info_;
   ::PROTOBUF_NAMESPACE_ID::uint64 size_;
   ::PROTOBUF_NAMESPACE_ID::uint64 count_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -1471,7 +1474,7 @@ class TransferOpRequest PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class FileChunk PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:FileChunk) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.FileChunk) */ {
  public:
   inline FileChunk() : FileChunk(nullptr) {}
   virtual ~FileChunk();
@@ -1561,7 +1564,7 @@ class FileChunk PROTOBUF_FINAL :
   void InternalSwap(FileChunk* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "FileChunk";
+    return "proto.FileChunk";
   }
   protected:
   explicit FileChunk(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1655,7 +1658,7 @@ class FileChunk PROTOBUF_FINAL :
   void _internal_set_file_mode(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:FileChunk)
+  // @@protoc_insertion_point(class_scope:proto.FileChunk)
  private:
   class _Internal;
 
@@ -1673,7 +1676,7 @@ class FileChunk PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class RegRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RegRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.RegRequest) */ {
  public:
   inline RegRequest() : RegRequest(nullptr) {}
   virtual ~RegRequest();
@@ -1763,7 +1766,7 @@ class RegRequest PROTOBUF_FINAL :
   void InternalSwap(RegRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "RegRequest";
+    return "proto.RegRequest";
   }
   protected:
   explicit RegRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1820,7 +1823,7 @@ class RegRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_hostname();
   public:
 
-  // @@protoc_insertion_point(class_scope:RegRequest)
+  // @@protoc_insertion_point(class_scope:proto.RegRequest)
  private:
   class _Internal;
 
@@ -1835,7 +1838,7 @@ class RegRequest PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class RegResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RegResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.RegResponse) */ {
  public:
   inline RegResponse() : RegResponse(nullptr) {}
   virtual ~RegResponse();
@@ -1925,7 +1928,7 @@ class RegResponse PROTOBUF_FINAL :
   void InternalSwap(RegResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "RegResponse";
+    return "proto.RegResponse";
   }
   protected:
   explicit RegResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1965,7 +1968,7 @@ class RegResponse PROTOBUF_FINAL :
   std::string* _internal_mutable_locked_cert();
   public:
 
-  // @@protoc_insertion_point(class_scope:RegResponse)
+  // @@protoc_insertion_point(class_scope:proto.RegResponse)
  private:
   class _Internal;
 
@@ -1992,15 +1995,15 @@ inline void RemoteMachineInfo::clear_display_name() {
   display_name_.ClearToEmpty();
 }
 inline const std::string& RemoteMachineInfo::display_name() const {
-  // @@protoc_insertion_point(field_get:RemoteMachineInfo.display_name)
+  // @@protoc_insertion_point(field_get:proto.RemoteMachineInfo.display_name)
   return _internal_display_name();
 }
 inline void RemoteMachineInfo::set_display_name(const std::string& value) {
   _internal_set_display_name(value);
-  // @@protoc_insertion_point(field_set:RemoteMachineInfo.display_name)
+  // @@protoc_insertion_point(field_set:proto.RemoteMachineInfo.display_name)
 }
 inline std::string* RemoteMachineInfo::mutable_display_name() {
-  // @@protoc_insertion_point(field_mutable:RemoteMachineInfo.display_name)
+  // @@protoc_insertion_point(field_mutable:proto.RemoteMachineInfo.display_name)
   return _internal_mutable_display_name();
 }
 inline const std::string& RemoteMachineInfo::_internal_display_name() const {
@@ -2014,27 +2017,27 @@ inline void RemoteMachineInfo::set_display_name(std::string&& value) {
   
   display_name_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:RemoteMachineInfo.display_name)
+  // @@protoc_insertion_point(field_set_rvalue:proto.RemoteMachineInfo.display_name)
 }
 inline void RemoteMachineInfo::set_display_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   display_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:RemoteMachineInfo.display_name)
+  // @@protoc_insertion_point(field_set_char:proto.RemoteMachineInfo.display_name)
 }
 inline void RemoteMachineInfo::set_display_name(const char* value,
     size_t size) {
   
   display_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:RemoteMachineInfo.display_name)
+  // @@protoc_insertion_point(field_set_pointer:proto.RemoteMachineInfo.display_name)
 }
 inline std::string* RemoteMachineInfo::_internal_mutable_display_name() {
   
   return display_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* RemoteMachineInfo::release_display_name() {
-  // @@protoc_insertion_point(field_release:RemoteMachineInfo.display_name)
+  // @@protoc_insertion_point(field_release:proto.RemoteMachineInfo.display_name)
   return display_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void RemoteMachineInfo::set_allocated_display_name(std::string* display_name) {
@@ -2045,7 +2048,7 @@ inline void RemoteMachineInfo::set_allocated_display_name(std::string* display_n
   }
   display_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), display_name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:RemoteMachineInfo.display_name)
+  // @@protoc_insertion_point(field_set_allocated:proto.RemoteMachineInfo.display_name)
 }
 
 // string user_name = 2;
@@ -2053,15 +2056,15 @@ inline void RemoteMachineInfo::clear_user_name() {
   user_name_.ClearToEmpty();
 }
 inline const std::string& RemoteMachineInfo::user_name() const {
-  // @@protoc_insertion_point(field_get:RemoteMachineInfo.user_name)
+  // @@protoc_insertion_point(field_get:proto.RemoteMachineInfo.user_name)
   return _internal_user_name();
 }
 inline void RemoteMachineInfo::set_user_name(const std::string& value) {
   _internal_set_user_name(value);
-  // @@protoc_insertion_point(field_set:RemoteMachineInfo.user_name)
+  // @@protoc_insertion_point(field_set:proto.RemoteMachineInfo.user_name)
 }
 inline std::string* RemoteMachineInfo::mutable_user_name() {
-  // @@protoc_insertion_point(field_mutable:RemoteMachineInfo.user_name)
+  // @@protoc_insertion_point(field_mutable:proto.RemoteMachineInfo.user_name)
   return _internal_mutable_user_name();
 }
 inline const std::string& RemoteMachineInfo::_internal_user_name() const {
@@ -2075,27 +2078,27 @@ inline void RemoteMachineInfo::set_user_name(std::string&& value) {
   
   user_name_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:RemoteMachineInfo.user_name)
+  // @@protoc_insertion_point(field_set_rvalue:proto.RemoteMachineInfo.user_name)
 }
 inline void RemoteMachineInfo::set_user_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   user_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:RemoteMachineInfo.user_name)
+  // @@protoc_insertion_point(field_set_char:proto.RemoteMachineInfo.user_name)
 }
 inline void RemoteMachineInfo::set_user_name(const char* value,
     size_t size) {
   
   user_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:RemoteMachineInfo.user_name)
+  // @@protoc_insertion_point(field_set_pointer:proto.RemoteMachineInfo.user_name)
 }
 inline std::string* RemoteMachineInfo::_internal_mutable_user_name() {
   
   return user_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* RemoteMachineInfo::release_user_name() {
-  // @@protoc_insertion_point(field_release:RemoteMachineInfo.user_name)
+  // @@protoc_insertion_point(field_release:proto.RemoteMachineInfo.user_name)
   return user_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void RemoteMachineInfo::set_allocated_user_name(std::string* user_name) {
@@ -2106,7 +2109,7 @@ inline void RemoteMachineInfo::set_allocated_user_name(std::string* user_name) {
   }
   user_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:RemoteMachineInfo.user_name)
+  // @@protoc_insertion_point(field_set_allocated:proto.RemoteMachineInfo.user_name)
 }
 
 // -------------------------------------------------------------------
@@ -2118,15 +2121,15 @@ inline void RemoteMachineAvatar::clear_avatar_chunk() {
   avatar_chunk_.ClearToEmpty();
 }
 inline const std::string& RemoteMachineAvatar::avatar_chunk() const {
-  // @@protoc_insertion_point(field_get:RemoteMachineAvatar.avatar_chunk)
+  // @@protoc_insertion_point(field_get:proto.RemoteMachineAvatar.avatar_chunk)
   return _internal_avatar_chunk();
 }
 inline void RemoteMachineAvatar::set_avatar_chunk(const std::string& value) {
   _internal_set_avatar_chunk(value);
-  // @@protoc_insertion_point(field_set:RemoteMachineAvatar.avatar_chunk)
+  // @@protoc_insertion_point(field_set:proto.RemoteMachineAvatar.avatar_chunk)
 }
 inline std::string* RemoteMachineAvatar::mutable_avatar_chunk() {
-  // @@protoc_insertion_point(field_mutable:RemoteMachineAvatar.avatar_chunk)
+  // @@protoc_insertion_point(field_mutable:proto.RemoteMachineAvatar.avatar_chunk)
   return _internal_mutable_avatar_chunk();
 }
 inline const std::string& RemoteMachineAvatar::_internal_avatar_chunk() const {
@@ -2140,27 +2143,27 @@ inline void RemoteMachineAvatar::set_avatar_chunk(std::string&& value) {
   
   avatar_chunk_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:RemoteMachineAvatar.avatar_chunk)
+  // @@protoc_insertion_point(field_set_rvalue:proto.RemoteMachineAvatar.avatar_chunk)
 }
 inline void RemoteMachineAvatar::set_avatar_chunk(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   avatar_chunk_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:RemoteMachineAvatar.avatar_chunk)
+  // @@protoc_insertion_point(field_set_char:proto.RemoteMachineAvatar.avatar_chunk)
 }
 inline void RemoteMachineAvatar::set_avatar_chunk(const void* value,
     size_t size) {
   
   avatar_chunk_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:RemoteMachineAvatar.avatar_chunk)
+  // @@protoc_insertion_point(field_set_pointer:proto.RemoteMachineAvatar.avatar_chunk)
 }
 inline std::string* RemoteMachineAvatar::_internal_mutable_avatar_chunk() {
   
   return avatar_chunk_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* RemoteMachineAvatar::release_avatar_chunk() {
-  // @@protoc_insertion_point(field_release:RemoteMachineAvatar.avatar_chunk)
+  // @@protoc_insertion_point(field_release:proto.RemoteMachineAvatar.avatar_chunk)
   return avatar_chunk_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void RemoteMachineAvatar::set_allocated_avatar_chunk(std::string* avatar_chunk) {
@@ -2171,7 +2174,7 @@ inline void RemoteMachineAvatar::set_allocated_avatar_chunk(std::string* avatar_
   }
   avatar_chunk_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), avatar_chunk,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:RemoteMachineAvatar.avatar_chunk)
+  // @@protoc_insertion_point(field_set_allocated:proto.RemoteMachineAvatar.avatar_chunk)
 }
 
 // -------------------------------------------------------------------
@@ -2183,15 +2186,15 @@ inline void LookupName::clear_id() {
   id_.ClearToEmpty();
 }
 inline const std::string& LookupName::id() const {
-  // @@protoc_insertion_point(field_get:LookupName.id)
+  // @@protoc_insertion_point(field_get:proto.LookupName.id)
   return _internal_id();
 }
 inline void LookupName::set_id(const std::string& value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:LookupName.id)
+  // @@protoc_insertion_point(field_set:proto.LookupName.id)
 }
 inline std::string* LookupName::mutable_id() {
-  // @@protoc_insertion_point(field_mutable:LookupName.id)
+  // @@protoc_insertion_point(field_mutable:proto.LookupName.id)
   return _internal_mutable_id();
 }
 inline const std::string& LookupName::_internal_id() const {
@@ -2205,27 +2208,27 @@ inline void LookupName::set_id(std::string&& value) {
   
   id_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:LookupName.id)
+  // @@protoc_insertion_point(field_set_rvalue:proto.LookupName.id)
 }
 inline void LookupName::set_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:LookupName.id)
+  // @@protoc_insertion_point(field_set_char:proto.LookupName.id)
 }
 inline void LookupName::set_id(const char* value,
     size_t size) {
   
   id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:LookupName.id)
+  // @@protoc_insertion_point(field_set_pointer:proto.LookupName.id)
 }
 inline std::string* LookupName::_internal_mutable_id() {
   
   return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* LookupName::release_id() {
-  // @@protoc_insertion_point(field_release:LookupName.id)
+  // @@protoc_insertion_point(field_release:proto.LookupName.id)
   return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void LookupName::set_allocated_id(std::string* id) {
@@ -2236,7 +2239,7 @@ inline void LookupName::set_allocated_id(std::string* id) {
   }
   id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:LookupName.id)
+  // @@protoc_insertion_point(field_set_allocated:proto.LookupName.id)
 }
 
 // string readable_name = 2;
@@ -2244,15 +2247,15 @@ inline void LookupName::clear_readable_name() {
   readable_name_.ClearToEmpty();
 }
 inline const std::string& LookupName::readable_name() const {
-  // @@protoc_insertion_point(field_get:LookupName.readable_name)
+  // @@protoc_insertion_point(field_get:proto.LookupName.readable_name)
   return _internal_readable_name();
 }
 inline void LookupName::set_readable_name(const std::string& value) {
   _internal_set_readable_name(value);
-  // @@protoc_insertion_point(field_set:LookupName.readable_name)
+  // @@protoc_insertion_point(field_set:proto.LookupName.readable_name)
 }
 inline std::string* LookupName::mutable_readable_name() {
-  // @@protoc_insertion_point(field_mutable:LookupName.readable_name)
+  // @@protoc_insertion_point(field_mutable:proto.LookupName.readable_name)
   return _internal_mutable_readable_name();
 }
 inline const std::string& LookupName::_internal_readable_name() const {
@@ -2266,27 +2269,27 @@ inline void LookupName::set_readable_name(std::string&& value) {
   
   readable_name_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:LookupName.readable_name)
+  // @@protoc_insertion_point(field_set_rvalue:proto.LookupName.readable_name)
 }
 inline void LookupName::set_readable_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   readable_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:LookupName.readable_name)
+  // @@protoc_insertion_point(field_set_char:proto.LookupName.readable_name)
 }
 inline void LookupName::set_readable_name(const char* value,
     size_t size) {
   
   readable_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:LookupName.readable_name)
+  // @@protoc_insertion_point(field_set_pointer:proto.LookupName.readable_name)
 }
 inline std::string* LookupName::_internal_mutable_readable_name() {
   
   return readable_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* LookupName::release_readable_name() {
-  // @@protoc_insertion_point(field_release:LookupName.readable_name)
+  // @@protoc_insertion_point(field_release:proto.LookupName.readable_name)
   return readable_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void LookupName::set_allocated_readable_name(std::string* readable_name) {
@@ -2297,7 +2300,7 @@ inline void LookupName::set_allocated_readable_name(std::string* readable_name) 
   }
   readable_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), readable_name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:LookupName.readable_name)
+  // @@protoc_insertion_point(field_set_allocated:proto.LookupName.readable_name)
 }
 
 // -------------------------------------------------------------------
@@ -2312,7 +2315,7 @@ inline bool HaveDuplex::_internal_response() const {
   return response_;
 }
 inline bool HaveDuplex::response() const {
-  // @@protoc_insertion_point(field_get:HaveDuplex.response)
+  // @@protoc_insertion_point(field_get:proto.HaveDuplex.response)
   return _internal_response();
 }
 inline void HaveDuplex::_internal_set_response(bool value) {
@@ -2321,7 +2324,7 @@ inline void HaveDuplex::_internal_set_response(bool value) {
 }
 inline void HaveDuplex::set_response(bool value) {
   _internal_set_response(value);
-  // @@protoc_insertion_point(field_set:HaveDuplex.response)
+  // @@protoc_insertion_point(field_set:proto.HaveDuplex.response)
 }
 
 // -------------------------------------------------------------------
@@ -2336,7 +2339,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 VoidType::_internal_dummy() const {
   return dummy_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 VoidType::dummy() const {
-  // @@protoc_insertion_point(field_get:VoidType.dummy)
+  // @@protoc_insertion_point(field_get:proto.VoidType.dummy)
   return _internal_dummy();
 }
 inline void VoidType::_internal_set_dummy(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -2345,7 +2348,7 @@ inline void VoidType::_internal_set_dummy(::PROTOBUF_NAMESPACE_ID::int32 value) 
 }
 inline void VoidType::set_dummy(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_dummy(value);
-  // @@protoc_insertion_point(field_set:VoidType.dummy)
+  // @@protoc_insertion_point(field_set:proto.VoidType.dummy)
 }
 
 // -------------------------------------------------------------------
@@ -2357,15 +2360,15 @@ inline void OpInfo::clear_ident() {
   ident_.ClearToEmpty();
 }
 inline const std::string& OpInfo::ident() const {
-  // @@protoc_insertion_point(field_get:OpInfo.ident)
+  // @@protoc_insertion_point(field_get:proto.OpInfo.ident)
   return _internal_ident();
 }
 inline void OpInfo::set_ident(const std::string& value) {
   _internal_set_ident(value);
-  // @@protoc_insertion_point(field_set:OpInfo.ident)
+  // @@protoc_insertion_point(field_set:proto.OpInfo.ident)
 }
 inline std::string* OpInfo::mutable_ident() {
-  // @@protoc_insertion_point(field_mutable:OpInfo.ident)
+  // @@protoc_insertion_point(field_mutable:proto.OpInfo.ident)
   return _internal_mutable_ident();
 }
 inline const std::string& OpInfo::_internal_ident() const {
@@ -2379,27 +2382,27 @@ inline void OpInfo::set_ident(std::string&& value) {
   
   ident_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:OpInfo.ident)
+  // @@protoc_insertion_point(field_set_rvalue:proto.OpInfo.ident)
 }
 inline void OpInfo::set_ident(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   ident_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:OpInfo.ident)
+  // @@protoc_insertion_point(field_set_char:proto.OpInfo.ident)
 }
 inline void OpInfo::set_ident(const char* value,
     size_t size) {
   
   ident_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:OpInfo.ident)
+  // @@protoc_insertion_point(field_set_pointer:proto.OpInfo.ident)
 }
 inline std::string* OpInfo::_internal_mutable_ident() {
   
   return ident_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* OpInfo::release_ident() {
-  // @@protoc_insertion_point(field_release:OpInfo.ident)
+  // @@protoc_insertion_point(field_release:proto.OpInfo.ident)
   return ident_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void OpInfo::set_allocated_ident(std::string* ident) {
@@ -2410,7 +2413,7 @@ inline void OpInfo::set_allocated_ident(std::string* ident) {
   }
   ident_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ident,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:OpInfo.ident)
+  // @@protoc_insertion_point(field_set_allocated:proto.OpInfo.ident)
 }
 
 // uint64 timestamp = 2;
@@ -2421,7 +2424,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 OpInfo::_internal_timestamp() const {
   return timestamp_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 OpInfo::timestamp() const {
-  // @@protoc_insertion_point(field_get:OpInfo.timestamp)
+  // @@protoc_insertion_point(field_get:proto.OpInfo.timestamp)
   return _internal_timestamp();
 }
 inline void OpInfo::_internal_set_timestamp(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -2430,7 +2433,7 @@ inline void OpInfo::_internal_set_timestamp(::PROTOBUF_NAMESPACE_ID::uint64 valu
 }
 inline void OpInfo::set_timestamp(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_timestamp(value);
-  // @@protoc_insertion_point(field_set:OpInfo.timestamp)
+  // @@protoc_insertion_point(field_set:proto.OpInfo.timestamp)
 }
 
 // string readable_name = 3;
@@ -2438,15 +2441,15 @@ inline void OpInfo::clear_readable_name() {
   readable_name_.ClearToEmpty();
 }
 inline const std::string& OpInfo::readable_name() const {
-  // @@protoc_insertion_point(field_get:OpInfo.readable_name)
+  // @@protoc_insertion_point(field_get:proto.OpInfo.readable_name)
   return _internal_readable_name();
 }
 inline void OpInfo::set_readable_name(const std::string& value) {
   _internal_set_readable_name(value);
-  // @@protoc_insertion_point(field_set:OpInfo.readable_name)
+  // @@protoc_insertion_point(field_set:proto.OpInfo.readable_name)
 }
 inline std::string* OpInfo::mutable_readable_name() {
-  // @@protoc_insertion_point(field_mutable:OpInfo.readable_name)
+  // @@protoc_insertion_point(field_mutable:proto.OpInfo.readable_name)
   return _internal_mutable_readable_name();
 }
 inline const std::string& OpInfo::_internal_readable_name() const {
@@ -2460,27 +2463,27 @@ inline void OpInfo::set_readable_name(std::string&& value) {
   
   readable_name_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:OpInfo.readable_name)
+  // @@protoc_insertion_point(field_set_rvalue:proto.OpInfo.readable_name)
 }
 inline void OpInfo::set_readable_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   readable_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:OpInfo.readable_name)
+  // @@protoc_insertion_point(field_set_char:proto.OpInfo.readable_name)
 }
 inline void OpInfo::set_readable_name(const char* value,
     size_t size) {
   
   readable_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:OpInfo.readable_name)
+  // @@protoc_insertion_point(field_set_pointer:proto.OpInfo.readable_name)
 }
 inline std::string* OpInfo::_internal_mutable_readable_name() {
   
   return readable_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* OpInfo::release_readable_name() {
-  // @@protoc_insertion_point(field_release:OpInfo.readable_name)
+  // @@protoc_insertion_point(field_release:proto.OpInfo.readable_name)
   return readable_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void OpInfo::set_allocated_readable_name(std::string* readable_name) {
@@ -2491,7 +2494,7 @@ inline void OpInfo::set_allocated_readable_name(std::string* readable_name) {
   }
   readable_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), readable_name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:OpInfo.readable_name)
+  // @@protoc_insertion_point(field_set_allocated:proto.OpInfo.readable_name)
 }
 
 // bool use_compression = 4;
@@ -2502,7 +2505,7 @@ inline bool OpInfo::_internal_use_compression() const {
   return use_compression_;
 }
 inline bool OpInfo::use_compression() const {
-  // @@protoc_insertion_point(field_get:OpInfo.use_compression)
+  // @@protoc_insertion_point(field_get:proto.OpInfo.use_compression)
   return _internal_use_compression();
 }
 inline void OpInfo::_internal_set_use_compression(bool value) {
@@ -2511,14 +2514,14 @@ inline void OpInfo::_internal_set_use_compression(bool value) {
 }
 inline void OpInfo::set_use_compression(bool value) {
   _internal_set_use_compression(value);
-  // @@protoc_insertion_point(field_set:OpInfo.use_compression)
+  // @@protoc_insertion_point(field_set:proto.OpInfo.use_compression)
 }
 
 // -------------------------------------------------------------------
 
 // StopInfo
 
-// .OpInfo info = 1;
+// .proto.OpInfo info = 1;
 inline bool StopInfo::_internal_has_info() const {
   return this != internal_default_instance() && info_ != nullptr;
 }
@@ -2531,17 +2534,17 @@ inline void StopInfo::clear_info() {
   }
   info_ = nullptr;
 }
-inline const ::OpInfo& StopInfo::_internal_info() const {
-  const ::OpInfo* p = info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::OpInfo&>(
-      ::_OpInfo_default_instance_);
+inline const ::proto::OpInfo& StopInfo::_internal_info() const {
+  const ::proto::OpInfo* p = info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::OpInfo&>(
+      ::proto::_OpInfo_default_instance_);
 }
-inline const ::OpInfo& StopInfo::info() const {
-  // @@protoc_insertion_point(field_get:StopInfo.info)
+inline const ::proto::OpInfo& StopInfo::info() const {
+  // @@protoc_insertion_point(field_get:proto.StopInfo.info)
   return _internal_info();
 }
 inline void StopInfo::unsafe_arena_set_allocated_info(
-    ::OpInfo* info) {
+    ::proto::OpInfo* info) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(info_);
   }
@@ -2551,37 +2554,37 @@ inline void StopInfo::unsafe_arena_set_allocated_info(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:StopInfo.info)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.StopInfo.info)
 }
-inline ::OpInfo* StopInfo::release_info() {
+inline ::proto::OpInfo* StopInfo::release_info() {
   
-  ::OpInfo* temp = info_;
+  ::proto::OpInfo* temp = info_;
   info_ = nullptr;
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::OpInfo* StopInfo::unsafe_arena_release_info() {
-  // @@protoc_insertion_point(field_release:StopInfo.info)
+inline ::proto::OpInfo* StopInfo::unsafe_arena_release_info() {
+  // @@protoc_insertion_point(field_release:proto.StopInfo.info)
   
-  ::OpInfo* temp = info_;
+  ::proto::OpInfo* temp = info_;
   info_ = nullptr;
   return temp;
 }
-inline ::OpInfo* StopInfo::_internal_mutable_info() {
+inline ::proto::OpInfo* StopInfo::_internal_mutable_info() {
   
   if (info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::OpInfo>(GetArena());
+    auto* p = CreateMaybeMessage<::proto::OpInfo>(GetArena());
     info_ = p;
   }
   return info_;
 }
-inline ::OpInfo* StopInfo::mutable_info() {
-  // @@protoc_insertion_point(field_mutable:StopInfo.info)
+inline ::proto::OpInfo* StopInfo::mutable_info() {
+  // @@protoc_insertion_point(field_mutable:proto.StopInfo.info)
   return _internal_mutable_info();
 }
-inline void StopInfo::set_allocated_info(::OpInfo* info) {
+inline void StopInfo::set_allocated_info(::proto::OpInfo* info) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete info_;
@@ -2598,7 +2601,7 @@ inline void StopInfo::set_allocated_info(::OpInfo* info) {
     
   }
   info_ = info;
-  // @@protoc_insertion_point(field_set_allocated:StopInfo.info)
+  // @@protoc_insertion_point(field_set_allocated:proto.StopInfo.info)
 }
 
 // bool error = 2;
@@ -2609,7 +2612,7 @@ inline bool StopInfo::_internal_error() const {
   return error_;
 }
 inline bool StopInfo::error() const {
-  // @@protoc_insertion_point(field_get:StopInfo.error)
+  // @@protoc_insertion_point(field_get:proto.StopInfo.error)
   return _internal_error();
 }
 inline void StopInfo::_internal_set_error(bool value) {
@@ -2618,14 +2621,14 @@ inline void StopInfo::_internal_set_error(bool value) {
 }
 inline void StopInfo::set_error(bool value) {
   _internal_set_error(value);
-  // @@protoc_insertion_point(field_set:StopInfo.error)
+  // @@protoc_insertion_point(field_set:proto.StopInfo.error)
 }
 
 // -------------------------------------------------------------------
 
 // TransferOpRequest
 
-// .OpInfo info = 1;
+// .proto.OpInfo info = 1;
 inline bool TransferOpRequest::_internal_has_info() const {
   return this != internal_default_instance() && info_ != nullptr;
 }
@@ -2638,17 +2641,17 @@ inline void TransferOpRequest::clear_info() {
   }
   info_ = nullptr;
 }
-inline const ::OpInfo& TransferOpRequest::_internal_info() const {
-  const ::OpInfo* p = info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::OpInfo&>(
-      ::_OpInfo_default_instance_);
+inline const ::proto::OpInfo& TransferOpRequest::_internal_info() const {
+  const ::proto::OpInfo* p = info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::OpInfo&>(
+      ::proto::_OpInfo_default_instance_);
 }
-inline const ::OpInfo& TransferOpRequest::info() const {
-  // @@protoc_insertion_point(field_get:TransferOpRequest.info)
+inline const ::proto::OpInfo& TransferOpRequest::info() const {
+  // @@protoc_insertion_point(field_get:proto.TransferOpRequest.info)
   return _internal_info();
 }
 inline void TransferOpRequest::unsafe_arena_set_allocated_info(
-    ::OpInfo* info) {
+    ::proto::OpInfo* info) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(info_);
   }
@@ -2658,37 +2661,37 @@ inline void TransferOpRequest::unsafe_arena_set_allocated_info(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:TransferOpRequest.info)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.TransferOpRequest.info)
 }
-inline ::OpInfo* TransferOpRequest::release_info() {
+inline ::proto::OpInfo* TransferOpRequest::release_info() {
   
-  ::OpInfo* temp = info_;
+  ::proto::OpInfo* temp = info_;
   info_ = nullptr;
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::OpInfo* TransferOpRequest::unsafe_arena_release_info() {
-  // @@protoc_insertion_point(field_release:TransferOpRequest.info)
+inline ::proto::OpInfo* TransferOpRequest::unsafe_arena_release_info() {
+  // @@protoc_insertion_point(field_release:proto.TransferOpRequest.info)
   
-  ::OpInfo* temp = info_;
+  ::proto::OpInfo* temp = info_;
   info_ = nullptr;
   return temp;
 }
-inline ::OpInfo* TransferOpRequest::_internal_mutable_info() {
+inline ::proto::OpInfo* TransferOpRequest::_internal_mutable_info() {
   
   if (info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::OpInfo>(GetArena());
+    auto* p = CreateMaybeMessage<::proto::OpInfo>(GetArena());
     info_ = p;
   }
   return info_;
 }
-inline ::OpInfo* TransferOpRequest::mutable_info() {
-  // @@protoc_insertion_point(field_mutable:TransferOpRequest.info)
+inline ::proto::OpInfo* TransferOpRequest::mutable_info() {
+  // @@protoc_insertion_point(field_mutable:proto.TransferOpRequest.info)
   return _internal_mutable_info();
 }
-inline void TransferOpRequest::set_allocated_info(::OpInfo* info) {
+inline void TransferOpRequest::set_allocated_info(::proto::OpInfo* info) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete info_;
@@ -2705,7 +2708,7 @@ inline void TransferOpRequest::set_allocated_info(::OpInfo* info) {
     
   }
   info_ = info;
-  // @@protoc_insertion_point(field_set_allocated:TransferOpRequest.info)
+  // @@protoc_insertion_point(field_set_allocated:proto.TransferOpRequest.info)
 }
 
 // string sender_name = 2;
@@ -2713,15 +2716,15 @@ inline void TransferOpRequest::clear_sender_name() {
   sender_name_.ClearToEmpty();
 }
 inline const std::string& TransferOpRequest::sender_name() const {
-  // @@protoc_insertion_point(field_get:TransferOpRequest.sender_name)
+  // @@protoc_insertion_point(field_get:proto.TransferOpRequest.sender_name)
   return _internal_sender_name();
 }
 inline void TransferOpRequest::set_sender_name(const std::string& value) {
   _internal_set_sender_name(value);
-  // @@protoc_insertion_point(field_set:TransferOpRequest.sender_name)
+  // @@protoc_insertion_point(field_set:proto.TransferOpRequest.sender_name)
 }
 inline std::string* TransferOpRequest::mutable_sender_name() {
-  // @@protoc_insertion_point(field_mutable:TransferOpRequest.sender_name)
+  // @@protoc_insertion_point(field_mutable:proto.TransferOpRequest.sender_name)
   return _internal_mutable_sender_name();
 }
 inline const std::string& TransferOpRequest::_internal_sender_name() const {
@@ -2735,27 +2738,27 @@ inline void TransferOpRequest::set_sender_name(std::string&& value) {
   
   sender_name_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:TransferOpRequest.sender_name)
+  // @@protoc_insertion_point(field_set_rvalue:proto.TransferOpRequest.sender_name)
 }
 inline void TransferOpRequest::set_sender_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   sender_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:TransferOpRequest.sender_name)
+  // @@protoc_insertion_point(field_set_char:proto.TransferOpRequest.sender_name)
 }
 inline void TransferOpRequest::set_sender_name(const char* value,
     size_t size) {
   
   sender_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:TransferOpRequest.sender_name)
+  // @@protoc_insertion_point(field_set_pointer:proto.TransferOpRequest.sender_name)
 }
 inline std::string* TransferOpRequest::_internal_mutable_sender_name() {
   
   return sender_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* TransferOpRequest::release_sender_name() {
-  // @@protoc_insertion_point(field_release:TransferOpRequest.sender_name)
+  // @@protoc_insertion_point(field_release:proto.TransferOpRequest.sender_name)
   return sender_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void TransferOpRequest::set_allocated_sender_name(std::string* sender_name) {
@@ -2766,7 +2769,7 @@ inline void TransferOpRequest::set_allocated_sender_name(std::string* sender_nam
   }
   sender_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sender_name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:TransferOpRequest.sender_name)
+  // @@protoc_insertion_point(field_set_allocated:proto.TransferOpRequest.sender_name)
 }
 
 // string receiver_name = 3;
@@ -2774,15 +2777,15 @@ inline void TransferOpRequest::clear_receiver_name() {
   receiver_name_.ClearToEmpty();
 }
 inline const std::string& TransferOpRequest::receiver_name() const {
-  // @@protoc_insertion_point(field_get:TransferOpRequest.receiver_name)
+  // @@protoc_insertion_point(field_get:proto.TransferOpRequest.receiver_name)
   return _internal_receiver_name();
 }
 inline void TransferOpRequest::set_receiver_name(const std::string& value) {
   _internal_set_receiver_name(value);
-  // @@protoc_insertion_point(field_set:TransferOpRequest.receiver_name)
+  // @@protoc_insertion_point(field_set:proto.TransferOpRequest.receiver_name)
 }
 inline std::string* TransferOpRequest::mutable_receiver_name() {
-  // @@protoc_insertion_point(field_mutable:TransferOpRequest.receiver_name)
+  // @@protoc_insertion_point(field_mutable:proto.TransferOpRequest.receiver_name)
   return _internal_mutable_receiver_name();
 }
 inline const std::string& TransferOpRequest::_internal_receiver_name() const {
@@ -2796,27 +2799,27 @@ inline void TransferOpRequest::set_receiver_name(std::string&& value) {
   
   receiver_name_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:TransferOpRequest.receiver_name)
+  // @@protoc_insertion_point(field_set_rvalue:proto.TransferOpRequest.receiver_name)
 }
 inline void TransferOpRequest::set_receiver_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   receiver_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:TransferOpRequest.receiver_name)
+  // @@protoc_insertion_point(field_set_char:proto.TransferOpRequest.receiver_name)
 }
 inline void TransferOpRequest::set_receiver_name(const char* value,
     size_t size) {
   
   receiver_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:TransferOpRequest.receiver_name)
+  // @@protoc_insertion_point(field_set_pointer:proto.TransferOpRequest.receiver_name)
 }
 inline std::string* TransferOpRequest::_internal_mutable_receiver_name() {
   
   return receiver_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* TransferOpRequest::release_receiver_name() {
-  // @@protoc_insertion_point(field_release:TransferOpRequest.receiver_name)
+  // @@protoc_insertion_point(field_release:proto.TransferOpRequest.receiver_name)
   return receiver_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void TransferOpRequest::set_allocated_receiver_name(std::string* receiver_name) {
@@ -2827,7 +2830,7 @@ inline void TransferOpRequest::set_allocated_receiver_name(std::string* receiver
   }
   receiver_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), receiver_name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:TransferOpRequest.receiver_name)
+  // @@protoc_insertion_point(field_set_allocated:proto.TransferOpRequest.receiver_name)
 }
 
 // string receiver = 4;
@@ -2835,15 +2838,15 @@ inline void TransferOpRequest::clear_receiver() {
   receiver_.ClearToEmpty();
 }
 inline const std::string& TransferOpRequest::receiver() const {
-  // @@protoc_insertion_point(field_get:TransferOpRequest.receiver)
+  // @@protoc_insertion_point(field_get:proto.TransferOpRequest.receiver)
   return _internal_receiver();
 }
 inline void TransferOpRequest::set_receiver(const std::string& value) {
   _internal_set_receiver(value);
-  // @@protoc_insertion_point(field_set:TransferOpRequest.receiver)
+  // @@protoc_insertion_point(field_set:proto.TransferOpRequest.receiver)
 }
 inline std::string* TransferOpRequest::mutable_receiver() {
-  // @@protoc_insertion_point(field_mutable:TransferOpRequest.receiver)
+  // @@protoc_insertion_point(field_mutable:proto.TransferOpRequest.receiver)
   return _internal_mutable_receiver();
 }
 inline const std::string& TransferOpRequest::_internal_receiver() const {
@@ -2857,27 +2860,27 @@ inline void TransferOpRequest::set_receiver(std::string&& value) {
   
   receiver_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:TransferOpRequest.receiver)
+  // @@protoc_insertion_point(field_set_rvalue:proto.TransferOpRequest.receiver)
 }
 inline void TransferOpRequest::set_receiver(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   receiver_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:TransferOpRequest.receiver)
+  // @@protoc_insertion_point(field_set_char:proto.TransferOpRequest.receiver)
 }
 inline void TransferOpRequest::set_receiver(const char* value,
     size_t size) {
   
   receiver_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:TransferOpRequest.receiver)
+  // @@protoc_insertion_point(field_set_pointer:proto.TransferOpRequest.receiver)
 }
 inline std::string* TransferOpRequest::_internal_mutable_receiver() {
   
   return receiver_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* TransferOpRequest::release_receiver() {
-  // @@protoc_insertion_point(field_release:TransferOpRequest.receiver)
+  // @@protoc_insertion_point(field_release:proto.TransferOpRequest.receiver)
   return receiver_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void TransferOpRequest::set_allocated_receiver(std::string* receiver) {
@@ -2888,7 +2891,7 @@ inline void TransferOpRequest::set_allocated_receiver(std::string* receiver) {
   }
   receiver_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), receiver,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:TransferOpRequest.receiver)
+  // @@protoc_insertion_point(field_set_allocated:proto.TransferOpRequest.receiver)
 }
 
 // uint64 size = 5;
@@ -2899,7 +2902,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 TransferOpRequest::_internal_size() const
   return size_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 TransferOpRequest::size() const {
-  // @@protoc_insertion_point(field_get:TransferOpRequest.size)
+  // @@protoc_insertion_point(field_get:proto.TransferOpRequest.size)
   return _internal_size();
 }
 inline void TransferOpRequest::_internal_set_size(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -2908,7 +2911,7 @@ inline void TransferOpRequest::_internal_set_size(::PROTOBUF_NAMESPACE_ID::uint6
 }
 inline void TransferOpRequest::set_size(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_size(value);
-  // @@protoc_insertion_point(field_set:TransferOpRequest.size)
+  // @@protoc_insertion_point(field_set:proto.TransferOpRequest.size)
 }
 
 // uint64 count = 6;
@@ -2919,7 +2922,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 TransferOpRequest::_internal_count() cons
   return count_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 TransferOpRequest::count() const {
-  // @@protoc_insertion_point(field_get:TransferOpRequest.count)
+  // @@protoc_insertion_point(field_get:proto.TransferOpRequest.count)
   return _internal_count();
 }
 inline void TransferOpRequest::_internal_set_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -2928,7 +2931,7 @@ inline void TransferOpRequest::_internal_set_count(::PROTOBUF_NAMESPACE_ID::uint
 }
 inline void TransferOpRequest::set_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_count(value);
-  // @@protoc_insertion_point(field_set:TransferOpRequest.count)
+  // @@protoc_insertion_point(field_set:proto.TransferOpRequest.count)
 }
 
 // string name_if_single = 7;
@@ -2936,15 +2939,15 @@ inline void TransferOpRequest::clear_name_if_single() {
   name_if_single_.ClearToEmpty();
 }
 inline const std::string& TransferOpRequest::name_if_single() const {
-  // @@protoc_insertion_point(field_get:TransferOpRequest.name_if_single)
+  // @@protoc_insertion_point(field_get:proto.TransferOpRequest.name_if_single)
   return _internal_name_if_single();
 }
 inline void TransferOpRequest::set_name_if_single(const std::string& value) {
   _internal_set_name_if_single(value);
-  // @@protoc_insertion_point(field_set:TransferOpRequest.name_if_single)
+  // @@protoc_insertion_point(field_set:proto.TransferOpRequest.name_if_single)
 }
 inline std::string* TransferOpRequest::mutable_name_if_single() {
-  // @@protoc_insertion_point(field_mutable:TransferOpRequest.name_if_single)
+  // @@protoc_insertion_point(field_mutable:proto.TransferOpRequest.name_if_single)
   return _internal_mutable_name_if_single();
 }
 inline const std::string& TransferOpRequest::_internal_name_if_single() const {
@@ -2958,27 +2961,27 @@ inline void TransferOpRequest::set_name_if_single(std::string&& value) {
   
   name_if_single_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:TransferOpRequest.name_if_single)
+  // @@protoc_insertion_point(field_set_rvalue:proto.TransferOpRequest.name_if_single)
 }
 inline void TransferOpRequest::set_name_if_single(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_if_single_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:TransferOpRequest.name_if_single)
+  // @@protoc_insertion_point(field_set_char:proto.TransferOpRequest.name_if_single)
 }
 inline void TransferOpRequest::set_name_if_single(const char* value,
     size_t size) {
   
   name_if_single_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:TransferOpRequest.name_if_single)
+  // @@protoc_insertion_point(field_set_pointer:proto.TransferOpRequest.name_if_single)
 }
 inline std::string* TransferOpRequest::_internal_mutable_name_if_single() {
   
   return name_if_single_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* TransferOpRequest::release_name_if_single() {
-  // @@protoc_insertion_point(field_release:TransferOpRequest.name_if_single)
+  // @@protoc_insertion_point(field_release:proto.TransferOpRequest.name_if_single)
   return name_if_single_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void TransferOpRequest::set_allocated_name_if_single(std::string* name_if_single) {
@@ -2989,7 +2992,7 @@ inline void TransferOpRequest::set_allocated_name_if_single(std::string* name_if
   }
   name_if_single_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name_if_single,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:TransferOpRequest.name_if_single)
+  // @@protoc_insertion_point(field_set_allocated:proto.TransferOpRequest.name_if_single)
 }
 
 // string mime_if_single = 8;
@@ -2997,15 +3000,15 @@ inline void TransferOpRequest::clear_mime_if_single() {
   mime_if_single_.ClearToEmpty();
 }
 inline const std::string& TransferOpRequest::mime_if_single() const {
-  // @@protoc_insertion_point(field_get:TransferOpRequest.mime_if_single)
+  // @@protoc_insertion_point(field_get:proto.TransferOpRequest.mime_if_single)
   return _internal_mime_if_single();
 }
 inline void TransferOpRequest::set_mime_if_single(const std::string& value) {
   _internal_set_mime_if_single(value);
-  // @@protoc_insertion_point(field_set:TransferOpRequest.mime_if_single)
+  // @@protoc_insertion_point(field_set:proto.TransferOpRequest.mime_if_single)
 }
 inline std::string* TransferOpRequest::mutable_mime_if_single() {
-  // @@protoc_insertion_point(field_mutable:TransferOpRequest.mime_if_single)
+  // @@protoc_insertion_point(field_mutable:proto.TransferOpRequest.mime_if_single)
   return _internal_mutable_mime_if_single();
 }
 inline const std::string& TransferOpRequest::_internal_mime_if_single() const {
@@ -3019,27 +3022,27 @@ inline void TransferOpRequest::set_mime_if_single(std::string&& value) {
   
   mime_if_single_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:TransferOpRequest.mime_if_single)
+  // @@protoc_insertion_point(field_set_rvalue:proto.TransferOpRequest.mime_if_single)
 }
 inline void TransferOpRequest::set_mime_if_single(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   mime_if_single_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:TransferOpRequest.mime_if_single)
+  // @@protoc_insertion_point(field_set_char:proto.TransferOpRequest.mime_if_single)
 }
 inline void TransferOpRequest::set_mime_if_single(const char* value,
     size_t size) {
   
   mime_if_single_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:TransferOpRequest.mime_if_single)
+  // @@protoc_insertion_point(field_set_pointer:proto.TransferOpRequest.mime_if_single)
 }
 inline std::string* TransferOpRequest::_internal_mutable_mime_if_single() {
   
   return mime_if_single_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* TransferOpRequest::release_mime_if_single() {
-  // @@protoc_insertion_point(field_release:TransferOpRequest.mime_if_single)
+  // @@protoc_insertion_point(field_release:proto.TransferOpRequest.mime_if_single)
   return mime_if_single_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void TransferOpRequest::set_allocated_mime_if_single(std::string* mime_if_single) {
@@ -3050,7 +3053,7 @@ inline void TransferOpRequest::set_allocated_mime_if_single(std::string* mime_if
   }
   mime_if_single_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), mime_if_single,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:TransferOpRequest.mime_if_single)
+  // @@protoc_insertion_point(field_set_allocated:proto.TransferOpRequest.mime_if_single)
 }
 
 // repeated string top_dir_basenames = 9;
@@ -3064,66 +3067,66 @@ inline void TransferOpRequest::clear_top_dir_basenames() {
   top_dir_basenames_.Clear();
 }
 inline std::string* TransferOpRequest::add_top_dir_basenames() {
-  // @@protoc_insertion_point(field_add_mutable:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_add_mutable:proto.TransferOpRequest.top_dir_basenames)
   return _internal_add_top_dir_basenames();
 }
 inline const std::string& TransferOpRequest::_internal_top_dir_basenames(int index) const {
   return top_dir_basenames_.Get(index);
 }
 inline const std::string& TransferOpRequest::top_dir_basenames(int index) const {
-  // @@protoc_insertion_point(field_get:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_get:proto.TransferOpRequest.top_dir_basenames)
   return _internal_top_dir_basenames(index);
 }
 inline std::string* TransferOpRequest::mutable_top_dir_basenames(int index) {
-  // @@protoc_insertion_point(field_mutable:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_mutable:proto.TransferOpRequest.top_dir_basenames)
   return top_dir_basenames_.Mutable(index);
 }
 inline void TransferOpRequest::set_top_dir_basenames(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_set:proto.TransferOpRequest.top_dir_basenames)
   top_dir_basenames_.Mutable(index)->assign(value);
 }
 inline void TransferOpRequest::set_top_dir_basenames(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_set:proto.TransferOpRequest.top_dir_basenames)
   top_dir_basenames_.Mutable(index)->assign(std::move(value));
 }
 inline void TransferOpRequest::set_top_dir_basenames(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   top_dir_basenames_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_set_char:proto.TransferOpRequest.top_dir_basenames)
 }
 inline void TransferOpRequest::set_top_dir_basenames(int index, const char* value, size_t size) {
   top_dir_basenames_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_set_pointer:proto.TransferOpRequest.top_dir_basenames)
 }
 inline std::string* TransferOpRequest::_internal_add_top_dir_basenames() {
   return top_dir_basenames_.Add();
 }
 inline void TransferOpRequest::add_top_dir_basenames(const std::string& value) {
   top_dir_basenames_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_add:proto.TransferOpRequest.top_dir_basenames)
 }
 inline void TransferOpRequest::add_top_dir_basenames(std::string&& value) {
   top_dir_basenames_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_add:proto.TransferOpRequest.top_dir_basenames)
 }
 inline void TransferOpRequest::add_top_dir_basenames(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   top_dir_basenames_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_add_char:proto.TransferOpRequest.top_dir_basenames)
 }
 inline void TransferOpRequest::add_top_dir_basenames(const char* value, size_t size) {
   top_dir_basenames_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_add_pointer:proto.TransferOpRequest.top_dir_basenames)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
 TransferOpRequest::top_dir_basenames() const {
-  // @@protoc_insertion_point(field_list:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_list:proto.TransferOpRequest.top_dir_basenames)
   return top_dir_basenames_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 TransferOpRequest::mutable_top_dir_basenames() {
-  // @@protoc_insertion_point(field_mutable_list:TransferOpRequest.top_dir_basenames)
+  // @@protoc_insertion_point(field_mutable_list:proto.TransferOpRequest.top_dir_basenames)
   return &top_dir_basenames_;
 }
 
@@ -3136,15 +3139,15 @@ inline void FileChunk::clear_relative_path() {
   relative_path_.ClearToEmpty();
 }
 inline const std::string& FileChunk::relative_path() const {
-  // @@protoc_insertion_point(field_get:FileChunk.relative_path)
+  // @@protoc_insertion_point(field_get:proto.FileChunk.relative_path)
   return _internal_relative_path();
 }
 inline void FileChunk::set_relative_path(const std::string& value) {
   _internal_set_relative_path(value);
-  // @@protoc_insertion_point(field_set:FileChunk.relative_path)
+  // @@protoc_insertion_point(field_set:proto.FileChunk.relative_path)
 }
 inline std::string* FileChunk::mutable_relative_path() {
-  // @@protoc_insertion_point(field_mutable:FileChunk.relative_path)
+  // @@protoc_insertion_point(field_mutable:proto.FileChunk.relative_path)
   return _internal_mutable_relative_path();
 }
 inline const std::string& FileChunk::_internal_relative_path() const {
@@ -3158,27 +3161,27 @@ inline void FileChunk::set_relative_path(std::string&& value) {
   
   relative_path_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:FileChunk.relative_path)
+  // @@protoc_insertion_point(field_set_rvalue:proto.FileChunk.relative_path)
 }
 inline void FileChunk::set_relative_path(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   relative_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:FileChunk.relative_path)
+  // @@protoc_insertion_point(field_set_char:proto.FileChunk.relative_path)
 }
 inline void FileChunk::set_relative_path(const char* value,
     size_t size) {
   
   relative_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:FileChunk.relative_path)
+  // @@protoc_insertion_point(field_set_pointer:proto.FileChunk.relative_path)
 }
 inline std::string* FileChunk::_internal_mutable_relative_path() {
   
   return relative_path_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* FileChunk::release_relative_path() {
-  // @@protoc_insertion_point(field_release:FileChunk.relative_path)
+  // @@protoc_insertion_point(field_release:proto.FileChunk.relative_path)
   return relative_path_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void FileChunk::set_allocated_relative_path(std::string* relative_path) {
@@ -3189,7 +3192,7 @@ inline void FileChunk::set_allocated_relative_path(std::string* relative_path) {
   }
   relative_path_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), relative_path,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:FileChunk.relative_path)
+  // @@protoc_insertion_point(field_set_allocated:proto.FileChunk.relative_path)
 }
 
 // int32 file_type = 2;
@@ -3200,7 +3203,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 FileChunk::_internal_file_type() const {
   return file_type_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 FileChunk::file_type() const {
-  // @@protoc_insertion_point(field_get:FileChunk.file_type)
+  // @@protoc_insertion_point(field_get:proto.FileChunk.file_type)
   return _internal_file_type();
 }
 inline void FileChunk::_internal_set_file_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -3209,7 +3212,7 @@ inline void FileChunk::_internal_set_file_type(::PROTOBUF_NAMESPACE_ID::int32 va
 }
 inline void FileChunk::set_file_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_file_type(value);
-  // @@protoc_insertion_point(field_set:FileChunk.file_type)
+  // @@protoc_insertion_point(field_set:proto.FileChunk.file_type)
 }
 
 // string symlink_target = 3;
@@ -3217,15 +3220,15 @@ inline void FileChunk::clear_symlink_target() {
   symlink_target_.ClearToEmpty();
 }
 inline const std::string& FileChunk::symlink_target() const {
-  // @@protoc_insertion_point(field_get:FileChunk.symlink_target)
+  // @@protoc_insertion_point(field_get:proto.FileChunk.symlink_target)
   return _internal_symlink_target();
 }
 inline void FileChunk::set_symlink_target(const std::string& value) {
   _internal_set_symlink_target(value);
-  // @@protoc_insertion_point(field_set:FileChunk.symlink_target)
+  // @@protoc_insertion_point(field_set:proto.FileChunk.symlink_target)
 }
 inline std::string* FileChunk::mutable_symlink_target() {
-  // @@protoc_insertion_point(field_mutable:FileChunk.symlink_target)
+  // @@protoc_insertion_point(field_mutable:proto.FileChunk.symlink_target)
   return _internal_mutable_symlink_target();
 }
 inline const std::string& FileChunk::_internal_symlink_target() const {
@@ -3239,27 +3242,27 @@ inline void FileChunk::set_symlink_target(std::string&& value) {
   
   symlink_target_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:FileChunk.symlink_target)
+  // @@protoc_insertion_point(field_set_rvalue:proto.FileChunk.symlink_target)
 }
 inline void FileChunk::set_symlink_target(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   symlink_target_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:FileChunk.symlink_target)
+  // @@protoc_insertion_point(field_set_char:proto.FileChunk.symlink_target)
 }
 inline void FileChunk::set_symlink_target(const char* value,
     size_t size) {
   
   symlink_target_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:FileChunk.symlink_target)
+  // @@protoc_insertion_point(field_set_pointer:proto.FileChunk.symlink_target)
 }
 inline std::string* FileChunk::_internal_mutable_symlink_target() {
   
   return symlink_target_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* FileChunk::release_symlink_target() {
-  // @@protoc_insertion_point(field_release:FileChunk.symlink_target)
+  // @@protoc_insertion_point(field_release:proto.FileChunk.symlink_target)
   return symlink_target_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void FileChunk::set_allocated_symlink_target(std::string* symlink_target) {
@@ -3270,7 +3273,7 @@ inline void FileChunk::set_allocated_symlink_target(std::string* symlink_target)
   }
   symlink_target_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), symlink_target,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:FileChunk.symlink_target)
+  // @@protoc_insertion_point(field_set_allocated:proto.FileChunk.symlink_target)
 }
 
 // bytes chunk = 4;
@@ -3278,15 +3281,15 @@ inline void FileChunk::clear_chunk() {
   chunk_.ClearToEmpty();
 }
 inline const std::string& FileChunk::chunk() const {
-  // @@protoc_insertion_point(field_get:FileChunk.chunk)
+  // @@protoc_insertion_point(field_get:proto.FileChunk.chunk)
   return _internal_chunk();
 }
 inline void FileChunk::set_chunk(const std::string& value) {
   _internal_set_chunk(value);
-  // @@protoc_insertion_point(field_set:FileChunk.chunk)
+  // @@protoc_insertion_point(field_set:proto.FileChunk.chunk)
 }
 inline std::string* FileChunk::mutable_chunk() {
-  // @@protoc_insertion_point(field_mutable:FileChunk.chunk)
+  // @@protoc_insertion_point(field_mutable:proto.FileChunk.chunk)
   return _internal_mutable_chunk();
 }
 inline const std::string& FileChunk::_internal_chunk() const {
@@ -3300,27 +3303,27 @@ inline void FileChunk::set_chunk(std::string&& value) {
   
   chunk_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:FileChunk.chunk)
+  // @@protoc_insertion_point(field_set_rvalue:proto.FileChunk.chunk)
 }
 inline void FileChunk::set_chunk(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   chunk_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:FileChunk.chunk)
+  // @@protoc_insertion_point(field_set_char:proto.FileChunk.chunk)
 }
 inline void FileChunk::set_chunk(const void* value,
     size_t size) {
   
   chunk_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:FileChunk.chunk)
+  // @@protoc_insertion_point(field_set_pointer:proto.FileChunk.chunk)
 }
 inline std::string* FileChunk::_internal_mutable_chunk() {
   
   return chunk_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* FileChunk::release_chunk() {
-  // @@protoc_insertion_point(field_release:FileChunk.chunk)
+  // @@protoc_insertion_point(field_release:proto.FileChunk.chunk)
   return chunk_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void FileChunk::set_allocated_chunk(std::string* chunk) {
@@ -3331,7 +3334,7 @@ inline void FileChunk::set_allocated_chunk(std::string* chunk) {
   }
   chunk_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), chunk,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:FileChunk.chunk)
+  // @@protoc_insertion_point(field_set_allocated:proto.FileChunk.chunk)
 }
 
 // uint32 file_mode = 5;
@@ -3342,7 +3345,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 FileChunk::_internal_file_mode() const {
   return file_mode_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 FileChunk::file_mode() const {
-  // @@protoc_insertion_point(field_get:FileChunk.file_mode)
+  // @@protoc_insertion_point(field_get:proto.FileChunk.file_mode)
   return _internal_file_mode();
 }
 inline void FileChunk::_internal_set_file_mode(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -3351,7 +3354,7 @@ inline void FileChunk::_internal_set_file_mode(::PROTOBUF_NAMESPACE_ID::uint32 v
 }
 inline void FileChunk::set_file_mode(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_file_mode(value);
-  // @@protoc_insertion_point(field_set:FileChunk.file_mode)
+  // @@protoc_insertion_point(field_set:proto.FileChunk.file_mode)
 }
 
 // -------------------------------------------------------------------
@@ -3363,15 +3366,15 @@ inline void RegRequest::clear_ip() {
   ip_.ClearToEmpty();
 }
 inline const std::string& RegRequest::ip() const {
-  // @@protoc_insertion_point(field_get:RegRequest.ip)
+  // @@protoc_insertion_point(field_get:proto.RegRequest.ip)
   return _internal_ip();
 }
 inline void RegRequest::set_ip(const std::string& value) {
   _internal_set_ip(value);
-  // @@protoc_insertion_point(field_set:RegRequest.ip)
+  // @@protoc_insertion_point(field_set:proto.RegRequest.ip)
 }
 inline std::string* RegRequest::mutable_ip() {
-  // @@protoc_insertion_point(field_mutable:RegRequest.ip)
+  // @@protoc_insertion_point(field_mutable:proto.RegRequest.ip)
   return _internal_mutable_ip();
 }
 inline const std::string& RegRequest::_internal_ip() const {
@@ -3385,27 +3388,27 @@ inline void RegRequest::set_ip(std::string&& value) {
   
   ip_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:RegRequest.ip)
+  // @@protoc_insertion_point(field_set_rvalue:proto.RegRequest.ip)
 }
 inline void RegRequest::set_ip(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:RegRequest.ip)
+  // @@protoc_insertion_point(field_set_char:proto.RegRequest.ip)
 }
 inline void RegRequest::set_ip(const char* value,
     size_t size) {
   
   ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:RegRequest.ip)
+  // @@protoc_insertion_point(field_set_pointer:proto.RegRequest.ip)
 }
 inline std::string* RegRequest::_internal_mutable_ip() {
   
   return ip_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* RegRequest::release_ip() {
-  // @@protoc_insertion_point(field_release:RegRequest.ip)
+  // @@protoc_insertion_point(field_release:proto.RegRequest.ip)
   return ip_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void RegRequest::set_allocated_ip(std::string* ip) {
@@ -3416,7 +3419,7 @@ inline void RegRequest::set_allocated_ip(std::string* ip) {
   }
   ip_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ip,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:RegRequest.ip)
+  // @@protoc_insertion_point(field_set_allocated:proto.RegRequest.ip)
 }
 
 // string hostname = 2;
@@ -3424,15 +3427,15 @@ inline void RegRequest::clear_hostname() {
   hostname_.ClearToEmpty();
 }
 inline const std::string& RegRequest::hostname() const {
-  // @@protoc_insertion_point(field_get:RegRequest.hostname)
+  // @@protoc_insertion_point(field_get:proto.RegRequest.hostname)
   return _internal_hostname();
 }
 inline void RegRequest::set_hostname(const std::string& value) {
   _internal_set_hostname(value);
-  // @@protoc_insertion_point(field_set:RegRequest.hostname)
+  // @@protoc_insertion_point(field_set:proto.RegRequest.hostname)
 }
 inline std::string* RegRequest::mutable_hostname() {
-  // @@protoc_insertion_point(field_mutable:RegRequest.hostname)
+  // @@protoc_insertion_point(field_mutable:proto.RegRequest.hostname)
   return _internal_mutable_hostname();
 }
 inline const std::string& RegRequest::_internal_hostname() const {
@@ -3446,27 +3449,27 @@ inline void RegRequest::set_hostname(std::string&& value) {
   
   hostname_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:RegRequest.hostname)
+  // @@protoc_insertion_point(field_set_rvalue:proto.RegRequest.hostname)
 }
 inline void RegRequest::set_hostname(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   hostname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:RegRequest.hostname)
+  // @@protoc_insertion_point(field_set_char:proto.RegRequest.hostname)
 }
 inline void RegRequest::set_hostname(const char* value,
     size_t size) {
   
   hostname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:RegRequest.hostname)
+  // @@protoc_insertion_point(field_set_pointer:proto.RegRequest.hostname)
 }
 inline std::string* RegRequest::_internal_mutable_hostname() {
   
   return hostname_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* RegRequest::release_hostname() {
-  // @@protoc_insertion_point(field_release:RegRequest.hostname)
+  // @@protoc_insertion_point(field_release:proto.RegRequest.hostname)
   return hostname_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void RegRequest::set_allocated_hostname(std::string* hostname) {
@@ -3477,7 +3480,7 @@ inline void RegRequest::set_allocated_hostname(std::string* hostname) {
   }
   hostname_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), hostname,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:RegRequest.hostname)
+  // @@protoc_insertion_point(field_set_allocated:proto.RegRequest.hostname)
 }
 
 // -------------------------------------------------------------------
@@ -3489,15 +3492,15 @@ inline void RegResponse::clear_locked_cert() {
   locked_cert_.ClearToEmpty();
 }
 inline const std::string& RegResponse::locked_cert() const {
-  // @@protoc_insertion_point(field_get:RegResponse.locked_cert)
+  // @@protoc_insertion_point(field_get:proto.RegResponse.locked_cert)
   return _internal_locked_cert();
 }
 inline void RegResponse::set_locked_cert(const std::string& value) {
   _internal_set_locked_cert(value);
-  // @@protoc_insertion_point(field_set:RegResponse.locked_cert)
+  // @@protoc_insertion_point(field_set:proto.RegResponse.locked_cert)
 }
 inline std::string* RegResponse::mutable_locked_cert() {
-  // @@protoc_insertion_point(field_mutable:RegResponse.locked_cert)
+  // @@protoc_insertion_point(field_mutable:proto.RegResponse.locked_cert)
   return _internal_mutable_locked_cert();
 }
 inline const std::string& RegResponse::_internal_locked_cert() const {
@@ -3511,27 +3514,27 @@ inline void RegResponse::set_locked_cert(std::string&& value) {
   
   locked_cert_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:RegResponse.locked_cert)
+  // @@protoc_insertion_point(field_set_rvalue:proto.RegResponse.locked_cert)
 }
 inline void RegResponse::set_locked_cert(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   locked_cert_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:RegResponse.locked_cert)
+  // @@protoc_insertion_point(field_set_char:proto.RegResponse.locked_cert)
 }
 inline void RegResponse::set_locked_cert(const char* value,
     size_t size) {
   
   locked_cert_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:RegResponse.locked_cert)
+  // @@protoc_insertion_point(field_set_pointer:proto.RegResponse.locked_cert)
 }
 inline std::string* RegResponse::_internal_mutable_locked_cert() {
   
   return locked_cert_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* RegResponse::release_locked_cert() {
-  // @@protoc_insertion_point(field_release:RegResponse.locked_cert)
+  // @@protoc_insertion_point(field_release:proto.RegResponse.locked_cert)
   return locked_cert_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void RegResponse::set_allocated_locked_cert(std::string* locked_cert) {
@@ -3542,7 +3545,7 @@ inline void RegResponse::set_allocated_locked_cert(std::string* locked_cert) {
   }
   locked_cert_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), locked_cert,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:RegResponse.locked_cert)
+  // @@protoc_insertion_point(field_set_allocated:proto.RegResponse.locked_cert)
 }
 
 #ifdef __GNUC__
@@ -3571,6 +3574,7 @@ inline void RegResponse::set_allocated_locked_cert(std::string* locked_cert) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace proto
 
 // @@protoc_insertion_point(global_scope)
 

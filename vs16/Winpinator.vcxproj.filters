@@ -42,7 +42,7 @@
     <None Include="..\vcpkg.json">
       <Filter>vcpkg</Filter>
     </None>
-    <None Include="..\res\winpinator.aps">
+    <None Include="..\win32\winpinator.aps">
       <Filter>Resources</Filter>
     </None>
     <None Include="..\proto\warp.proto">
@@ -53,7 +53,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\res\winpinator.rc">
+    <ResourceCompile Include="..\win32\winpinator.rc">
       <Filter>Resources</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -79,13 +79,16 @@
     <ClInclude Include="..\src\gui\winpinator_frame.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\res\resource.h">
+    <ClInclude Include="..\win32\resource.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="..\src\gui\winpinator_banner.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
     <ClInclude Include="..\src\gui\utils.h">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\page_starting.h">
       <Filter>Headers\gui</Filter>
     </ClInclude>
   </ItemGroup>
@@ -117,20 +120,23 @@
     <ClCompile Include="..\src\gui\utils.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\gui\page_starting.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="..\res\manifest.manifest">
+    <Manifest Include="..\win32\manifest.manifest">
       <Filter>Resources</Filter>
     </Manifest>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="blop.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="..\res\blop.png">
+    <Image Include="..\res\icon.ico">
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\res\blot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\warning.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

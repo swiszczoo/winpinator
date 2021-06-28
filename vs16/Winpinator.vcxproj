@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -89,7 +89,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
@@ -105,7 +105,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
@@ -121,7 +121,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
@@ -137,7 +137,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
@@ -152,14 +152,15 @@
   <ItemGroup>
     <None Include="..\proto\generate-protobuf.bat" />
     <None Include="..\proto\warp.proto" />
-    <None Include="..\res\winpinator.aps" />
+    <None Include="..\win32\winpinator.aps" />
     <None Include="..\vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\res\winpinator.rc" />
+    <ResourceCompile Include="..\win32\winpinator.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\res\resource.h" />
+    <ClInclude Include="..\win32\resource.h" />
+    <ClInclude Include="..\src\gui\page_starting.h" />
     <ClInclude Include="..\src\gui\utils.h" />
     <ClInclude Include="..\src\gui\winpinator_app.hpp" />
     <ClInclude Include="..\src\gui\winpinator_banner.hpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="..\src\zeroconf\mdns_service.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\gui\page_starting.cpp" />
     <ClCompile Include="..\src\gui\utils.cpp" />
     <ClCompile Include="..\src\gui\winpinator_app.cpp" />
     <ClCompile Include="..\src\gui\winpinator_banner.cpp" />
@@ -182,12 +184,12 @@
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="..\res\manifest.manifest" />
+    <Manifest Include="..\win32\manifest.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\res\blop.png" />
     <Image Include="..\res\blot.png" />
-    <Image Include="blop.png" />
+    <Image Include="..\res\icon.ico" />
+    <Image Include="..\res\warning.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
