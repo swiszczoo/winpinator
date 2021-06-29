@@ -1,7 +1,7 @@
 #include "winpinator_frame.hpp"
 
 #include "../../win32/resource.h"
-#include "page_offline.hpp"
+#include "page_hostlist.hpp"
 #include "utils.hpp"
 
 #include <wx/aboutdlg.h>
@@ -38,7 +38,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     m_banner = new WinpinatorBanner( this, 80 );
     mainSizer->Add( m_banner, 0, wxEXPAND, 0 );
 
-    OfflinePage* p = new OfflinePage( this );
+    HostListPage* p = new HostListPage( this );
     mainSizer->Add( p, 1, wxEXPAND, 0 );
 
     SetSizer( mainSizer );
@@ -63,18 +63,26 @@ void WinpinatorFrame::setupMenuBar()
     m_menuBar = new wxMenuBar();
 
     m_fileMenu = new wxMenu();
-    m_fileMenu->Append( ID_OPENDESTDIR,
-        _( "Open save folder...\tCtrl+O" ) );
-    m_fileMenu->Append( wxID_PREFERENCES, _( "Preferences..." ) );
+    m_fileMenu->Append( ID_OPENDESTDIR, _( "Open save folder...\tCtrl+O" ), 
+        _( "Open the incoming files folder in Explorer" ) );
+    m_fileMenu->Append( wxID_PREFERENCES, _( "Preferences..." ),
+        _( "Adjust app preferences" ) );
     m_fileMenu->AppendSeparator();
-    m_fileMenu->Append( wxID_EXIT, _( "Exit\tAlt+F4" ) );
+    m_fileMenu->Append( wxID_CLOSE_FRAME, _( "Exit\tAlt+F4" ),
+        _( "Close this window but let Winpinator run in background" ) );
+    m_fileMenu->Append( wxID_EXIT, 
+        _( "Exit and stop the service\tCtrl+Alt+F4" ),
+        _( "Exit Winpinator and stop being visible to other computers" ) );
 
     m_menuBar->Append( m_fileMenu, _( "&File" ) );
 
     m_helpMenu = new wxMenu();
-    m_helpMenu->Append( wxID_HELP, _( "&Help topics...\tF1" ) );
-    m_helpMenu->Append( ID_RELEASENOTES, _( "&What's new?..." ) );
-    m_helpMenu->Append( wxID_ABOUT, _( "&About Winpinator..." ) );
+    m_helpMenu->Append( wxID_HELP, _( "&Help topics...\tF1" ),
+        _( "Show help and documentation of Winpinator" ) );
+    m_helpMenu->Append( ID_RELEASENOTES, _( "&What's new?..." ),
+        _( "Show release notes" ) );
+    m_helpMenu->Append( wxID_ABOUT, _( "&About Winpinator..." ),
+        _( "Show credits dialog" ) );
 
     m_menuBar->Append( m_helpMenu, _( "&Help" ) );
 
@@ -103,12 +111,20 @@ void WinpinatorFrame::onMenuItemSelected( wxCommandEvent& event )
         onPrefsSelected();
         break;
 
-    case wxID_EXIT:
+    case wxID_CLOSE_FRAME:
         onCloseSelected();
+        break;
+
+    case wxID_EXIT:
+        onExitSelected();
         break;
 
     case wxID_HELP:
         onHelpSelected();
+        break;
+
+    case ID_RELEASENOTES:
+        onShowReleaseNotesSelected();
         break;
 
     case wxID_ABOUT:
@@ -130,7 +146,16 @@ void WinpinatorFrame::onCloseSelected()
     Close();
 }
 
+void WinpinatorFrame::onExitSelected()
+{
+    Close();
+}
+
 void WinpinatorFrame::onHelpSelected()
+{
+}
+
+void WinpinatorFrame::onShowReleaseNotesSelected()
 {
 }
 

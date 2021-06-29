@@ -1,14 +1,14 @@
 #include "winpinator_banner.hpp"
 
 #include "../../win32/resource.h"
-#include "utils.h"
+#include "utils.hpp"
 
 
 namespace gui
 {
 
-wxColour WinpinatorBanner::s_gradient1 = wxColour( 44, 78, 169 );
-wxColour WinpinatorBanner::s_gradient2 = wxColour( 105, 39, 245 );
+wxColour WinpinatorBanner::s_gradient1 = wxColour( 55, 124, 200 );
+wxColour WinpinatorBanner::s_gradient2 = wxColour( 138, 71, 231 );
 
 WinpinatorBanner::WinpinatorBanner( wxWindow* parent, int height )
     : wxPanel( parent, wxID_ANY )

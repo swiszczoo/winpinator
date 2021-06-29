@@ -8,10 +8,10 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="warning.svg"
-   inkscape:export-filename="C:\Users\lukas\Desktop\Projekty\Winpinator\res\warning.png"
-   inkscape:export-xdpi="60"
-   inkscape:export-ydpi="60"
+   sodipodi:docname="unk_profile.svg"
+   inkscape:export-filename="C:\Users\lukas\Desktop\Projekty\Winpinator\res\unk_profile.png"
+   inkscape:export-xdpi="48"
+   inkscape:export-ydpi="48"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -28,9 +28,9 @@
      showgrid="false"
      units="px"
      width="256px"
-     inkscape:zoom="2.4088664"
-     inkscape:cx="91.951966"
-     inkscape:cy="299.93361"
+     inkscape:zoom="1"
+     inkscape:cx="87.5"
+     inkscape:cy="71.5"
      inkscape:window-width="1600"
      inkscape:window-height="837"
      inkscape:window-x="-8"
@@ -81,14 +81,15 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       id="path893"
-       style="opacity:1;fill:#efdab6;fill-opacity:1;stroke:#e4c288;stroke-width:2.11667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:transform-center-y="-8.7890045"
-       d="m 33.866667,7.4995989 30.446005,52.7340301 -60.8920105,-2e-6 z" />
-    <path
-       d="m 35.953186,24.054789 -0.47195,18.51948 h -3.353335 l -0.447112,-18.51948 z m -2.086519,29.001757 c -0.761745,0 -1.415853,-0.264955 -1.962322,-0.794865 -0.52991,-0.52991 -0.794865,-1.175737 -0.794865,-1.937483 0,-0.761744 0.264955,-1.407572 0.794865,-1.937482 0.546469,-0.546468 1.200577,-0.819703 1.962322,-0.819703 0.745186,0 1.391013,0.273235 1.937482,0.819703 0.54647,0.52991 0.819705,1.175738 0.819705,1.937482 0,0.761746 -0.273235,1.407573 -0.819705,1.937483 -0.546469,0.52991 -1.192296,0.794865 -1.937482,0.794865 z"
-       id="path4497"
-       sodipodi:nodetypes="cccccscssscsss"
-       style="font-size:53.3418px;line-height:1.25;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI';fill:#000000;fill-opacity:1;stroke:#e4c288;stroke-width:3.70417;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+       id="rect854"
+       style="font-variation-settings:normal;opacity:1;fill:#92a4ec;fill-opacity:1;stroke:#5b75de;stroke-width:2.11666667;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;stop-color:#000000;stop-opacity:1"
+       d="m 26.957012,37.549129 c -7.589178,0 -13.698906,6.109727 -13.698906,13.698905 0,0.192995 0.0051,0.38467 0.01292,0.575675 -0.0082,0.08889 -0.01292,0.178647 -0.01292,0.269751 v 6.803202 c 0,1.592792 1.282486,2.875277 2.875277,2.875277 h 10.823629 13.81931 10.823631 c 1.592789,0 2.875274,-1.282485 2.875274,-2.875277 V 52.09346 c 0,-0.0911 -0.0047,-0.180861 -0.01291,-0.269751 0.0078,-0.191005 0.01291,-0.38268 0.01291,-0.575675 0,-7.589178 -6.109726,-13.698905 -13.698905,-13.698905 z"
+       sodipodi:nodetypes="sscsssccssscsss" />
+    <circle
+       style="font-variation-settings:normal;opacity:1;fill:#d9c6a5;fill-opacity:1;stroke:#c3a776;stroke-width:2.11667;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;stop-color:#000000;stop-opacity:1"
+       id="path1243"
+       cx="33.866665"
+       cy="24.751116"
+       r="8.8789015" />
   </g>
 </svg>

@@ -790,6 +790,7 @@
 #define VK_NUMPAD4                      0x64
 #define LANG_FILIPINO                   0x64
 #define VS_USER_DEFINED                 100
+#define IDI_WINPINATOR                  100
 #define VK_NUMPAD5                      0x65
 #define LANG_DIVEHI                     0x65
 #define IDB_BLOT                        101
@@ -807,10 +808,13 @@
 #define IDB_WARNING                     106
 #define VK_ADD                          0x6B
 #define LANG_QUECHUA                    0x6b
+#define IDB_INFO                        107
 #define VK_SEPARATOR                    0x6C
 #define LANG_SOTHO                      0x6c
+#define IDB_REFRESH                     108
 #define VK_SUBTRACT                     0x6D
 #define LANG_BASHKIR                    0x6d
+#define IDB_UNK_PROFILE                 109
 #define VK_DECIMAL                      0x6E
 #define LANG_LUXEMBOURGISH              0x6e
 #define VK_DIVIDE                       0x6F
@@ -1514,7 +1518,6 @@
 #define OCR_NORMAL                      32512
 #define OIC_SAMPLE                      32512
 #define IDI_APPLICATION                 32512
-#define IDI_WINPINATOR                  100
 #define OCR_IBEAM                       32513
 #define OIC_HAND                        32513
 #define IDI_HAND                        32513
@@ -1615,7 +1618,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        107
+#define _APS_NEXT_RESOURCE_VALUE        110
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101

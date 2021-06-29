@@ -28,7 +28,9 @@ private:
     void onOpenFolderSelected();
     void onPrefsSelected();
     void onCloseSelected();
+    void onExitSelected();
     void onHelpSelected();
+    void onShowReleaseNotesSelected();
     void onAboutSelected();
 };
 

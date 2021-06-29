@@ -6,6 +6,7 @@
     "grpc",
     "libiconv",
     "libsodium",
+    "wintoast",
     "wxwidgets",
     "zlib"
   ]

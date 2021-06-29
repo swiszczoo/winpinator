@@ -8,8 +8,8 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="warning.svg"
-   inkscape:export-filename="C:\Users\lukas\Desktop\Projekty\Winpinator\res\warning.png"
+   sodipodi:docname="info.svg"
+   inkscape:export-filename="C:\Users\lukas\Desktop\Projekty\Winpinator\res\info.png"
    inkscape:export-xdpi="60"
    inkscape:export-ydpi="60"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -28,9 +28,9 @@
      showgrid="false"
      units="px"
      width="256px"
-     inkscape:zoom="2.4088664"
-     inkscape:cx="91.951966"
-     inkscape:cy="299.93361"
+     inkscape:zoom="3.1289062"
+     inkscape:cx="128"
+     inkscape:cy="101.47316"
      inkscape:window-width="1600"
      inkscape:window-height="837"
      inkscape:window-x="-8"
@@ -80,15 +80,17 @@
      inkscape:label="Warstwa 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <ellipse
+       style="font-variation-settings:normal;opacity:1;fill:#cddaf4;fill-opacity:1;stroke:#9bb5e8;stroke-width:2.11667;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;stop-color:#000000;stop-opacity:1"
+       id="path1035"
+       cx="33.866665"
+       cy="33.866665"
+       rx="28.051159"
+       ry="28.051161" />
     <path
-       id="path893"
-       style="opacity:1;fill:#efdab6;fill-opacity:1;stroke:#e4c288;stroke-width:2.11667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:transform-center-y="-8.7890045"
-       d="m 33.866667,7.4995989 30.446005,52.7340301 -60.8920105,-2e-6 z" />
-    <path
-       d="m 35.953186,24.054789 -0.47195,18.51948 h -3.353335 l -0.447112,-18.51948 z m -2.086519,29.001757 c -0.761745,0 -1.415853,-0.264955 -1.962322,-0.794865 -0.52991,-0.52991 -0.794865,-1.175737 -0.794865,-1.937483 0,-0.761744 0.264955,-1.407572 0.794865,-1.937482 0.546469,-0.546468 1.200577,-0.819703 1.962322,-0.819703 0.745186,0 1.391013,0.273235 1.937482,0.819703 0.54647,0.52991 0.819705,1.175738 0.819705,1.937482 0,0.761746 -0.273235,1.407573 -0.819705,1.937483 -0.546469,0.52991 -1.192296,0.794865 -1.937482,0.794865 z"
-       id="path4497"
+       d="m 32.026746,50.789477 0.07353,-20.260969 h 3.668668 l 0.04635,20.260969 z m 1.839921,-33.84562 c 0.833376,0 1.548994,0.28987 2.14685,0.869611 0.57974,0.57974 0.869611,1.286297 0.869611,2.119674 0,0.833376 -0.289871,1.539935 -0.869611,2.119675 -0.597856,0.597855 -1.313474,0.896784 -2.14685,0.896784 -0.81526,0 -1.521818,-0.298929 -2.119675,-0.896784 -0.597857,-0.57974 -0.896786,-1.286299 -0.896786,-2.119675 0,-0.833377 0.298929,-1.539934 0.896786,-2.119674 0.597857,-0.579741 1.304415,-0.869611 2.119675,-0.869611 z"
+       id="path1766"
        sodipodi:nodetypes="cccccscssscsss"
-       style="font-size:53.3418px;line-height:1.25;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI';fill:#000000;fill-opacity:1;stroke:#e4c288;stroke-width:3.70417;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+       style="font-size:53.3418px;line-height:1.25;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI';fill:#ffffff;fill-opacity:1;stroke:#9bb5e8;stroke-width:4.23333;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
   </g>
 </svg>

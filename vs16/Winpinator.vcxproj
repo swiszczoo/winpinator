@@ -159,7 +159,11 @@
     <ResourceCompile Include="..\win32\winpinator.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\gui\host_listbox.hpp" />
+    <ClInclude Include="..\src\gui\page_hostlist.hpp" />
+    <ClInclude Include="..\src\gui\page_nohosts.hpp" />
     <ClInclude Include="..\src\gui\page_offline.hpp" />
+    <ClInclude Include="..\src\gui\tool_button.hpp" />
     <ClInclude Include="..\win32\resource.h" />
     <ClInclude Include="..\src\gui\page_starting.hpp" />
     <ClInclude Include="..\src\gui\utils.hpp" />
@@ -173,8 +177,12 @@
     <ClInclude Include="..\src\zeroconf\mdns_service.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\gui\host_listbox.cpp" />
+    <ClCompile Include="..\src\gui\page_hostlist.cpp" />
+    <ClCompile Include="..\src\gui\page_nohosts.cpp" />
     <ClCompile Include="..\src\gui\page_offline.cpp" />
     <ClCompile Include="..\src\gui\page_starting.cpp" />
+    <ClCompile Include="..\src\gui\tool_button.cpp" />
     <ClCompile Include="..\src\gui\utils.cpp" />
     <ClCompile Include="..\src\gui\winpinator_app.cpp" />
     <ClCompile Include="..\src\gui\winpinator_banner.cpp" />
@@ -191,6 +199,9 @@
   <ItemGroup>
     <Image Include="..\res\blot.png" />
     <Image Include="..\res\icon.ico" />
+    <Image Include="..\res\info.png" />
+    <Image Include="..\res\refresh.png" />
+    <Image Include="..\res\unk_profile.png" />
     <Image Include="..\res\warning.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

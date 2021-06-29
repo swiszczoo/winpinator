@@ -94,6 +94,18 @@
     <ClInclude Include="..\src\gui\page_offline.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\page_nohosts.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\page_hostlist.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\tool_button.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\host_listbox.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -129,6 +141,18 @@
     <ClCompile Include="..\src\gui\page_offline.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\gui\page_nohosts.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\page_hostlist.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\tool_button.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\host_listbox.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\win32\manifest.manifest">
@@ -143,6 +167,15 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\res\warning.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\info.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\refresh.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\unk_profile.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
