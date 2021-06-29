@@ -26,8 +26,6 @@
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 
-namespace proto {
-
 // ************ Important! ***************
 //
 // If you change anything here, you *must* run 'generate-protobuf' to update the
@@ -38,155 +36,155 @@ namespace proto {
 class Warp final {
  public:
   static constexpr char const* service_full_name() {
-    return "proto.Warp";
+    return "Warp";
   }
   class StubInterface {
    public:
     virtual ~StubInterface() {}
     // Sender methods
     // api v1 duplex method (ping style)
-    virtual ::grpc::Status CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::HaveDuplex* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>> AsyncCheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>>(AsyncCheckDuplexConnectionRaw(context, request, cq));
+    virtual ::grpc::Status CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::HaveDuplex* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>> AsyncCheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>>(AsyncCheckDuplexConnectionRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>> PrepareAsyncCheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>>(PrepareAsyncCheckDuplexConnectionRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>> PrepareAsyncCheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>>(PrepareAsyncCheckDuplexConnectionRaw(context, request, cq));
     }
     // api v2 duplex method (block/future)
-    virtual ::grpc::Status WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::HaveDuplex* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>> AsyncWaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>>(AsyncWaitingForDuplexRaw(context, request, cq));
+    virtual ::grpc::Status WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName& request, ::HaveDuplex* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>> AsyncWaitingForDuplex(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>>(AsyncWaitingForDuplexRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>> PrepareAsyncWaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>>(PrepareAsyncWaitingForDuplexRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>> PrepareAsyncWaitingForDuplex(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>>(PrepareAsyncWaitingForDuplexRaw(context, request, cq));
     }
-    virtual ::grpc::Status GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::RemoteMachineInfo* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::RemoteMachineInfo>> AsyncGetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::RemoteMachineInfo>>(AsyncGetRemoteMachineInfoRaw(context, request, cq));
+    virtual ::grpc::Status GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName& request, ::RemoteMachineInfo* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RemoteMachineInfo>> AsyncGetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RemoteMachineInfo>>(AsyncGetRemoteMachineInfoRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::RemoteMachineInfo>> PrepareAsyncGetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::RemoteMachineInfo>>(PrepareAsyncGetRemoteMachineInfoRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RemoteMachineInfo>> PrepareAsyncGetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RemoteMachineInfo>>(PrepareAsyncGetRemoteMachineInfoRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientReaderInterface< ::proto::RemoteMachineAvatar>> GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName& request) {
-      return std::unique_ptr< ::grpc::ClientReaderInterface< ::proto::RemoteMachineAvatar>>(GetRemoteMachineAvatarRaw(context, request));
+    std::unique_ptr< ::grpc::ClientReaderInterface< ::RemoteMachineAvatar>> GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName& request) {
+      return std::unique_ptr< ::grpc::ClientReaderInterface< ::RemoteMachineAvatar>>(GetRemoteMachineAvatarRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::proto::RemoteMachineAvatar>> AsyncGetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::proto::RemoteMachineAvatar>>(AsyncGetRemoteMachineAvatarRaw(context, request, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::RemoteMachineAvatar>> AsyncGetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::RemoteMachineAvatar>>(AsyncGetRemoteMachineAvatarRaw(context, request, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::proto::RemoteMachineAvatar>> PrepareAsyncGetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::proto::RemoteMachineAvatar>>(PrepareAsyncGetRemoteMachineAvatarRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::RemoteMachineAvatar>> PrepareAsyncGetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::RemoteMachineAvatar>>(PrepareAsyncGetRemoteMachineAvatarRaw(context, request, cq));
     }
-    virtual ::grpc::Status ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::proto::VoidType* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> AsyncProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(AsyncProcessTransferOpRequestRaw(context, request, cq));
+    virtual ::grpc::Status ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::VoidType* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> AsyncProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(AsyncProcessTransferOpRequestRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> PrepareAsyncProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(PrepareAsyncProcessTransferOpRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> PrepareAsyncProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(PrepareAsyncProcessTransferOpRequestRaw(context, request, cq));
     }
-    virtual ::grpc::Status PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::proto::VoidType* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> AsyncPauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(AsyncPauseTransferOpRaw(context, request, cq));
+    virtual ::grpc::Status PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo& request, ::VoidType* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> AsyncPauseTransferOp(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(AsyncPauseTransferOpRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> PrepareAsyncPauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(PrepareAsyncPauseTransferOpRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> PrepareAsyncPauseTransferOp(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(PrepareAsyncPauseTransferOpRaw(context, request, cq));
     }
     // Receiver methods
-    std::unique_ptr< ::grpc::ClientReaderInterface< ::proto::FileChunk>> StartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo& request) {
-      return std::unique_ptr< ::grpc::ClientReaderInterface< ::proto::FileChunk>>(StartTransferRaw(context, request));
+    std::unique_ptr< ::grpc::ClientReaderInterface< ::FileChunk>> StartTransfer(::grpc::ClientContext* context, const ::OpInfo& request) {
+      return std::unique_ptr< ::grpc::ClientReaderInterface< ::FileChunk>>(StartTransferRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::proto::FileChunk>> AsyncStartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::proto::FileChunk>>(AsyncStartTransferRaw(context, request, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::FileChunk>> AsyncStartTransfer(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::FileChunk>>(AsyncStartTransferRaw(context, request, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::proto::FileChunk>> PrepareAsyncStartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::proto::FileChunk>>(PrepareAsyncStartTransferRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::FileChunk>> PrepareAsyncStartTransfer(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::FileChunk>>(PrepareAsyncStartTransferRaw(context, request, cq));
     }
     // Both
-    virtual ::grpc::Status CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::proto::VoidType* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> AsyncCancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(AsyncCancelTransferOpRequestRaw(context, request, cq));
+    virtual ::grpc::Status CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo& request, ::VoidType* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> AsyncCancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(AsyncCancelTransferOpRequestRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> PrepareAsyncCancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(PrepareAsyncCancelTransferOpRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> PrepareAsyncCancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(PrepareAsyncCancelTransferOpRequestRaw(context, request, cq));
     }
-    virtual ::grpc::Status StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::proto::VoidType* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> AsyncStopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(AsyncStopTransferRaw(context, request, cq));
+    virtual ::grpc::Status StopTransfer(::grpc::ClientContext* context, const ::StopInfo& request, ::VoidType* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> AsyncStopTransfer(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(AsyncStopTransferRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> PrepareAsyncStopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(PrepareAsyncStopTransferRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> PrepareAsyncStopTransfer(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(PrepareAsyncStopTransferRaw(context, request, cq));
     }
-    virtual ::grpc::Status Ping(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::VoidType* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> AsyncPing(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(AsyncPingRaw(context, request, cq));
+    virtual ::grpc::Status Ping(::grpc::ClientContext* context, const ::LookupName& request, ::VoidType* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> AsyncPing(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(AsyncPingRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>> PrepareAsyncPing(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>>(PrepareAsyncPingRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> PrepareAsyncPing(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(PrepareAsyncPingRaw(context, request, cq));
     }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
       // Sender methods
       // api v1 duplex method (ping style)
-      virtual void CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // api v2 duplex method (block/future)
-      virtual void WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
-      virtual void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName* request, ::grpc::ClientReadReactor< ::proto::RemoteMachineAvatar>* reactor) = 0;
+      virtual void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::ClientReadReactor< ::RemoteMachineAvatar>* reactor) = 0;
       #else
-      virtual void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName* request, ::grpc::experimental::ClientReadReactor< ::proto::RemoteMachineAvatar>* reactor) = 0;
+      virtual void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::experimental::ClientReadReactor< ::RemoteMachineAvatar>* reactor) = 0;
       #endif
-      virtual void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
-      virtual void PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Receiver methods
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void StartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::grpc::ClientReadReactor< ::proto::FileChunk>* reactor) = 0;
+      virtual void StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::ClientReadReactor< ::FileChunk>* reactor) = 0;
       #else
-      virtual void StartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::grpc::experimental::ClientReadReactor< ::proto::FileChunk>* reactor) = 0;
+      virtual void StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::experimental::ClientReadReactor< ::FileChunk>* reactor) = 0;
       #endif
       // Both
-      virtual void CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
-      virtual void StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
-      virtual void Ping(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void Ping(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void Ping(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -197,166 +195,166 @@ class Warp final {
     #endif
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>* AsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>* PrepareAsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>* AsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::HaveDuplex>* PrepareAsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::RemoteMachineInfo>* AsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::RemoteMachineInfo>* PrepareAsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientReaderInterface< ::proto::RemoteMachineAvatar>* GetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::proto::LookupName& request) = 0;
-    virtual ::grpc::ClientAsyncReaderInterface< ::proto::RemoteMachineAvatar>* AsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncReaderInterface< ::proto::RemoteMachineAvatar>* PrepareAsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* AsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* PrepareAsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* AsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* PrepareAsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientReaderInterface< ::proto::FileChunk>* StartTransferRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request) = 0;
-    virtual ::grpc::ClientAsyncReaderInterface< ::proto::FileChunk>* AsyncStartTransferRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncReaderInterface< ::proto::FileChunk>* PrepareAsyncStartTransferRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* AsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* PrepareAsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* AsyncStopTransferRaw(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* PrepareAsyncStopTransferRaw(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* AsyncPingRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::VoidType>* PrepareAsyncPingRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>* AsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>* PrepareAsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>* AsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>* PrepareAsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::RemoteMachineInfo>* AsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::RemoteMachineInfo>* PrepareAsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderInterface< ::RemoteMachineAvatar>* GetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::LookupName& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::RemoteMachineAvatar>* AsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::RemoteMachineAvatar>* PrepareAsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* AsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* PrepareAsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* AsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* PrepareAsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderInterface< ::FileChunk>* StartTransferRaw(::grpc::ClientContext* context, const ::OpInfo& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::FileChunk>* AsyncStartTransferRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::FileChunk>* PrepareAsyncStartTransferRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* AsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* PrepareAsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* AsyncStopTransferRaw(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* PrepareAsyncStopTransferRaw(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* AsyncPingRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>* PrepareAsyncPingRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::HaveDuplex* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>> AsyncCheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>>(AsyncCheckDuplexConnectionRaw(context, request, cq));
+    ::grpc::Status CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::HaveDuplex* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>> AsyncCheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>>(AsyncCheckDuplexConnectionRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>> PrepareAsyncCheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>>(PrepareAsyncCheckDuplexConnectionRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>> PrepareAsyncCheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>>(PrepareAsyncCheckDuplexConnectionRaw(context, request, cq));
     }
-    ::grpc::Status WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::HaveDuplex* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>> AsyncWaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>>(AsyncWaitingForDuplexRaw(context, request, cq));
+    ::grpc::Status WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName& request, ::HaveDuplex* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>> AsyncWaitingForDuplex(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>>(AsyncWaitingForDuplexRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>> PrepareAsyncWaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>>(PrepareAsyncWaitingForDuplexRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>> PrepareAsyncWaitingForDuplex(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>>(PrepareAsyncWaitingForDuplexRaw(context, request, cq));
     }
-    ::grpc::Status GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::RemoteMachineInfo* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::RemoteMachineInfo>> AsyncGetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::RemoteMachineInfo>>(AsyncGetRemoteMachineInfoRaw(context, request, cq));
+    ::grpc::Status GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName& request, ::RemoteMachineInfo* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RemoteMachineInfo>> AsyncGetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RemoteMachineInfo>>(AsyncGetRemoteMachineInfoRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::RemoteMachineInfo>> PrepareAsyncGetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::RemoteMachineInfo>>(PrepareAsyncGetRemoteMachineInfoRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RemoteMachineInfo>> PrepareAsyncGetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RemoteMachineInfo>>(PrepareAsyncGetRemoteMachineInfoRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientReader< ::proto::RemoteMachineAvatar>> GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName& request) {
-      return std::unique_ptr< ::grpc::ClientReader< ::proto::RemoteMachineAvatar>>(GetRemoteMachineAvatarRaw(context, request));
+    std::unique_ptr< ::grpc::ClientReader< ::RemoteMachineAvatar>> GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName& request) {
+      return std::unique_ptr< ::grpc::ClientReader< ::RemoteMachineAvatar>>(GetRemoteMachineAvatarRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReader< ::proto::RemoteMachineAvatar>> AsyncGetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReader< ::proto::RemoteMachineAvatar>>(AsyncGetRemoteMachineAvatarRaw(context, request, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::RemoteMachineAvatar>> AsyncGetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::RemoteMachineAvatar>>(AsyncGetRemoteMachineAvatarRaw(context, request, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReader< ::proto::RemoteMachineAvatar>> PrepareAsyncGetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncReader< ::proto::RemoteMachineAvatar>>(PrepareAsyncGetRemoteMachineAvatarRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::RemoteMachineAvatar>> PrepareAsyncGetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::RemoteMachineAvatar>>(PrepareAsyncGetRemoteMachineAvatarRaw(context, request, cq));
     }
-    ::grpc::Status ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::proto::VoidType* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> AsyncProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(AsyncProcessTransferOpRequestRaw(context, request, cq));
+    ::grpc::Status ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::VoidType* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> AsyncProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(AsyncProcessTransferOpRequestRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> PrepareAsyncProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(PrepareAsyncProcessTransferOpRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> PrepareAsyncProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(PrepareAsyncProcessTransferOpRequestRaw(context, request, cq));
     }
-    ::grpc::Status PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::proto::VoidType* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> AsyncPauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(AsyncPauseTransferOpRaw(context, request, cq));
+    ::grpc::Status PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo& request, ::VoidType* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> AsyncPauseTransferOp(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(AsyncPauseTransferOpRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> PrepareAsyncPauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(PrepareAsyncPauseTransferOpRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> PrepareAsyncPauseTransferOp(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(PrepareAsyncPauseTransferOpRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientReader< ::proto::FileChunk>> StartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo& request) {
-      return std::unique_ptr< ::grpc::ClientReader< ::proto::FileChunk>>(StartTransferRaw(context, request));
+    std::unique_ptr< ::grpc::ClientReader< ::FileChunk>> StartTransfer(::grpc::ClientContext* context, const ::OpInfo& request) {
+      return std::unique_ptr< ::grpc::ClientReader< ::FileChunk>>(StartTransferRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReader< ::proto::FileChunk>> AsyncStartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReader< ::proto::FileChunk>>(AsyncStartTransferRaw(context, request, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::FileChunk>> AsyncStartTransfer(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::FileChunk>>(AsyncStartTransferRaw(context, request, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReader< ::proto::FileChunk>> PrepareAsyncStartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncReader< ::proto::FileChunk>>(PrepareAsyncStartTransferRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::FileChunk>> PrepareAsyncStartTransfer(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::FileChunk>>(PrepareAsyncStartTransferRaw(context, request, cq));
     }
-    ::grpc::Status CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::proto::VoidType* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> AsyncCancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(AsyncCancelTransferOpRequestRaw(context, request, cq));
+    ::grpc::Status CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo& request, ::VoidType* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> AsyncCancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(AsyncCancelTransferOpRequestRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> PrepareAsyncCancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(PrepareAsyncCancelTransferOpRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> PrepareAsyncCancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(PrepareAsyncCancelTransferOpRequestRaw(context, request, cq));
     }
-    ::grpc::Status StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::proto::VoidType* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> AsyncStopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(AsyncStopTransferRaw(context, request, cq));
+    ::grpc::Status StopTransfer(::grpc::ClientContext* context, const ::StopInfo& request, ::VoidType* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> AsyncStopTransfer(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(AsyncStopTransferRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> PrepareAsyncStopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(PrepareAsyncStopTransferRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> PrepareAsyncStopTransfer(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(PrepareAsyncStopTransferRaw(context, request, cq));
     }
-    ::grpc::Status Ping(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::VoidType* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> AsyncPing(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(AsyncPingRaw(context, request, cq));
+    ::grpc::Status Ping(::grpc::ClientContext* context, const ::LookupName& request, ::VoidType* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> AsyncPing(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(AsyncPingRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>> PrepareAsyncPing(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::VoidType>>(PrepareAsyncPingRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> PrepareAsyncPing(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(PrepareAsyncPingRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
-      void CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, std::function<void(::grpc::Status)>) override;
+      void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
-      void WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, std::function<void(::grpc::Status)>) override;
+      void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
-      void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response, std::function<void(::grpc::Status)>) override;
+      void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName* request, ::grpc::ClientReadReactor< ::proto::RemoteMachineAvatar>* reactor) override;
-      #else
-      void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName* request, ::grpc::experimental::ClientReadReactor< ::proto::RemoteMachineAvatar>* reactor) override;
-      #endif
-      void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      void PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void StartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::grpc::ClientReadReactor< ::proto::FileChunk>* reactor) override;
+      void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::ClientReadReactor< ::RemoteMachineAvatar>* reactor) override;
       #else
-      void StartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::grpc::experimental::ClientReadReactor< ::proto::FileChunk>* reactor) override;
+      void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::experimental::ClientReadReactor< ::RemoteMachineAvatar>* reactor) override;
       #endif
-      void CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) override;
+      void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
-      void StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) override;
+      void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
-      void Ping(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::VoidType* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void Ping(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::ClientReadReactor< ::FileChunk>* reactor) override;
       #else
-      void Ping(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::experimental::ClientReadReactor< ::FileChunk>* reactor) override;
+      #endif
+      void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
      private:
       friend class Stub;
@@ -369,28 +367,28 @@ class Warp final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class experimental_async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>* AsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>* PrepareAsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>* AsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>* PrepareAsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::RemoteMachineInfo>* AsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::RemoteMachineInfo>* PrepareAsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientReader< ::proto::RemoteMachineAvatar>* GetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::proto::LookupName& request) override;
-    ::grpc::ClientAsyncReader< ::proto::RemoteMachineAvatar>* AsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) override;
-    ::grpc::ClientAsyncReader< ::proto::RemoteMachineAvatar>* PrepareAsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* AsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* PrepareAsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* AsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* PrepareAsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientReader< ::proto::FileChunk>* StartTransferRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request) override;
-    ::grpc::ClientAsyncReader< ::proto::FileChunk>* AsyncStartTransferRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) override;
-    ::grpc::ClientAsyncReader< ::proto::FileChunk>* PrepareAsyncStartTransferRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* AsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* PrepareAsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* AsyncStopTransferRaw(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* PrepareAsyncStopTransferRaw(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* AsyncPingRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::VoidType>* PrepareAsyncPingRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::HaveDuplex>* AsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::HaveDuplex>* PrepareAsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::HaveDuplex>* AsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::HaveDuplex>* PrepareAsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::RemoteMachineInfo>* AsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::RemoteMachineInfo>* PrepareAsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientReader< ::RemoteMachineAvatar>* GetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::LookupName& request) override;
+    ::grpc::ClientAsyncReader< ::RemoteMachineAvatar>* AsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReader< ::RemoteMachineAvatar>* PrepareAsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* AsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* PrepareAsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* AsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* PrepareAsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientReader< ::FileChunk>* StartTransferRaw(::grpc::ClientContext* context, const ::OpInfo& request) override;
+    ::grpc::ClientAsyncReader< ::FileChunk>* AsyncStartTransferRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReader< ::FileChunk>* PrepareAsyncStartTransferRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* AsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* PrepareAsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* AsyncStopTransferRaw(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* PrepareAsyncStopTransferRaw(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* AsyncPingRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::VoidType>* PrepareAsyncPingRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_CheckDuplexConnection_;
     const ::grpc::internal::RpcMethod rpcmethod_WaitingForDuplex_;
     const ::grpc::internal::RpcMethod rpcmethod_GetRemoteMachineInfo_;
@@ -410,19 +408,19 @@ class Warp final {
     virtual ~Service();
     // Sender methods
     // api v1 duplex method (ping style)
-    virtual ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response);
+    virtual ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* context, const ::LookupName* request, ::HaveDuplex* response);
     // api v2 duplex method (block/future)
-    virtual ::grpc::Status WaitingForDuplex(::grpc::ServerContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response);
-    virtual ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response);
-    virtual ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* context, const ::proto::LookupName* request, ::grpc::ServerWriter< ::proto::RemoteMachineAvatar>* writer);
-    virtual ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response);
-    virtual ::grpc::Status PauseTransferOp(::grpc::ServerContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response);
+    virtual ::grpc::Status WaitingForDuplex(::grpc::ServerContext* context, const ::LookupName* request, ::HaveDuplex* response);
+    virtual ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* context, const ::LookupName* request, ::RemoteMachineInfo* response);
+    virtual ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* context, const ::LookupName* request, ::grpc::ServerWriter< ::RemoteMachineAvatar>* writer);
+    virtual ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* context, const ::TransferOpRequest* request, ::VoidType* response);
+    virtual ::grpc::Status PauseTransferOp(::grpc::ServerContext* context, const ::OpInfo* request, ::VoidType* response);
     // Receiver methods
-    virtual ::grpc::Status StartTransfer(::grpc::ServerContext* context, const ::proto::OpInfo* request, ::grpc::ServerWriter< ::proto::FileChunk>* writer);
+    virtual ::grpc::Status StartTransfer(::grpc::ServerContext* context, const ::OpInfo* request, ::grpc::ServerWriter< ::FileChunk>* writer);
     // Both
-    virtual ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response);
-    virtual ::grpc::Status StopTransfer(::grpc::ServerContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response);
-    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::proto::LookupName* request, ::proto::VoidType* response);
+    virtual ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* context, const ::OpInfo* request, ::VoidType* response);
+    virtual ::grpc::Status StopTransfer(::grpc::ServerContext* context, const ::StopInfo* request, ::VoidType* response);
+    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::LookupName* request, ::VoidType* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_CheckDuplexConnection : public BaseClass {
@@ -436,11 +434,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCheckDuplexConnection(::grpc::ServerContext* context, ::proto::LookupName* request, ::grpc::ServerAsyncResponseWriter< ::proto::HaveDuplex>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestCheckDuplexConnection(::grpc::ServerContext* context, ::LookupName* request, ::grpc::ServerAsyncResponseWriter< ::HaveDuplex>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -456,11 +454,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestWaitingForDuplex(::grpc::ServerContext* context, ::proto::LookupName* request, ::grpc::ServerAsyncResponseWriter< ::proto::HaveDuplex>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestWaitingForDuplex(::grpc::ServerContext* context, ::LookupName* request, ::grpc::ServerAsyncResponseWriter< ::HaveDuplex>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -476,11 +474,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::RemoteMachineInfo* /*response*/) override {
+    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGetRemoteMachineInfo(::grpc::ServerContext* context, ::proto::LookupName* request, ::grpc::ServerAsyncResponseWriter< ::proto::RemoteMachineInfo>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGetRemoteMachineInfo(::grpc::ServerContext* context, ::LookupName* request, ::grpc::ServerAsyncResponseWriter< ::RemoteMachineInfo>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -496,11 +494,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::grpc::ServerWriter< ::proto::RemoteMachineAvatar>* /*writer*/) override {
+    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::grpc::ServerWriter< ::RemoteMachineAvatar>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGetRemoteMachineAvatar(::grpc::ServerContext* context, ::proto::LookupName* request, ::grpc::ServerAsyncWriter< ::proto::RemoteMachineAvatar>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGetRemoteMachineAvatar(::grpc::ServerContext* context, ::LookupName* request, ::grpc::ServerAsyncWriter< ::RemoteMachineAvatar>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncServerStreaming(3, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
@@ -516,11 +514,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::TransferOpRequest* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestProcessTransferOpRequest(::grpc::ServerContext* context, ::proto::TransferOpRequest* request, ::grpc::ServerAsyncResponseWriter< ::proto::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestProcessTransferOpRequest(::grpc::ServerContext* context, ::TransferOpRequest* request, ::grpc::ServerAsyncResponseWriter< ::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -536,11 +534,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestPauseTransferOp(::grpc::ServerContext* context, ::proto::OpInfo* request, ::grpc::ServerAsyncResponseWriter< ::proto::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestPauseTransferOp(::grpc::ServerContext* context, ::OpInfo* request, ::grpc::ServerAsyncResponseWriter< ::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -556,11 +554,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::grpc::ServerWriter< ::proto::FileChunk>* /*writer*/) override {
+    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::grpc::ServerWriter< ::FileChunk>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestStartTransfer(::grpc::ServerContext* context, ::proto::OpInfo* request, ::grpc::ServerAsyncWriter< ::proto::FileChunk>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestStartTransfer(::grpc::ServerContext* context, ::OpInfo* request, ::grpc::ServerAsyncWriter< ::FileChunk>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncServerStreaming(6, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
@@ -576,11 +574,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCancelTransferOpRequest(::grpc::ServerContext* context, ::proto::OpInfo* request, ::grpc::ServerAsyncResponseWriter< ::proto::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestCancelTransferOpRequest(::grpc::ServerContext* context, ::OpInfo* request, ::grpc::ServerAsyncResponseWriter< ::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -596,11 +594,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::proto::StopInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestStopTransfer(::grpc::ServerContext* context, ::proto::StopInfo* request, ::grpc::ServerAsyncResponseWriter< ::proto::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestStopTransfer(::grpc::ServerContext* context, ::StopInfo* request, ::grpc::ServerAsyncResponseWriter< ::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -616,11 +614,11 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestPing(::grpc::ServerContext* context, ::proto::LookupName* request, ::grpc::ServerAsyncResponseWriter< ::proto::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestPing(::grpc::ServerContext* context, ::LookupName* request, ::grpc::ServerAsyncResponseWriter< ::VoidType>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -637,38 +635,38 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::proto::LookupName, ::proto::HaveDuplex>(
+          new ::grpc::internal::CallbackUnaryHandler< ::LookupName, ::HaveDuplex>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::LookupName* request, ::proto::HaveDuplex* response) { return this->CheckDuplexConnection(context, request, response); }));}
+                     context, const ::LookupName* request, ::HaveDuplex* response) { return this->CheckDuplexConnection(context, request, response); }));}
     void SetMessageAllocatorFor_CheckDuplexConnection(
-        ::grpc::experimental::MessageAllocator< ::proto::LookupName, ::proto::HaveDuplex>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::LookupName, ::HaveDuplex>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::proto::LookupName, ::proto::HaveDuplex>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::LookupName, ::HaveDuplex>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_CheckDuplexConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CheckDuplexConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* CheckDuplexConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -684,38 +682,38 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(1,
-          new ::grpc::internal::CallbackUnaryHandler< ::proto::LookupName, ::proto::HaveDuplex>(
+          new ::grpc::internal::CallbackUnaryHandler< ::LookupName, ::HaveDuplex>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::LookupName* request, ::proto::HaveDuplex* response) { return this->WaitingForDuplex(context, request, response); }));}
+                     context, const ::LookupName* request, ::HaveDuplex* response) { return this->WaitingForDuplex(context, request, response); }));}
     void SetMessageAllocatorFor_WaitingForDuplex(
-        ::grpc::experimental::MessageAllocator< ::proto::LookupName, ::proto::HaveDuplex>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::LookupName, ::HaveDuplex>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::proto::LookupName, ::proto::HaveDuplex>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::LookupName, ::HaveDuplex>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_WaitingForDuplex() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* WaitingForDuplex(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* WaitingForDuplex(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -731,38 +729,38 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(2,
-          new ::grpc::internal::CallbackUnaryHandler< ::proto::LookupName, ::proto::RemoteMachineInfo>(
+          new ::grpc::internal::CallbackUnaryHandler< ::LookupName, ::RemoteMachineInfo>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response) { return this->GetRemoteMachineInfo(context, request, response); }));}
+                     context, const ::LookupName* request, ::RemoteMachineInfo* response) { return this->GetRemoteMachineInfo(context, request, response); }));}
     void SetMessageAllocatorFor_GetRemoteMachineInfo(
-        ::grpc::experimental::MessageAllocator< ::proto::LookupName, ::proto::RemoteMachineInfo>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::LookupName, ::RemoteMachineInfo>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::proto::LookupName, ::proto::RemoteMachineInfo>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::LookupName, ::RemoteMachineInfo>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_GetRemoteMachineInfo() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::RemoteMachineInfo* /*response*/) override {
+    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetRemoteMachineInfo(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::RemoteMachineInfo* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* GetRemoteMachineInfo(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::RemoteMachineInfo* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -778,29 +776,29 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(3,
-          new ::grpc::internal::CallbackServerStreamingHandler< ::proto::LookupName, ::proto::RemoteMachineAvatar>(
+          new ::grpc::internal::CallbackServerStreamingHandler< ::LookupName, ::RemoteMachineAvatar>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::LookupName* request) { return this->GetRemoteMachineAvatar(context, request); }));
+                     context, const ::LookupName* request) { return this->GetRemoteMachineAvatar(context, request); }));
     }
     ~ExperimentalWithCallbackMethod_GetRemoteMachineAvatar() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::grpc::ServerWriter< ::proto::RemoteMachineAvatar>* /*writer*/) override {
+    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::grpc::ServerWriter< ::RemoteMachineAvatar>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerWriteReactor< ::proto::RemoteMachineAvatar>* GetRemoteMachineAvatar(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/)
+    virtual ::grpc::ServerWriteReactor< ::RemoteMachineAvatar>* GetRemoteMachineAvatar(
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/)
     #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::proto::RemoteMachineAvatar>* GetRemoteMachineAvatar(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/)
+    virtual ::grpc::experimental::ServerWriteReactor< ::RemoteMachineAvatar>* GetRemoteMachineAvatar(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/)
     #endif
       { return nullptr; }
   };
@@ -816,38 +814,38 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(4,
-          new ::grpc::internal::CallbackUnaryHandler< ::proto::TransferOpRequest, ::proto::VoidType>(
+          new ::grpc::internal::CallbackUnaryHandler< ::TransferOpRequest, ::VoidType>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response) { return this->ProcessTransferOpRequest(context, request, response); }));}
+                     context, const ::TransferOpRequest* request, ::VoidType* response) { return this->ProcessTransferOpRequest(context, request, response); }));}
     void SetMessageAllocatorFor_ProcessTransferOpRequest(
-        ::grpc::experimental::MessageAllocator< ::proto::TransferOpRequest, ::proto::VoidType>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::TransferOpRequest, ::VoidType>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::proto::TransferOpRequest, ::proto::VoidType>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::TransferOpRequest, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_ProcessTransferOpRequest() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::TransferOpRequest* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ProcessTransferOpRequest(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::TransferOpRequest* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* ProcessTransferOpRequest(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::TransferOpRequest* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -863,38 +861,38 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(5,
-          new ::grpc::internal::CallbackUnaryHandler< ::proto::OpInfo, ::proto::VoidType>(
+          new ::grpc::internal::CallbackUnaryHandler< ::OpInfo, ::VoidType>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::OpInfo* request, ::proto::VoidType* response) { return this->PauseTransferOp(context, request, response); }));}
+                     context, const ::OpInfo* request, ::VoidType* response) { return this->PauseTransferOp(context, request, response); }));}
     void SetMessageAllocatorFor_PauseTransferOp(
-        ::grpc::experimental::MessageAllocator< ::proto::OpInfo, ::proto::VoidType>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::OpInfo, ::VoidType>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::proto::OpInfo, ::proto::VoidType>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::OpInfo, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_PauseTransferOp() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PauseTransferOp(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* PauseTransferOp(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -910,29 +908,29 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(6,
-          new ::grpc::internal::CallbackServerStreamingHandler< ::proto::OpInfo, ::proto::FileChunk>(
+          new ::grpc::internal::CallbackServerStreamingHandler< ::OpInfo, ::FileChunk>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::OpInfo* request) { return this->StartTransfer(context, request); }));
+                     context, const ::OpInfo* request) { return this->StartTransfer(context, request); }));
     }
     ~ExperimentalWithCallbackMethod_StartTransfer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::grpc::ServerWriter< ::proto::FileChunk>* /*writer*/) override {
+    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::grpc::ServerWriter< ::FileChunk>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerWriteReactor< ::proto::FileChunk>* StartTransfer(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::OpInfo* /*request*/)
+    virtual ::grpc::ServerWriteReactor< ::FileChunk>* StartTransfer(
+      ::grpc::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/)
     #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::proto::FileChunk>* StartTransfer(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::OpInfo* /*request*/)
+    virtual ::grpc::experimental::ServerWriteReactor< ::FileChunk>* StartTransfer(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/)
     #endif
       { return nullptr; }
   };
@@ -948,38 +946,38 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(7,
-          new ::grpc::internal::CallbackUnaryHandler< ::proto::OpInfo, ::proto::VoidType>(
+          new ::grpc::internal::CallbackUnaryHandler< ::OpInfo, ::VoidType>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::OpInfo* request, ::proto::VoidType* response) { return this->CancelTransferOpRequest(context, request, response); }));}
+                     context, const ::OpInfo* request, ::VoidType* response) { return this->CancelTransferOpRequest(context, request, response); }));}
     void SetMessageAllocatorFor_CancelTransferOpRequest(
-        ::grpc::experimental::MessageAllocator< ::proto::OpInfo, ::proto::VoidType>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::OpInfo, ::VoidType>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::proto::OpInfo, ::proto::VoidType>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::OpInfo, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_CancelTransferOpRequest() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CancelTransferOpRequest(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* CancelTransferOpRequest(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -995,38 +993,38 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(8,
-          new ::grpc::internal::CallbackUnaryHandler< ::proto::StopInfo, ::proto::VoidType>(
+          new ::grpc::internal::CallbackUnaryHandler< ::StopInfo, ::VoidType>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::StopInfo* request, ::proto::VoidType* response) { return this->StopTransfer(context, request, response); }));}
+                     context, const ::StopInfo* request, ::VoidType* response) { return this->StopTransfer(context, request, response); }));}
     void SetMessageAllocatorFor_StopTransfer(
-        ::grpc::experimental::MessageAllocator< ::proto::StopInfo, ::proto::VoidType>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::StopInfo, ::VoidType>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::proto::StopInfo, ::proto::VoidType>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::StopInfo, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_StopTransfer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::proto::StopInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* StopTransfer(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::StopInfo* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* StopTransfer(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::StopInfo* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -1042,38 +1040,38 @@ class Warp final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(9,
-          new ::grpc::internal::CallbackUnaryHandler< ::proto::LookupName, ::proto::VoidType>(
+          new ::grpc::internal::CallbackUnaryHandler< ::LookupName, ::VoidType>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::LookupName* request, ::proto::VoidType* response) { return this->Ping(context, request, response); }));}
+                     context, const ::LookupName* request, ::VoidType* response) { return this->Ping(context, request, response); }));}
     void SetMessageAllocatorFor_Ping(
-        ::grpc::experimental::MessageAllocator< ::proto::LookupName, ::proto::VoidType>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::LookupName, ::VoidType>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::proto::LookupName, ::proto::VoidType>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::LookupName, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_Ping() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Ping(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* Ping(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::VoidType* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -1094,7 +1092,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1111,7 +1109,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1128,7 +1126,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::RemoteMachineInfo* /*response*/) override {
+    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1145,7 +1143,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::grpc::ServerWriter< ::proto::RemoteMachineAvatar>* /*writer*/) override {
+    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::grpc::ServerWriter< ::RemoteMachineAvatar>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1162,7 +1160,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::TransferOpRequest* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1179,7 +1177,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1196,7 +1194,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::grpc::ServerWriter< ::proto::FileChunk>* /*writer*/) override {
+    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::grpc::ServerWriter< ::FileChunk>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1213,7 +1211,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1230,7 +1228,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::proto::StopInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1247,7 +1245,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1264,7 +1262,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1284,7 +1282,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1304,7 +1302,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::RemoteMachineInfo* /*response*/) override {
+    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1324,7 +1322,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::grpc::ServerWriter< ::proto::RemoteMachineAvatar>* /*writer*/) override {
+    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::grpc::ServerWriter< ::RemoteMachineAvatar>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1344,7 +1342,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::TransferOpRequest* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1364,7 +1362,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1384,7 +1382,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::grpc::ServerWriter< ::proto::FileChunk>* /*writer*/) override {
+    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::grpc::ServerWriter< ::FileChunk>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1404,7 +1402,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1424,7 +1422,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::proto::StopInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1444,7 +1442,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1477,7 +1475,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1515,7 +1513,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1553,7 +1551,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::RemoteMachineInfo* /*response*/) override {
+    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1591,7 +1589,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::grpc::ServerWriter< ::proto::RemoteMachineAvatar>* /*writer*/) override {
+    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::grpc::ServerWriter< ::RemoteMachineAvatar>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1629,7 +1627,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::TransferOpRequest* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1667,7 +1665,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1705,7 +1703,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::grpc::ServerWriter< ::proto::FileChunk>* /*writer*/) override {
+    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::grpc::ServerWriter< ::FileChunk>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1743,7 +1741,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1781,7 +1779,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::proto::StopInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1819,7 +1817,7 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1840,10 +1838,10 @@ class Warp final {
     WithStreamedUnaryMethod_CheckDuplexConnection() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::proto::LookupName, ::proto::HaveDuplex>(
+          ::LookupName, ::HaveDuplex>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::proto::LookupName, ::proto::HaveDuplex>* streamer) {
+                     ::LookupName, ::HaveDuplex>* streamer) {
                        return this->StreamedCheckDuplexConnection(context,
                          streamer);
                   }));
@@ -1852,12 +1850,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status CheckDuplexConnection(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedCheckDuplexConnection(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::proto::LookupName,::proto::HaveDuplex>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedCheckDuplexConnection(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::LookupName,::HaveDuplex>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_WaitingForDuplex : public BaseClass {
@@ -1867,10 +1865,10 @@ class Warp final {
     WithStreamedUnaryMethod_WaitingForDuplex() {
       ::grpc::Service::MarkMethodStreamed(1,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::proto::LookupName, ::proto::HaveDuplex>(
+          ::LookupName, ::HaveDuplex>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::proto::LookupName, ::proto::HaveDuplex>* streamer) {
+                     ::LookupName, ::HaveDuplex>* streamer) {
                        return this->StreamedWaitingForDuplex(context,
                          streamer);
                   }));
@@ -1879,12 +1877,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::HaveDuplex* /*response*/) override {
+    ::grpc::Status WaitingForDuplex(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedWaitingForDuplex(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::proto::LookupName,::proto::HaveDuplex>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedWaitingForDuplex(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::LookupName,::HaveDuplex>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetRemoteMachineInfo : public BaseClass {
@@ -1894,10 +1892,10 @@ class Warp final {
     WithStreamedUnaryMethod_GetRemoteMachineInfo() {
       ::grpc::Service::MarkMethodStreamed(2,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::proto::LookupName, ::proto::RemoteMachineInfo>(
+          ::LookupName, ::RemoteMachineInfo>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::proto::LookupName, ::proto::RemoteMachineInfo>* streamer) {
+                     ::LookupName, ::RemoteMachineInfo>* streamer) {
                        return this->StreamedGetRemoteMachineInfo(context,
                          streamer);
                   }));
@@ -1906,12 +1904,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::RemoteMachineInfo* /*response*/) override {
+    ::grpc::Status GetRemoteMachineInfo(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedGetRemoteMachineInfo(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::proto::LookupName,::proto::RemoteMachineInfo>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedGetRemoteMachineInfo(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::LookupName,::RemoteMachineInfo>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ProcessTransferOpRequest : public BaseClass {
@@ -1921,10 +1919,10 @@ class Warp final {
     WithStreamedUnaryMethod_ProcessTransferOpRequest() {
       ::grpc::Service::MarkMethodStreamed(4,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::proto::TransferOpRequest, ::proto::VoidType>(
+          ::TransferOpRequest, ::VoidType>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::proto::TransferOpRequest, ::proto::VoidType>* streamer) {
+                     ::TransferOpRequest, ::VoidType>* streamer) {
                        return this->StreamedProcessTransferOpRequest(context,
                          streamer);
                   }));
@@ -1933,12 +1931,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::TransferOpRequest* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status ProcessTransferOpRequest(::grpc::ServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedProcessTransferOpRequest(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::proto::TransferOpRequest,::proto::VoidType>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedProcessTransferOpRequest(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::TransferOpRequest,::VoidType>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_PauseTransferOp : public BaseClass {
@@ -1948,10 +1946,10 @@ class Warp final {
     WithStreamedUnaryMethod_PauseTransferOp() {
       ::grpc::Service::MarkMethodStreamed(5,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::proto::OpInfo, ::proto::VoidType>(
+          ::OpInfo, ::VoidType>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::proto::OpInfo, ::proto::VoidType>* streamer) {
+                     ::OpInfo, ::VoidType>* streamer) {
                        return this->StreamedPauseTransferOp(context,
                          streamer);
                   }));
@@ -1960,12 +1958,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status PauseTransferOp(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedPauseTransferOp(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::proto::OpInfo,::proto::VoidType>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedPauseTransferOp(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::OpInfo,::VoidType>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CancelTransferOpRequest : public BaseClass {
@@ -1975,10 +1973,10 @@ class Warp final {
     WithStreamedUnaryMethod_CancelTransferOpRequest() {
       ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::proto::OpInfo, ::proto::VoidType>(
+          ::OpInfo, ::VoidType>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::proto::OpInfo, ::proto::VoidType>* streamer) {
+                     ::OpInfo, ::VoidType>* streamer) {
                        return this->StreamedCancelTransferOpRequest(context,
                          streamer);
                   }));
@@ -1987,12 +1985,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status CancelTransferOpRequest(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedCancelTransferOpRequest(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::proto::OpInfo,::proto::VoidType>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedCancelTransferOpRequest(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::OpInfo,::VoidType>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_StopTransfer : public BaseClass {
@@ -2002,10 +2000,10 @@ class Warp final {
     WithStreamedUnaryMethod_StopTransfer() {
       ::grpc::Service::MarkMethodStreamed(8,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::proto::StopInfo, ::proto::VoidType>(
+          ::StopInfo, ::VoidType>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::proto::StopInfo, ::proto::VoidType>* streamer) {
+                     ::StopInfo, ::VoidType>* streamer) {
                        return this->StreamedStopTransfer(context,
                          streamer);
                   }));
@@ -2014,12 +2012,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::proto::StopInfo* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status StopTransfer(::grpc::ServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedStopTransfer(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::proto::StopInfo,::proto::VoidType>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedStopTransfer(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::StopInfo,::VoidType>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_Ping : public BaseClass {
@@ -2029,10 +2027,10 @@ class Warp final {
     WithStreamedUnaryMethod_Ping() {
       ::grpc::Service::MarkMethodStreamed(9,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::proto::LookupName, ::proto::VoidType>(
+          ::LookupName, ::VoidType>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::proto::LookupName, ::proto::VoidType>* streamer) {
+                     ::LookupName, ::VoidType>* streamer) {
                        return this->StreamedPing(context,
                          streamer);
                   }));
@@ -2041,12 +2039,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::proto::VoidType* /*response*/) override {
+    ::grpc::Status Ping(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedPing(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::proto::LookupName,::proto::VoidType>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedPing(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::LookupName,::VoidType>* server_unary_streamer) = 0;
   };
   typedef WithStreamedUnaryMethod_CheckDuplexConnection<WithStreamedUnaryMethod_WaitingForDuplex<WithStreamedUnaryMethod_GetRemoteMachineInfo<WithStreamedUnaryMethod_ProcessTransferOpRequest<WithStreamedUnaryMethod_PauseTransferOp<WithStreamedUnaryMethod_CancelTransferOpRequest<WithStreamedUnaryMethod_StopTransfer<WithStreamedUnaryMethod_Ping<Service > > > > > > > > StreamedUnaryService;
   template <class BaseClass>
@@ -2057,10 +2055,10 @@ class Warp final {
     WithSplitStreamingMethod_GetRemoteMachineAvatar() {
       ::grpc::Service::MarkMethodStreamed(3,
         new ::grpc::internal::SplitServerStreamingHandler<
-          ::proto::LookupName, ::proto::RemoteMachineAvatar>(
+          ::LookupName, ::RemoteMachineAvatar>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerSplitStreamer<
-                     ::proto::LookupName, ::proto::RemoteMachineAvatar>* streamer) {
+                     ::LookupName, ::RemoteMachineAvatar>* streamer) {
                        return this->StreamedGetRemoteMachineAvatar(context,
                          streamer);
                   }));
@@ -2069,12 +2067,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::proto::LookupName* /*request*/, ::grpc::ServerWriter< ::proto::RemoteMachineAvatar>* /*writer*/) override {
+    ::grpc::Status GetRemoteMachineAvatar(::grpc::ServerContext* /*context*/, const ::LookupName* /*request*/, ::grpc::ServerWriter< ::RemoteMachineAvatar>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with split streamed
-    virtual ::grpc::Status StreamedGetRemoteMachineAvatar(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::proto::LookupName,::proto::RemoteMachineAvatar>* server_split_streamer) = 0;
+    virtual ::grpc::Status StreamedGetRemoteMachineAvatar(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::LookupName,::RemoteMachineAvatar>* server_split_streamer) = 0;
   };
   template <class BaseClass>
   class WithSplitStreamingMethod_StartTransfer : public BaseClass {
@@ -2084,10 +2082,10 @@ class Warp final {
     WithSplitStreamingMethod_StartTransfer() {
       ::grpc::Service::MarkMethodStreamed(6,
         new ::grpc::internal::SplitServerStreamingHandler<
-          ::proto::OpInfo, ::proto::FileChunk>(
+          ::OpInfo, ::FileChunk>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerSplitStreamer<
-                     ::proto::OpInfo, ::proto::FileChunk>* streamer) {
+                     ::OpInfo, ::FileChunk>* streamer) {
                        return this->StreamedStartTransfer(context,
                          streamer);
                   }));
@@ -2096,12 +2094,12 @@ class Warp final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::proto::OpInfo* /*request*/, ::grpc::ServerWriter< ::proto::FileChunk>* /*writer*/) override {
+    ::grpc::Status StartTransfer(::grpc::ServerContext* /*context*/, const ::OpInfo* /*request*/, ::grpc::ServerWriter< ::FileChunk>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with split streamed
-    virtual ::grpc::Status StreamedStartTransfer(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::proto::OpInfo,::proto::FileChunk>* server_split_streamer) = 0;
+    virtual ::grpc::Status StreamedStartTransfer(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::OpInfo,::FileChunk>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_GetRemoteMachineAvatar<WithSplitStreamingMethod_StartTransfer<Service > > SplitStreamedService;
   typedef WithStreamedUnaryMethod_CheckDuplexConnection<WithStreamedUnaryMethod_WaitingForDuplex<WithStreamedUnaryMethod_GetRemoteMachineInfo<WithSplitStreamingMethod_GetRemoteMachineAvatar<WithStreamedUnaryMethod_ProcessTransferOpRequest<WithStreamedUnaryMethod_PauseTransferOp<WithSplitStreamingMethod_StartTransfer<WithStreamedUnaryMethod_CancelTransferOpRequest<WithStreamedUnaryMethod_StopTransfer<WithStreamedUnaryMethod_Ping<Service > > > > > > > > > > StreamedService;
@@ -2110,26 +2108,26 @@ class Warp final {
 class WarpRegistration final {
  public:
   static constexpr char const* service_full_name() {
-    return "proto.WarpRegistration";
+    return "WarpRegistration";
   }
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::proto::RegResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::RegResponse>> AsyncRequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::RegResponse>>(AsyncRequestCertificateRaw(context, request, cq));
+    virtual ::grpc::Status RequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::RegResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>> AsyncRequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>>(AsyncRequestCertificateRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::RegResponse>> PrepareAsyncRequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::proto::RegResponse>>(PrepareAsyncRequestCertificateRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>> PrepareAsyncRequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>>(PrepareAsyncRequestCertificateRaw(context, request, cq));
     }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
-      virtual void RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -2140,27 +2138,27 @@ class WarpRegistration final {
     #endif
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::RegResponse>* AsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::proto::RegResponse>* PrepareAsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>* AsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>* PrepareAsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::proto::RegResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::RegResponse>> AsyncRequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::RegResponse>>(AsyncRequestCertificateRaw(context, request, cq));
+    ::grpc::Status RequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::RegResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegResponse>> AsyncRequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegResponse>>(AsyncRequestCertificateRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::RegResponse>> PrepareAsyncRequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::proto::RegResponse>>(PrepareAsyncRequestCertificateRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegResponse>> PrepareAsyncRequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegResponse>>(PrepareAsyncRequestCertificateRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
-      void RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response, std::function<void(::grpc::Status)>) override;
+      void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
      private:
       friend class Stub;
@@ -2173,8 +2171,8 @@ class WarpRegistration final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class experimental_async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::proto::RegResponse>* AsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::proto::RegResponse>* PrepareAsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::RegResponse>* AsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::RegResponse>* PrepareAsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_RequestCertificate_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -2183,7 +2181,7 @@ class WarpRegistration final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status RequestCertificate(::grpc::ServerContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response);
+    virtual ::grpc::Status RequestCertificate(::grpc::ServerContext* context, const ::RegRequest* request, ::RegResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_RequestCertificate : public BaseClass {
@@ -2197,11 +2195,11 @@ class WarpRegistration final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::proto::RegRequest* /*request*/, ::proto::RegResponse* /*response*/) override {
+    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestRequestCertificate(::grpc::ServerContext* context, ::proto::RegRequest* request, ::grpc::ServerAsyncResponseWriter< ::proto::RegResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestRequestCertificate(::grpc::ServerContext* context, ::RegRequest* request, ::grpc::ServerAsyncResponseWriter< ::RegResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -2218,38 +2216,38 @@ class WarpRegistration final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::proto::RegRequest, ::proto::RegResponse>(
+          new ::grpc::internal::CallbackUnaryHandler< ::RegRequest, ::RegResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::proto::RegRequest* request, ::proto::RegResponse* response) { return this->RequestCertificate(context, request, response); }));}
+                     context, const ::RegRequest* request, ::RegResponse* response) { return this->RequestCertificate(context, request, response); }));}
     void SetMessageAllocatorFor_RequestCertificate(
-        ::grpc::experimental::MessageAllocator< ::proto::RegRequest, ::proto::RegResponse>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::RegRequest, ::RegResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::proto::RegRequest, ::proto::RegResponse>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::RegRequest, ::RegResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_RequestCertificate() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::proto::RegRequest* /*request*/, ::proto::RegResponse* /*response*/) override {
+    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* RequestCertificate(
-      ::grpc::CallbackServerContext* /*context*/, const ::proto::RegRequest* /*request*/, ::proto::RegResponse* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* RequestCertificate(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::proto::RegRequest* /*request*/, ::proto::RegResponse* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -2270,7 +2268,7 @@ class WarpRegistration final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::proto::RegRequest* /*request*/, ::proto::RegResponse* /*response*/) override {
+    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2287,7 +2285,7 @@ class WarpRegistration final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::proto::RegRequest* /*request*/, ::proto::RegResponse* /*response*/) override {
+    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2320,7 +2318,7 @@ class WarpRegistration final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::proto::RegRequest* /*request*/, ::proto::RegResponse* /*response*/) override {
+    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2341,10 +2339,10 @@ class WarpRegistration final {
     WithStreamedUnaryMethod_RequestCertificate() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::proto::RegRequest, ::proto::RegResponse>(
+          ::RegRequest, ::RegResponse>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::proto::RegRequest, ::proto::RegResponse>* streamer) {
+                     ::RegRequest, ::RegResponse>* streamer) {
                        return this->StreamedRequestCertificate(context,
                          streamer);
                   }));
@@ -2353,19 +2351,17 @@ class WarpRegistration final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::proto::RegRequest* /*request*/, ::proto::RegResponse* /*response*/) override {
+    ::grpc::Status RequestCertificate(::grpc::ServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedRequestCertificate(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::proto::RegRequest,::proto::RegResponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedRequestCertificate(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::RegRequest,::RegResponse>* server_unary_streamer) = 0;
   };
   typedef WithStreamedUnaryMethod_RequestCertificate<Service > StreamedUnaryService;
   typedef Service SplitStreamedService;
   typedef WithStreamedUnaryMethod_RequestCertificate<Service > StreamedService;
 };
-
-}  // namespace proto
 
 
 #endif  // GRPC_warp_2eproto__INCLUDED

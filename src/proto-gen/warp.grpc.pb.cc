@@ -19,19 +19,18 @@
 #include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-namespace proto {
 
 static const char* Warp_method_names[] = {
-  "/proto.Warp/CheckDuplexConnection",
-  "/proto.Warp/WaitingForDuplex",
-  "/proto.Warp/GetRemoteMachineInfo",
-  "/proto.Warp/GetRemoteMachineAvatar",
-  "/proto.Warp/ProcessTransferOpRequest",
-  "/proto.Warp/PauseTransferOp",
-  "/proto.Warp/StartTransfer",
-  "/proto.Warp/CancelTransferOpRequest",
-  "/proto.Warp/StopTransfer",
-  "/proto.Warp/Ping",
+  "/Warp/CheckDuplexConnection",
+  "/Warp/WaitingForDuplex",
+  "/Warp/GetRemoteMachineInfo",
+  "/Warp/GetRemoteMachineAvatar",
+  "/Warp/ProcessTransferOpRequest",
+  "/Warp/PauseTransferOp",
+  "/Warp/StartTransfer",
+  "/Warp/CancelTransferOpRequest",
+  "/Warp/StopTransfer",
+  "/Warp/Ping",
 };
 
 std::unique_ptr< Warp::Stub> Warp::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -53,216 +52,216 @@ Warp::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   , rpcmethod_Ping_(Warp_method_names[9], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status Warp::Stub::CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::HaveDuplex* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::LookupName, ::proto::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CheckDuplexConnection_, context, request, response);
+::grpc::Status Warp::Stub::CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::HaveDuplex* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CheckDuplexConnection_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::LookupName, ::proto::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CheckDuplexConnection_, context, request, response, std::move(f));
+void Warp::Stub::experimental_async::CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CheckDuplexConnection_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::CheckDuplexConnection(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::experimental_async::CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CheckDuplexConnection_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>* Warp::Stub::PrepareAsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::HaveDuplex, ::proto::LookupName, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CheckDuplexConnection_, context, request);
+::grpc::ClientAsyncResponseReader< ::HaveDuplex>* Warp::Stub::PrepareAsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::HaveDuplex, ::LookupName, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CheckDuplexConnection_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>* Warp::Stub::AsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::HaveDuplex>* Warp::Stub::AsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncCheckDuplexConnectionRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status Warp::Stub::WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::HaveDuplex* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::LookupName, ::proto::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_WaitingForDuplex_, context, request, response);
+::grpc::Status Warp::Stub::WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName& request, ::HaveDuplex* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_WaitingForDuplex_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::LookupName, ::proto::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_WaitingForDuplex_, context, request, response, std::move(f));
+void Warp::Stub::experimental_async::WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_WaitingForDuplex_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::WaitingForDuplex(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::experimental_async::WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_WaitingForDuplex_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>* Warp::Stub::PrepareAsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::HaveDuplex, ::proto::LookupName, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_WaitingForDuplex_, context, request);
+::grpc::ClientAsyncResponseReader< ::HaveDuplex>* Warp::Stub::PrepareAsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::HaveDuplex, ::LookupName, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_WaitingForDuplex_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::HaveDuplex>* Warp::Stub::AsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::HaveDuplex>* Warp::Stub::AsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncWaitingForDuplexRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status Warp::Stub::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::RemoteMachineInfo* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::LookupName, ::proto::RemoteMachineInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetRemoteMachineInfo_, context, request, response);
+::grpc::Status Warp::Stub::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName& request, ::RemoteMachineInfo* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::LookupName, ::RemoteMachineInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetRemoteMachineInfo_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::LookupName, ::proto::RemoteMachineInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetRemoteMachineInfo_, context, request, response, std::move(f));
+void Warp::Stub::experimental_async::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::LookupName, ::RemoteMachineInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetRemoteMachineInfo_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::experimental_async::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetRemoteMachineInfo_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::RemoteMachineInfo>* Warp::Stub::PrepareAsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::RemoteMachineInfo, ::proto::LookupName, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetRemoteMachineInfo_, context, request);
+::grpc::ClientAsyncResponseReader< ::RemoteMachineInfo>* Warp::Stub::PrepareAsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::RemoteMachineInfo, ::LookupName, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetRemoteMachineInfo_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::RemoteMachineInfo>* Warp::Stub::AsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::RemoteMachineInfo>* Warp::Stub::AsyncGetRemoteMachineInfoRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncGetRemoteMachineInfoRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::ClientReader< ::proto::RemoteMachineAvatar>* Warp::Stub::GetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::proto::LookupName& request) {
-  return ::grpc::internal::ClientReaderFactory< ::proto::RemoteMachineAvatar>::Create(channel_.get(), rpcmethod_GetRemoteMachineAvatar_, context, request);
+::grpc::ClientReader< ::RemoteMachineAvatar>* Warp::Stub::GetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::LookupName& request) {
+  return ::grpc::internal::ClientReaderFactory< ::RemoteMachineAvatar>::Create(channel_.get(), rpcmethod_GetRemoteMachineAvatar_, context, request);
 }
 
-void Warp::Stub::experimental_async::GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::proto::LookupName* request, ::grpc::experimental::ClientReadReactor< ::proto::RemoteMachineAvatar>* reactor) {
-  ::grpc::internal::ClientCallbackReaderFactory< ::proto::RemoteMachineAvatar>::Create(stub_->channel_.get(), stub_->rpcmethod_GetRemoteMachineAvatar_, context, request, reactor);
+void Warp::Stub::experimental_async::GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::experimental::ClientReadReactor< ::RemoteMachineAvatar>* reactor) {
+  ::grpc::internal::ClientCallbackReaderFactory< ::RemoteMachineAvatar>::Create(stub_->channel_.get(), stub_->rpcmethod_GetRemoteMachineAvatar_, context, request, reactor);
 }
 
-::grpc::ClientAsyncReader< ::proto::RemoteMachineAvatar>* Warp::Stub::AsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) {
-  return ::grpc::internal::ClientAsyncReaderFactory< ::proto::RemoteMachineAvatar>::Create(channel_.get(), cq, rpcmethod_GetRemoteMachineAvatar_, context, request, true, tag);
+::grpc::ClientAsyncReader< ::RemoteMachineAvatar>* Warp::Stub::AsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq, void* tag) {
+  return ::grpc::internal::ClientAsyncReaderFactory< ::RemoteMachineAvatar>::Create(channel_.get(), cq, rpcmethod_GetRemoteMachineAvatar_, context, request, true, tag);
 }
 
-::grpc::ClientAsyncReader< ::proto::RemoteMachineAvatar>* Warp::Stub::PrepareAsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncReaderFactory< ::proto::RemoteMachineAvatar>::Create(channel_.get(), cq, rpcmethod_GetRemoteMachineAvatar_, context, request, false, nullptr);
+::grpc::ClientAsyncReader< ::RemoteMachineAvatar>* Warp::Stub::PrepareAsyncGetRemoteMachineAvatarRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncReaderFactory< ::RemoteMachineAvatar>::Create(channel_.get(), cq, rpcmethod_GetRemoteMachineAvatar_, context, request, false, nullptr);
 }
 
-::grpc::Status Warp::Stub::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::proto::VoidType* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::TransferOpRequest, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ProcessTransferOpRequest_, context, request, response);
+::grpc::Status Warp::Stub::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::VoidType* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::TransferOpRequest, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ProcessTransferOpRequest_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::TransferOpRequest, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ProcessTransferOpRequest_, context, request, response, std::move(f));
+void Warp::Stub::experimental_async::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::TransferOpRequest, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ProcessTransferOpRequest_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::experimental_async::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ProcessTransferOpRequest_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::PrepareAsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::VoidType, ::proto::TransferOpRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ProcessTransferOpRequest_, context, request);
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::PrepareAsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::VoidType, ::TransferOpRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ProcessTransferOpRequest_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::AsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::AsyncProcessTransferOpRequestRaw(::grpc::ClientContext* context, const ::TransferOpRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncProcessTransferOpRequestRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status Warp::Stub::PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::proto::VoidType* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::OpInfo, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_PauseTransferOp_, context, request, response);
+::grpc::Status Warp::Stub::PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo& request, ::VoidType* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_PauseTransferOp_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::OpInfo, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PauseTransferOp_, context, request, response, std::move(f));
+void Warp::Stub::experimental_async::PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PauseTransferOp_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::PauseTransferOp(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::experimental_async::PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PauseTransferOp_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::PrepareAsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::VoidType, ::proto::OpInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_PauseTransferOp_, context, request);
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::PrepareAsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::VoidType, ::OpInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_PauseTransferOp_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::AsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::AsyncPauseTransferOpRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncPauseTransferOpRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::ClientReader< ::proto::FileChunk>* Warp::Stub::StartTransferRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request) {
-  return ::grpc::internal::ClientReaderFactory< ::proto::FileChunk>::Create(channel_.get(), rpcmethod_StartTransfer_, context, request);
+::grpc::ClientReader< ::FileChunk>* Warp::Stub::StartTransferRaw(::grpc::ClientContext* context, const ::OpInfo& request) {
+  return ::grpc::internal::ClientReaderFactory< ::FileChunk>::Create(channel_.get(), rpcmethod_StartTransfer_, context, request);
 }
 
-void Warp::Stub::experimental_async::StartTransfer(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::grpc::experimental::ClientReadReactor< ::proto::FileChunk>* reactor) {
-  ::grpc::internal::ClientCallbackReaderFactory< ::proto::FileChunk>::Create(stub_->channel_.get(), stub_->rpcmethod_StartTransfer_, context, request, reactor);
+void Warp::Stub::experimental_async::StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::experimental::ClientReadReactor< ::FileChunk>* reactor) {
+  ::grpc::internal::ClientCallbackReaderFactory< ::FileChunk>::Create(stub_->channel_.get(), stub_->rpcmethod_StartTransfer_, context, request, reactor);
 }
 
-::grpc::ClientAsyncReader< ::proto::FileChunk>* Warp::Stub::AsyncStartTransferRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) {
-  return ::grpc::internal::ClientAsyncReaderFactory< ::proto::FileChunk>::Create(channel_.get(), cq, rpcmethod_StartTransfer_, context, request, true, tag);
+::grpc::ClientAsyncReader< ::FileChunk>* Warp::Stub::AsyncStartTransferRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq, void* tag) {
+  return ::grpc::internal::ClientAsyncReaderFactory< ::FileChunk>::Create(channel_.get(), cq, rpcmethod_StartTransfer_, context, request, true, tag);
 }
 
-::grpc::ClientAsyncReader< ::proto::FileChunk>* Warp::Stub::PrepareAsyncStartTransferRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncReaderFactory< ::proto::FileChunk>::Create(channel_.get(), cq, rpcmethod_StartTransfer_, context, request, false, nullptr);
+::grpc::ClientAsyncReader< ::FileChunk>* Warp::Stub::PrepareAsyncStartTransferRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncReaderFactory< ::FileChunk>::Create(channel_.get(), cq, rpcmethod_StartTransfer_, context, request, false, nullptr);
 }
 
-::grpc::Status Warp::Stub::CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::proto::VoidType* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::OpInfo, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CancelTransferOpRequest_, context, request, response);
+::grpc::Status Warp::Stub::CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo& request, ::VoidType* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CancelTransferOpRequest_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::OpInfo, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelTransferOpRequest_, context, request, response, std::move(f));
+void Warp::Stub::experimental_async::CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelTransferOpRequest_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::CancelTransferOpRequest(::grpc::ClientContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::experimental_async::CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelTransferOpRequest_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::PrepareAsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::VoidType, ::proto::OpInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CancelTransferOpRequest_, context, request);
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::PrepareAsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::VoidType, ::OpInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CancelTransferOpRequest_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::AsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::proto::OpInfo& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::AsyncCancelTransferOpRequestRaw(::grpc::ClientContext* context, const ::OpInfo& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncCancelTransferOpRequestRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status Warp::Stub::StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::proto::VoidType* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::StopInfo, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_StopTransfer_, context, request, response);
+::grpc::Status Warp::Stub::StopTransfer(::grpc::ClientContext* context, const ::StopInfo& request, ::VoidType* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::StopInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_StopTransfer_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::StopInfo, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StopTransfer_, context, request, response, std::move(f));
+void Warp::Stub::experimental_async::StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::StopInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StopTransfer_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::StopTransfer(::grpc::ClientContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::experimental_async::StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StopTransfer_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::PrepareAsyncStopTransferRaw(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::VoidType, ::proto::StopInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_StopTransfer_, context, request);
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::PrepareAsyncStopTransferRaw(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::VoidType, ::StopInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_StopTransfer_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::AsyncStopTransferRaw(::grpc::ClientContext* context, const ::proto::StopInfo& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::AsyncStopTransferRaw(::grpc::ClientContext* context, const ::StopInfo& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncStopTransferRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status Warp::Stub::Ping(::grpc::ClientContext* context, const ::proto::LookupName& request, ::proto::VoidType* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::LookupName, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Ping_, context, request, response);
+::grpc::Status Warp::Stub::Ping(::grpc::ClientContext* context, const ::LookupName& request, ::VoidType* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::LookupName, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Ping_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::Ping(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::VoidType* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::LookupName, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Ping_, context, request, response, std::move(f));
+void Warp::Stub::experimental_async::Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::LookupName, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Ping_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::Ping(::grpc::ClientContext* context, const ::proto::LookupName* request, ::proto::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::experimental_async::Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Ping_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::PrepareAsyncPingRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::VoidType, ::proto::LookupName, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Ping_, context, request);
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::PrepareAsyncPingRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::VoidType, ::LookupName, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Ping_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::VoidType>* Warp::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::proto::LookupName& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::VoidType>* Warp::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncPingRaw(context, request, cq);
   result->StartCall();
@@ -273,101 +272,101 @@ Warp::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::proto::LookupName, ::proto::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::LookupName* req,
-             ::proto::HaveDuplex* resp) {
+             const ::LookupName* req,
+             ::HaveDuplex* resp) {
                return service->CheckDuplexConnection(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::proto::LookupName, ::proto::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::LookupName* req,
-             ::proto::HaveDuplex* resp) {
+             const ::LookupName* req,
+             ::HaveDuplex* resp) {
                return service->WaitingForDuplex(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::proto::LookupName, ::proto::RemoteMachineInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::LookupName, ::RemoteMachineInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::LookupName* req,
-             ::proto::RemoteMachineInfo* resp) {
+             const ::LookupName* req,
+             ::RemoteMachineInfo* resp) {
                return service->GetRemoteMachineInfo(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[3],
       ::grpc::internal::RpcMethod::SERVER_STREAMING,
-      new ::grpc::internal::ServerStreamingHandler< Warp::Service, ::proto::LookupName, ::proto::RemoteMachineAvatar>(
+      new ::grpc::internal::ServerStreamingHandler< Warp::Service, ::LookupName, ::RemoteMachineAvatar>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::LookupName* req,
-             ::grpc::ServerWriter<::proto::RemoteMachineAvatar>* writer) {
+             const ::LookupName* req,
+             ::grpc::ServerWriter<::RemoteMachineAvatar>* writer) {
                return service->GetRemoteMachineAvatar(ctx, req, writer);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::proto::TransferOpRequest, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::TransferOpRequest, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::TransferOpRequest* req,
-             ::proto::VoidType* resp) {
+             const ::TransferOpRequest* req,
+             ::VoidType* resp) {
                return service->ProcessTransferOpRequest(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::proto::OpInfo, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::OpInfo* req,
-             ::proto::VoidType* resp) {
+             const ::OpInfo* req,
+             ::VoidType* resp) {
                return service->PauseTransferOp(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[6],
       ::grpc::internal::RpcMethod::SERVER_STREAMING,
-      new ::grpc::internal::ServerStreamingHandler< Warp::Service, ::proto::OpInfo, ::proto::FileChunk>(
+      new ::grpc::internal::ServerStreamingHandler< Warp::Service, ::OpInfo, ::FileChunk>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::OpInfo* req,
-             ::grpc::ServerWriter<::proto::FileChunk>* writer) {
+             const ::OpInfo* req,
+             ::grpc::ServerWriter<::FileChunk>* writer) {
                return service->StartTransfer(ctx, req, writer);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::proto::OpInfo, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::OpInfo* req,
-             ::proto::VoidType* resp) {
+             const ::OpInfo* req,
+             ::VoidType* resp) {
                return service->CancelTransferOpRequest(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[8],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::proto::StopInfo, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::StopInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::StopInfo* req,
-             ::proto::VoidType* resp) {
+             const ::StopInfo* req,
+             ::VoidType* resp) {
                return service->StopTransfer(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Warp_method_names[9],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::proto::LookupName, ::proto::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Warp::Service, ::LookupName, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Warp::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::LookupName* req,
-             ::proto::VoidType* resp) {
+             const ::LookupName* req,
+             ::VoidType* resp) {
                return service->Ping(ctx, req, resp);
              }, this)));
 }
@@ -375,70 +374,70 @@ Warp::Service::Service() {
 Warp::Service::~Service() {
 }
 
-::grpc::Status Warp::Service::CheckDuplexConnection(::grpc::ServerContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response) {
+::grpc::Status Warp::Service::CheckDuplexConnection(::grpc::ServerContext* context, const ::LookupName* request, ::HaveDuplex* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Warp::Service::WaitingForDuplex(::grpc::ServerContext* context, const ::proto::LookupName* request, ::proto::HaveDuplex* response) {
+::grpc::Status Warp::Service::WaitingForDuplex(::grpc::ServerContext* context, const ::LookupName* request, ::HaveDuplex* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Warp::Service::GetRemoteMachineInfo(::grpc::ServerContext* context, const ::proto::LookupName* request, ::proto::RemoteMachineInfo* response) {
+::grpc::Status Warp::Service::GetRemoteMachineInfo(::grpc::ServerContext* context, const ::LookupName* request, ::RemoteMachineInfo* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Warp::Service::GetRemoteMachineAvatar(::grpc::ServerContext* context, const ::proto::LookupName* request, ::grpc::ServerWriter< ::proto::RemoteMachineAvatar>* writer) {
+::grpc::Status Warp::Service::GetRemoteMachineAvatar(::grpc::ServerContext* context, const ::LookupName* request, ::grpc::ServerWriter< ::RemoteMachineAvatar>* writer) {
   (void) context;
   (void) request;
   (void) writer;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Warp::Service::ProcessTransferOpRequest(::grpc::ServerContext* context, const ::proto::TransferOpRequest* request, ::proto::VoidType* response) {
+::grpc::Status Warp::Service::ProcessTransferOpRequest(::grpc::ServerContext* context, const ::TransferOpRequest* request, ::VoidType* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Warp::Service::PauseTransferOp(::grpc::ServerContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response) {
+::grpc::Status Warp::Service::PauseTransferOp(::grpc::ServerContext* context, const ::OpInfo* request, ::VoidType* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Warp::Service::StartTransfer(::grpc::ServerContext* context, const ::proto::OpInfo* request, ::grpc::ServerWriter< ::proto::FileChunk>* writer) {
+::grpc::Status Warp::Service::StartTransfer(::grpc::ServerContext* context, const ::OpInfo* request, ::grpc::ServerWriter< ::FileChunk>* writer) {
   (void) context;
   (void) request;
   (void) writer;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Warp::Service::CancelTransferOpRequest(::grpc::ServerContext* context, const ::proto::OpInfo* request, ::proto::VoidType* response) {
+::grpc::Status Warp::Service::CancelTransferOpRequest(::grpc::ServerContext* context, const ::OpInfo* request, ::VoidType* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Warp::Service::StopTransfer(::grpc::ServerContext* context, const ::proto::StopInfo* request, ::proto::VoidType* response) {
+::grpc::Status Warp::Service::StopTransfer(::grpc::ServerContext* context, const ::StopInfo* request, ::VoidType* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Warp::Service::Ping(::grpc::ServerContext* context, const ::proto::LookupName* request, ::proto::VoidType* response) {
+::grpc::Status Warp::Service::Ping(::grpc::ServerContext* context, const ::LookupName* request, ::VoidType* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -447,7 +446,7 @@ Warp::Service::~Service() {
 
 
 static const char* WarpRegistration_method_names[] = {
-  "/proto.WarpRegistration/RequestCertificate",
+  "/WarpRegistration/RequestCertificate",
 };
 
 std::unique_ptr< WarpRegistration::Stub> WarpRegistration::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -460,23 +459,23 @@ WarpRegistration::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   : channel_(channel), rpcmethod_RequestCertificate_(WarpRegistration_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status WarpRegistration::Stub::RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::proto::RegResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::RegRequest, ::proto::RegResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RequestCertificate_, context, request, response);
+::grpc::Status WarpRegistration::Stub::RequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::RegResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::RegRequest, ::RegResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RequestCertificate_, context, request, response);
 }
 
-void WarpRegistration::Stub::experimental_async::RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::RegRequest, ::proto::RegResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RequestCertificate_, context, request, response, std::move(f));
+void WarpRegistration::Stub::experimental_async::RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::RegRequest, ::RegResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RequestCertificate_, context, request, response, std::move(f));
 }
 
-void WarpRegistration::Stub::experimental_async::RequestCertificate(::grpc::ClientContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void WarpRegistration::Stub::experimental_async::RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RequestCertificate_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::RegResponse>* WarpRegistration::Stub::PrepareAsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::RegResponse, ::proto::RegRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RequestCertificate_, context, request);
+::grpc::ClientAsyncResponseReader< ::RegResponse>* WarpRegistration::Stub::PrepareAsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::RegResponse, ::RegRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RequestCertificate_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::RegResponse>* WarpRegistration::Stub::AsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::proto::RegRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::RegResponse>* WarpRegistration::Stub::AsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncRequestCertificateRaw(context, request, cq);
   result->StartCall();
@@ -487,11 +486,11 @@ WarpRegistration::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WarpRegistration_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WarpRegistration::Service, ::proto::RegRequest, ::proto::RegResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< WarpRegistration::Service, ::RegRequest, ::RegResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](WarpRegistration::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::RegRequest* req,
-             ::proto::RegResponse* resp) {
+             const ::RegRequest* req,
+             ::RegResponse* resp) {
                return service->RequestCertificate(ctx, req, resp);
              }, this)));
 }
@@ -499,13 +498,11 @@ WarpRegistration::Service::Service() {
 WarpRegistration::Service::~Service() {
 }
 
-::grpc::Status WarpRegistration::Service::RequestCertificate(::grpc::ServerContext* context, const ::proto::RegRequest* request, ::proto::RegResponse* response) {
+::grpc::Status WarpRegistration::Service::RequestCertificate(::grpc::ServerContext* context, const ::RegRequest* request, ::RegResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-
-}  // namespace proto
 
