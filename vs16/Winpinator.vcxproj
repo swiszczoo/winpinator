@@ -199,6 +199,7 @@
   <ItemGroup>
     <Image Include="..\res\blot.png" />
     <Image Include="..\res\icon.ico" />
+    <Image Include="..\res\icon256.png" />
     <Image Include="..\res\info.png" />
     <Image Include="..\res\refresh.png" />
     <Image Include="..\res\unk_profile.png" />

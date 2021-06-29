@@ -178,5 +178,8 @@
     <Image Include="..\res\unk_profile.png">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="..\res\icon256.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

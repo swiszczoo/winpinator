@@ -63,7 +63,7 @@ HostListPage::HostListPage( wxWindow* parent )
 
     m_fwdBtn = new wxButton( this, wxID_ANY, _( "&Next >" ) );
     m_fwdBtn->SetMinSize( wxSize( m_fwdBtn->GetSize().x * 1.5, FromDIP( 25 ) ) );
-    //m_fwdBtn->Disable();
+    m_fwdBtn->Disable();
     mainSizer->Add( m_fwdBtn, 0, wxALIGN_RIGHT | wxBOTTOM, FromDIP( 25 ) );
 
     margSizer->Add( mainSizer, 10, wxEXPAND );
