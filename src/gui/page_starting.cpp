@@ -1,6 +1,6 @@
-#include "page_starting.h"
+#include "page_starting.hpp"
 
-#include "utils.h"
+#include "utils.hpp"
 
 namespace gui
 {

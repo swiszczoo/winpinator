@@ -159,9 +159,10 @@
     <ResourceCompile Include="..\win32\winpinator.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\gui\page_offline.hpp" />
     <ClInclude Include="..\win32\resource.h" />
-    <ClInclude Include="..\src\gui\page_starting.h" />
-    <ClInclude Include="..\src\gui\utils.h" />
+    <ClInclude Include="..\src\gui\page_starting.hpp" />
+    <ClInclude Include="..\src\gui\utils.hpp" />
     <ClInclude Include="..\src\gui\winpinator_app.hpp" />
     <ClInclude Include="..\src\gui\winpinator_banner.hpp" />
     <ClInclude Include="..\src\gui\winpinator_frame.hpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\src\zeroconf\mdns_service.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\gui\page_offline.cpp" />
     <ClCompile Include="..\src\gui\page_starting.cpp" />
     <ClCompile Include="..\src\gui\utils.cpp" />
     <ClCompile Include="..\src\gui\winpinator_app.cpp" />

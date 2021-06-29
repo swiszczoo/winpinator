@@ -1,8 +1,8 @@
 #include "winpinator_frame.hpp"
 
 #include "../../win32/resource.h"
-#include "page_starting.h"
-#include "utils.h"
+#include "page_offline.hpp"
+#include "utils.hpp"
 
 #include <wx/aboutdlg.h>
 
@@ -38,7 +38,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     m_banner = new WinpinatorBanner( this, 80 );
     mainSizer->Add( m_banner, 0, wxEXPAND, 0 );
 
-    StartingPage* p = new StartingPage( this );
+    OfflinePage* p = new OfflinePage( this );
     mainSizer->Add( p, 1, wxEXPAND, 0 );
 
     SetSizer( mainSizer );

@@ -85,10 +85,13 @@
     <ClInclude Include="..\src\gui\winpinator_banner.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\gui\utils.h">
+    <ClInclude Include="..\src\gui\utils.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\gui\page_starting.h">
+    <ClInclude Include="..\src\gui\page_starting.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\page_offline.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
   </ItemGroup>
@@ -121,6 +124,9 @@
       <Filter>Sources\gui</Filter>
     </ClCompile>
     <ClCompile Include="..\src\gui\page_starting.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\page_offline.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
   </ItemGroup>
