@@ -1,11 +1,9 @@
 #include "utils.hpp"
 
-
 namespace gui
 {
 
 std::unique_ptr<Utils> Utils::s_inst = nullptr;
-
 
 Utils::Utils()
 {
@@ -22,7 +20,7 @@ Utils::Utils()
 
 Utils* Utils::get()
 {
-    if (!Utils::s_inst)
+    if ( !Utils::s_inst )
     {
         Utils::s_inst = std::make_unique<Utils>();
     }
@@ -43,6 +41,53 @@ const wxFont& Utils::getHeaderFont() const
 wxColour Utils::getHeaderColor() const
 {
     return m_headerColor;
+}
+
+void Utils::drawTextEllipse( wxDC& dc, const wxString& text, 
+    const wxPoint& pnt, const wxCoord maxWidth )
+{
+    const wxCoord ellipsisLength = dc.GetTextExtent( "..." ).GetWidth();
+
+    if ( dc.GetTextExtent( text ).GetWidth() <= maxWidth )
+    {
+        dc.DrawText( text, pnt );
+    }
+    else if ( text.length() > 0 )
+    {
+        // Perform binsearch to find optimal text length
+
+        int p = 0;
+        int k = text.length();
+
+        while ( k - p > 1 )
+        {
+            int center = ( p + k ) / 2;
+
+            const wxCoord currWidth = dc.GetTextExtent( 
+                text.Left( center ) ).GetWidth();
+
+            if ( currWidth < maxWidth - ellipsisLength )
+            {
+                p = center;
+            }
+            else
+            {
+                k = center;
+            }
+        }
+
+        const wxString text1 = text.Left( p );
+
+        if ( dc.GetTextExtent( text1 ).GetWidth() <= maxWidth - ellipsisLength )
+        {
+            dc.DrawText( text1 + "...", pnt );
+        }
+        else
+        {
+            const wxString text2 = text.Left( p - 1 );
+            dc.DrawText( text2 + "...", pnt );
+        }
+    }
 }
 
 };

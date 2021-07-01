@@ -47,12 +47,12 @@ HostListPage::HostListPage( wxWindow* parent )
 
     headingSizerH->Add( headingSizerV, 1, wxEXPAND | wxRIGHT, FromDIP( 15 ) );
 
-    m_refreshBtn = new ToolButton( this, wxID_ANY );
+    m_refreshBtn = new ToolButton( this, wxID_ANY, wxEmptyString );
     m_refreshBtn->SetToolTip( new wxToolTip( _( "Refresh list" ) ) );
     m_refreshBtn->SetWindowVariant( wxWindowVariant::wxWINDOW_VARIANT_LARGE );
     loadIcon();
     m_refreshBtn->SetWindowStyle( wxBU_EXACTFIT );
-    m_refreshBtn->SetBitmapMargins( FromDIP( 2 ), FromDIP( 2 ) );
+    m_refreshBtn->SetBitmapMargins( FromDIP( 1 ), FromDIP( 1 ) );
     headingSizerH->Add( m_refreshBtn, 0, wxALIGN_BOTTOM );
 
     mainSizer->Add( headingSizerH, 0, wxEXPAND );

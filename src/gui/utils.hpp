@@ -16,6 +16,9 @@ public:
     const wxFont& getHeaderFont() const;
     wxColour getHeaderColor() const;
 
+    static void drawTextEllipse( wxDC& dc, const wxString& text,
+        const wxPoint& pnt, const wxCoord maxWidth );
+
 private:
     // We need a friend to create a unique_ptr
     friend std::unique_ptr<Utils> std::make_unique<Utils>();

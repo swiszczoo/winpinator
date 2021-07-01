@@ -453,8 +453,9 @@ bool ToolButton::MSWOnDraw( WXDRAWITEMSTRUCT* wxdis )
         // draw the focus rectangle if we need it
         if ( ( state & ODS_FOCUS ) && !( state & ODS_NOFOCUSRECT ) )
         {
-            CopyRect( &rectBtn, &lpDIS->rcItem );
-            DrawFocusRect( hdc, &rectBtn );
+            RECT focusRect;
+            CopyRect( &focusRect, &lpDIS->rcItem );
+            DrawFocusRect( hdc, &focusRect );
 
 #if wxUSE_UXTHEME
             if ( !wxUxThemeIsActive() )

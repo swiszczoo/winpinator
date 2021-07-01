@@ -6,6 +6,7 @@
 
 #include <wx/aboutdlg.h>
 
+
 #define ID_OPENDESTDIR 10000
 #define ID_RELEASENOTES 10001
 

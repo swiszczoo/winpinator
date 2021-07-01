@@ -159,6 +159,7 @@
     <ResourceCompile Include="..\win32\winpinator.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\account_picture_extractor.hpp" />
     <ClInclude Include="..\src\gui\host_listbox.hpp" />
     <ClInclude Include="..\src\gui\page_hostlist.hpp" />
     <ClInclude Include="..\src\gui\page_nohosts.hpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="..\src\zeroconf\mdns_service.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\account_picture_extractor.cpp" />
     <ClCompile Include="..\src\gui\host_listbox.cpp" />
     <ClCompile Include="..\src\gui\page_hostlist.cpp" />
     <ClCompile Include="..\src\gui\page_nohosts.cpp" />
