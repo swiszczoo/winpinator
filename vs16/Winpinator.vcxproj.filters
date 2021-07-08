@@ -37,6 +37,12 @@
     <Filter Include="Protos">
       <UniqueIdentifier>{c4eb4dc7-6f51-48f8-953a-e644c09f9511}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\service">
+      <UniqueIdentifier>{a259aad0-a1c9-43c2-a0f2-363ec665417d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\service">
+      <UniqueIdentifier>{1c1dc661-e168-4326-b1ca-0dd174c50728}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -106,8 +112,23 @@
     <ClInclude Include="..\src\gui\host_listbox.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\account_picture_extractor.hpp">
+    <ClInclude Include="..\src\service\account_picture_extractor.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\service\winpinator_service.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\service\service_observer.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\service\observable_service.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\globals.hpp">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\screen_selector.hpp">
+      <Filter>Headers\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -156,8 +177,23 @@
     <ClCompile Include="..\src\gui\host_listbox.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\account_picture_extractor.cpp">
+    <ClCompile Include="..\src\service\account_picture_extractor.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\winpinator_service.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\observable_service.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\service_observer.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\globals.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\screen_selector.cpp">
+      <Filter>Sources\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,9 @@
 #include "utils.hpp"
 
+#ifdef _WIN32
+#include <wx/msw/uxtheme.h>
+#endif
+
 namespace gui
 {
 
@@ -11,10 +15,17 @@ Utils::Utils()
     m_headerFont.SetPointSize( 13 );
 
 #ifdef _WIN32
-    m_headerColor = wxColour( 0, 51, 153 );
+    if ( wxUxThemeIsActive() )
+    {
+        m_headerColor = wxColour( 0, 51, 153 );
+    }
+    else
+    {
+        m_headerColor = wxSystemSettings::GetColour( wxSYS_COLOUR_INACTIVECAPTIONTEXT );
+    }
 #else
     m_headerFont.MakeBold();
-    m_headerColor = wxSystemSettings::GetColour( wxSYS_COLOUR_ACTIVECAPTION );
+    m_headerColor = wxSystemSettings::GetColour( wxSYS_COLOUR_INACTIVECAPTIONTEXT );
 #endif
 }
 

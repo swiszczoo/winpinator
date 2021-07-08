@@ -1,7 +1,6 @@
 #include "winpinator_frame.hpp"
 
 #include "../../win32/resource.h"
-#include "page_hostlist.hpp"
 #include "utils.hpp"
 
 #include <wx/aboutdlg.h>
@@ -39,8 +38,8 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     m_banner = new WinpinatorBanner( this, 80 );
     mainSizer->Add( m_banner, 0, wxEXPAND, 0 );
 
-    HostListPage* p = new HostListPage( this );
-    mainSizer->Add( p, 1, wxEXPAND, 0 );
+    m_selector = new ScreenSelector( this );
+    mainSizer->Add( m_selector, 1, wxEXPAND, 0 );
 
     SetSizer( mainSizer );
 

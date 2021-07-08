@@ -61,7 +61,7 @@ bool AccountPictureExtractor::process()
     avatarDir.AppendDir( "Microsoft" );
     avatarDir.AppendDir( "Windows" );
     avatarDir.AppendDir( "AccountPictures" );
-    wxString huj = avatarDir.GetFullPath();
+    
     if ( !avatarDir.DirExists() )
     {
         m_error = AVATAR_NOT_FOUND;
@@ -106,8 +106,8 @@ bool AccountPictureExtractor::process()
 
         if ( *ptr == *JPEG_MAGIC_NUMBER )
         {
-            // JPEG header is probably found. Verify it by checking if there is
-            // a 'JFIF' string at offset 0x06
+            // JPEG header has probably been found. Verify it by checking 
+            // if there is a 'JFIF' string at offset 0x06
             uint32_t* jfifPtr = (uint32_t*)( buffer.get() + off + 0x06 );
 
             if ( off + 10 < avatarSize && *jfifPtr == *JFIF_MAGIC_NUMBER )
@@ -129,7 +129,7 @@ bool AccountPictureExtractor::process()
                     wxMemoryInputStream stream( ptr, jpegSize );
                     this->m_hiRes.LoadFile( stream, wxBITMAP_TYPE_JPEG );
 
-                    // Both JPEGs are found, so we can safely 
+                    // Both JPEGs have been found, so we can safely 
                     // finish our processing.
 
                     return true;

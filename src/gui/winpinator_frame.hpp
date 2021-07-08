@@ -1,6 +1,7 @@
 #pragma once
 #include <wx/wx.h>
 
+#include "screen_selector.hpp"
 #include "winpinator_banner.hpp"
 
 
@@ -19,6 +20,7 @@ private:
     wxStatusBar* m_statusBar;
 
     WinpinatorBanner* m_banner;
+    ScreenSelector* m_selector;
 
     void setupMenuBar();
     void setupAccelTable();

@@ -159,12 +159,17 @@
     <ResourceCompile Include="..\win32\winpinator.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\account_picture_extractor.hpp" />
+    <ClInclude Include="..\src\globals.hpp" />
+    <ClInclude Include="..\src\gui\screen_selector.hpp" />
+    <ClInclude Include="..\src\service\account_picture_extractor.hpp" />
     <ClInclude Include="..\src\gui\host_listbox.hpp" />
     <ClInclude Include="..\src\gui\page_hostlist.hpp" />
     <ClInclude Include="..\src\gui\page_nohosts.hpp" />
     <ClInclude Include="..\src\gui\page_offline.hpp" />
     <ClInclude Include="..\src\gui\tool_button.hpp" />
+    <ClInclude Include="..\src\service\observable_service.hpp" />
+    <ClInclude Include="..\src\service\service_observer.hpp" />
+    <ClInclude Include="..\src\service\winpinator_service.hpp" />
     <ClInclude Include="..\win32\resource.h" />
     <ClInclude Include="..\src\gui\page_starting.hpp" />
     <ClInclude Include="..\src\gui\utils.hpp" />
@@ -178,7 +183,9 @@
     <ClInclude Include="..\src\zeroconf\mdns_service.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\account_picture_extractor.cpp" />
+    <ClCompile Include="..\src\globals.cpp" />
+    <ClCompile Include="..\src\gui\screen_selector.cpp" />
+    <ClCompile Include="..\src\service\account_picture_extractor.cpp" />
     <ClCompile Include="..\src\gui\host_listbox.cpp" />
     <ClCompile Include="..\src\gui\page_hostlist.cpp" />
     <ClCompile Include="..\src\gui\page_nohosts.cpp" />
@@ -192,6 +199,9 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\proto-gen\warp.grpc.pb.cc" />
     <ClCompile Include="..\src\proto-gen\warp.pb.cc" />
+    <ClCompile Include="..\src\service\observable_service.cpp" />
+    <ClCompile Include="..\src\service\service_observer.cpp" />
+    <ClCompile Include="..\src\service\winpinator_service.cpp" />
     <ClCompile Include="..\src\zeroconf\mdns_client.cpp" />
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp" />
   </ItemGroup>
