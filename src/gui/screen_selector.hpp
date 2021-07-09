@@ -14,7 +14,7 @@ namespace gui
 class ScreenSelector : public wxPanel, srv::IServiceObserver
 {
 public:
-    ScreenSelector( wxWindow* parent );
+    explicit ScreenSelector( wxWindow* parent );
 
     // Service listeners
 

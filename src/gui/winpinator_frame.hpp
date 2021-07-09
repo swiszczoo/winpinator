@@ -11,7 +11,7 @@ namespace gui
 class WinpinatorFrame : public wxFrame
 {
 public:
-    WinpinatorFrame( wxWindow* parent );
+    explicit WinpinatorFrame( wxWindow* parent );
 
 private:
     wxMenuBar* m_menuBar;

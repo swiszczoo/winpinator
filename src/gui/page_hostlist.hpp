@@ -11,7 +11,7 @@ namespace gui
 class HostListPage : public wxPanel
 {
 public:
-    HostListPage( wxWindow* parent );
+    explicit HostListPage( wxWindow* parent );
 
 private:
     static const wxString s_details;

@@ -8,7 +8,7 @@ namespace gui
 class NoHostsPage : public wxPanel
 {
 public:
-    NoHostsPage( wxWindow* parent );
+    explicit NoHostsPage( wxWindow* parent );
 
 private:
     static const wxString s_text;

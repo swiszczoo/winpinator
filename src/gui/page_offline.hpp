@@ -8,7 +8,7 @@ namespace gui
 class OfflinePage : public wxPanel
 {
 public:
-    OfflinePage( wxWindow* parent );
+    explicit OfflinePage( wxWindow* parent );
 
 private:
     static wxString s_text;

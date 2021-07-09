@@ -31,7 +31,7 @@ struct HostItem
 class HostListbox : public wxVListBox
 {
 public:
-    HostListbox( wxWindow* parent );
+    explicit HostListbox( wxWindow* parent );
 
 protected:
     virtual void OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const;

@@ -8,7 +8,7 @@ namespace gui
 class StartingPage : public wxPanel
 {
 public:
-    StartingPage( wxWindow* parent );
+    explicit StartingPage( wxWindow* parent );
 
 private:
     wxActivityIndicator* m_indicator;
