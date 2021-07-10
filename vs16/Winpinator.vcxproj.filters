@@ -130,6 +130,9 @@
     <ClInclude Include="..\src\gui\screen_selector.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\event.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">

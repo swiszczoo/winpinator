@@ -31,11 +31,14 @@ ScreenSelector::ScreenSelector( wxWindow* parent )
     m_page3 = new NoHostsPage( m_book );
     m_book->AddPage( m_page3, wxEmptyString );
 
+    srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
+
     m_book->SetSelection( 0 );
+    onStateChanged();
 
     SetSizer( mainSizer );
 
-    observeService( Globals::get()->getWinpinatorServiceInstance() );
+    observeService( serv );
 
     // Events
 }
@@ -44,10 +47,26 @@ void ScreenSelector::onStateChanged()
 {
     srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
 
-    if ( m_currentPage == SelectorPage::STARTING && serv->isServiceReady() )
+    if ( !serv->isOnline() && m_currentPage != SelectorPage::OFFLINE )
+    {
+        m_currentPage = SelectorPage::OFFLINE;
+        m_book->SetSelection( (size_t)SelectorPage::OFFLINE );
+        return;
+    }
+
+    if ( serv->isOnline() && !serv->isServiceReady()
+        && m_currentPage != SelectorPage::STARTING )
+    {
+        m_currentPage = SelectorPage::STARTING;
+        m_book->SetSelection( (size_t)SelectorPage::STARTING );
+        return;
+    }
+
+    if ( serv->isServiceReady() && m_currentPage != SelectorPage::HOST_LIST )
     {
         m_currentPage = SelectorPage::HOST_LIST;
         m_book->SetSelection( (size_t)SelectorPage::HOST_LIST );
+        return;
     }
 }
 
