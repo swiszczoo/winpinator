@@ -1,6 +1,7 @@
 #include "winpinator_service.hpp"
 
 #include "../zeroconf/mdns_service.hpp"
+#include "service_utils.hpp"
 
 #include <SensAPI.h>
 #include <iphlpapi.h>
@@ -23,6 +24,8 @@ WinpinatorService::WinpinatorService()
     , m_online( false )
     , m_shouldRestart( false )
     , m_stopping( false )
+    , m_ip( "" )
+    , m_displayName( "" )
 {
     DWORD netFlag = NETWORK_ALIVE_LAN;
     bool result = IsNetworkAlive( &netFlag );
@@ -35,6 +38,8 @@ WinpinatorService::WinpinatorService()
     {
         m_online = true;
     }
+
+    m_displayName = Utils::getUserShortName() + '@' + Utils::getHostname();
 }
 
 void WinpinatorService::setGrpcPort( uint16_t port )
@@ -65,6 +70,18 @@ bool WinpinatorService::isServiceReady() const
 bool WinpinatorService::isOnline() const
 {
     return m_online;
+}
+
+std::string WinpinatorService::getIpAddress()
+{
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
+    return m_ip;
+}
+
+const std::string& WinpinatorService::getDisplayName() const
+{
+    return m_displayName;
 }
 
 int WinpinatorService::startOnThisThread()
@@ -128,10 +145,20 @@ void WinpinatorService::serviceMain()
     zc::MdnsService flushService( WinpinatorService::s_warpServiceType );
     flushService.setHostname( "Hostname" );
     flushService.setPort( m_port );
-    flushService.setTxtRecord( "hostname", "DESK-X570" );
+    flushService.setTxtRecord( "hostname", Utils::getHostname() );
     flushService.setTxtRecord( "type", "flush" );
 
-    flushService.registerService();
+    auto ipPairFuture = flushService.registerService();
+    zc::MdnsIpPair ipPair = ipPairFuture.get();
+
+    if ( ipPair.valid )
+    {
+        std::unique_lock<std::recursive_mutex> lock( m_mutex );
+        m_ip = ipPair.ipv4;
+
+        notifyIpChanged();
+        lock.unlock();
+    }
 
     std::this_thread::sleep_for( std::chrono::seconds( 3 ) );
 
@@ -141,7 +168,7 @@ void WinpinatorService::serviceMain()
     zc::MdnsService zcService( WinpinatorService::s_warpServiceType );
     zcService.setHostname( "Hostname" );
     zcService.setPort( m_port );
-    zcService.setTxtRecord( "hostname", "DESK-X570" );
+    zcService.setTxtRecord( "hostname", Utils::getHostname() );
     zcService.setTxtRecord( "type", "real" );
     zcService.setTxtRecord( "os", "Windows 10" );
     zcService.setTxtRecord( "api-version", "2" );
@@ -177,6 +204,17 @@ void WinpinatorService::notifyStateChanged()
     for ( auto& observer : m_observers )
     {
         observer->onStateChanged();
+    }
+}
+
+void WinpinatorService::notifyIpChanged()
+{
+    std::lock_guard<std::mutex> guard( m_observersMtx );
+    std::string newIp = m_ip;
+
+    for ( auto& observer : m_observers )
+    {
+        observer->onIpAddressChanged( newIp );
     }
 }
 
@@ -218,6 +256,11 @@ int WinpinatorService::networkPollingMain( std::mutex& mtx,
                 if ( oldOnline )
                 {
                     notifyStateChanged();
+
+                    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+                    m_ip = "";
+
+                    notifyIpChanged();
                 }
 
                 Event restartEv;

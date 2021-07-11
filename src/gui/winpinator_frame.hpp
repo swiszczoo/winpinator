@@ -1,6 +1,7 @@
 #pragma once
 #include <wx/wx.h>
 
+#include "../service/service_observer.hpp"
 #include "screen_selector.hpp"
 #include "winpinator_banner.hpp"
 
@@ -8,7 +9,7 @@
 namespace gui
 {
 
-class WinpinatorFrame : public wxFrame
+class WinpinatorFrame : public wxFrame, srv::IServiceObserver
 {
 public:
     explicit WinpinatorFrame( wxWindow* parent );
@@ -34,6 +35,9 @@ private:
     void onHelpSelected();
     void onShowReleaseNotesSelected();
     void onAboutSelected();
+
+    virtual void onStateChanged();
+    virtual void onIpAddressChanged( std::string newIp );
 };
 
 };

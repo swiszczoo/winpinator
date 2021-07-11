@@ -21,6 +21,8 @@ IServiceObserver::~IServiceObserver()
 void IServiceObserver::observeService( ObservableService* service )
 {
     service->addObserver( this );
+
+    m_observedServices.push_back( service );
 }
 
 void IServiceObserver::stopObserving( ObservableService* service )
@@ -37,6 +39,10 @@ void IServiceObserver::stopObserving( ObservableService* service )
             count--;
         }
     }
+}
+
+void IServiceObserver::onIpAddressChanged( std::string newIp )
+{
 }
 
 };

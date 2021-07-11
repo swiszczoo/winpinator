@@ -1,6 +1,7 @@
 #pragma once
 #include "observable_service.hpp"
 
+#include <string>
 #include <vector>
 
 namespace srv
@@ -18,6 +19,7 @@ public:
 
     // Listeners to be overriden (must be virtual)
     virtual void onStateChanged() = 0;
+    virtual void onIpAddressChanged( std::string newIp );
 
 protected:
     void observeService( ObservableService* service );

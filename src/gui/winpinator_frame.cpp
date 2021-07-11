@@ -1,10 +1,10 @@
 #include "winpinator_frame.hpp"
 
 #include "../../win32/resource.h"
+#include "../globals.hpp"
 #include "utils.hpp"
 
 #include <wx/aboutdlg.h>
-
 
 #define ID_OPENDESTDIR 10000
 #define ID_RELEASENOTES 10001
@@ -23,7 +23,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     SetSize( FromDIP( 800 ), FromDIP( 600 ) );
     SetMinSize( FromDIP( wxSize( 500, 400 ) ) );
 
-    wxIconBundle icons( Utils::makeIntResource( IDI_WINPINATOR ), 
+    wxIconBundle icons( Utils::makeIntResource( IDI_WINPINATOR ),
         GetModuleHandle( NULL ) );
     SetIcons( icons );
 
@@ -43,16 +43,30 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
 
     SetSizer( mainSizer );
 
-
     m_statusBar = new wxStatusBar( this, wxID_ANY );
 
     int statusWidths[] = { -1, 130 };
     m_statusBar->SetFieldsCount( sizeof( statusWidths ) / sizeof( int ) );
     m_statusBar->SetStatusWidths( m_statusBar->GetFieldsCount(), statusWidths );
-    m_statusBar->SetStatusText( wxT( "username@hostname" ), 0 );
-    m_statusBar->SetStatusText( wxT( "IP: 192.168.1.1" ), 1 );
-    
+
+    srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
+
+    m_statusBar->SetStatusText( serv->getDisplayName(), 0 );
+
+    if ( serv->isOnline() )
+    {
+        // TRANSLATORS: format string
+        m_statusBar->SetStatusText(
+            wxString::Format( _( "IP: %s" ), serv->getIpAddress() ), 1 );
+    }
+    else
+    {
+        m_statusBar->SetStatusText( _( "Offline!" ), 1 );
+    }
+
     SetStatusBar( m_statusBar );
+
+    observeService( Globals::get()->getWinpinatorServiceInstance() );
 
     // Events
     Bind( wxEVT_MENU, &WinpinatorFrame::onMenuItemSelected, this );
@@ -63,14 +77,14 @@ void WinpinatorFrame::setupMenuBar()
     m_menuBar = new wxMenuBar();
 
     m_fileMenu = new wxMenu();
-    m_fileMenu->Append( ID_OPENDESTDIR, _( "Open save folder...\tCtrl+O" ), 
+    m_fileMenu->Append( ID_OPENDESTDIR, _( "Open save folder...\tCtrl+O" ),
         _( "Open the incoming files folder in Explorer" ) );
     m_fileMenu->Append( wxID_PREFERENCES, _( "Preferences..." ),
         _( "Adjust app preferences" ) );
     m_fileMenu->AppendSeparator();
     m_fileMenu->Append( wxID_CLOSE_FRAME, _( "Exit\tAlt+F4" ),
         _( "Close this window but let Winpinator run in background" ) );
-    m_fileMenu->Append( wxID_EXIT, 
+    m_fileMenu->Append( wxID_EXIT,
         _( "Exit and stop the service\tCtrl+Alt+F4" ),
         _( "Exit Winpinator and stop being visible to other computers" ) );
 
@@ -170,6 +184,30 @@ void WinpinatorFrame::onAboutSelected()
     info.SetCopyright( _( "\u00a92021 £ukasz Œwiszcz" ) );
 
     wxAboutBox( info, this );
+}
+
+void WinpinatorFrame::onStateChanged()
+{
+    srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
+
+    if ( !serv->isOnline() )
+    {
+        m_statusBar->SetStatusText( _( "Offline!" ), 1 );
+    }
+}
+
+void WinpinatorFrame::onIpAddressChanged( std::string newIp )
+{
+    if ( newIp.empty() )
+    {
+        m_statusBar->SetStatusText( _( "Offline!" ), 1 );
+    }
+    else
+    {
+        // TRANSLATORS: format string
+        m_statusBar->SetStatusText(
+            wxString::Format( _( "IP: %s" ), newIp ), 1 );
+    }
 }
 
 };

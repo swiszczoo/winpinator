@@ -96,7 +96,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -114,7 +114,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -128,7 +128,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,7 +146,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -170,6 +170,7 @@
     <ClInclude Include="..\src\service\event.hpp" />
     <ClInclude Include="..\src\service\observable_service.hpp" />
     <ClInclude Include="..\src\service\service_observer.hpp" />
+    <ClInclude Include="..\src\service\service_utils.hpp" />
     <ClInclude Include="..\src\service\winpinator_service.hpp" />
     <ClInclude Include="..\win32\resource.h" />
     <ClInclude Include="..\src\gui\page_starting.hpp" />
@@ -202,6 +203,7 @@
     <ClCompile Include="..\src\proto-gen\warp.pb.cc" />
     <ClCompile Include="..\src\service\observable_service.cpp" />
     <ClCompile Include="..\src\service\service_observer.cpp" />
+    <ClCompile Include="..\src\service\service_utils.cpp" />
     <ClCompile Include="..\src\service\winpinator_service.cpp" />
     <ClCompile Include="..\src\zeroconf\mdns_client.cpp" />
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp" />

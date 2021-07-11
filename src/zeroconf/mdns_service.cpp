@@ -36,6 +36,7 @@ MdnsService::MdnsService( const std::string& serviceType )
     , m_serviceAddressIpv6( { 0 } )
     , m_hasIpv4( false )
     , m_hasIpv6( false )
+    , m_socketToKill( 0 )
     , m_addrbuffer( "" )
     , m_entrybuffer( "" )
     , m_namebuffer( "" )
@@ -120,11 +121,20 @@ void MdnsService::removeAllTxtRecords()
     m_txtRecords.clear();
 }
 
-void MdnsService::registerService()
+std::future<MdnsIpPair> MdnsService::registerService()
 {
     if ( m_running )
     {
-        return;
+        std::promise<MdnsIpPair> temp;
+
+        MdnsIpPair invalid;
+        invalid.valid = false;
+        invalid.ipv4 = "---";
+        invalid.ipv6 = "---";
+
+        temp.set_value( invalid );
+
+        return temp.get_future();
     }
 
     if ( m_worker.joinable() )
@@ -135,9 +145,12 @@ void MdnsService::registerService()
 
     m_running = true;
 
-    m_worker = std::thread( [this]() -> int {
-        return workerImpl();
-    } );
+    auto promise = std::make_shared<std::promise<MdnsIpPair>>();
+
+    m_worker = std::thread( std::bind( &MdnsService::workerImpl,
+        this, promise ) );
+
+    return promise->get_future();
 }
 
 void MdnsService::unregisterService()
@@ -311,7 +324,7 @@ bool MdnsService::isServiceRunning()
     return m_running;
 }
 
-int MdnsService::workerImpl()
+int MdnsService::workerImpl( std::shared_ptr<std::promise<MdnsIpPair>> promise )
 {
     auto hostname = std::make_unique<char[]>( m_hostname.size() + 1 );
     auto servName = std::make_unique<char[]>( m_srvType.size() + 1 );
@@ -319,7 +332,9 @@ int MdnsService::workerImpl()
     strcpy_s( hostname.get(), m_hostname.size() + 1, m_hostname.c_str() );
     strcpy_s( servName.get(), m_srvType.size() + 1, m_srvType.c_str() );
 
-    serviceMdns( hostname.get(), servName.get(), m_port, m_mtRunning );
+    serviceMdns( hostname.get(), servName.get(), m_port, m_mtRunning,
+        std::move( promise ) );
+
     return EXIT_SUCCESS;
 }
 
@@ -327,10 +342,14 @@ void MdnsService::unlockThread()
 {
     // HACK: Send an empty datagram to ensure select does not wait forever
     // (we're sure that m_running equals false at this moment)
+#ifdef _MSC_VER
+    //OutputDebugString( L"Unlocking thread...\n" );
+#endif
 
     int sock = (int)socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
 
-    if ( sock == 0 ) {
+    if ( sock == 0 )
+    {
         return;
     }
 
@@ -355,8 +374,20 @@ void MdnsService::unlockThread()
     saddrlen = sizeof( addr );
 
     mdns_unicast_send( sock, saddr, saddrlen, &buf, sizeof( buf ) );
+#ifdef _MSC_VER
+    //if ( result )
+    //    OutputDebugString( L"Unlock FAILED!\n" );
+    //else
+    //    OutputDebugString( L"Unlock SUCCEEDED!\n" );
+#endif
 
     mdns_socket_close( sock );
+
+    // The method above doesn't always work
+    // so...
+    // Shamelessly kill one of the sockets select is listening on
+
+    mdns_socket_close( m_socketToKill );
 }
 
 int MdnsService::openClientSockets( int* sockets, int maxSockets, int port )
@@ -633,7 +664,8 @@ int MdnsService::openServiceSockets( int* sockets, int maxSockets )
 // Provide a mDNS service, answering incoming DNS-SD and mDNS queries
 int MdnsService::serviceMdns( const char* hostname,
     const char* serviceName, int servicePort,
-    std::shared_ptr<std::recursive_mutex> mutexRef )
+    std::shared_ptr<std::recursive_mutex> mutexRef,
+    std::shared_ptr<std::promise<MdnsIpPair>> promise )
 {
     // We hold a mutex reference here to prevent it from being destoyed
     // along with class instance and detaching this thread, in case
@@ -736,6 +768,84 @@ int MdnsService::serviceMdns( const char* hostname,
     service.record_aaaa.type = MDNS_RECORDTYPE_AAAA;
     service.record_aaaa.data.aaaa.addr = service.address_ipv6;
 
+    // Fulfill the promise with our IP addresses
+    char ipv4Buf[128];
+    std::string ipv6;
+
+    sprintf_s( ipv4Buf, "%u.%u.%u.%u",
+        service.address_ipv4.sin_addr.S_un.S_un_b.s_b1,
+        service.address_ipv4.sin_addr.S_un.S_un_b.s_b2,
+        service.address_ipv4.sin_addr.S_un.S_un_b.s_b3,
+        service.address_ipv4.sin_addr.S_un.S_un_b.s_b4 );
+
+    // Determine the longest series of zeroes in the IPv6 address
+    int longestZeroesLength = 0;
+    int longestZeroesStart = 0;
+    int currentZeroesStart = 0;
+    int currentZeroesLength = 0;
+
+    for ( size_t i = 0; i < 8; i++ )
+    {
+        WORD hextet = service.address_ipv6.sin6_addr.u.Word[i];
+
+        if ( hextet == 0 ) // NOTE: We may ignore reversed endianness here
+        {
+            currentZeroesLength++;
+        }
+        else
+        {
+            if ( currentZeroesLength > longestZeroesLength )
+            {
+                longestZeroesLength = currentZeroesLength;
+                longestZeroesStart = currentZeroesStart;
+            }
+
+            currentZeroesStart = i + 1;
+            currentZeroesLength = 0;
+        }
+    }
+
+    if ( currentZeroesLength > longestZeroesLength )
+    {
+        longestZeroesLength = currentZeroesLength;
+        longestZeroesStart = currentZeroesStart;
+    }
+
+    // Construct IPv6 address string
+    for ( size_t i = 0; i < 8; i++ )
+    {
+        if ( i == longestZeroesStart )
+        {
+            ipv6 += "::";
+            continue;
+        }
+
+        if ( i < longestZeroesStart 
+            || i >= longestZeroesStart + longestZeroesLength )
+        {
+            char hextetBuf[5];
+            WORD hextet = service.address_ipv6.sin6_addr.u.Word[i];
+
+            // We assume that our CPU is little-endian, so we swap the byte order
+            WORD leHextet = ( ( hextet & 0xFF00 ) >> 8 ) 
+                | ( ( hextet & 0xff ) << 8 );
+
+            sprintf_s( hextetBuf, "%x", leHextet );
+
+            if ( !ipv6.empty() && ipv6[ipv6.length() - 1] != ':' )
+            {
+                ipv6 += ':';
+            }
+            ipv6 += hextetBuf;
+        }
+    }
+
+    MdnsIpPair results;
+    results.valid = true;
+    results.ipv4 = std::string( ipv4Buf );
+    results.ipv6 = ipv6;
+    promise->set_value( results );
+
     // Setup TXT records
     std::vector<std::unique_ptr<char[]>> buffers;
 
@@ -806,8 +916,13 @@ int MdnsService::serviceMdns( const char* hostname,
             FD_SET( sockets[isock], &readfs );
         }
 
+        m_socketToKill = sockets[0];
+
         if ( select( nfds, &readfs, 0, 0, 0 ) >= 0 )
         {
+#ifdef _MSC_VER
+            //OutputDebugString( L"Select passed\n" );
+#endif
             std::lock_guard<std::recursive_mutex> lock( *mutexRef );
 
             if ( mutexRef.use_count() < 2 || !m_running )

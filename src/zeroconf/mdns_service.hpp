@@ -1,6 +1,7 @@
 #pragma once
 #include "mdns.h"
 
+#include <future>
 #include <map>
 #include <mutex>
 #include <string>
@@ -24,6 +25,13 @@
 namespace zc
 {
 
+struct MdnsIpPair
+{
+    bool valid;
+    std::string ipv4;
+    std::string ipv6;
+};
+
 class MdnsService
 {
 public:
@@ -36,7 +44,7 @@ public:
     void setPort( std::uint16_t port );
     std::uint16_t getPort() const;
 
-    void registerService();
+    std::future<MdnsIpPair> registerService();
     void unregisterService();
 
     void setTxtRecord( const std::string& name, const std::string& value );
@@ -57,7 +65,7 @@ private:
 
     std::map<std::string, std::string> m_txtRecords;
 
-    int workerImpl();
+    int workerImpl( std::shared_ptr<std::promise<MdnsIpPair>> promise );
     void unlockThread();
 
     // mDNS.c implementations
@@ -65,6 +73,8 @@ private:
     sockaddr_in6 m_serviceAddressIpv6;
     int m_hasIpv4;
     int m_hasIpv6;
+
+    int m_socketToKill;
 
     char m_addrbuffer[64];
     char m_entrybuffer[256];
@@ -75,7 +85,8 @@ private:
     int openServiceSockets( int* sockets, int maxSockets );
     int serviceMdns( const char* hostname, 
         const char* serviceNname, int servicePort,
-        std::shared_ptr<std::recursive_mutex> mutexRef );
+        std::shared_ptr<std::recursive_mutex> mutexRef,
+        std::shared_ptr<std::promise<MdnsIpPair>> promise );
 
     static int serviceCallback( int sock, const sockaddr* from,
         size_t addrlen, mdns_entry_type entry, uint16_t query_id,

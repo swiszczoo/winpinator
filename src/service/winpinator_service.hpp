@@ -28,6 +28,8 @@ public:
 
     bool isServiceReady() const;
     bool isOnline() const;
+    std::string getIpAddress();
+    const std::string& getDisplayName() const;
 
     int startOnThisThread();
 
@@ -44,12 +46,16 @@ private:
     bool m_shouldRestart;
     bool m_stopping;
 
+    std::string m_ip;
+    std::string m_displayName;
+
     std::thread m_pollingThread;
     wxMessageQueue<Event> m_events;
 
     void serviceMain();
 
     void notifyStateChanged();
+    void notifyIpChanged();
 
     int networkPollingMain( std::mutex& mtx, std::condition_variable& condVar );
 };
