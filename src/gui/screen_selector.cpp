@@ -41,6 +41,7 @@ ScreenSelector::ScreenSelector( wxWindow* parent )
     observeService( serv );
 
     // Events
+    Bind( wxEVT_THREAD, &ScreenSelector::onChangePage, this );
 }
 
 void ScreenSelector::onStateChanged()
@@ -50,7 +51,10 @@ void ScreenSelector::onStateChanged()
     if ( !serv->isOnline() && m_currentPage != SelectorPage::OFFLINE )
     {
         m_currentPage = SelectorPage::OFFLINE;
-        m_book->SetSelection( (size_t)SelectorPage::OFFLINE );
+
+        wxThreadEvent event( wxEVT_THREAD );
+        event.SetInt( (int)SelectorPage::OFFLINE );
+        wxQueueEvent( this, event.Clone() );
         return;
     }
 
@@ -58,16 +62,27 @@ void ScreenSelector::onStateChanged()
         && m_currentPage != SelectorPage::STARTING )
     {
         m_currentPage = SelectorPage::STARTING;
-        m_book->SetSelection( (size_t)SelectorPage::STARTING );
+        
+        wxThreadEvent event( wxEVT_THREAD );
+        event.SetInt( (int)SelectorPage::STARTING );
+        wxQueueEvent( this, event.Clone() );
         return;
     }
 
     if ( serv->isServiceReady() && m_currentPage != SelectorPage::HOST_LIST )
     {
         m_currentPage = SelectorPage::HOST_LIST;
-        m_book->SetSelection( (size_t)SelectorPage::HOST_LIST );
+
+        wxThreadEvent event( wxEVT_THREAD );
+        event.SetInt( (int)SelectorPage::HOST_LIST );
+        wxQueueEvent( this, event.Clone() );
         return;
     }
+}
+
+void ScreenSelector::onChangePage( wxThreadEvent& event )
+{
+    m_book->SetSelection( event.GetInt() );
 }
 
 };

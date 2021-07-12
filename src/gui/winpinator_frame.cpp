@@ -70,6 +70,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
 
     // Events
     Bind( wxEVT_MENU, &WinpinatorFrame::onMenuItemSelected, this );
+    Bind( wxEVT_THREAD, &WinpinatorFrame::onChangeStatusBarText, this );
 }
 
 void WinpinatorFrame::setupMenuBar()
@@ -147,6 +148,11 @@ void WinpinatorFrame::onMenuItemSelected( wxCommandEvent& event )
     }
 }
 
+void WinpinatorFrame::onChangeStatusBarText( wxThreadEvent& event )
+{
+    m_statusBar->SetStatusText( event.GetString(), 1 );
+}
+
 void WinpinatorFrame::onOpenFolderSelected()
 {
 }
@@ -192,22 +198,27 @@ void WinpinatorFrame::onStateChanged()
 
     if ( !serv->isOnline() )
     {
-        m_statusBar->SetStatusText( _( "Offline!" ), 1 );
+        wxThreadEvent evnt( wxEVT_THREAD );
+        evnt.SetString( _( "Offline!" ) );
+        wxQueueEvent( this, evnt.Clone() );
     }
 }
 
 void WinpinatorFrame::onIpAddressChanged( std::string newIp )
 {
+    wxThreadEvent evnt( wxEVT_THREAD );
+
     if ( newIp.empty() )
     {
-        m_statusBar->SetStatusText( _( "Offline!" ), 1 );
+        evnt.SetString( _( "Offline!" ) );
     }
     else
     {
         // TRANSLATORS: format string
-        m_statusBar->SetStatusText(
-            wxString::Format( _( "IP: %s" ), newIp ), 1 );
+        evnt.SetString( wxString::Format( _( "IP: %s" ), newIp ) );
     }
+
+    wxQueueEvent( this, evnt.Clone() );
 }
 
 };

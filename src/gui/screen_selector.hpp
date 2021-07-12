@@ -36,6 +36,8 @@ private:
     OfflinePage* m_page1;
     HostListPage* m_page2;
     NoHostsPage* m_page3;
+
+    void onChangePage( wxThreadEvent& event );
 };
 
 };

@@ -814,7 +814,7 @@ int MdnsService::serviceMdns( const char* hostname,
     // Construct IPv6 address string
     for ( size_t i = 0; i < 8; i++ )
     {
-        if ( i == longestZeroesStart )
+        if ( i == longestZeroesStart && longestZeroesLength > 0 )
         {
             ipv6 += "::";
             continue;

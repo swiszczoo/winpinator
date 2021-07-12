@@ -159,6 +159,9 @@
     <ResourceCompile Include="..\win32\winpinator.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\cryptopp-pem\pem.h" />
+    <ClInclude Include="..\src\cryptopp-pem\pem_common.h" />
+    <ClInclude Include="..\src\cryptopp-pem\x509cert.h" />
     <ClInclude Include="..\src\globals.hpp" />
     <ClInclude Include="..\src\gui\screen_selector.hpp" />
     <ClInclude Include="..\src\service\account_picture_extractor.hpp" />
@@ -185,6 +188,10 @@
     <ClInclude Include="..\src\zeroconf\mdns_service.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\cryptopp-pem\pem_common.cpp" />
+    <ClCompile Include="..\src\cryptopp-pem\pem_read.cpp" />
+    <ClCompile Include="..\src\cryptopp-pem\pem_write.cpp" />
+    <ClCompile Include="..\src\cryptopp-pem\x509cert.cpp" />
     <ClCompile Include="..\src\globals.cpp" />
     <ClCompile Include="..\src\gui\screen_selector.cpp" />
     <ClCompile Include="..\src\service\account_picture_extractor.cpp" />

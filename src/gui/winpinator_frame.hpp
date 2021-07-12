@@ -27,6 +27,7 @@ private:
     void setupAccelTable();
 
     void onMenuItemSelected( wxCommandEvent& event );
+    void onChangeStatusBarText( wxThreadEvent& event );
 
     void onOpenFolderSelected();
     void onPrefsSelected();

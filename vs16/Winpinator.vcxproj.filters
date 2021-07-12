@@ -43,6 +43,12 @@
     <Filter Include="Sources\service">
       <UniqueIdentifier>{1c1dc661-e168-4326-b1ca-0dd174c50728}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\cryptopp-pem">
+      <UniqueIdentifier>{ed326bca-6773-4835-867e-55d31301b626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\cryptopp-pem">
+      <UniqueIdentifier>{fd47d0cc-db61-4037-b2b0-8acd0ceeff4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\vcpkg.json">
@@ -136,6 +142,15 @@
     <ClInclude Include="..\src\service\service_utils.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\cryptopp-pem\pem.h">
+      <Filter>Headers\cryptopp-pem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cryptopp-pem\pem_common.h">
+      <Filter>Headers\cryptopp-pem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cryptopp-pem\x509cert.h">
+      <Filter>Headers\cryptopp-pem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -203,6 +218,18 @@
     </ClCompile>
     <ClCompile Include="..\src\service\service_utils.cpp">
       <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cryptopp-pem\pem_common.cpp">
+      <Filter>Sources\cryptopp-pem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cryptopp-pem\pem_read.cpp">
+      <Filter>Sources\cryptopp-pem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cryptopp-pem\pem_write.cpp">
+      <Filter>Sources\cryptopp-pem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cryptopp-pem\x509cert.cpp">
+      <Filter>Sources\cryptopp-pem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
