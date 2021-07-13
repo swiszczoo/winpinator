@@ -58,4 +58,29 @@ std::wstring Utils::getUserShortName()
     return result;
 }
 
+std::string Utils::generateUUID()
+{
+    UUID uid;
+    if ( UuidCreate( &uid ) != RPC_S_OK )
+    {
+        return "";
+    }
+
+    char* buffer = 0;
+    if ( UuidToStringA( &uid, (RPC_CSTR*)&buffer ) != RPC_S_OK )
+    {
+        return "";
+    }
+
+    if ( buffer )
+    {
+        std::string result = std::string( buffer );
+        RpcStringFreeA( (RPC_CSTR*)&buffer );
+
+        return result;
+    }
+    
+    return "";
+}
+
 };

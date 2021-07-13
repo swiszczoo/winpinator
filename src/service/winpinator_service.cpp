@@ -2,6 +2,7 @@
 
 #include "../zeroconf/mdns_service.hpp"
 #include "service_utils.hpp"
+#include "auth_manager.hpp"
 
 #include <SensAPI.h>
 #include <iphlpapi.h>
@@ -40,6 +41,8 @@ WinpinatorService::WinpinatorService()
     }
 
     m_displayName = Utils::getUserShortName() + '@' + Utils::getHostname();
+
+    AuthManager::get();
 }
 
 void WinpinatorService::setGrpcPort( uint16_t port )

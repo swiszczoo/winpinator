@@ -151,6 +151,12 @@
     <ClInclude Include="..\src\cryptopp-pem\x509cert.h">
       <Filter>Headers\cryptopp-pem</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\auth_manager.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\zeroconf\mdns_types.hpp">
+      <Filter>Headers\zeroconf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -230,6 +236,12 @@
     </ClCompile>
     <ClCompile Include="..\src\cryptopp-pem\x509cert.cpp">
       <Filter>Sources\cryptopp-pem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\auth_manager.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\service_base64.cpp">
+      <Filter>Sources\service</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

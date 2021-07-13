@@ -1,6 +1,8 @@
 #pragma once
 #include "mdns.h"
 
+#include "mdns_types.hpp"
+
 #include <future>
 #include <map>
 #include <mutex>
@@ -24,13 +26,6 @@
 
 namespace zc
 {
-
-struct MdnsIpPair
-{
-    bool valid;
-    std::string ipv4;
-    std::string ipv6;
-};
 
 class MdnsService
 {

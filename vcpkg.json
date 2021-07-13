@@ -3,9 +3,9 @@
   "version-string": "0.1.0",
   "description": "An unofficial port of Warpinator from Linux Mint for Windows",
   "dependencies": [
+    "cpp-base64",
     "cryptopp",
     "grpc",
-    "libiconv",
     "libsodium",
     "wintoast",
     "wxwidgets",
