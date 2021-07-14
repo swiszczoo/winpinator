@@ -4,6 +4,9 @@
 #include <memory>
 #include <string>
 
+#include <openssl/pem.h>
+#include <openssl/x509.h>
+
 #include <wx/wx.h>
 #include <wx/fileconf.h>
 
@@ -11,6 +14,12 @@
 
 namespace srv
 {
+
+struct ServerCredentials
+{
+    std::string publicKey;
+    std::string privateKey;
+};
 
 class AuthManager
 {
@@ -23,6 +32,8 @@ public:
     const std::string& getIdent() const;
     const std::wstring& getGroupCode() const;
     void updateGroupCode( const std::wstring& code );
+
+    ServerCredentials getServerCreds();
 
     std::string getCachedCert( std::string hostname, zc::MdnsIpPair ips );
     bool processRemoteCert( std::string hostname, zc::MdnsIpPair ips,
@@ -37,6 +48,7 @@ private:
     const static std::string CONFIG_FILE_NAME;
     const static std::string CONFIG_FOLDER; 
     const static std::string APPDATA_ENV;
+    const static long EXPIRE_TIME;
 
     static std::unique_ptr<AuthManager> s_inst;
 
@@ -48,8 +60,8 @@ private:
     uint16_t m_port;
     std::wstring m_code;
 
-    std::string m_privateKey;
-    std::string m_serverCert;
+    std::string m_serverPubKey;
+    std::string m_serverPrivateKey;
 
     std::map<std::string, std::string> m_remoteCerts;
 
@@ -64,6 +76,9 @@ private:
     void makeKeyCertPair();
 
     static std::string ipPairToString( const zc::MdnsIpPair& pair );
+    static EVP_PKEY* generateKey();
+    static void setRandomSerialNumber( X509* x509 );
+    void setSubjectAltName( X509* x509 );
 };
 
 };

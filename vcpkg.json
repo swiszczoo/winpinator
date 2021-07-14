@@ -4,9 +4,9 @@
   "description": "An unofficial port of Warpinator from Linux Mint for Windows",
   "dependencies": [
     "cpp-base64",
-    "cryptopp",
     "grpc",
     "libsodium",
+    "openssl",
     "wintoast",
     "wxwidgets",
     "zlib"

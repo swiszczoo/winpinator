@@ -42,7 +42,9 @@ WinpinatorService::WinpinatorService()
 
     m_displayName = Utils::getUserShortName() + '@' + Utils::getHostname();
 
-    AuthManager::get();
+    zc::MdnsIpPair ipPair;
+    ipPair.valid = true;
+    ipPair.ipv4 = "192.168.1.29";
 }
 
 void WinpinatorService::setGrpcPort( uint16_t port )
@@ -161,6 +163,8 @@ void WinpinatorService::serviceMain()
 
         notifyIpChanged();
         lock.unlock();
+
+        AuthManager::get()->update( ipPair, m_port );
     }
 
     std::this_thread::sleep_for( std::chrono::seconds( 3 ) );
