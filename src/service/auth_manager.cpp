@@ -70,6 +70,8 @@ AuthManager* AuthManager::get()
 
 void AuthManager::update( zc::MdnsIpPair ips, uint16_t port )
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     m_ips = ips;
     m_port = port;
 
@@ -81,18 +83,24 @@ void AuthManager::update( zc::MdnsIpPair ips, uint16_t port )
     makeKeyCertPair();
 }
 
-const std::string& AuthManager::getIdent() const
+const std::string& AuthManager::getIdent()
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     return m_ident;
 }
 
-const std::wstring& AuthManager::getGroupCode() const
+const std::wstring& AuthManager::getGroupCode()
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     return m_code;
 }
 
 void AuthManager::updateGroupCode( const std::wstring& code )
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     if ( code == m_code )
     {
         return;
@@ -107,6 +115,8 @@ void AuthManager::updateGroupCode( const std::wstring& code )
 
 ServerCredentials AuthManager::getServerCreds()
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     ServerCredentials creds;
     creds.privateKey = m_serverPrivateKey;
     creds.publicKey = m_serverPubKey;
@@ -116,6 +126,8 @@ ServerCredentials AuthManager::getServerCreds()
 std::string AuthManager::getCachedCert( std::string hostname,
     zc::MdnsIpPair ips )
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     std::string key = hostname + '.' + ipPairToString( ips );
 
     if ( m_remoteCerts.find( key ) != m_remoteCerts.end() )
@@ -129,13 +141,15 @@ std::string AuthManager::getCachedCert( std::string hostname,
 bool AuthManager::processRemoteCert( std::string hostname,
     zc::MdnsIpPair ips, std::string serverData )
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     if ( serverData.empty() )
     {
         return false;
     }
 
     std::string decoded = base64_decode( serverData );
-    wxScopedCharBuffer codeUtf8 = wxString( m_code ).ToUTF8();
+    std::string codeUtf8 = wxString( m_code ).utf8_string();
 
     unsigned char key[crypto_hash_sha256_BYTES];
     crypto_hash_sha256( key, (unsigned char*)codeUtf8.data(),
@@ -174,8 +188,11 @@ bool AuthManager::processRemoteCert( std::string hostname,
 
 std::string AuthManager::getEncodedLocalCert()
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     unsigned char key[crypto_hash_sha256_BYTES];
-    wxScopedCharBuffer codeUtf8 = wxString( m_code ).ToUTF8();
+    std::string codeUtf8 = wxString( m_code ).utf8_string();
+    const char* datatest = codeUtf8.data();
     crypto_hash_sha256( key, (unsigned char*)codeUtf8.data(),
         codeUtf8.length() );
 
@@ -202,11 +219,15 @@ std::string AuthManager::getEncodedLocalCert()
     std::string encoded = base64_encode( (unsigned char*)buffer.get(),
         bufferSize );
 
+    OutputDebugStringA( encoded.c_str() );
+
     return encoded;
 }
 
 void AuthManager::loadKeyfile()
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     m_keyfile = std::make_unique<wxFileConfig>(
         wxEmptyString, wxEmptyString,
         m_path, wxEmptyString, 
@@ -217,11 +238,15 @@ void AuthManager::loadKeyfile()
 
 void AuthManager::saveKeyfile()
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     m_keyfile->Flush();
 }
 
 void AuthManager::readIdent()
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     bool genNew = false;
 
     wxString path = wxString::Format( "%s/%s",
@@ -246,6 +271,8 @@ void AuthManager::readIdent()
 
 void AuthManager::readGroupCode()
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     wxString path = wxString::Format( "%s/%s",
         AuthManager::KEYFILE_GROUP_NAME, AuthManager::KEYFILE_CODE_KEY );
     wxString code = m_keyfile->Read( path, "" );
@@ -263,6 +290,8 @@ void AuthManager::readGroupCode()
 
 void AuthManager::makeKeyCertPair()
 {
+    std::lock_guard<std::recursive_mutex> guard( m_mutex );
+
     EVP_PKEY* pkey = AuthManager::generateKey();
 
     if ( !pkey )

@@ -653,7 +653,6 @@ int MdnsService::openServiceSockets( int* sockets, int maxSockets )
         sock_addr.sin6_len = sizeof( struct sockaddr_in6 );
 #endif
         int sock = mdns_socket_open_ipv6( &sockAddr );
-        int err = WSAGetLastError();
         if ( sock >= 0 )
             sockets[numSockets++] = sock;
     }

@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <string>
 
 #include <openssl/pem.h>
@@ -29,8 +30,8 @@ public:
     static AuthManager* get();
 
     void update( zc::MdnsIpPair ips, uint16_t port );
-    const std::string& getIdent() const;
-    const std::wstring& getGroupCode() const;
+    const std::string& getIdent();
+    const std::wstring& getGroupCode();
     void updateGroupCode( const std::wstring& code );
 
     ServerCredentials getServerCreds();
@@ -68,6 +69,8 @@ private:
     std::wstring m_path;
 
     std::unique_ptr<wxFileConfig> m_keyfile;
+    
+    std::recursive_mutex m_mutex;
 
     void loadKeyfile();
     void saveKeyfile();

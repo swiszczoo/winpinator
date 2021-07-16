@@ -1424,7 +1424,8 @@ typedef ssize_t mdns_ssize_t;
         void* data = MDNS_POINTER_OFFSET( buffer, sizeof( struct mdns_header_t ) );
 
         // Fill in answer
-        data = mdns_answer_add_record( buffer, capacity, data, answer, rclass, ttl, &string_table );
+        uint16_t rclassPtr = rclass & ~( MDNS_CACHE_FLUSH );
+        data = mdns_answer_add_record( buffer, capacity, data, answer, rclassPtr, ttl, &string_table );
 
         // Fill in authority records
         for ( size_t irec = 0; data && ( irec < authority_count ); ++irec )

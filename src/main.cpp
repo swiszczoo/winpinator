@@ -7,6 +7,9 @@
 #include <Windows.h>
 
 #include <google/protobuf/message_lite.h>
+#include <grpcpp/ext/proto_server_reflection_plugin.h>
+#include <grpcpp/grpcpp.h>
+#include <grpcpp/health_check_service_interface.h>
 
 #include <functional>
 #include <future>
@@ -49,6 +52,10 @@ int genericMain( int argc, char* argv[] )
 
 int serviceMain( int argc, char* argv[], std::promise<void>& promise )
 {
+    // Initialize protobuf/grpc
+    grpc::EnableDefaultHealthCheckService( true );
+    grpc::reflection::InitProtoReflectionServerBuilderPlugin();
+
     auto service = std::make_unique<srv::WinpinatorService>();
 
     Globals::get()->setWinpinatorServiceInstance( service.get() );

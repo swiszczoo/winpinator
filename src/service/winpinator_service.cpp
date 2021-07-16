@@ -1,8 +1,9 @@
 #include "winpinator_service.hpp"
 
 #include "../zeroconf/mdns_service.hpp"
-#include "service_utils.hpp"
 #include "auth_manager.hpp"
+#include "registration_v2_impl.hpp"
+#include "service_utils.hpp"
 
 #include <SensAPI.h>
 #include <iphlpapi.h>
@@ -40,11 +41,14 @@ WinpinatorService::WinpinatorService()
         m_online = true;
     }
 
-    m_displayName = Utils::getUserShortName() + '@' + Utils::getHostname();
+    m_displayName = ( Utils::getUserFullName() + " - "
+        + Utils::getUserShortName() + '@' + Utils::getHostname() );
+
+    // Init auth manager with invalid IP (to generate ident)
 
     zc::MdnsIpPair ipPair;
-    ipPair.valid = true;
-    ipPair.ipv4 = "192.168.1.29";
+    ipPair.valid = false;
+    AuthManager::get()->update( ipPair, 0 );
 }
 
 void WinpinatorService::setGrpcPort( uint16_t port )
@@ -146,9 +150,13 @@ void WinpinatorService::serviceMain()
     // Reset an event queue
     m_events.Clear();
 
+    // Start the registration service (v2)
+    RegistrationV2Server regServer2;
+    regServer2.setPort( m_authPort );
+
     // Register 'flush' type service for 3 seconds
     zc::MdnsService flushService( WinpinatorService::s_warpServiceType );
-    flushService.setHostname( "Hostname" );
+    flushService.setHostname( AuthManager::get()->getIdent() );
     flushService.setPort( m_port );
     flushService.setTxtRecord( "hostname", Utils::getHostname() );
     flushService.setTxtRecord( "type", "flush" );
@@ -165,15 +173,20 @@ void WinpinatorService::serviceMain()
         lock.unlock();
 
         AuthManager::get()->update( ipPair, m_port );
+
+        // We have an IP so we can start the registration server
+        regServer2.startServer();
     }
 
     std::this_thread::sleep_for( std::chrono::seconds( 3 ) );
 
     flushService.unregisterService();
 
+    std::this_thread::sleep_for( std::chrono::seconds( 3 ) );
+
     // Now register 'real' service
     zc::MdnsService zcService( WinpinatorService::s_warpServiceType );
-    zcService.setHostname( "Hostname" );
+    zcService.setHostname( AuthManager::get()->getIdent() );
     zcService.setPort( m_port );
     zcService.setTxtRecord( "hostname", Utils::getHostname() );
     zcService.setTxtRecord( "type", "real" );
@@ -202,6 +215,11 @@ void WinpinatorService::serviceMain()
             break;
         }
     }
+
+    // Service cleanup
+
+    // Stop the registration server
+    regServer2.stopServer();
 }
 
 void WinpinatorService::notifyStateChanged()

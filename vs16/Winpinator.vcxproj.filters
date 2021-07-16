@@ -142,6 +142,9 @@
     <ClInclude Include="..\src\zeroconf\mdns_types.hpp">
       <Filter>Headers\zeroconf</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\registration_v2_impl.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -214,6 +217,9 @@
       <Filter>Sources\service</Filter>
     </ClCompile>
     <ClCompile Include="..\src\service\service_base64.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\registration_v2_impl.cpp">
       <Filter>Sources\service</Filter>
     </ClCompile>
   </ItemGroup>
