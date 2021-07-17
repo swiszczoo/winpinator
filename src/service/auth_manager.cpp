@@ -231,7 +231,7 @@ void AuthManager::loadKeyfile()
     m_keyfile = std::make_unique<wxFileConfig>(
         wxEmptyString, wxEmptyString,
         m_path, wxEmptyString, 
-        wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH );
+        wxCONFIG_USE_LOCAL_FILE );
 
     m_keyfile->DisableAutoSave();
 }

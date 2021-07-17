@@ -92,6 +92,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -108,6 +109,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -124,6 +126,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,6 +143,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -178,7 +182,6 @@
     <ClInclude Include="..\win32\resource.h" />
     <ClInclude Include="..\src\gui\page_starting.hpp" />
     <ClInclude Include="..\src\gui\utils.hpp" />
-    <ClInclude Include="..\src\gui\winpinator_app.hpp" />
     <ClInclude Include="..\src\gui\winpinator_banner.hpp" />
     <ClInclude Include="..\src\gui\winpinator_frame.hpp" />
     <ClInclude Include="..\src\proto-gen\warp.grpc.pb.h" />
@@ -198,7 +201,6 @@
     <ClCompile Include="..\src\gui\page_starting.cpp" />
     <ClCompile Include="..\src\gui\tool_button.cpp" />
     <ClCompile Include="..\src\gui\utils.cpp" />
-    <ClCompile Include="..\src\gui\winpinator_app.cpp" />
     <ClCompile Include="..\src\gui\winpinator_banner.cpp" />
     <ClCompile Include="..\src\gui\winpinator_frame.cpp" />
     <ClCompile Include="..\src\main.cpp" />

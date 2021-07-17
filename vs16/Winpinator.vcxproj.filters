@@ -79,9 +79,6 @@
     <ClInclude Include="..\src\proto-gen\warp.pb.h">
       <Filter>Headers\proto-gen</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\gui\winpinator_app.hpp">
-      <Filter>Headers\gui</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\gui\winpinator_frame.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
@@ -161,9 +158,6 @@
     </ClCompile>
     <ClCompile Include="..\src\proto-gen\warp.pb.cc">
       <Filter>Sources\proto-gen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\gui\winpinator_app.cpp">
-      <Filter>Sources\gui</Filter>
     </ClCompile>
     <ClCompile Include="..\src\gui\winpinator_frame.cpp">
       <Filter>Sources\gui</Filter>

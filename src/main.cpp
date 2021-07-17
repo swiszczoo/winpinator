@@ -1,15 +1,15 @@
-#include "gui/winpinator_app.hpp"
-
 #include "globals.hpp"
+#include "gui/winpinator_frame.hpp"
 #include "service/winpinator_service.hpp"
+
+#include <google/protobuf/message_lite.h>
+#include <grpcpp/grpcpp.h>
+#include <grpcpp/health_check_service_interface.h>
+
+#include <wx/wx.h>
 
 #include <stdlib.h>
 #include <Windows.h>
-
-#include <google/protobuf/message_lite.h>
-#include <grpcpp/ext/proto_server_reflection_plugin.h>
-#include <grpcpp/grpcpp.h>
-#include <grpcpp/health_check_service_interface.h>
 
 #include <functional>
 #include <future>
@@ -17,16 +17,37 @@
 #include <memory>
 #include <thread>
 
+int serviceMain( std::promise<void>& promise );
 
-int serviceMain( int argc, char* argv[], std::promise<void>& promise );
-int uiMain( int argc, char* argv[], std::future<void>& future );
-
-
-int genericMain( int argc, char* argv[] )
+class WinpinatorApp : public wxApp
 {
-    // Run two threads - the first one running background services
-    // (zeroconf, grpc, etc.) and the second one running graphical
-    // user interface
+public:
+    WinpinatorApp();
+    virtual bool OnInit() override;
+    virtual int OnExit() override;
+
+private:
+    wxLocale m_locale;
+    wxTopLevelWindow* m_topLvl;
+    std::thread m_srvThread;
+
+    void showMainFrame();
+    void onMainFrameDestroyed( wxWindowDestroyEvent& event );
+};
+
+wxIMPLEMENT_APP( WinpinatorApp );
+
+WinpinatorApp::WinpinatorApp()
+    : m_locale( wxLANGUAGE_ENGLISH_US )
+    , m_topLvl( nullptr )
+{
+}
+
+bool WinpinatorApp::OnInit()
+{
+    wxInitAllImageHandlers();
+
+    // Start the service in the background thread
 
     // We must ensure that ui thread waits until global service pointer
     // becomes valid. This can be accomplished with std::promise and
@@ -35,14 +56,22 @@ int genericMain( int argc, char* argv[] )
     std::promise<void> promise;
     std::future<void> future = promise.get_future();
 
-    std::thread srvThread( std::bind( serviceMain, 
-        argc, argv, std::ref(promise) ) );
-    std::thread uiThread( std::bind( uiMain, argc, argv, std::ref(future) ) );
-    
-    // Wait for both of them to finish before exiting the process
+    m_srvThread = std::thread( std::bind( serviceMain, 
+        std::ref( promise ) ) );
 
-    srvThread.join();
-    uiThread.join();
+    // Wait for the service to become valid
+    future.wait();
+
+    // Show main window
+    showMainFrame();
+
+    return true;
+}
+
+int WinpinatorApp::OnExit()
+{
+    // Wait for the background thread to finish before exiting the process
+    m_srvThread.join();
 
     // Shut down protobuf
     google::protobuf::ShutdownProtobufLibrary();
@@ -50,11 +79,28 @@ int genericMain( int argc, char* argv[] )
     return EXIT_SUCCESS;
 }
 
-int serviceMain( int argc, char* argv[], std::promise<void>& promise )
+void WinpinatorApp::showMainFrame()
+{
+    if ( m_topLvl )
+    {
+        return;
+    }
+
+    m_topLvl = new gui::WinpinatorFrame( nullptr );
+    m_topLvl->Show( true );
+
+    m_topLvl->Bind( wxEVT_DESTROY, &WinpinatorApp::onMainFrameDestroyed, this );
+}
+
+void WinpinatorApp::onMainFrameDestroyed( wxWindowDestroyEvent& event )
+{
+    m_topLvl = nullptr;
+}
+
+int serviceMain( std::promise<void>& promise )
 {
     // Initialize protobuf/grpc
     grpc::EnableDefaultHealthCheckService( true );
-    grpc::reflection::InitProtoReflectionServerBuilderPlugin();
 
     auto service = std::make_unique<srv::WinpinatorService>();
 
@@ -71,36 +117,3 @@ int serviceMain( int argc, char* argv[], std::promise<void>& promise )
 
     return result;
 }
-
-int uiMain( int argc, char* argv[], std::future<void>& future )
-{
-    // Wait for service pointer to become valid
-    future.wait();
-
-    gui::WinpinatorApp* app = new gui::WinpinatorApp();
-    gui::WinpinatorApp::SetInstance( app );
-
-    wxEntry( argc, argv );
-    wxEntryCleanup();
-
-    return EXIT_SUCCESS;
-}
-
-#ifdef _WIN32
-
-INT WINAPI WinMain( _In_ HINSTANCE hInstance, 
-    _In_opt_ HINSTANCE hPrevInstance, 
-    _In_ LPSTR lpCmdLine, 
-    _In_ int nShowCmd )
-{
-    return genericMain( __argc, __argv );
-}
-
-#else
-
-int main(int argc, char* argv[])
-{
-    return genericMain( argc, argv );
-}
-
-#endif
