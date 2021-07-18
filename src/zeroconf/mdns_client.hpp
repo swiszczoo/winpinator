@@ -1,6 +1,8 @@
 #pragma once
 #include "mdns.h"
 
+#include "mdns_types.hpp"
+
 #include <functional>
 #include <map>
 #include <mutex>
@@ -25,25 +27,6 @@
 namespace zc
 {
 
-struct MdnsServiceData
-{
-    // A full service name, consisting of hostname and protocol. Should be
-    // uniquely identifying a particular host.
-    std::string name;
-
-    // A name of the server in .local. domain
-    std::string srvName;
-
-    // An IPv4 address of the service. If unavailable, this string is empty.
-    std::string ipv4;
-
-    // An IPv6 address of the service. If unavailable, this string is empty.
-    std::string ipv6;
-
-    // A map of TXT records
-    std::map<std::string, std::string> txtRecords;
-};
-
 typedef std::function<void( const MdnsServiceData& )> AddListenerType;
 typedef std::function<void( const std::string& )> RemoveListenerType;
 
@@ -65,6 +48,9 @@ public:
     // Secondly, remember that listener callback runs on a background thread!
     void setOnRemoveServiceListener( RemoveListenerType listener );
 
+    void setIgnoredHostname( const std::string& ignored );
+    std::string getIgnoredHostname();
+
     void startListening();
     void stopListening();
     bool isListening() const;
@@ -81,6 +67,7 @@ private:
 
     std::mutex m_mtRunning;
     std::mutex m_mtListeners;
+    std::recursive_mutex m_mtIgnored;
 
     AddListenerType m_addListener;
     RemoveListenerType m_removeListener;
@@ -94,6 +81,8 @@ private:
     std::queue<std::string> m_removedServices;
     std::string m_lastServiceName;
     int m_lastServiceTtl;
+
+    std::string m_ignoredHost;
 
     int workerImpl();
     bool isValidService( const std::string& name );

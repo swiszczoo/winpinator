@@ -7,6 +7,7 @@
 #include <grpcpp/health_check_service_interface.h>
 
 #include <wx/wx.h>
+#include <wx/socket.h>
 
 #include <stdlib.h>
 #include <Windows.h>
@@ -46,6 +47,7 @@ WinpinatorApp::WinpinatorApp()
 bool WinpinatorApp::OnInit()
 {
     wxInitAllImageHandlers();
+    wxSocketBase::Initialize();
 
     // Start the service in the background thread
 

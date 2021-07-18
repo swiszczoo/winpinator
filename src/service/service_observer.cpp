@@ -41,7 +41,22 @@ void IServiceObserver::stopObserving( ObservableService* service )
     }
 }
 
+//
+// All the methods below are default stub implementations 
+// They should be selectively overriden by interested observers
+
 void IServiceObserver::onIpAddressChanged( std::string newIp )
+{
+}
+void IServiceObserver::onAddHost( int index, const std::string& id )
+{
+}
+
+void IServiceObserver::onEditHost( int index, const std::string& id )
+{
+}
+
+void IServiceObserver::onDeleteHost( const std::string& id )
 {
 }
 

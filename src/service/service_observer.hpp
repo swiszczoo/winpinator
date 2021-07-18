@@ -20,6 +20,9 @@ public:
     // Listeners to be overriden (must be virtual)
     virtual void onStateChanged() = 0;
     virtual void onIpAddressChanged( std::string newIp );
+    virtual void onAddHost( int index, const std::string& id );
+    virtual void onEditHost( int index, const std::string& id );
+    virtual void onDeleteHost( const std::string& id );
 
 protected:
     void observeService( ObservableService* service );

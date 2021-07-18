@@ -12,6 +12,7 @@ MdnsClient::MdnsClient( const std::string& serviceType )
     , m_removeListener( []( const std::string& dummy ) {} )
     , m_lastServiceName( "" )
     , m_lastServiceTtl( 0 )
+    , m_ignoredHost( "" )
     , m_serviceAddressIpv4( { 0 } )
     , m_serviceAddressIpv6( { 0 } )
     , m_hasIpv4( false )
@@ -49,6 +50,20 @@ void MdnsClient::setOnRemoveServiceListener( RemoveListenerType listener )
     std::lock_guard<std::mutex> lock( m_mtListeners );
 
     m_removeListener = listener;
+}
+
+void MdnsClient::setIgnoredHostname( const std::string& ignored )
+{
+    std::lock_guard<std::recursive_mutex> guard( m_mtIgnored );
+
+    m_ignoredHost = ignored;
+}
+
+std::string MdnsClient::getIgnoredHostname()
+{
+    std::lock_guard<std::recursive_mutex> guard( m_mtIgnored );
+
+    return m_ignoredHost;
 }
 
 void MdnsClient::startListening()
@@ -125,6 +140,10 @@ bool MdnsClient::isValidService(const std::string& name)
 
 void MdnsClient::processEvents()
 {
+    std::unique_lock<std::recursive_mutex> lock( m_mtIgnored );
+    std::string ignoreStr = m_ignoredHost + '.' + m_srvType;
+    lock.unlock();
+
     int counter = m_addedServices.size();
     while ( counter > 0 )
     {
@@ -133,7 +152,10 @@ void MdnsClient::processEvents()
         if ( m_activeServices.find( name ) != m_activeServices.end() 
             && isValidService( name ) )
         {
-            m_addListener( m_activeServices[name] );
+            if ( name != ignoreStr )
+            {
+                m_addListener( m_activeServices[name] );
+            }
         }
         else
         {
@@ -147,8 +169,11 @@ void MdnsClient::processEvents()
     while ( !m_removedServices.empty() )
     {
         const std::string name = m_removedServices.front();
-           
-        m_removeListener( name );
+
+        if ( name != ignoreStr )
+        {
+            m_removeListener( name );
+        }
 
         m_removedServices.pop();
     }

@@ -1,7 +1,10 @@
 #include "winpinator_service.hpp"
 
+#include "../zeroconf/mdns_client.hpp"
 #include "../zeroconf/mdns_service.hpp"
+
 #include "auth_manager.hpp"
+#include "registration_v1_impl.hpp"
 #include "registration_v2_impl.hpp"
 #include "service_utils.hpp"
 
@@ -113,7 +116,7 @@ int WinpinatorService::startOnThisThread()
 
     m_pollingThread = std::thread(
         std::bind( &WinpinatorService::networkPollingMain, this,
-            std::ref(varLock), std::ref(condVar) ) );
+            std::ref( varLock ), std::ref( condVar ) ) );
 
     do
     {
@@ -150,6 +153,9 @@ void WinpinatorService::serviceMain()
     // Reset an event queue
     m_events.Clear();
 
+    // Start the registration service (v1)
+    RegistrationV1Server regServer1( "0.0.0.0", m_port );
+
     // Start the registration service (v2)
     RegistrationV2Server regServer2;
     regServer2.setPort( m_authPort );
@@ -175,6 +181,7 @@ void WinpinatorService::serviceMain()
         AuthManager::get()->update( ipPair, m_port );
 
         // We have an IP so we can start the registration server
+        regServer1.startServer();
         regServer2.startServer();
     }
 
@@ -195,6 +202,17 @@ void WinpinatorService::serviceMain()
     zcService.setTxtRecord( "auth-port", "52001" );
 
     zcService.registerService();
+
+    // Start discovering other hosts on the network
+    zc::MdnsClient zcClient( WinpinatorService::s_warpServiceType );
+    zcClient.setOnAddServiceListener(
+        std::bind( &WinpinatorService::onServiceAdded, this,
+            std::placeholders::_1 ) );
+    zcClient.setOnRemoveServiceListener(
+        std::bind( &WinpinatorService::onServiceRemoved, this,
+            std::placeholders::_1 ) );
+    zcClient.setIgnoredHostname( AuthManager::get()->getIdent() );
+    zcClient.startListening();
 
     // Notify that Winpinator service is now ready
     m_ready = true;
@@ -218,7 +236,8 @@ void WinpinatorService::serviceMain()
 
     // Service cleanup
 
-    // Stop the registration server
+    // Stop registration servers
+    regServer1.stopServer();
     regServer2.stopServer();
 }
 
@@ -243,7 +262,17 @@ void WinpinatorService::notifyIpChanged()
     }
 }
 
-int WinpinatorService::networkPollingMain( std::mutex& mtx, 
+void WinpinatorService::onServiceAdded( const zc::MdnsServiceData& serviceData )
+{
+    wxLogDebug( "Service discovered: %s", wxString( serviceData.name ) );
+}
+
+void WinpinatorService::onServiceRemoved(const std::string& serviceName)
+{
+    wxLogDebug( "Service removed: %s", wxString( serviceName ) );
+}
+
+int WinpinatorService::networkPollingMain( std::mutex& mtx,
     std::condition_variable& condVar )
 {
     // This thread is responsible for polling
@@ -273,7 +302,7 @@ int WinpinatorService::networkPollingMain( std::mutex& mtx,
 
                 condVar.notify_all();
             }
-            else 
+            else
             {
                 // We are offline
                 m_online = false;

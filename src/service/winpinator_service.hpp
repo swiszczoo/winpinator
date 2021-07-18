@@ -1,6 +1,7 @@
 #pragma once
 #include "observable_service.hpp"
 
+#include "../zeroconf/mdns_types.hpp"
 #include "event.hpp"
 
 #include <wx/wx.h>
@@ -10,6 +11,7 @@
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <string>
 #include <thread>
 
 namespace srv
@@ -56,6 +58,9 @@ private:
 
     void notifyStateChanged();
     void notifyIpChanged();
+
+    void onServiceAdded( const zc::MdnsServiceData& serviceData );
+    void onServiceRemoved( const std::string& serviceName );
 
     int networkPollingMain( std::mutex& mtx, std::condition_variable& condVar );
 };

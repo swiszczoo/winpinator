@@ -219,8 +219,6 @@ std::string AuthManager::getEncodedLocalCert()
     std::string encoded = base64_encode( (unsigned char*)buffer.get(),
         bufferSize );
 
-    OutputDebugStringA( encoded.c_str() );
-
     return encoded;
 }
 
