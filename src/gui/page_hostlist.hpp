@@ -27,6 +27,7 @@ private:
 
     void onDpiChanged( wxDPIChangedEvent& event );
     void onLabelResized( wxSizeEvent& event );
+    void onRefreshClicked( wxCommandEvent& event );
 
     void loadIcon();
 };

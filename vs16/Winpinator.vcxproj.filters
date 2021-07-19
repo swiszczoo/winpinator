@@ -145,6 +145,9 @@
     <ClInclude Include="..\src\service\registration_v1_impl.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\remote_manager.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -220,6 +223,9 @@
       <Filter>Sources\service</Filter>
     </ClCompile>
     <ClCompile Include="..\src\service\registration_v1_impl.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\remote_manager.cpp">
       <Filter>Sources\service</Filter>
     </ClCompile>
   </ItemGroup>

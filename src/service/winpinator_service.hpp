@@ -3,6 +3,7 @@
 
 #include "../zeroconf/mdns_types.hpp"
 #include "event.hpp"
+#include "remote_manager.hpp"
 
 #include <wx/wx.h>
 #include <wx/msgqueue.h>
@@ -35,6 +36,8 @@ public:
 
     int startOnThisThread();
 
+    void postEvent( const Event& evnt );
+
 private:
     const static std::string s_warpServiceType;
     const static int s_pollingIntervalSec;
@@ -53,6 +56,7 @@ private:
 
     std::thread m_pollingThread;
     wxMessageQueue<Event> m_events;
+    std::unique_ptr<RemoteManager> m_remoteMgr;
 
     void serviceMain();
 

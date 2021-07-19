@@ -8,6 +8,8 @@
 #include "registration_v2_impl.hpp"
 #include "service_utils.hpp"
 
+#include <algorithm>
+
 #include <SensAPI.h>
 #include <iphlpapi.h>
 #include <stdlib.h>
@@ -31,6 +33,7 @@ WinpinatorService::WinpinatorService()
     , m_stopping( false )
     , m_ip( "" )
     , m_displayName( "" )
+    , m_remoteMgr( nullptr )
 {
     DWORD netFlag = NETWORK_ALIVE_LAN;
     bool result = IsNetworkAlive( &netFlag );
@@ -148,10 +151,18 @@ int WinpinatorService::startOnThisThread()
     return EXIT_SUCCESS;
 }
 
+void WinpinatorService::postEvent( const Event& evnt )
+{
+    m_events.Post( evnt );
+}
+
 void WinpinatorService::serviceMain()
 {
-    // Reset an event queue
+    // Reset event queue
     m_events.Clear();
+
+    // Initialize remote manager
+    m_remoteMgr = std::make_unique<RemoteManager>( this );
 
     // Start the registration service (v1)
     RegistrationV1Server regServer1( "0.0.0.0", m_port );
@@ -180,7 +191,7 @@ void WinpinatorService::serviceMain()
 
         AuthManager::get()->update( ipPair, m_port );
 
-        // We have an IP so we can start the registration server
+        // We have an IP so we can start registration servers
         regServer1.startServer();
         regServer2.startServer();
     }
@@ -199,7 +210,7 @@ void WinpinatorService::serviceMain()
     zcService.setTxtRecord( "type", "real" );
     zcService.setTxtRecord( "os", "Windows 10" );
     zcService.setTxtRecord( "api-version", "2" );
-    zcService.setTxtRecord( "auth-port", "52001" );
+    zcService.setTxtRecord( "auth-port", std::to_string( m_authPort ) );
 
     zcService.registerService();
 
@@ -232,9 +243,23 @@ void WinpinatorService::serviceMain()
             m_shouldRestart = true;
             break;
         }
+        if ( ev.type == EventType::REPEAT_MDNS_QUERY )
+        {
+            zcClient.repeatQuery();
+        }
+        if ( ev.type == EventType::HOST_ADDED )
+        {
+            m_remoteMgr->processAddHost( *ev.eventData.addedData );
+        }
+        if ( ev.type == EventType::HOST_REMOVED )
+        {
+            m_remoteMgr->processRemoveHost( *ev.eventData.removedData );
+        }
     }
 
     // Service cleanup
+    zcClient.stopListening();
+    m_remoteMgr->stop();
 
     // Stop registration servers
     regServer1.stopServer();
@@ -243,7 +268,7 @@ void WinpinatorService::serviceMain()
 
 void WinpinatorService::notifyStateChanged()
 {
-    std::lock_guard<std::mutex> guard( m_observersMtx );
+    std::lock_guard<std::recursive_mutex> guard( m_observersMtx );
 
     for ( auto& observer : m_observers )
     {
@@ -253,7 +278,7 @@ void WinpinatorService::notifyStateChanged()
 
 void WinpinatorService::notifyIpChanged()
 {
-    std::lock_guard<std::mutex> guard( m_observersMtx );
+    std::lock_guard<std::recursive_mutex> guard( m_observersMtx );
     std::string newIp = m_ip;
 
     for ( auto& observer : m_observers )
@@ -265,11 +290,25 @@ void WinpinatorService::notifyIpChanged()
 void WinpinatorService::onServiceAdded( const zc::MdnsServiceData& serviceData )
 {
     wxLogDebug( "Service discovered: %s", wxString( serviceData.name ) );
+
+    // Inform main service thread about new host
+    Event ev;
+    ev.type = EventType::HOST_ADDED;
+    ev.eventData.addedData = std::make_shared<zc::MdnsServiceData>( serviceData );
+
+    postEvent( ev );
 }
 
-void WinpinatorService::onServiceRemoved(const std::string& serviceName)
+void WinpinatorService::onServiceRemoved( const std::string& serviceName )
 {
     wxLogDebug( "Service removed: %s", wxString( serviceName ) );
+
+    // Inform main service thread about removed host
+    Event ev;
+    ev.type = EventType::HOST_REMOVED;
+    ev.eventData.removedData = std::make_shared<std::string>( serviceName );
+
+    postEvent( ev );
 }
 
 int WinpinatorService::networkPollingMain( std::mutex& mtx,

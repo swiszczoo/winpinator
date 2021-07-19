@@ -11,7 +11,7 @@ ObservableService::ObservableService()
 
 ObservableService::~ObservableService()
 {
-    std::lock_guard<std::mutex> guard( m_observersMtx );
+    std::lock_guard<std::recursive_mutex> guard( m_observersMtx );
 
     // Unregister all observers
 
@@ -21,16 +21,27 @@ ObservableService::~ObservableService()
     }
 }
 
+void ObservableService::callForEachObserver(
+    std::function<void( IServiceObserver* )> func )
+{
+    std::lock_guard<std::recursive_mutex> guard( m_observersMtx );
+
+    for ( IServiceObserver* observer : m_observers )
+    {
+        func( observer );
+    }
+}
+
 void ObservableService::addObserver( IServiceObserver* ref )
 {
-    std::lock_guard<std::mutex> guard( m_observersMtx );
+    std::lock_guard<std::recursive_mutex> guard( m_observersMtx );
 
     m_observers.insert( ref );
 }
 
 void ObservableService::removeObserver( IServiceObserver* ref )
 {
-    std::lock_guard<std::mutex> guard( m_observersMtx );
+    std::lock_guard<std::recursive_mutex> guard( m_observersMtx );
 
     m_observers.erase( ref );
 }

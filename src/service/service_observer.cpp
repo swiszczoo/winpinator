@@ -60,4 +60,8 @@ void IServiceObserver::onDeleteHost( const std::string& id )
 {
 }
 
+void IServiceObserver::onHostCountChanged( size_t newCount )
+{
+}
+
 };

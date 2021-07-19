@@ -23,6 +23,7 @@ public:
     virtual void onAddHost( int index, const std::string& id );
     virtual void onEditHost( int index, const std::string& id );
     virtual void onDeleteHost( const std::string& id );
+    virtual void onHostCountChanged( size_t newCount );
 
 protected:
     void observeService( ObservableService* service );

@@ -176,6 +176,7 @@
     <ClInclude Include="..\src\service\observable_service.hpp" />
     <ClInclude Include="..\src\service\registration_v1_impl.hpp" />
     <ClInclude Include="..\src\service\registration_v2_impl.hpp" />
+    <ClInclude Include="..\src\service\remote_manager.hpp" />
     <ClInclude Include="..\src\service\service_observer.hpp" />
     <ClInclude Include="..\src\service\service_utils.hpp" />
     <ClInclude Include="..\src\service\winpinator_service.hpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="..\src\service\observable_service.cpp" />
     <ClCompile Include="..\src\service\registration_v1_impl.cpp" />
     <ClCompile Include="..\src\service\registration_v2_impl.cpp" />
+    <ClCompile Include="..\src\service\remote_manager.cpp" />
     <ClCompile Include="..\src\service\service_base64.cpp" />
     <ClCompile Include="..\src\service\service_observer.cpp" />
     <ClCompile Include="..\src\service\service_utils.cpp" />

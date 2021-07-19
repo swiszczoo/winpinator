@@ -606,6 +606,7 @@ int MdnsClient::queryCallback( int sock, const struct sockaddr* from,
             != obj->m_activeServices.end() )
         {
             obj->m_activeServices[entry].srvName = srvName;
+            obj->m_activeServices[entry].port = srv.port;
 
             if ( obj->m_aRecords.find(srvName) != obj->m_aRecords.end() )
             {

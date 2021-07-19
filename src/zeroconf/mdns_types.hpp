@@ -21,6 +21,9 @@ struct MdnsServiceData
     // A name of the server in .local. domain
     std::string srvName;
 
+    // Port on which the service is running
+    uint16_t port;
+
     // An IPv4 address of the service. If unavailable, this string is empty.
     std::string ipv4;
 

@@ -1,6 +1,7 @@
 #include "page_hostlist.hpp"
 
 #include "../../win32/resource.h"
+#include "../globals.hpp"
 #include "utils.hpp"
 
 #include <wx/tooltip.h>
@@ -77,6 +78,7 @@ HostListPage::HostListPage( wxWindow* parent )
 
     Bind( wxEVT_DPI_CHANGED, &HostListPage::onDpiChanged, this );
     Bind( wxEVT_SIZE, &HostListPage::onLabelResized, this );
+    Bind( wxEVT_BUTTON, &HostListPage::onRefreshClicked, this );
 }
 
 void HostListPage::onDpiChanged( wxDPIChangedEvent& event )
@@ -98,6 +100,14 @@ void HostListPage::onLabelResized( wxSizeEvent& event )
     }
 
     event.Skip();
+}
+
+void HostListPage::onRefreshClicked( wxCommandEvent& event )
+{
+    srv::Event srvEvent;
+    srvEvent.type = srv::EventType::REPEAT_MDNS_QUERY;
+
+    Globals::get()->getWinpinatorServiceInstance()->postEvent( srvEvent );
 }
 
 void HostListPage::loadIcon()

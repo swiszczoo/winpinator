@@ -148,6 +148,9 @@ bool AuthManager::processRemoteCert( std::string hostname,
         return false;
     }
 
+    serverData.erase( std::remove_if( serverData.begin(), 
+        serverData.end(), std::isspace ), serverData.end() );
+
     std::string decoded = base64_decode( serverData );
     std::string codeUtf8 = wxString( m_code ).utf8_string();
 
