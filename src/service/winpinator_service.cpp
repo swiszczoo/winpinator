@@ -99,6 +99,11 @@ const std::string& WinpinatorService::getDisplayName() const
     return m_displayName;
 }
 
+RemoteManager* WinpinatorService::getRemoteManager() const
+{
+    return m_remoteMgr.get();
+}
+
 int WinpinatorService::startOnThisThread()
 {
     m_stopping = false;
@@ -228,6 +233,8 @@ void WinpinatorService::serviceMain()
     // Notify that Winpinator service is now ready
     m_ready = true;
     notifyStateChanged();
+
+    zcClient.repeatQuery();
 
     Event ev;
     while ( true )

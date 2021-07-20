@@ -9,6 +9,8 @@
 namespace gui
 {
 
+wxDEFINE_EVENT( EVT_NO_HOSTS_IN_TIME, wxCommandEvent );
+
 const wxString HostListPage::s_details = _(
     "Below is a list of currently available computers. "
     "Select the one you want to transfer your files to." );
@@ -17,6 +19,8 @@ const wxString HostListPage::s_detailsWrapped = _(
     "Below is a list of currently available computers.\n"
     "Select the one you want to transfer your files to." );
 
+const int HostListPage::NO_HOSTS_TIMEOUT_MILLIS = 15000;
+
 HostListPage::HostListPage( wxWindow* parent )
     : wxPanel( parent, wxID_ANY )
     , m_header( nullptr )
@@ -24,7 +28,9 @@ HostListPage::HostListPage( wxWindow* parent )
     , m_refreshBtn( nullptr )
     , m_hostlist( nullptr )
     , m_fwdBtn( nullptr )
+    , m_progLbl( nullptr )
     , m_refreshBmp( wxNullBitmap )
+    , m_timer( nullptr )
 {
     wxBoxSizer* margSizer = new wxBoxSizer( wxHORIZONTAL );
 
@@ -62,10 +68,19 @@ HostListPage::HostListPage( wxWindow* parent )
     m_hostlist->SetWindowStyle( wxBORDER_THEME );
     mainSizer->Add( m_hostlist, 1, wxEXPAND | wxTOP | wxBOTTOM, FromDIP( 10 ) );
 
+    wxBoxSizer* bottomBar = new wxBoxSizer( wxHORIZONTAL );
+
+    m_progLbl = new ProgressLabel( this, _( "Searching for computers..." ) );
+    bottomBar->Add( m_progLbl, 0, wxALIGN_CENTER_VERTICAL, 0 );
+
+    bottomBar->AddStretchSpacer();
+
     m_fwdBtn = new wxButton( this, wxID_ANY, _( "&Next >" ) );
     m_fwdBtn->SetMinSize( wxSize( m_fwdBtn->GetSize().x * 1.5, FromDIP( 25 ) ) );
     m_fwdBtn->Disable();
-    mainSizer->Add( m_fwdBtn, 0, wxALIGN_RIGHT | wxBOTTOM, FromDIP( 25 ) );
+    bottomBar->Add( m_fwdBtn, 0, wxALIGN_CENTER_VERTICAL, 0 );
+
+    mainSizer->Add( bottomBar, 0, wxEXPAND | wxBOTTOM, FromDIP( 25 ) );
 
     margSizer->Add( mainSizer, 10, wxEXPAND );
 
@@ -74,11 +89,20 @@ HostListPage::HostListPage( wxWindow* parent )
 
     SetSizer( margSizer );
 
+    m_timer = new wxTimer( this );
+    refreshAll();
+
     // Events
 
     Bind( wxEVT_DPI_CHANGED, &HostListPage::onDpiChanged, this );
     Bind( wxEVT_SIZE, &HostListPage::onLabelResized, this );
     Bind( wxEVT_BUTTON, &HostListPage::onRefreshClicked, this );
+    Bind( wxEVT_TIMER, &HostListPage::onTimerTicked, this );
+}
+
+void HostListPage::refreshAll()
+{
+    m_timer->StartOnce( HostListPage::NO_HOSTS_TIMEOUT_MILLIS );
 }
 
 void HostListPage::onDpiChanged( wxDPIChangedEvent& event )
@@ -108,6 +132,17 @@ void HostListPage::onRefreshClicked( wxCommandEvent& event )
     srvEvent.type = srv::EventType::REPEAT_MDNS_QUERY;
 
     Globals::get()->getWinpinatorServiceInstance()->postEvent( srvEvent );
+}
+
+void HostListPage::onTimerTicked( wxTimerEvent& event )
+{
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    if ( serv->getRemoteManager()->getVisibleHostsCount() == 0 )
+    {
+        wxCommandEvent evt( EVT_NO_HOSTS_IN_TIME );
+        wxPostEvent( this, evt );
+    }
 }
 
 void HostListPage::loadIcon()

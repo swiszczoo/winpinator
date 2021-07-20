@@ -21,7 +21,7 @@ ObservableService::~ObservableService()
     }
 }
 
-void ObservableService::callForEachObserver(
+void ObservableService::notifyObservers(
     std::function<void( IServiceObserver* )> func )
 {
     std::lock_guard<std::recursive_mutex> guard( m_observersMtx );

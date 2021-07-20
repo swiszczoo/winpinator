@@ -1,36 +1,9 @@
 #pragma once
-#include "../zeroconf/mdns_types.hpp"
 #include "observable_service.hpp"
-
-#include <condition_variable>
-#include <memory>
-#include <mutex>
-#include <vector>
+#include "remote_info.hpp"
 
 namespace srv
 {
-
-struct RemoteInfo
-{
-    std::string id;
-
-    // mDNS metadata
-    zc::MdnsIpPair ips;
-    int port;
-    int authPort;
-    int apiVersion;
-    std::string os;
-    std::string hostname;
-
-    std::thread thread;
-    std::mutex mutex;
-    std::condition_variable stopVar;
-    bool stopping;
-
-    // Host should be visible after its public key has been successfully
-    // decoded using key group
-    bool visible; 
-};
 
 class RemoteManager
 {
@@ -42,6 +15,8 @@ public:
 
     size_t getTotalHostsCount();
     size_t getVisibleHostsCount();
+
+    std::vector<RemoteInfoPtr> generateCurrentHostList();
 
     void setServiceType( const std::string& serviceType );
     const std::string& getServiceType();
@@ -55,6 +30,7 @@ private:
 
     std::mutex m_mutex;
     std::vector<std::shared_ptr<RemoteInfo>> m_hosts;
+    std::set<std::pair<std::string, zc::MdnsIpPair>> m_hostSet;
     std::string m_srvType;
 
     ObservableService* m_srv;
@@ -64,6 +40,8 @@ private:
 
     bool doRegistrationV1( RemoteInfo* serviceInfo );
     bool doRegistrationV2( RemoteInfo* serviceInfo );
+
+    size_t _getVisibleHostsCount();
 };
 
 };

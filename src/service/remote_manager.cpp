@@ -1,10 +1,16 @@
 #include "remote_manager.hpp"
 
 #include "auth_manager.hpp"
+#include "service_utils.hpp"
+
+#include "../proto-gen/warp.grpc.pb.h"
 
 #include <wx/log.h>
 #include <wx/socket.h>
 #include <wx/wx.h>
+
+#include <grpcpp/create_channel.h>
+#include <grpcpp/grpcpp.h>
 
 #include <chrono>
 
@@ -55,17 +61,24 @@ size_t RemoteManager::getTotalHostsCount()
 size_t RemoteManager::getVisibleHostsCount()
 {
     std::lock_guard<std::mutex> guard( m_mutex );
-    size_t count = 0;
+    return _getVisibleHostsCount();
+}
+
+std::vector<RemoteInfoPtr> RemoteManager::generateCurrentHostList()
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    std::vector<RemoteInfoPtr> result;
 
     for ( const std::shared_ptr<RemoteInfo>& info : m_hosts )
     {
         if ( info->visible )
         {
-            count++;
+            result.push_back( info );
         }
     }
 
-    return count;
+    return result;
 }
 
 void RemoteManager::setServiceType( const std::string& serviceType )
@@ -117,6 +130,30 @@ void RemoteManager::processAddHost( const zc::MdnsServiceData& data )
     info->ips.ipv6 = data.ipv6;
     info->port = data.port;
     info->hostname = data.txtRecords.at( "hostname" );
+    info->state = RemoteStatus::REGISTRATION;
+
+    auto pair = std::make_pair( info->hostname, info->ips );
+    if ( m_hostSet.find( pair ) == m_hostSet.end() )
+    {
+        m_hostSet.insert( pair );
+    }
+    else
+    {
+        // This host already exists, try to find it and unlock current wait op,
+        // then return
+
+        for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
+        {
+            if ( info->hostname == hostInfo->hostname
+                && info->ips == hostInfo->ips )
+            {
+                hostInfo->stopVar.notify_all();
+                break;
+            }
+        }
+
+        return;
+    }
 
     if ( data.txtRecords.find( "api-version" ) == data.txtRecords.end() )
     {
@@ -189,10 +226,10 @@ int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
 {
     if ( serviceInfo->apiVersion == 1 )
     {
-        if( !doRegistrationV1( serviceInfo.get() ) )
+        if ( !doRegistrationV1( serviceInfo.get() ) )
         {
             wxLogDebug( "Unable to register with %s (%s:%d) - api version 1",
-                serviceInfo->hostname, serviceInfo->ips.ipv4, 
+                serviceInfo->hostname, serviceInfo->ips.ipv4,
                 serviceInfo->port );
 
             return EXIT_SUCCESS;
@@ -200,7 +237,7 @@ int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
     }
     else if ( serviceInfo->apiVersion == 2 )
     {
-        if( !doRegistrationV2( serviceInfo.get() ) )
+        if ( !doRegistrationV2( serviceInfo.get() ) )
         {
             wxLogDebug( "Unable to register with %s (%s:%d) - api version 2",
                 serviceInfo->hostname, serviceInfo->ips.ipv4,
@@ -214,6 +251,20 @@ int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
     {
         return EXIT_SUCCESS;
     }
+
+    serviceInfo->visible = true;
+    serviceInfo->state = RemoteStatus::INIT_CONNECTING;
+
+    // Notify about new host
+    std::unique_lock<std::mutex> lock( m_mutex );
+    size_t hostCount = _getVisibleHostsCount();
+
+    m_srv->notifyObservers(
+        [hostCount, serviceInfo]( IServiceObserver* observer ) {
+            observer->onHostCountChanged( hostCount );
+            observer->onAddHost( serviceInfo );
+        } );
+    lock.unlock();
 
     return EXIT_SUCCESS;
 }
@@ -260,7 +311,7 @@ bool RemoteManager::doRegistrationV1( RemoteInfo* serviceInfo )
 
                 std::string msg( replyBuf, length );
 
-                return AuthManager::get()->processRemoteCert( 
+                return AuthManager::get()->processRemoteCert(
                     serviceInfo->hostname, serviceInfo->ips, msg );
             }
         }
@@ -283,10 +334,76 @@ bool RemoteManager::doRegistrationV1( RemoteInfo* serviceInfo )
 
 bool RemoteManager::doRegistrationV2( RemoteInfo* serviceInfo )
 {
-    wxLogDebug( "Registering with %s (%s:%d) - api version 1",
+    wxLogDebug( "Registering with %s (%s:%d) - api version 2",
         serviceInfo->id, serviceInfo->ips.ipv4, serviceInfo->authPort );
 
+    wxString target;
+    target.Printf( "%s:%d",
+        wxString( serviceInfo->ips.ipv4 ), serviceInfo->authPort );
+
+    gpr_timespec timeout = gpr_time_from_seconds( 5, GPR_TIMESPAN );
+
+    do
+    {
+        wxLogDebug( "Requesting cert from %s...", serviceInfo->hostname );
+
+        std::shared_ptr<grpc::Channel> channel = grpc::CreateChannel(
+            target.ToStdString(), grpc::InsecureChannelCredentials() );
+
+        if ( channel->WaitForConnected( timeout ) )
+        {
+            auto stub = WarpRegistration::NewStub( channel );
+
+            RegRequest request;
+            request.set_ip( serviceInfo->ips.ipv4 );
+            request.set_hostname( Utils::getHostname() );
+
+            RegResponse response;
+
+            grpc::ClientContext context;
+
+            grpc::Status status = stub->RequestCertificate(
+                &context, request, &response );
+
+            if ( status.ok() )
+            {
+                wxLogDebug( "Got remote cert from %s", serviceInfo->hostname );
+
+                const std::string& lockedCert = response.locked_cert();
+
+                return AuthManager::get()->processRemoteCert(
+                    serviceInfo->hostname, serviceInfo->ips, lockedCert );
+            }
+        }
+
+        wxLogDebug( "Can't get cert from %s. Waiting 10s.",
+            serviceInfo->hostname );
+
+        std::unique_lock<std::mutex> lock( serviceInfo->mutex );
+        if ( serviceInfo->stopping )
+        {
+            return false;
+        }
+        serviceInfo->stopVar.wait_for( lock, std::chrono::seconds( 10 ) );
+
+    } while ( !serviceInfo->stopping );
+
     return false;
+}
+
+size_t RemoteManager::_getVisibleHostsCount()
+{
+    size_t count = 0;
+
+    for ( const std::shared_ptr<RemoteInfo>& info : m_hosts )
+    {
+        if ( info->visible )
+        {
+            count++;
+        }
+    }
+
+    return count;
 }
 
 };

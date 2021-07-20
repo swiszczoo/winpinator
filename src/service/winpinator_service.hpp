@@ -34,6 +34,8 @@ public:
     std::string getIpAddress();
     const std::string& getDisplayName() const;
 
+    RemoteManager* getRemoteManager() const;
+
     int startOnThisThread();
 
     void postEvent( const Event& evnt );

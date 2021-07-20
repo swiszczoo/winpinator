@@ -38,6 +38,10 @@ private:
     NoHostsPage* m_page3;
 
     void onChangePage( wxThreadEvent& event );
+    void onNoHostsInTime( wxCommandEvent& event );
+    void onRetryClicked( wxCommandEvent& event );
+
+    virtual void onHostCountChanged( size_t newCount ) override;
 };
 
 };

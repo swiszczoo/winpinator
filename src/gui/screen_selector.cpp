@@ -42,6 +42,9 @@ ScreenSelector::ScreenSelector( wxWindow* parent )
 
     // Events
     Bind( wxEVT_THREAD, &ScreenSelector::onChangePage, this );
+    m_page2->Bind( EVT_NO_HOSTS_IN_TIME, 
+        &ScreenSelector::onNoHostsInTime, this );
+    m_page3->Bind( wxEVT_BUTTON, &ScreenSelector::onRetryClicked, this );
 }
 
 void ScreenSelector::onStateChanged()
@@ -83,6 +86,40 @@ void ScreenSelector::onStateChanged()
 void ScreenSelector::onChangePage( wxThreadEvent& event )
 {
     m_book->SetSelection( event.GetInt() );
+
+    if ( event.GetInt() == (int)SelectorPage::HOST_LIST )
+    {
+        m_page2->refreshAll();
+    }
+}
+
+void ScreenSelector::onNoHostsInTime( wxCommandEvent& event )
+{
+    if ( m_currentPage == SelectorPage::HOST_LIST )
+    {
+        m_currentPage = SelectorPage::NO_HOSTS;
+        m_book->SetSelection( (int)m_currentPage );
+    }
+}
+
+void ScreenSelector::onRetryClicked( wxCommandEvent& event )
+{
+    m_currentPage = SelectorPage::HOST_LIST;
+    m_book->SetSelection( (int)m_currentPage );
+
+    m_page2->refreshAll();
+}
+
+void ScreenSelector::onHostCountChanged( size_t newCount )
+{
+    if ( newCount > 0 && m_currentPage == SelectorPage::NO_HOSTS )
+    {
+        m_currentPage = SelectorPage::HOST_LIST;
+
+        wxThreadEvent event( wxEVT_THREAD );
+        event.SetInt( (int)SelectorPage::HOST_LIST );
+        wxQueueEvent( this, event.Clone() );
+    }
 }
 
 };

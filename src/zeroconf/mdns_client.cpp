@@ -17,6 +17,7 @@ MdnsClient::MdnsClient( const std::string& serviceType )
     , m_serviceAddressIpv6( { 0 } )
     , m_hasIpv4( false )
     , m_hasIpv6( false )
+    , m_socketToKill( 0 )
     , m_addrbuffer( "" )
     , m_entrybuffer( "" )
     , m_namebuffer( "" )
@@ -85,7 +86,23 @@ void MdnsClient::startListening()
 
 void MdnsClient::stopListening()
 {
-    std::lock_guard<std::mutex> lock( m_mtRunning );
+    std::unique_lock<std::mutex> lock( m_mtRunning );
+
+    if ( !m_running )
+    {
+        return;
+    }
+
+    m_running = false;
+
+    unlockThread();
+
+    lock.unlock();
+
+    if ( m_worker.joinable() )
+    {
+        m_worker.join();
+    }
 }
 
 bool MdnsClient::isListening() const
@@ -177,6 +194,58 @@ void MdnsClient::processEvents()
 
         m_removedServices.pop();
     }
+}
+
+void MdnsClient::unlockThread()
+{
+    // HACK: Send an empty datagram to ensure select does not wait forever
+    // (we're sure that m_running equals false at this moment)
+#ifdef _MSC_VER
+    //OutputDebugString( L"Unlocking thread...\n" );
+#endif
+
+    int sock = (int)socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
+
+    if ( sock == 0 )
+    {
+        return;
+    }
+
+    char buf = '\0';
+
+    // Create destination address
+
+    sockaddr_storage addr_storage;
+    sockaddr_in addr;
+    sockaddr_in6 addr6;
+    sockaddr* saddr = (struct sockaddr*)&addr_storage;
+    socklen_t saddrlen = sizeof( struct sockaddr_storage );
+
+    memset( &addr, 0, sizeof( addr ) );
+    addr.sin_family = AF_INET;
+#ifdef __APPLE__
+    addr.sin_len = sizeof( addr );
+#endif
+    addr.sin_addr.s_addr = htonl( ( ( (uint32_t)127U ) << 24U ) | ( (uint32_t)1U ) );
+    addr.sin_port = htons( (unsigned short)MDNS_PORT );
+    saddr = (struct sockaddr*)&addr;
+    saddrlen = sizeof( addr );
+
+    mdns_unicast_send( sock, saddr, saddrlen, &buf, sizeof( buf ) );
+#ifdef _MSC_VER
+    //if ( result )
+    //    OutputDebugString( L"Unlock FAILED!\n" );
+    //else
+    //    OutputDebugString( L"Unlock SUCCEEDED!\n" );
+#endif
+
+    mdns_socket_close( sock );
+
+    // The method above doesn't always work
+    // so...
+    // Shamelessly kill one of the sockets select is listening on
+
+    mdns_socket_close( m_socketToKill );
 }
 
 mdns_string_t MdnsClient::ipv4AddressToString( char* buffer, size_t capacity,
@@ -511,6 +580,9 @@ int MdnsClient::sendMdnsQuery( const char* service, int record )
         }
 
         records = 0;
+
+        m_socketToKill = sockets[0];
+
         res = select( nfds, &readfs, 0, 0, 0 );
         if ( res > 0 )
         {

@@ -48,11 +48,11 @@ void IServiceObserver::stopObserving( ObservableService* service )
 void IServiceObserver::onIpAddressChanged( std::string newIp )
 {
 }
-void IServiceObserver::onAddHost( int index, const std::string& id )
+void IServiceObserver::onAddHost( std::shared_ptr<RemoteInfo> info )
 {
 }
 
-void IServiceObserver::onEditHost( int index, const std::string& id )
+void IServiceObserver::onEditHost( std::shared_ptr<RemoteInfo> info )
 {
 }
 

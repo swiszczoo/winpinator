@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\globals.hpp" />
+    <ClInclude Include="..\src\gui\progress_label.hpp" />
     <ClInclude Include="..\src\gui\screen_selector.hpp" />
     <ClInclude Include="..\src\service\account_picture_extractor.hpp" />
     <ClInclude Include="..\src\gui\host_listbox.hpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="..\src\service\observable_service.hpp" />
     <ClInclude Include="..\src\service\registration_v1_impl.hpp" />
     <ClInclude Include="..\src\service\registration_v2_impl.hpp" />
+    <ClInclude Include="..\src\service\remote_info.hpp" />
     <ClInclude Include="..\src\service\remote_manager.hpp" />
     <ClInclude Include="..\src\service\service_observer.hpp" />
     <ClInclude Include="..\src\service\service_utils.hpp" />
@@ -194,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\globals.cpp" />
+    <ClCompile Include="..\src\gui\progress_label.cpp" />
     <ClCompile Include="..\src\gui\screen_selector.cpp" />
     <ClCompile Include="..\src\service\account_picture_extractor.cpp" />
     <ClCompile Include="..\src\gui\host_listbox.cpp" />

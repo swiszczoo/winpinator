@@ -1,6 +1,7 @@
 #include "page_nohosts.hpp"
 
 #include "../../win32/resource.h"
+#include "../globals.hpp"
 #include "utils.hpp"
 
 
@@ -55,7 +56,12 @@ void NoHostsPage::onDpiChanged( wxDPIChangedEvent& event )
 
 void NoHostsPage::onRetryClicked( wxCommandEvent& event )
 {
-    wxMessageBox( wxT( "xd it works" ) );
+    srv::Event evnt;
+    evnt.type = srv::EventType::REPEAT_MDNS_QUERY;
+
+    Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
+
+    wxPostEvent( this, event );
 }
 
 void NoHostsPage::loadIcon()

@@ -18,7 +18,7 @@ public:
     ObservableService();
     ~ObservableService();
 
-    void callForEachObserver( std::function<void( IServiceObserver* )> func );
+    void notifyObservers( std::function<void( IServiceObserver* )> func );
 
 protected:
     std::set<IServiceObserver*> m_observers;

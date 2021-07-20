@@ -87,12 +87,15 @@ private:
     int workerImpl();
     bool isValidService( const std::string& name );
     void processEvents();
+    void unlockThread();
 
     // mDNS.c implementations
     sockaddr_in m_serviceAddressIpv4;
     sockaddr_in6 m_serviceAddressIpv6;
     int m_hasIpv4;
     int m_hasIpv6;
+
+    int m_socketToKill;
 
     char m_addrbuffer[64];
     char m_entrybuffer[256];
