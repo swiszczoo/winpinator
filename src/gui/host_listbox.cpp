@@ -16,7 +16,6 @@ HostListbox::HostListbox( wxWindow* parent )
     , m_rowHeight( 0 )
     , m_hotItem( -1 )
 {
-    SetItemCount( 3 );
     SetWindowTheme( GetHWND(), L"Explorer", NULL );
 
     calcRowHeight();
@@ -29,6 +28,53 @@ HostListbox::HostListbox( wxWindow* parent )
     Bind( wxEVT_LEAVE_WINDOW, &HostListbox::onMouseMotion, this );
     Bind( wxEVT_MOTION, &HostListbox::onMouseMotion, this );
     Bind( wxEVT_MOUSEWHEEL, &HostListbox::onMouseMotion, this );
+}
+
+void HostListbox::addItem( const HostItem& item )
+{
+    m_items.push_back( item );
+    SetItemCount( m_items.size() );
+}
+
+void HostListbox::updateItem( size_t position, const HostItem& item )
+{
+    if ( position < m_items.size() )
+    {
+        m_items[position] = item;
+        RefreshRow( position );
+    }
+}
+
+bool HostListbox::updateItemById( const HostItem& newData )
+{
+    for ( size_t i = 0; i < m_items.size(); i++ )
+    {
+        HostItem& item = m_items[i];
+        if ( item.id == newData.id )
+        {
+            m_items[i] = newData;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void HostListbox::removeItem( size_t position )
+{
+    if ( position < m_items.size() )
+    {
+        m_items.erase( m_items.begin() + position );
+        SetItemCount( position );
+        RefreshAll();
+    }
+}
+
+void HostListbox::clear()
+{
+    m_items.clear();
+    SetItemCount( 0 );
+    RefreshAll();
 }
 
 void HostListbox::OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const
@@ -50,12 +96,7 @@ void HostListbox::OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const
     const int offX = rect.x;
     const int offY = rect.y;
 
-    HostItem item;
-    item.hostname = "lukasz@DESK-X570";
-    item.ipAddress = "192.168.1.27";
-    item.os = "Linux";
-    item.username = wxT( "£ukasz Œwiszcz" );
-    item.state = CONNECTED;
+    HostItem item = m_items[n];
 
     // Force non-const this pointer
     HostListbox* ncthis = const_cast<HostListbox*>( this );
@@ -138,25 +179,8 @@ void HostListbox::OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const
     dc.DrawText( stateLabel,
         wxPoint( column2 + maxC2 - stateWidth, OFF2 ) );
 
-    wxString stateText;
-    switch ( item.state )
-    {
-    case HostState::LOADING:
-        stateText = _( "Processing..." );
-        break;
-    case HostState::HOST_UNREACHABLE:
-        stateText = _( "Host is unreachable" );
-        break;
-    case HostState::CONNECTING:
-        stateText = _( "Connecting..." );
-        break;
-    case HostState::CONNECTED:
-        stateText = _( "Ready" );
-        break;
-    default:
-        stateText = _( "Unknown" );
-        break;
-    }
+    wxString stateText = getStatusString( item.state );
+    
 
     dc.SetTextForeground( BLACK );
 
@@ -308,6 +332,27 @@ bool HostListbox::scaleProfilePic( HostItem& item ) const
         item.profilePic.Scale( targetDim, targetDim, wxIMAGE_QUALITY_BICUBIC ) );
 
     return true;
+}
+
+wxString HostListbox::getStatusString( srv::RemoteStatus status ) const
+{
+    switch ( status )
+    {
+    case srv::RemoteStatus::OFFLINE:
+        return _( "Offline" );
+    case srv::RemoteStatus::REGISTRATION:
+        return _( "Registration in progress..." );
+    case srv::RemoteStatus::INIT_CONNECTING:
+        return _( "Connecting..." );
+    case srv::RemoteStatus::UNREACHABLE:
+        return _( "Host unreachable" );
+    case srv::RemoteStatus::AWAITING_DUPLEX:
+        return _( "Establishing duplex connection..." );
+    case srv::RemoteStatus::ONLINE:
+        return _( "Ready" );
+    }
+
+    return _( "Unknown" );
 }
 
 };
