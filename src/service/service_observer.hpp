@@ -21,8 +21,8 @@ public:
     // Listeners to be overriden (must be virtual)
     virtual void onStateChanged() = 0;
     virtual void onIpAddressChanged( std::string newIp );
-    virtual void onAddHost( std::shared_ptr<RemoteInfo> info );
-    virtual void onEditHost( std::shared_ptr<RemoteInfo> newInfo );
+    virtual void onAddHost( srv::RemoteInfoPtr info );
+    virtual void onEditHost( srv::RemoteInfoPtr newInfo );
     virtual void onDeleteHost( const std::string& id );
     virtual void onHostCountChanged( size_t newCount );
 

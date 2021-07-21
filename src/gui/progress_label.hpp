@@ -1,6 +1,8 @@
 #pragma once
 #include <wx/wx.h>
-#include <wx/animate.h>
+
+#include "spritesheet_animator.hpp"
+
 
 namespace gui
 {
@@ -14,8 +16,12 @@ public:
     const wxString& getLabel() const;
 
 private:
+    wxBitmap m_bitmap;
     wxStaticText* m_stText;
-    wxAnimationCtrl* m_anim;
+    SpritesheetAnimator* m_anim;
+
+    void loadImages();
+    void onDpiChanged( wxDPIChangedEvent& event );
 };
 
 };

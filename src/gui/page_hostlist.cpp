@@ -70,7 +70,8 @@ HostListPage::HostListPage( wxWindow* parent )
 
     wxBoxSizer* bottomBar = new wxBoxSizer( wxHORIZONTAL );
 
-    m_progLbl = new ProgressLabel( this, _( "Searching for computers..." ) );
+    m_progLbl = new ProgressLabel( this, 
+        _( "Searching for computers on your network..." ) );
     bottomBar->Add( m_progLbl, 0, wxALIGN_CENTER_VERTICAL, 0 );
 
     bottomBar->AddStretchSpacer();
@@ -92,17 +93,32 @@ HostListPage::HostListPage( wxWindow* parent )
     m_timer = new wxTimer( this );
     refreshAll();
 
+    observeService( Globals::get()->getWinpinatorServiceInstance() );
+
     // Events
 
     Bind( wxEVT_DPI_CHANGED, &HostListPage::onDpiChanged, this );
     Bind( wxEVT_SIZE, &HostListPage::onLabelResized, this );
     Bind( wxEVT_BUTTON, &HostListPage::onRefreshClicked, this );
     Bind( wxEVT_TIMER, &HostListPage::onTimerTicked, this );
+    Bind( wxEVT_THREAD, &HostListPage::onManipulateList, this );
 }
 
 void HostListPage::refreshAll()
 {
     m_timer->StartOnce( HostListPage::NO_HOSTS_TIMEOUT_MILLIS );
+
+    // Get current service state (host list)
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    m_trackedRemotes = serv->getRemoteManager()->generateCurrentHostList();
+    
+    m_hostlist->clear();
+
+    for ( srv::RemoteInfoPtr remote : m_trackedRemotes )
+    {
+        m_hostlist->addItem( convertRemoteInfoToHostItem( remote ) );
+    }
 }
 
 void HostListPage::onDpiChanged( wxDPIChangedEvent& event )
@@ -145,6 +161,31 @@ void HostListPage::onTimerTicked( wxTimerEvent& event )
     }
 }
 
+void HostListPage::onManipulateList( wxThreadEvent& event )
+{
+    switch ( (ThreadEventType)event.GetInt() )
+    {
+    case ThreadEventType::ADD:
+    {
+        srv::RemoteInfoPtr info = event.GetPayload<srv::RemoteInfoPtr>();
+
+        m_trackedRemotes.push_back( info );
+        m_hostlist->addItem( convertRemoteInfoToHostItem( info ) );
+
+        break;
+    }
+    case ThreadEventType::RESET:
+    {
+        m_trackedRemotes.clear();
+        m_hostlist->clear();
+
+        break;
+    }
+    
+    }
+    
+}
+
 void HostListPage::loadIcon()
 {
     wxBitmap original;
@@ -157,6 +198,62 @@ void HostListPage::loadIcon()
 
     m_refreshBmp = toScale.Scale( size, size, wxIMAGE_QUALITY_BICUBIC );
     m_refreshBtn->SetBitmap( m_refreshBmp, wxDirection::wxWEST );
+}
+
+HostItem HostListPage::convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo )
+{
+    HostItem result;
+    result.id = rinfo->id;
+    result.hostname = rinfo->hostname;
+    result.ipAddress = rinfo->ips.ipv4;
+
+    if ( result.ipAddress.empty() )
+    {
+        result.ipAddress = rinfo->ips.ipv6;
+    }
+
+    result.os = rinfo->os;
+    result.profileBmp = std::make_shared<wxBitmap>( wxNullBitmap );
+    result.profilePic = wxNullImage;
+    result.state = rinfo->state;
+
+    if ( rinfo->state == srv::RemoteStatus::ONLINE )
+    {
+        result.username = "TODO: put here the username";
+    }
+    else if ( rinfo->state == srv::RemoteStatus::UNREACHABLE
+        || rinfo->state == srv::RemoteStatus::OFFLINE )
+    {
+        result.username = _( "Data unavailable" );
+    }
+    else
+    {
+        result.username = _( "Loading..." );
+    }
+
+    return result;
+}
+
+void HostListPage::onStateChanged()
+{
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    if ( !serv->isOnline() )
+    {
+        wxThreadEvent evnt;
+        evnt.SetInt( (int)ThreadEventType::RESET );
+
+        wxQueueEvent( this, evnt.Clone() );
+    }
+}
+
+void HostListPage::onAddHost( srv::RemoteInfoPtr info )
+{
+    wxThreadEvent evnt;
+    evnt.SetInt( (int)ThreadEventType::ADD );
+    evnt.SetPayload( info );
+
+    wxQueueEvent( this, evnt.Clone() );
 }
 
 };

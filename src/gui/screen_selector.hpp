@@ -42,6 +42,8 @@ private:
     void onRetryClicked( wxCommandEvent& event );
 
     virtual void onHostCountChanged( size_t newCount ) override;
+
+    void changePage( SelectorPage newPage );
 };
 
 };

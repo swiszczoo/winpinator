@@ -34,6 +34,7 @@ void HostListbox::addItem( const HostItem& item )
 {
     m_items.push_back( item );
     SetItemCount( m_items.size() );
+    RefreshRow( m_items.size() - 1 );
 }
 
 void HostListbox::updateItem( size_t position, const HostItem& item )
@@ -53,6 +54,7 @@ bool HostListbox::updateItemById( const HostItem& newData )
         if ( item.id == newData.id )
         {
             m_items[i] = newData;
+            RefreshRow( i );
             return true;
         }
     }

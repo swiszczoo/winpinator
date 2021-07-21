@@ -166,6 +166,7 @@
     <ClInclude Include="..\src\globals.hpp" />
     <ClInclude Include="..\src\gui\progress_label.hpp" />
     <ClInclude Include="..\src\gui\screen_selector.hpp" />
+    <ClInclude Include="..\src\gui\spritesheet_animator.hpp" />
     <ClInclude Include="..\src\service\account_picture_extractor.hpp" />
     <ClInclude Include="..\src\gui\host_listbox.hpp" />
     <ClInclude Include="..\src\gui\page_hostlist.hpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="..\src\globals.cpp" />
     <ClCompile Include="..\src\gui\progress_label.cpp" />
     <ClCompile Include="..\src\gui\screen_selector.cpp" />
+    <ClCompile Include="..\src\gui\spritesheet_animator.cpp" />
     <ClCompile Include="..\src\service\account_picture_extractor.cpp" />
     <ClCompile Include="..\src\gui\host_listbox.cpp" />
     <ClCompile Include="..\src\gui\page_hostlist.cpp" />
@@ -232,6 +234,8 @@
     <Image Include="..\res\icon256.png" />
     <Image Include="..\res\info.png" />
     <Image Include="..\res\refresh.png" />
+    <Image Include="..\res\spinner16.png" />
+    <Image Include="..\res\spinner32.png" />
     <Image Include="..\res\unk_profile.png" />
     <Image Include="..\res\warning.png" />
   </ItemGroup>

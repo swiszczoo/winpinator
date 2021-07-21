@@ -49,6 +49,8 @@ void RemoteManager::stop()
     {
         info->thread.join();
     }
+
+    m_hosts.clear();
 }
 
 size_t RemoteManager::getTotalHostsCount()

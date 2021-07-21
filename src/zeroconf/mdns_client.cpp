@@ -79,6 +79,8 @@ void MdnsClient::startListening()
         m_worker.join();
     }
 
+    m_running = true;
+
     m_worker = std::thread( [this]() -> int {
         return workerImpl();
     } );

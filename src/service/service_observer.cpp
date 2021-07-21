@@ -42,17 +42,18 @@ void IServiceObserver::stopObserving( ObservableService* service )
 }
 
 //
-// All the methods below are default stub implementations 
+// All the methods below are default stub implementations
 // They should be selectively overriden by interested observers
 
 void IServiceObserver::onIpAddressChanged( std::string newIp )
 {
 }
-void IServiceObserver::onAddHost( std::shared_ptr<RemoteInfo> info )
+
+void IServiceObserver::onAddHost( srv::RemoteInfoPtr info )
 {
 }
 
-void IServiceObserver::onEditHost( std::shared_ptr<RemoteInfo> info )
+void IServiceObserver::onEditHost( srv::RemoteInfoPtr info )
 {
 }
 

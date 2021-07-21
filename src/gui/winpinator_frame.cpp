@@ -45,7 +45,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
 
     m_statusBar = new wxStatusBar( this, wxID_ANY );
 
-    int statusWidths[] = { -1, 130 };
+    int statusWidths[] = { -1, FromDIP( 130 ) };
     m_statusBar->SetFieldsCount( sizeof( statusWidths ) / sizeof( int ) );
     m_statusBar->SetStatusWidths( m_statusBar->GetFieldsCount(), statusWidths );
 
@@ -71,6 +71,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     // Events
     Bind( wxEVT_MENU, &WinpinatorFrame::onMenuItemSelected, this );
     Bind( wxEVT_THREAD, &WinpinatorFrame::onChangeStatusBarText, this );
+    Bind( wxEVT_DPI_CHANGED, &WinpinatorFrame::onDpiChanged, this );
 }
 
 void WinpinatorFrame::setupMenuBar()
@@ -151,6 +152,13 @@ void WinpinatorFrame::onMenuItemSelected( wxCommandEvent& event )
 void WinpinatorFrame::onChangeStatusBarText( wxThreadEvent& event )
 {
     m_statusBar->SetStatusText( event.GetString(), 1 );
+}
+
+void WinpinatorFrame::onDpiChanged( wxDPIChangedEvent& event )
+{
+    int statusWidths[] = { -1, FromDIP( 130 ) };
+    m_statusBar->SetFieldsCount( sizeof( statusWidths ) / sizeof( int ) );
+    m_statusBar->SetStatusWidths( m_statusBar->GetFieldsCount(), statusWidths );
 }
 
 void WinpinatorFrame::onOpenFolderSelected()

@@ -85,27 +85,20 @@ void ScreenSelector::onStateChanged()
 
 void ScreenSelector::onChangePage( wxThreadEvent& event )
 {
-    m_book->SetSelection( event.GetInt() );
-
-    if ( event.GetInt() == (int)SelectorPage::HOST_LIST )
-    {
-        m_page2->refreshAll();
-    }
+    changePage( (SelectorPage)event.GetInt() );
 }
 
 void ScreenSelector::onNoHostsInTime( wxCommandEvent& event )
 {
     if ( m_currentPage == SelectorPage::HOST_LIST )
     {
-        m_currentPage = SelectorPage::NO_HOSTS;
-        m_book->SetSelection( (int)m_currentPage );
+        changePage( SelectorPage::NO_HOSTS );
     }
 }
 
 void ScreenSelector::onRetryClicked( wxCommandEvent& event )
 {
-    m_currentPage = SelectorPage::HOST_LIST;
-    m_book->SetSelection( (int)m_currentPage );
+    changePage( SelectorPage::HOST_LIST );
 
     m_page2->refreshAll();
 }
@@ -119,6 +112,42 @@ void ScreenSelector::onHostCountChanged( size_t newCount )
         wxThreadEvent event( wxEVT_THREAD );
         event.SetInt( (int)SelectorPage::HOST_LIST );
         wxQueueEvent( this, event.Clone() );
+    }
+}
+
+void ScreenSelector::changePage( SelectorPage page )
+{
+    //m_page0->Disable();
+    //m_page1->Disable();
+    m_page2->Disable();
+    m_page3->Disable();
+
+    m_currentPage = page;
+    m_book->SetSelection( (int)page );
+
+    if ( page == SelectorPage::NO_HOSTS )
+    {
+        m_page0->Enable();
+        m_page0->Refresh();
+    }
+
+    if ( page == SelectorPage::STARTING )
+    {
+        m_page1->Enable();
+        m_page1->Refresh();
+    }
+
+    if ( page == SelectorPage::HOST_LIST )
+    {
+        m_page2->Enable();
+        m_page2->Refresh();
+        m_page2->refreshAll();
+    }
+
+    if ( page == SelectorPage::NO_HOSTS )
+    {
+        m_page3->Enable();
+        m_page3->Refresh();
     }
 }
 
