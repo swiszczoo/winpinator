@@ -34,6 +34,9 @@ struct RemoteInfo
     std::string os;
     std::string hostname;
 
+    std::string shortName;
+    std::wstring fullName;
+
     std::thread thread;
     std::mutex mutex;
     std::condition_variable stopVar;

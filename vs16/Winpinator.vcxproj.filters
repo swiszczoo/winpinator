@@ -274,7 +274,7 @@
     <Image Include="..\res\spinner16.png">
       <Filter>Resources</Filter>
     </Image>
-    <Image Include="..\res\spinner32.png">
+    <Image Include="..\res\spinner48.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

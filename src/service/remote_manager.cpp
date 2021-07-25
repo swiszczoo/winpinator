@@ -164,6 +164,7 @@ void RemoteManager::processAddHost( const zc::MdnsServiceData& data )
     else
     {
         info->apiVersion = atoi( data.txtRecords.at( "api-version" ).c_str() );
+
         if ( info->apiVersion < 1 )
         {
             info->apiVersion = 1;
@@ -254,17 +255,18 @@ int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
         return EXIT_SUCCESS;
     }
 
+    // Notify about new host
+    std::unique_lock<std::mutex> lock( m_mutex );
+
     serviceInfo->visible = true;
     serviceInfo->state = RemoteStatus::INIT_CONNECTING;
 
-    // Notify about new host
-    std::unique_lock<std::mutex> lock( m_mutex );
     size_t hostCount = _getVisibleHostsCount();
 
     m_srv->notifyObservers(
         [hostCount, serviceInfo]( IServiceObserver* observer ) {
-            observer->onHostCountChanged( hostCount );
             observer->onAddHost( serviceInfo );
+            observer->onHostCountChanged( hostCount );
         } );
     lock.unlock();
 

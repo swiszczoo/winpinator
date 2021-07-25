@@ -235,7 +235,7 @@
     <Image Include="..\res\info.png" />
     <Image Include="..\res\refresh.png" />
     <Image Include="..\res\spinner16.png" />
-    <Image Include="..\res\spinner32.png" />
+    <Image Include="..\res\spinner48.png" />
     <Image Include="..\res\unk_profile.png" />
     <Image Include="..\res\warning.png" />
   </ItemGroup>

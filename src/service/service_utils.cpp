@@ -1,5 +1,8 @@
 #include "service_utils.hpp"
 
+#include <wx/platinfo.h>
+#include <wx/translation.h>
+
 #include <Windows.h>
 
 #define SECURITY_WIN32
@@ -81,6 +84,53 @@ std::string Utils::generateUUID()
     }
     
     return "";
+}
+
+std::string Utils::getOSVersionString()
+{
+    const wxPlatformInfo& pinfo = wxPlatformInfo::Get();
+
+    if ( pinfo.GetOperatingSystemId() != wxOperatingSystemId::wxOS_WINDOWS_NT )
+    {
+        return _( "Unknown OS" );
+    }
+
+    int major = pinfo.GetOSMajorVersion();
+    int minor = pinfo.GetOSMinorVersion();
+
+    if ( major == 5 )
+    {
+        if ( minor == 0 )
+            return "Windows 2000";
+        if ( minor == 1 || minor == 2 )
+            return "Windows XP";
+    }
+
+    if ( major == 6 )
+    {
+        if ( minor == 0 )
+            return "Windows Vista";
+        if ( minor == 1 )
+            return "Windows 7";
+        if ( minor == 2 )
+            return "Windows 8";
+        if ( minor == 3 )
+            return "Windows 8.1";
+    }
+
+    if ( major == 10 )
+    {
+        return "Windows 10";
+    }
+
+    if ( major == 11 )
+    {
+        // TODO: ???
+        return "Windows 11";
+    }
+
+
+    return "Windows NT";
 }
 
 };

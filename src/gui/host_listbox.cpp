@@ -197,7 +197,6 @@ void HostListbox::OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const
 void HostListbox::OnDrawBackground( wxDC& dc,
     const wxRect& rect, size_t n ) const
 {
-    // TODO: stub!
     if ( wxUxThemeIsActive() )
     {
         wxUxThemeHandle theme( this, L"LISTVIEW" );

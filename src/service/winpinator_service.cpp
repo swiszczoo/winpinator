@@ -213,7 +213,7 @@ void WinpinatorService::serviceMain()
     zcService.setPort( m_port );
     zcService.setTxtRecord( "hostname", Utils::getHostname() );
     zcService.setTxtRecord( "type", "real" );
-    zcService.setTxtRecord( "os", "Windows 10" );
+    zcService.setTxtRecord( "os", Utils::getOSVersionString() );
     zcService.setTxtRecord( "api-version", "2" );
     zcService.setTxtRecord( "auth-port", std::to_string( m_authPort ) );
 

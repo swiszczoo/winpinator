@@ -169,6 +169,14 @@ void HostListPage::onManipulateList( wxThreadEvent& event )
     {
         srv::RemoteInfoPtr info = event.GetPayload<srv::RemoteInfoPtr>();
 
+        for ( const srv::RemoteInfoPtr& ptr : m_trackedRemotes )
+        {
+            if ( info->id == ptr->id )
+            {
+                return;
+            }
+        }
+
         m_trackedRemotes.push_back( info );
         m_hostlist->addItem( convertRemoteInfoToHostItem( info ) );
 
@@ -204,7 +212,16 @@ HostItem HostListPage::convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo )
 {
     HostItem result;
     result.id = rinfo->id;
-    result.hostname = rinfo->hostname;
+
+    if ( rinfo->shortName.empty() )
+    {
+        result.hostname = rinfo->hostname;
+    }
+    else
+    {
+        result.hostname = rinfo->shortName + '@' + rinfo->hostname;
+    }
+
     result.ipAddress = rinfo->ips.ipv4;
 
     if ( result.ipAddress.empty() )
@@ -219,7 +236,7 @@ HostItem HostListPage::convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo )
 
     if ( rinfo->state == srv::RemoteStatus::ONLINE )
     {
-        result.username = "TODO: put here the username";
+        result.username = rinfo->fullName;
     }
     else if ( rinfo->state == srv::RemoteStatus::UNREACHABLE
         || rinfo->state == srv::RemoteStatus::OFFLINE )

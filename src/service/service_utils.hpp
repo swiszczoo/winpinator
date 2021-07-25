@@ -15,6 +15,7 @@ public:
     static std::wstring getUserFullName();
     static std::wstring getUserShortName();
     static std::string generateUUID();
+    static std::string getOSVersionString();
 };
 
 };
