@@ -167,6 +167,7 @@
     <ClInclude Include="..\src\gui\progress_label.hpp" />
     <ClInclude Include="..\src\gui\screen_selector.hpp" />
     <ClInclude Include="..\src\gui\spritesheet_animator.hpp" />
+    <ClInclude Include="..\src\running_instance_detector.hpp" />
     <ClInclude Include="..\src\service\account_picture_extractor.hpp" />
     <ClInclude Include="..\src\gui\host_listbox.hpp" />
     <ClInclude Include="..\src\gui\page_hostlist.hpp" />
@@ -201,6 +202,7 @@
     <ClCompile Include="..\src\gui\progress_label.cpp" />
     <ClCompile Include="..\src\gui\screen_selector.cpp" />
     <ClCompile Include="..\src\gui\spritesheet_animator.cpp" />
+    <ClCompile Include="..\src\running_instance_detector.cpp" />
     <ClCompile Include="..\src\service\account_picture_extractor.cpp" />
     <ClCompile Include="..\src\gui\host_listbox.cpp" />
     <ClCompile Include="..\src\gui\page_hostlist.cpp" />
