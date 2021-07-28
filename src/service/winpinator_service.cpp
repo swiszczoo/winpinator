@@ -7,6 +7,7 @@
 #include "registration_v1_impl.hpp"
 #include "registration_v2_impl.hpp"
 #include "service_utils.hpp"
+#include "warp_service_impl.hpp"
 
 #include <algorithm>
 
@@ -176,6 +177,10 @@ void WinpinatorService::serviceMain()
     RegistrationV2Server regServer2;
     regServer2.setPort( m_authPort );
 
+    // Start the main RPC service
+    WarpServer rpcServer;
+    rpcServer.setPort( m_port );
+
     // Register 'flush' type service for 3 seconds
     zc::MdnsService flushService( WinpinatorService::s_warpServiceType );
     flushService.setHostname( AuthManager::get()->getIdent() );
@@ -199,6 +204,12 @@ void WinpinatorService::serviceMain()
         // We have an IP so we can start registration servers
         regServer1.startServer();
         regServer2.startServer();
+
+        // ...and the rpc server
+        ServerCredentials creds = AuthManager::get()->getServerCreds();
+        rpcServer.setPemPrivateKey( creds.privateKey );
+        rpcServer.setPemCertificate( creds.publicKey );
+        rpcServer.startServer();
     }
 
     std::this_thread::sleep_for( std::chrono::seconds( 3 ) );
@@ -271,6 +282,9 @@ void WinpinatorService::serviceMain()
     // Stop registration servers
     regServer1.stopServer();
     regServer2.stopServer();
+
+    // ...and the rpc server
+    rpcServer.stopServer();
 }
 
 void WinpinatorService::notifyStateChanged()

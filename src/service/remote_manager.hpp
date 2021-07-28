@@ -24,6 +24,9 @@ public:
     void processAddHost( const zc::MdnsServiceData& data );
     void processRemoveHost( const std::string& id );
 
+    bool isHostAvailable( const std::string& id );
+    std::shared_ptr<RemoteInfo> getRemoteInfo( const std::string& id );
+
 private:
     static const std::string FALLBACK_OS;
     static const std::string REQUEST;

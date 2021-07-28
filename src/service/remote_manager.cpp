@@ -207,6 +207,37 @@ void RemoteManager::processRemoveHost( const std::string& id )
     // Currently not implemented
 }
 
+bool RemoteManager::isHostAvailable( const std::string& id )
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
+    {
+        if ( hostInfo->id == id )
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+std::shared_ptr<RemoteInfo> 
+RemoteManager::getRemoteInfo( const std::string& id )
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
+    {
+        if ( hostInfo->id == id )
+        {
+            return hostInfo;
+        }
+    }
+
+    return nullptr;
+}
+
 std::string RemoteManager::stripServiceFromIdent(
     const std::string& identStr ) const
 {

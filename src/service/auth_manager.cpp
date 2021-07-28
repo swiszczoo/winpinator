@@ -322,6 +322,7 @@ void AuthManager::makeKeyCertPair()
     AuthManager::setRandomSerialNumber( builder );
 
     X509_set_pubkey( builder, pkey );
+    X509_set_version( builder, 2 );
 
     AuthManager::setSubjectAltName( builder );
 

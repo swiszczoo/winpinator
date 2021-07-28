@@ -1,6 +1,7 @@
 #pragma once
 #include "../proto-gen/warp.grpc.pb.h"
 
+#include <cstdint>
 #include <future>
 
 namespace srv

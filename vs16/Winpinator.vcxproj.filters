@@ -157,6 +157,9 @@
     <ClInclude Include="..\src\gui\spritesheet_animator.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\warp_service_impl.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -242,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="..\src\gui\spritesheet_animator.cpp">
       <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\warp_service_impl.cpp">
+      <Filter>Sources\service</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

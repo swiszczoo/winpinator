@@ -28,6 +28,7 @@ HostListbox::HostListbox( wxWindow* parent )
     Bind( wxEVT_LEAVE_WINDOW, &HostListbox::onMouseMotion, this );
     Bind( wxEVT_MOTION, &HostListbox::onMouseMotion, this );
     Bind( wxEVT_MOUSEWHEEL, &HostListbox::onMouseMotion, this );
+    Bind( wxEVT_RIGHT_DOWN, &HostListbox::onRightClick, this );
 }
 
 void HostListbox::addItem( const HostItem& item )
@@ -288,6 +289,19 @@ void HostListbox::onMouseMotion( wxMouseEvent& event )
         {
             RefreshRow( lastItem );
         }
+    }
+}
+
+void HostListbox::onRightClick( wxMouseEvent& event )
+{
+    wxPoint pnt = event.GetPosition();
+    size_t firstItem = GetVisibleRowsBegin();
+    int offset = pnt.y / m_rowHeight;
+    int hotItem = firstItem + offset;
+
+    if ( hotItem >= 0 && hotItem < GetItemCount() )
+    {
+        SetSelection( hotItem );
     }
 }
 

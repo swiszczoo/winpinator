@@ -182,6 +182,7 @@
     <ClInclude Include="..\src\service\remote_manager.hpp" />
     <ClInclude Include="..\src\service\service_observer.hpp" />
     <ClInclude Include="..\src\service\service_utils.hpp" />
+    <ClInclude Include="..\src\service\warp_service_impl.hpp" />
     <ClInclude Include="..\src\service\winpinator_service.hpp" />
     <ClInclude Include="..\src\zeroconf\mdns_types.hpp" />
     <ClInclude Include="..\win32\resource.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="..\src\service\service_base64.cpp" />
     <ClCompile Include="..\src\service\service_observer.cpp" />
     <ClCompile Include="..\src\service\service_utils.cpp" />
+    <ClCompile Include="..\src\service\warp_service_impl.cpp" />
     <ClCompile Include="..\src\service\winpinator_service.cpp" />
     <ClCompile Include="..\src\zeroconf\mdns_client.cpp" />
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp" />

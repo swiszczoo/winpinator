@@ -49,6 +49,7 @@ private:
 
     void onDpiChanged( wxDPIChangedEvent& event );
     void onMouseMotion( wxMouseEvent& event );
+    void onRightClick( wxMouseEvent& event );
 
     void loadIcons();
     void calcRowHeight();
