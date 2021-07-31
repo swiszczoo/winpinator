@@ -3,25 +3,27 @@
 #include <wx/filename.h>
 #include <wx/stdpaths.h>
 
+#include <Windows.h>
+
 RunningInstanceDetector::RunningInstanceDetector( 
     const std::string& lockFileName )
     : m_handle( nullptr )
     , m_anotherRunning( false )
 {
+    wxLogNull errorLock;
+
     wxFileName fname( wxStandardPaths::Get().GetUserDataDir(), lockFileName ); 
 
     m_handle = std::make_unique<wxFile>();
-    m_handle->Open( fname.GetFullPath(), wxFile::write_excl );
-
-    if ( !m_handle->IsOpened() )
+    
+    if ( !m_handle->Open( fname.GetFullPath(), wxFile::write_excl ) )
     {
         // We know that another instance is blocking access to the lockfile
         // or that it contains old instance PID number
 
         m_handle = std::make_unique<wxFile>();
-        m_handle->Open( fname.GetFullPath(), wxFile::read );
 
-        if ( m_handle->IsOpened() )
+        if ( m_handle->Open( fname.GetFullPath(), wxFile::read ) )
         {
             pid_type pid;
             m_handle->Read( &pid, sizeof( pid_type ) );
@@ -36,6 +38,7 @@ RunningInstanceDetector::RunningInstanceDetector(
             {
                 // This is an old file, just ignore it
 
+                m_handle->Close();
                 wxRemoveFile( fname.GetFullPath() );
 
                 m_handle = std::make_unique<wxFile>();
@@ -73,9 +76,30 @@ void RunningInstanceDetector::free()
 
 bool RunningInstanceDetector::checkPidHasOurImageName( pid_type pid )
 {
-    // TODO: implement stub
+    HANDLE process = OpenProcess( PROCESS_QUERY_LIMITED_INFORMATION,
+        FALSE, pid );
 
-    return true;
+    if ( !process )
+    {
+        return false;
+    }
+
+    wchar_t buffer[2048];
+    DWORD size = 2048;
+    QueryFullProcessImageNameW( process, NULL, buffer, &size );
+
+    wxString processPath( buffer, size );
+    wxFileName processName( processPath );
+
+    wxString currentPath = wxStandardPaths::Get().GetExecutablePath();
+    wxFileName currentName( currentPath );
+
+    bool result = ( processName.GetFullName().Lower()
+        == currentName.GetFullName().Lower() );
+
+    CloseHandle( process );
+
+    return result;
 }
 
 bool RunningInstanceDetector::writeCurrentPidToFile()

@@ -122,17 +122,15 @@ bool WarpServer::startServer()
         return false;
     }
 
-    std::promise<void> startedPromise;
-    std::future<void> startedFuture = startedPromise.get_future();
+    std::promise<bool> startedPromise;
+    std::future<bool> startedFuture = startedPromise.get_future();
 
     m_thread = std::thread( std::bind( &WarpServer::threadMain, this,
         m_port, m_privKey, m_pubKey, m_remoteMgr,
         std::ref( startedPromise ) ) );
 
     // Wait for the server pointer to become valid
-    startedFuture.wait();
-
-    return true;
+    return startedFuture.get();
 }
 
 bool WarpServer::stopServer()
@@ -157,7 +155,7 @@ bool WarpServer::stopServer()
 }
 
 int WarpServer::threadMain( uint16_t port, std::string priv, std::string pub,
-    std::shared_ptr<RemoteManager> mgr, std::promise<void>& startProm )
+    std::shared_ptr<RemoteManager> mgr, std::promise<bool>& startProm )
 {
     std::string address = "0.0.0.0:" + std::to_string( port );
     WarpServiceImpl service( mgr );
@@ -188,9 +186,16 @@ int WarpServer::threadMain( uint16_t port, std::string priv, std::string pub,
     m_server = std::unique_ptr<grpc::Server>( builder.BuildAndStart() );
 
     // Unlock the controlling thread
-    startProm.set_value();
+    if ( m_server )
+    {
+        startProm.set_value( true );
+        m_server->Wait();
+    }
+    else
+    {
+        startProm.set_value( false );
+    }
 
-    m_server->Wait();
 
     return EXIT_SUCCESS;
 }

@@ -1,5 +1,6 @@
 #include "globals.hpp"
 #include "gui/winpinator_frame.hpp"
+#include "running_instance_detector.hpp"
 #include "service/winpinator_service.hpp"
 
 #include <google/protobuf/message_lite.h>
@@ -7,6 +8,7 @@
 #include <grpcpp/health_check_service_interface.h>
 
 #include <wx/wx.h>
+#include <wx/log.h>
 #include <wx/socket.h>
 
 #include <stdlib.h>
@@ -32,6 +34,8 @@ private:
     wxTopLevelWindow* m_topLvl;
     std::thread m_srvThread;
 
+    std::shared_ptr<RunningInstanceDetector> m_detector;
+
     void showMainFrame();
     void onMainFrameDestroyed( wxWindowDestroyEvent& event );
 };
@@ -48,6 +52,18 @@ bool WinpinatorApp::OnInit()
 {
     wxInitAllImageHandlers();
     wxSocketBase::Initialize();
+
+    // Start running instance detector
+    m_detector = std::make_unique<RunningInstanceDetector>( "winpinator.lock" );
+
+    if ( m_detector->isAnotherInstanceRunning() )
+    {
+        wxLogDebug( "[RUNINST] Another instance is detected!" );
+    }
+    else 
+    {
+        wxLogDebug( "[RUNINST] First instance." );
+    }
 
     // Start the service in the background thread
 

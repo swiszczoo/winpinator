@@ -50,16 +50,14 @@ bool RegistrationV2Server::startServer()
         return false;
     }
 
-    std::promise<void> startedPromise;
-    std::future<void> startedFuture = startedPromise.get_future();
+    std::promise<bool> startedPromise;
+    std::future<bool> startedFuture = startedPromise.get_future();
 
     m_thread = std::thread( std::bind( &RegistrationV2Server::threadMain, this,
         m_port, std::ref( startedPromise ) ) );
 
     // Wait for the server pointer to become valid
-    startedFuture.wait();
-
-    return true;
+    return startedFuture.get();
 }
 
 bool RegistrationV2Server::stopServer()
@@ -84,7 +82,7 @@ bool RegistrationV2Server::stopServer()
 }
 
 int RegistrationV2Server::threadMain( uint16_t port, 
-    std::promise<void>& startProm )
+    std::promise<bool>& startProm )
 {
     std::string address = "0.0.0.0:" + std::to_string( port );
     RegistrationV2Impl service;
@@ -96,9 +94,15 @@ int RegistrationV2Server::threadMain( uint16_t port,
     m_server = std::unique_ptr<grpc::Server>( builder.BuildAndStart() );
 
     // Unlock the controlling thread
-    startProm.set_value();
-
-    m_server->Wait();
+    if ( m_server )
+    {
+        startProm.set_value( true );
+        m_server->Wait();
+    }
+    else
+    {
+        startProm.set_value( false );
+    }
 
     return EXIT_SUCCESS;
 }

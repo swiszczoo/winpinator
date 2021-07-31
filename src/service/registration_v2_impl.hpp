@@ -33,7 +33,7 @@ private:
     std::unique_ptr<grpc::Server> m_server;
     std::thread m_thread;
 
-    int threadMain( uint16_t port, std::promise<void>& startProm );
+    int threadMain( uint16_t port, std::promise<bool>& startProm );
 };
 
 };

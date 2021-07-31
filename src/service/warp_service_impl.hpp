@@ -62,7 +62,7 @@ private:
     std::thread m_thread;
 
     int threadMain( uint16_t port, std::string priv, std::string pub,
-        std::shared_ptr<RemoteManager> mgr, std::promise<void>& startProm );
+        std::shared_ptr<RemoteManager> mgr, std::promise<bool>& startProm );
 };
 
 };
