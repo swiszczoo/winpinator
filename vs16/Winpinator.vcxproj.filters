@@ -163,6 +163,15 @@
     <ClInclude Include="..\src\running_instance_detector.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\winpinator_dde_server.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\winpinator_dde_client.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\winpinator_dde_consts.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -253,6 +262,15 @@
       <Filter>Sources\service</Filter>
     </ClCompile>
     <ClCompile Include="..\src\running_instance_detector.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\winpinator_dde_server.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\winpinator_dde_client.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\winpinator_dde_consts.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
