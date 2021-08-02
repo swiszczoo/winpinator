@@ -43,7 +43,7 @@ private:
 
     wxBitmap m_refreshBmp;
 
-    wxTimer* m_timer;
+    wxTimer m_timer;
 
     std::vector<srv::RemoteInfoPtr> m_trackedRemotes;
 

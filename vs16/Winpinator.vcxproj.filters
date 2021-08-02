@@ -172,6 +172,9 @@
     <ClInclude Include="..\src\winpinator_dde_consts.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\tray_icon.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -273,6 +276,9 @@
     <ClCompile Include="..\src\winpinator_dde_consts.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\tray_icon.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\win32\manifest.manifest">
@@ -305,6 +311,15 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\res\spinner48.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\tray_err.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\tray_wait.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\tray_ok.ico">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

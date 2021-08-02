@@ -30,7 +30,6 @@ HostListPage::HostListPage( wxWindow* parent )
     , m_fwdBtn( nullptr )
     , m_progLbl( nullptr )
     , m_refreshBmp( wxNullBitmap )
-    , m_timer( nullptr )
 {
     wxBoxSizer* margSizer = new wxBoxSizer( wxHORIZONTAL );
 
@@ -90,7 +89,7 @@ HostListPage::HostListPage( wxWindow* parent )
 
     SetSizer( margSizer );
 
-    m_timer = new wxTimer( this );
+    m_timer.SetOwner( this );
     refreshAll();
 
     observeService( Globals::get()->getWinpinatorServiceInstance() );
@@ -106,7 +105,7 @@ HostListPage::HostListPage( wxWindow* parent )
 
 void HostListPage::refreshAll()
 {
-    m_timer->StartOnce( HostListPage::NO_HOSTS_TIMEOUT_MILLIS );
+    m_timer.StartOnce( HostListPage::NO_HOSTS_TIMEOUT_MILLIS );
 
     // Get current service state (host list)
     auto serv = Globals::get()->getWinpinatorServiceInstance();

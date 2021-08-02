@@ -34,7 +34,7 @@ DDEConnectionImpl::DDEConnectionImpl( DDEHandler* handler )
 bool DDEConnectionImpl::OnExecute( const wxString& topic,
     const void* data, size_t size, wxIPCFormat format )
 {
-    if ( format != wxIPCFormat::wxIPC_TEXT )
+    if ( format != wxIPCFormat::wxIPC_UNICODETEXT )
     {
         wxLogDebug( "Wrong data type, returning false..." );
         return false;
@@ -66,7 +66,7 @@ WinpinatorDDEServer::WinpinatorDDEServer( wxEvtHandler* evtHandler )
 
 void WinpinatorDDEServer::processExecute( const void* data, size_t size )
 {
-    wxString dataStr( (char*)data, size );
+    wxString dataStr = wxString( (wchar_t*)data, size / sizeof( wchar_t ) );
 
     if ( dataStr == DDEConsts::COMMAND_OPEN )
     {

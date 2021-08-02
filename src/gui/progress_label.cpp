@@ -43,7 +43,7 @@ void ProgressLabel::setLabel( const wxString& label )
     m_stText->SetLabel( label );
 }
 
-const wxString& ProgressLabel::getLabel() const
+wxString ProgressLabel::getLabel() const
 {
     return m_stText->GetLabel();
 }

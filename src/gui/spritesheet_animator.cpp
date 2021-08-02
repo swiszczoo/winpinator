@@ -12,17 +12,12 @@ SpritesheetAnimator::SpritesheetAnimator( wxWindow* parent )
     , m_playing( true )
 {
     m_memDc.SelectObjectAsSource( m_bitmap );
-    m_timer = new wxTimer( this );
-    m_timer->Start( m_interval );
+    m_timer.SetOwner( this );
+    m_timer.Start( m_interval );
 
     Bind( wxEVT_PAINT, &SpritesheetAnimator::onPaint, this );
     Bind( wxEVT_SIZE, &SpritesheetAnimator::onSize, this );
     Bind( wxEVT_TIMER, &SpritesheetAnimator::onTimerTick, this );
-}
-
-SpritesheetAnimator::~SpritesheetAnimator()
-{
-    m_timer->Stop();
 }
 
 void SpritesheetAnimator::setBitmap( const wxBitmap& bmp )
@@ -44,7 +39,7 @@ void SpritesheetAnimator::setIntervalMs( int millis )
 
     if ( m_playing )
     {
-        m_timer->Start( millis );
+        m_timer.Start( millis );
     }
 }
 
@@ -56,13 +51,13 @@ int SpritesheetAnimator::getIntervalMs() const
 void SpritesheetAnimator::startAnimation()
 {
     m_playing = true;
-    m_timer->Start( m_interval );
+    m_timer.Start( m_interval );
 }
 
 void SpritesheetAnimator::stopAnimation()
 {
     m_playing = false;
-    m_timer->Stop();
+    m_timer.Stop();
 }
 
 bool SpritesheetAnimator::isPlaying() const

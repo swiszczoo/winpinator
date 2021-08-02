@@ -8,7 +8,6 @@ class SpritesheetAnimator : public wxWindow
 {
 public:
     explicit SpritesheetAnimator( wxWindow* parent );
-    ~SpritesheetAnimator();
 
     void setBitmap( const wxBitmap& bmp );
     const wxBitmap& getBitmap() const;
@@ -25,7 +24,7 @@ public:
 private:
     wxBitmap m_bitmap;
     wxMemoryDC m_memDc;
-    wxTimer* m_timer;
+    wxTimer m_timer;
     int m_interval;
     int m_currentFrame;
     bool m_playing;

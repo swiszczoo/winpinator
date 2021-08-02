@@ -1,7 +1,11 @@
 #include "globals.hpp"
 #include "gui/winpinator_frame.hpp"
 #include "running_instance_detector.hpp"
+#include "service/service_observer.hpp"
 #include "service/winpinator_service.hpp"
+#include "tray_icon.hpp"
+#include "winpinator_dde_client.hpp"
+#include "winpinator_dde_server.hpp"
 
 #include <google/protobuf/message_lite.h>
 #include <grpcpp/grpcpp.h>
@@ -22,7 +26,7 @@
 
 int serviceMain( std::promise<void>& promise );
 
-class WinpinatorApp : public wxApp
+class WinpinatorApp : public wxApp, srv::IServiceObserver
 {
 public:
     WinpinatorApp();
@@ -32,12 +36,20 @@ public:
 private:
     wxLocale m_locale;
     wxTopLevelWindow* m_topLvl;
+    TrayIcon* m_trayIcon;
     std::thread m_srvThread;
 
     std::shared_ptr<RunningInstanceDetector> m_detector;
+    std::unique_ptr<WinpinatorDDEServer> m_ddeServer;
 
     void showMainFrame();
     void onMainFrameDestroyed( wxWindowDestroyEvent& event );
+    void onDDEOpenCalled( wxCommandEvent& event );
+    void onRestore( wxCommandEvent& event );
+    void onServiceEvent( wxThreadEvent& event );
+
+    // Service observer methods:
+    virtual void onStateChanged();
 };
 
 wxIMPLEMENT_APP( WinpinatorApp );
@@ -45,7 +57,15 @@ wxIMPLEMENT_APP( WinpinatorApp );
 WinpinatorApp::WinpinatorApp()
     : m_locale( wxLANGUAGE_ENGLISH_US )
     , m_topLvl( nullptr )
+    , m_trayIcon( nullptr )
+    , m_detector( nullptr )
+    , m_ddeServer( nullptr )
 {
+    // Events 
+
+    Bind( EVT_OPEN_APP_WINDOW, &WinpinatorApp::onDDEOpenCalled, this );
+    Bind( EVT_RESTORE_WINDOW, &WinpinatorApp::onRestore, this );
+    Bind( wxEVT_THREAD, &WinpinatorApp::onServiceEvent, this );
 }
 
 bool WinpinatorApp::OnInit()
@@ -59,10 +79,26 @@ bool WinpinatorApp::OnInit()
     if ( m_detector->isAnotherInstanceRunning() )
     {
         wxLogDebug( "[RUNINST] Another instance is detected!" );
+
+        WinpinatorDDEClient client;
+        if ( client.isConnected() )
+        {
+            client.execOpen();
+        }
+        else
+        {
+            wxLogDebug( "Something went wrong. Can't connect to DDE server!" );
+        }
+
+        // Do not start another instance
+        return false;
     }
     else 
     {
         wxLogDebug( "[RUNINST] First instance." );
+
+        // Start the DDE server
+        m_ddeServer = std::make_unique<WinpinatorDDEServer>( this );
     }
 
     // Start the service in the background thread
@@ -80,6 +116,18 @@ bool WinpinatorApp::OnInit()
     // Wait for the service to become valid
     future.wait();
 
+    // Set up tray icon
+    m_trayIcon = new TrayIcon();
+    m_trayIcon->setEventHandler( this );
+    
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+    observeService( serv );
+
+    if ( serv->isServiceReady() )
+    {
+        m_trayIcon->setOkState();
+    }
+
     // Show main window
     showMainFrame();
 
@@ -88,6 +136,10 @@ bool WinpinatorApp::OnInit()
 
 int WinpinatorApp::OnExit()
 {
+    // Unregister process
+    m_detector = nullptr;
+    m_ddeServer = nullptr;
+
     // Wait for the background thread to finish before exiting the process
     m_srvThread.join();
 
@@ -112,7 +164,46 @@ void WinpinatorApp::showMainFrame()
 
 void WinpinatorApp::onMainFrameDestroyed( wxWindowDestroyEvent& event )
 {
+    m_topLvl->Unbind( 
+        wxEVT_DESTROY, &WinpinatorApp::onMainFrameDestroyed, this );
+
     m_topLvl = nullptr;
+}
+
+void WinpinatorApp::onDDEOpenCalled( wxCommandEvent& event )
+{
+    if ( !m_topLvl )
+    {
+        showMainFrame();
+    }
+}
+
+void WinpinatorApp::onRestore( wxCommandEvent& event )
+{
+    if ( !m_topLvl )
+    {
+        showMainFrame();
+    }
+}
+
+void WinpinatorApp::onServiceEvent(wxThreadEvent& event)
+{
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    if ( serv->isServiceReady() && !m_trayIcon->isInOkState() )
+    {
+        m_trayIcon->setOkState();
+    }
+    else if ( !serv->isServiceReady() && !m_trayIcon->isInWaitState() )
+    {
+        m_trayIcon->setWaitState();
+    }
+}
+
+void WinpinatorApp::onStateChanged()
+{
+    wxThreadEvent evnt( wxEVT_THREAD );
+    wxQueueEvent( this, evnt.Clone() );
 }
 
 int serviceMain( std::promise<void>& promise )

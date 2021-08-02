@@ -11,13 +11,16 @@
 #define IDB_WINPINATOR                  106
 #define IDB_SPINNER_SM                  107
 #define IDB_SPINNER_LG                  108
+#define IDI_TRAY_ERROR                  109
+#define IDI_TRAY_WAIT                   110
+#define IDI_TRAY_OK                     111
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        109
+#define _APS_NEXT_RESOURCE_VALUE        112
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101

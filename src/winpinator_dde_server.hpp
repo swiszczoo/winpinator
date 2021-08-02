@@ -47,9 +47,9 @@ class WinpinatorDDEServer : DDEHandler
 public:
     WinpinatorDDEServer( wxEvtHandler* evtHandler );
 
-    virtual void processExecute( const void* data, size_t size );
-
 private:
     wxEvtHandler* m_handler;
     std::shared_ptr<DDEImpl> m_server;
+
+    virtual void processExecute( const void* data, size_t size );
 };

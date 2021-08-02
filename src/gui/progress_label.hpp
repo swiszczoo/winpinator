@@ -13,7 +13,7 @@ public:
     ProgressLabel( wxWindow* parent, const wxString& label );
 
     void setLabel( const wxString& newLabel );
-    const wxString& getLabel() const;
+    wxString getLabel() const;
 
 private:
     wxBitmap m_bitmap;
