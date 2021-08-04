@@ -168,7 +168,7 @@ void WinpinatorService::serviceMain()
     m_events.Clear();
 
     // Initialize remote manager
-    m_remoteMgr = std::make_unique<RemoteManager>( this );
+    m_remoteMgr = std::make_shared<RemoteManager>( this );
 
     // Start the registration service (v1)
     RegistrationV1Server regServer1( "0.0.0.0", m_port );
@@ -209,6 +209,7 @@ void WinpinatorService::serviceMain()
         ServerCredentials creds = AuthManager::get()->getServerCreds();
         rpcServer.setPemPrivateKey( creds.privateKey );
         rpcServer.setPemCertificate( creds.publicKey );
+        rpcServer.setRemoteManager( m_remoteMgr );
         rpcServer.startServer();
     }
 

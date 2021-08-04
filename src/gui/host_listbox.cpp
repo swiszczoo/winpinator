@@ -105,7 +105,7 @@ void HostListbox::OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const
     HostListbox* ncthis = const_cast<HostListbox*>( this );
 
     // Draw profile picture
-    if ( item.profilePic.IsOk() )
+    if ( item.profilePic && item.profilePic->IsOk() )
     {
         if ( !item.profileBmp || !item.profileBmp->IsOk() )
         {
@@ -338,13 +338,13 @@ bool HostListbox::scaleProfilePic( HostItem& item ) const
 {
     int targetDim = FromDIP( 64 );
 
-    if ( !item.profilePic.IsOk() )
+    if ( !item.profilePic || !item.profilePic->IsOk() )
     {
         return false;
     }
 
     item.profileBmp = std::make_shared<wxBitmap>(
-        item.profilePic.Scale( targetDim, targetDim, wxIMAGE_QUALITY_BICUBIC ) );
+        item.profilePic->Scale( targetDim, targetDim, wxIMAGE_QUALITY_BICUBIC ) );
 
     return true;
 }

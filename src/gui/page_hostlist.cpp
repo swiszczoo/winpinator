@@ -4,7 +4,10 @@
 #include "../globals.hpp"
 #include "utils.hpp"
 
+#include <wx/mstream.h>
 #include <wx/tooltip.h>
+
+#include <mutex>
 
 namespace gui
 {
@@ -167,6 +170,7 @@ void HostListPage::onManipulateList( wxThreadEvent& event )
     case ThreadEventType::ADD:
     {
         srv::RemoteInfoPtr info = event.GetPayload<srv::RemoteInfoPtr>();
+        std::lock_guard<std::mutex> guard( info->mutex );
 
         for ( const srv::RemoteInfoPtr& ptr : m_trackedRemotes )
         {
@@ -179,6 +183,14 @@ void HostListPage::onManipulateList( wxThreadEvent& event )
         m_trackedRemotes.push_back( info );
         m_hostlist->addItem( convertRemoteInfoToHostItem( info ) );
 
+        break;
+    }
+    case ThreadEventType::UPDATE:
+    {
+        srv::RemoteInfoPtr info = event.GetPayload<srv::RemoteInfoPtr>();
+        std::lock_guard<std::mutex> guard( info->mutex );
+
+        m_hostlist->updateItemById( convertRemoteInfoToHostItem( info ) );
         break;
     }
     case ThreadEventType::RESET:
@@ -229,8 +241,35 @@ HostItem HostListPage::convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo )
     }
 
     result.os = rinfo->os;
+    // We set the bitmap to null to invalidate it
     result.profileBmp = std::make_shared<wxBitmap>( wxNullBitmap );
-    result.profilePic = wxNullImage;
+
+    if ( rinfo->avatarBuffer.empty() )
+    {
+        result.profilePic = std::make_shared<wxImage>( wxNullImage );
+        m_cachedAvatars.erase( rinfo->id );
+        m_avatarCache.erase( rinfo->id );
+    }
+    else if ( rinfo->avatarBuffer == m_cachedAvatars[rinfo->id] )
+    {
+        result.profilePic = m_avatarCache[rinfo->id];
+    }
+    else
+    {
+        wxImage loader;
+        wxMemoryInputStream inStream( rinfo->avatarBuffer.data(), 
+            rinfo->avatarBuffer.size() );
+
+        loader.LoadFile( inStream, wxBITMAP_TYPE_ANY );
+
+        if ( loader.IsOk() )
+        {
+            result.profilePic = std::make_shared<wxImage>( loader );
+            m_cachedAvatars[rinfo->id] = rinfo->avatarBuffer;
+            m_avatarCache[rinfo->id] = result.profilePic;
+        }
+    }
+    
     result.state = rinfo->state;
 
     if ( rinfo->state == srv::RemoteStatus::ONLINE )
@@ -267,6 +306,15 @@ void HostListPage::onAddHost( srv::RemoteInfoPtr info )
 {
     wxThreadEvent evnt;
     evnt.SetInt( (int)ThreadEventType::ADD );
+    evnt.SetPayload( info );
+
+    wxQueueEvent( this, evnt.Clone() );
+}
+
+void HostListPage::onEditHost( srv::RemoteInfoPtr info )
+{
+    wxThreadEvent evnt;
+    evnt.SetInt( (int)ThreadEventType::UPDATE );
     evnt.SetPayload( info );
 
     wxQueueEvent( this, evnt.Clone() );

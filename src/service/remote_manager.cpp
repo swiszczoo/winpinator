@@ -1,6 +1,7 @@
 #include "remote_manager.hpp"
 
 #include "auth_manager.hpp"
+#include "remote_handler.hpp"
 #include "service_utils.hpp"
 
 #include "../proto-gen/warp.grpc.pb.h"
@@ -133,6 +134,9 @@ void RemoteManager::processAddHost( const zc::MdnsServiceData& data )
     info->port = data.port;
     info->hostname = data.txtRecords.at( "hostname" );
     info->state = RemoteStatus::REGISTRATION;
+    info->busy = false;
+    info->hasZcPresence = true;
+    info->stopping = ATOMIC_VAR_INIT( false );
 
     auto pair = std::make_pair( info->hostname, info->ips );
     if ( m_hostSet.find( pair ) == m_hostSet.end() )
@@ -204,7 +208,16 @@ void RemoteManager::processAddHost( const zc::MdnsServiceData& data )
 void RemoteManager::processRemoveHost( const std::string& id )
 {
     std::lock_guard<std::mutex> guard( m_mutex );
-    // Currently not implemented
+
+    std::string strippedId = stripServiceFromIdent( id );
+
+    for ( std::shared_ptr<RemoteInfo>& info : m_hosts )
+    {
+        if ( info->id == strippedId )
+        {
+            info->hasZcPresence = false;
+        }
+    }
 }
 
 bool RemoteManager::isHostAvailable( const std::string& id )
@@ -301,6 +314,18 @@ int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
         } );
     lock.unlock();
 
+    // We are now successfully registered
+    // Pass control over our remote to RemoteHandler
+
+    RemoteHandler handler( serviceInfo );
+    handler.setEditListener( [this]( RemoteInfoPtr info ) {
+        std::lock_guard<std::mutex> lock( m_mutex );
+        m_srv->notifyObservers( [info]( IServiceObserver* observer ) {
+            observer->onEditHost( info );
+        } ); 
+    } );
+    handler.process();
+
     return EXIT_SUCCESS;
 }
 
@@ -372,8 +397,7 @@ bool RemoteManager::doRegistrationV2( RemoteInfo* serviceInfo )
     wxLogDebug( "Registering with %s (%s:%d) - api version 2",
         serviceInfo->id, serviceInfo->ips.ipv4, serviceInfo->authPort );
 
-    wxString target;
-    target.Printf( "%s:%d",
+    wxString target = wxString::Format( "%s:%d",
         wxString( serviceInfo->ips.ipv4 ), serviceInfo->authPort );
 
     gpr_timespec timeout = gpr_time_from_seconds( 5, GPR_TIMESPAN );

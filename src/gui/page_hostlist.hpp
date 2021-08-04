@@ -7,6 +7,7 @@
 #include "progress_label.hpp"
 #include "tool_button.hpp"
 
+#include <memory>
 #include <vector>
 
 namespace gui
@@ -46,6 +47,8 @@ private:
     wxTimer m_timer;
 
     std::vector<srv::RemoteInfoPtr> m_trackedRemotes;
+    std::map<std::string, std::string> m_cachedAvatars;
+    std::map<std::string, std::shared_ptr<wxImage>> m_avatarCache;
 
     void onDpiChanged( wxDPIChangedEvent& event );
     void onLabelResized( wxSizeEvent& event );
@@ -57,11 +60,12 @@ private:
 
     void loadIcon();
 
-    static HostItem convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo );
+    HostItem convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo );
 
     // Observer methods
     virtual void onStateChanged() override;
     virtual void onAddHost( srv::RemoteInfoPtr info ) override;
+    virtual void onEditHost( srv::RemoteInfoPtr info ) override;
 };
 
 };

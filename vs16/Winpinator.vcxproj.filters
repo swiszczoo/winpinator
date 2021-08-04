@@ -175,6 +175,9 @@
     <ClInclude Include="..\src\tray_icon.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\remote_handler.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -278,6 +281,9 @@
     </ClCompile>
     <ClCompile Include="..\src\tray_icon.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\remote_handler.cpp">
+      <Filter>Sources\service</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

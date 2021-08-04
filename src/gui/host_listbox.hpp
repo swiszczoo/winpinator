@@ -15,7 +15,7 @@ struct HostItem
 {
     std::string id;
 
-    wxImage profilePic;
+    std::shared_ptr<wxImage> profilePic;
     std::shared_ptr<wxBitmap> profileBmp;
     wxString username;
     wxString hostname;

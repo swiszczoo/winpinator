@@ -79,15 +79,15 @@ void WinpinatorFrame::setupMenuBar()
     m_menuBar = new wxMenuBar();
 
     m_fileMenu = new wxMenu();
-    m_fileMenu->Append( ID_OPENDESTDIR, _( "Open save folder...\tCtrl+O" ),
+    m_fileMenu->Append( ID_OPENDESTDIR, _( "&Open save folder...\tCtrl+O" ),
         _( "Open the incoming files folder in Explorer" ) );
-    m_fileMenu->Append( wxID_PREFERENCES, _( "Preferences..." ),
+    m_fileMenu->Append( wxID_PREFERENCES, _( "&Preferences..." ),
         _( "Adjust app preferences" ) );
     m_fileMenu->AppendSeparator();
-    m_fileMenu->Append( wxID_CLOSE_FRAME, _( "Exit\tAlt+F4" ),
+    m_fileMenu->Append( wxID_CLOSE_FRAME, _( "E&xit\tAlt+F4" ),
         _( "Close this window but let Winpinator run in background" ) );
     m_fileMenu->Append( wxID_EXIT,
-        _( "Exit and stop the service\tCtrl+Alt+F4" ),
+        _( "Exit and &stop the service\tCtrl+Alt+F4" ),
         _( "Exit Winpinator and stop being visible to other computers" ) );
 
     m_menuBar->Append( m_fileMenu, _( "&File" ) );

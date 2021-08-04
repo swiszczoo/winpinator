@@ -58,7 +58,7 @@ private:
 
     std::thread m_pollingThread;
     wxMessageQueue<Event> m_events;
-    std::unique_ptr<RemoteManager> m_remoteMgr;
+    std::shared_ptr<RemoteManager> m_remoteMgr;
 
     void serviceMain();
 
