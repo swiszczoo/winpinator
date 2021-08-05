@@ -67,7 +67,7 @@ HostListPage::HostListPage( wxWindow* parent )
     mainSizer->Add( headingSizerH, 0, wxEXPAND );
 
     m_hostlist = new HostListbox( this );
-    m_hostlist->SetWindowStyle( wxBORDER_THEME );
+    m_hostlist->SetWindowStyle( wxBORDER_THEME | wxLB_SINGLE );
     mainSizer->Add( m_hostlist, 1, wxEXPAND | wxTOP | wxBOTTOM, FromDIP( 10 ) );
 
     wxBoxSizer* bottomBar = new wxBoxSizer( wxHORIZONTAL );
@@ -279,7 +279,14 @@ HostItem HostListPage::convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo )
     else if ( rinfo->state == srv::RemoteStatus::UNREACHABLE
         || rinfo->state == srv::RemoteStatus::OFFLINE )
     {
-        result.username = _( "Data unavailable" );
+        if ( rinfo->fullName.empty() )
+        {
+            result.username = _( "Data unavailable" );
+        }
+        else
+        {
+            result.username = rinfo->fullName;
+        }
     }
     else
     {

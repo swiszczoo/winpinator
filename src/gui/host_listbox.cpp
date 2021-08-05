@@ -9,8 +9,7 @@ namespace gui
 {
 
 HostListbox::HostListbox( wxWindow* parent )
-    : wxVListBox( parent, wxID_ANY, wxDefaultPosition,
-        wxDefaultSize, wxLB_MULTIPLE )
+    : wxVListBox( parent, wxID_ANY )
     , m_items( {} )
     , m_defaultPic( wxNullBitmap )
     , m_rowHeight( 0 )

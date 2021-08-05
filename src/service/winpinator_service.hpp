@@ -41,7 +41,7 @@ public:
     void postEvent( const Event& evnt );
 
 private:
-    const static std::string s_warpServiceType;
+    const static std::string SERVICE_TYPE;
     const static int s_pollingIntervalSec;
 
     std::recursive_mutex m_mutex;

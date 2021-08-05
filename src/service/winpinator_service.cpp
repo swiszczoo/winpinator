@@ -3,11 +3,14 @@
 #include "../zeroconf/mdns_client.hpp"
 #include "../zeroconf/mdns_service.hpp"
 
+#include "account_picture_extractor.hpp"
 #include "auth_manager.hpp"
 #include "registration_v1_impl.hpp"
 #include "registration_v2_impl.hpp"
 #include "service_utils.hpp"
 #include "warp_service_impl.hpp"
+
+#include <wx/mstream.h>
 
 #include <algorithm>
 
@@ -20,7 +23,7 @@ namespace srv
 {
 
 const uint16_t DEFAULT_WINPINATOR_PORT = 52000;
-const std::string WinpinatorService::s_warpServiceType
+const std::string WinpinatorService::SERVICE_TYPE
     = "_warpinator._tcp.local.";
 const int WinpinatorService::s_pollingIntervalSec = 5;
 
@@ -169,6 +172,35 @@ void WinpinatorService::serviceMain()
 
     // Initialize remote manager
     m_remoteMgr = std::make_shared<RemoteManager>( this );
+    m_remoteMgr->setServiceType( WinpinatorService::SERVICE_TYPE );
+
+    // Try to gather user account picture
+    std::string avatarData;
+    AccountPictureExtractor extractor;
+    if( extractor.process() )
+    {
+        const wxImage& img = extractor.getHighResImage();
+        wxMemoryOutputStream mos;
+        img.SaveFile( mos, "image/png" );
+
+        avatarData.resize( mos.GetSize() );
+        mos.CopyTo( (void*)avatarData.data(), mos.GetSize() );
+    }
+    else
+    {
+        switch ( extractor.getProcessingError() )
+        {
+        case ExtractorError::AVATAR_FILE_UNREADABLE:
+            wxLogDebug( "[APE] ERROR: Avatar file unreadable!" );
+            break;
+        case ExtractorError::AVATAR_NOT_FOUND:
+            wxLogDebug( "[APE] ERROR: Avatar file not found!" );
+            break;
+        case ExtractorError::REG_KEY_NOT_FOUND:
+            wxLogDebug( "[APE] ERROR: Windows Registry key not found!" );
+            break;
+        }
+    }
 
     // Start the registration service (v1)
     RegistrationV1Server regServer1( "0.0.0.0", m_port );
@@ -180,9 +212,13 @@ void WinpinatorService::serviceMain()
     // Start the main RPC service
     WarpServer rpcServer;
     rpcServer.setPort( m_port );
+    if ( !avatarData.empty() )
+    {
+        rpcServer.setAvatarBytes( avatarData );
+    }
 
     // Register 'flush' type service for 3 seconds
-    zc::MdnsService flushService( WinpinatorService::s_warpServiceType );
+    zc::MdnsService flushService( WinpinatorService::SERVICE_TYPE );
     flushService.setHostname( AuthManager::get()->getIdent() );
     flushService.setPort( m_port );
     flushService.setTxtRecord( "hostname", Utils::getHostname() );
@@ -220,7 +256,7 @@ void WinpinatorService::serviceMain()
     std::this_thread::sleep_for( std::chrono::seconds( 3 ) );
 
     // Now register 'real' service
-    zc::MdnsService zcService( WinpinatorService::s_warpServiceType );
+    zc::MdnsService zcService( WinpinatorService::SERVICE_TYPE );
     zcService.setHostname( AuthManager::get()->getIdent() );
     zcService.setPort( m_port );
     zcService.setTxtRecord( "hostname", Utils::getHostname() );
@@ -232,7 +268,7 @@ void WinpinatorService::serviceMain()
     zcService.registerService();
 
     // Start discovering other hosts on the network
-    zc::MdnsClient zcClient( WinpinatorService::s_warpServiceType );
+    zc::MdnsClient zcClient( WinpinatorService::SERVICE_TYPE );
     zcClient.setOnAddServiceListener(
         std::bind( &WinpinatorService::onServiceAdded, this,
             std::placeholders::_1 ) );

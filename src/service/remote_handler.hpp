@@ -2,6 +2,7 @@
 #include "remote_info.hpp"
 
 #include <functional>
+#include <future>
 
 namespace srv
 {
@@ -18,6 +19,9 @@ private:
     static const int DUPLEX_MAX_FAILURES;
     static const int DUPLEX_WAIT_PING_TIME;
     static const int CONNECTED_PING_TIME;
+    static const int CONNECT_TIMEOUT;
+    static const int V2_CHANNEL_RETRY_WAIT_TIME;
+    static const int V2_DUPLEX_TIMEOUT;
 
     RemoteInfoPtr m_info;
     int m_api;
@@ -30,6 +34,7 @@ private:
     bool checkDuplexConnection();
     void updateRemoteMachineInfo();
     void updateRemoteMachineAvatar();
+    std::future<bool> waitForDuplex( int timeout );
 
     void setTimeout( grpc::ClientContext& context, int seconds );
     void setRemoteStatus( std::unique_lock<std::mutex>& lck, 

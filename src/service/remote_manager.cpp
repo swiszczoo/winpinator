@@ -48,7 +48,10 @@ void RemoteManager::stop()
 
     for ( std::shared_ptr<RemoteInfo>& info : m_hosts )
     {
-        info->thread.join();
+        if ( info->thread.joinable() )
+        {
+            info->thread.join();
+        }
     }
 
     m_hosts.clear();
@@ -220,31 +223,61 @@ void RemoteManager::processRemoveHost( const std::string& id )
     }
 }
 
-bool RemoteManager::isHostAvailable( const std::string& id )
+bool RemoteManager::isHostAvailable( const std::string& id, bool strip )
 {
     std::lock_guard<std::mutex> guard( m_mutex );
 
-    for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
+    if ( strip )
     {
-        if ( hostInfo->id == id )
+        std::string strippedId = stripServiceFromIdent( id );
+
+        for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
         {
-            return true;
+            if ( hostInfo->id == strippedId )
+            {
+                return true;
+            }
+        }
+    }
+    else 
+    {
+        for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
+        {
+            if ( hostInfo->id == id )
+            {
+                return true;
+            }
         }
     }
 
     return false;
 }
 
-std::shared_ptr<RemoteInfo> 
-RemoteManager::getRemoteInfo( const std::string& id )
+std::shared_ptr<RemoteInfo>
+RemoteManager::getRemoteInfo( const std::string& id, bool strip )
 {
     std::lock_guard<std::mutex> guard( m_mutex );
 
-    for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
+    if ( strip )
     {
-        if ( hostInfo->id == id )
+        std::string strippedId = stripServiceFromIdent( id );
+
+        for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
         {
-            return hostInfo;
+            if ( hostInfo->id == strippedId )
+            {
+                return hostInfo;
+            }
+        }
+    }
+    else
+    {
+        for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
+        {
+            if ( hostInfo->id == id )
+            {
+                return hostInfo;
+            }
         }
     }
 
@@ -261,9 +294,10 @@ std::string RemoteManager::stripServiceFromIdent(
 
     size_t subOffset = identStr.length() - m_srvType.length();
 
-    if ( identStr.substr( subOffset ) == m_srvType )
+    if ( identStr.substr( subOffset ) == m_srvType 
+        && identStr[subOffset - 1] == '.' )
     {
-        return identStr.substr( 0, subOffset );
+        return identStr.substr( 0, subOffset - 1 );
     }
 
     return identStr;
@@ -322,7 +356,7 @@ int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
         std::lock_guard<std::mutex> lock( m_mutex );
         m_srv->notifyObservers( [info]( IServiceObserver* observer ) {
             observer->onEditHost( info );
-        } ); 
+        } );
     } );
     handler.process();
 

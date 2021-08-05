@@ -82,7 +82,7 @@ void WinpinatorBanner::draw( wxDC& dc )
     dc.SetTextForeground( *wxWHITE );
     dc.SetFont( *m_headerFont );
 
-    const wxString text = _( "Share your files across LAN" );
+    const wxString text = _( "Share your files across the LAN" );
     wxSize textSize = dc.GetTextExtent( "MM" );
 
     int textY = (int)( size.y - textSize.y ) / 2;

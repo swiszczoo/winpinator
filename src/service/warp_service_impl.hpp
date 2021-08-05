@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <future>
 #include <memory>
+#include <string>
 
 namespace srv
 {
@@ -18,16 +19,27 @@ using grpc::ServerContext;
 class WarpServiceImpl : public Warp::Service
 {
 public:
-    explicit WarpServiceImpl( std::shared_ptr<RemoteManager> mgr );
+    explicit WarpServiceImpl( std::shared_ptr<RemoteManager> mgr, 
+        std::shared_ptr<std::string> avatar );
 
 protected:
-    Status Ping( grpc::ServerContext* context,  const LookupName* request, 
+    Status Ping( grpc::ServerContext* context, const LookupName* request, 
         VoidType* response ) override;
+
     Status CheckDuplexConnection( grpc::ServerContext* context, 
         const LookupName* request, HaveDuplex* response ) override;
+    Status WaitingForDuplex( grpc::ServerContext* context,
+        const LookupName* request, HaveDuplex* response ) override;
+
+    Status GetRemoteMachineInfo( grpc::ServerContext* context,
+        const LookupName* request, RemoteMachineInfo* response ) override;
+    Status GetRemoteMachineAvatar( grpc::ServerContext* context,
+        const LookupName* request, 
+        grpc::ServerWriter<RemoteMachineAvatar>* writer ) override;
 
 private:
     std::shared_ptr<RemoteManager> m_manager;
+    std::shared_ptr<std::string> m_avatar;
 };
 
 class WarpServer
@@ -45,6 +57,9 @@ public:
     void setPemCertificate( const std::string& pem );
     const std::string& getPemCertificate() const;
 
+    void setAvatarBytes( const std::string& bytes );
+    const std::string& getAvatarBytes() const;
+
     void setRemoteManager( std::shared_ptr<RemoteManager> mgr );
     std::shared_ptr<RemoteManager> getRemoteManager() const;
 
@@ -57,12 +72,15 @@ private:
     uint16_t m_port;
     std::string m_privKey;
     std::string m_pubKey;
+    std::shared_ptr<std::string> m_avatar;
     std::shared_ptr<RemoteManager> m_remoteMgr;
     std::unique_ptr<grpc::Server> m_server;
     std::thread m_thread;
 
     int threadMain( uint16_t port, std::string priv, std::string pub,
-        std::shared_ptr<RemoteManager> mgr, std::promise<bool>& startProm );
+        std::shared_ptr<RemoteManager> mgr,
+        std::shared_ptr<std::string> avatar, 
+        std::promise<bool>& startProm );
 };
 
 };
