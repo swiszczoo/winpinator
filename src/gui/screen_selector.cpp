@@ -14,6 +14,7 @@ ScreenSelector::ScreenSelector( wxWindow* parent )
     , m_page1( nullptr )
     , m_page2( nullptr )
     , m_page3( nullptr )
+    , m_page4( nullptr )
 {
     wxBoxSizer* mainSizer = new wxBoxSizer( wxVERTICAL );
 
@@ -30,6 +31,8 @@ ScreenSelector::ScreenSelector( wxWindow* parent )
     m_book->AddPage( m_page2, wxEmptyString );
     m_page3 = new NoHostsPage( m_book );
     m_book->AddPage( m_page3, wxEmptyString );
+    m_page4 = new ErrorPage( m_book );
+    m_book->AddPage( m_page4, wxEmptyString );
 
     srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
 
@@ -50,6 +53,16 @@ ScreenSelector::ScreenSelector( wxWindow* parent )
 void ScreenSelector::onStateChanged()
 {
     srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
+
+    if ( serv->hasError() && m_currentPage != SelectorPage::ERROR_PAGE )
+    {
+        m_currentPage = SelectorPage::ERROR_PAGE;
+
+        wxThreadEvent event( wxEVT_THREAD );
+        event.SetInt( (int)SelectorPage::ERROR_PAGE );
+        wxQueueEvent( this, event.Clone() );
+        return;
+    }
 
     if ( !serv->isOnline() && m_currentPage != SelectorPage::OFFLINE )
     {
@@ -121,6 +134,7 @@ void ScreenSelector::changePage( SelectorPage page )
     //m_page1->Disable();
     m_page2->Disable();
     m_page3->Disable();
+    m_page4->Disable();
 
     m_currentPage = page;
     m_book->SetSelection( (int)page );
@@ -148,6 +162,15 @@ void ScreenSelector::changePage( SelectorPage page )
     {
         m_page3->Enable();
         m_page3->Refresh();
+    }
+
+    if ( page == SelectorPage::ERROR_PAGE )
+    {
+        auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+        m_page4->Enable();
+        m_page4->setServiceError( serv->getError() );
+        m_page4->Refresh();
     }
 }
 

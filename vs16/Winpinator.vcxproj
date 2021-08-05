@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\globals.hpp" />
+    <ClInclude Include="..\src\gui\page_error.hpp" />
     <ClInclude Include="..\src\gui\progress_label.hpp" />
     <ClInclude Include="..\src\gui\screen_selector.hpp" />
     <ClInclude Include="..\src\gui\spritesheet_animator.hpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="..\src\service\remote_handler.hpp" />
     <ClInclude Include="..\src\service\remote_info.hpp" />
     <ClInclude Include="..\src\service\remote_manager.hpp" />
+    <ClInclude Include="..\src\service\service_errors.hpp" />
     <ClInclude Include="..\src\service\service_observer.hpp" />
     <ClInclude Include="..\src\service\service_utils.hpp" />
     <ClInclude Include="..\src\service\warp_service_impl.hpp" />
@@ -204,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\globals.cpp" />
+    <ClCompile Include="..\src\gui\page_error.cpp" />
     <ClCompile Include="..\src\gui\progress_label.cpp" />
     <ClCompile Include="..\src\gui\screen_selector.cpp" />
     <ClCompile Include="..\src\gui\spritesheet_animator.cpp" />
@@ -244,6 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\res\blot.png" />
+    <Image Include="..\res\error.png" />
     <Image Include="..\res\icon.ico" />
     <Image Include="..\res\icon256.png" />
     <Image Include="..\res\info.png" />

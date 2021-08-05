@@ -285,7 +285,7 @@ bool RemoteHandler::secureLoopV2()
                         "- api version 2: %s",
                 wxString( m_info->hostname ) );
 
-            wxLogDebug( "Retrying in 10s..." );
+            wxLogDebug( "Retrying in %ds...", V2_CHANNEL_RETRY_WAIT_TIME );
 
             m_info->stopVar.wait_for( lock,
                 std::chrono::seconds( V2_CHANNEL_RETRY_WAIT_TIME ) );
@@ -325,7 +325,7 @@ bool RemoteHandler::secureLoopV2()
         wxLogDebug( "Problem while waiting for channel - api version 2: %s",
             wxString( m_info->hostname ) );
 
-        wxLogDebug( "Retrying in 10s..." );
+        wxLogDebug( "Retrying in %ds...", V2_CHANNEL_RETRY_WAIT_TIME );
 
         m_info->stopVar.wait_for( lock,
             std::chrono::seconds( V2_CHANNEL_RETRY_WAIT_TIME ) );

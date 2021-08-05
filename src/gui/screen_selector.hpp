@@ -1,5 +1,6 @@
 #pragma once
 #include "../service/service_observer.hpp"
+#include "page_error.hpp"
 #include "page_hostlist.hpp"
 #include "page_nohosts.hpp"
 #include "page_offline.hpp"
@@ -26,7 +27,8 @@ private:
         STARTING,
         OFFLINE,
         HOST_LIST,
-        NO_HOSTS
+        NO_HOSTS,
+        ERROR_PAGE
     };
 
     wxSimplebook* m_book;
@@ -36,6 +38,7 @@ private:
     OfflinePage* m_page1;
     HostListPage* m_page2;
     NoHostsPage* m_page3;
+    ErrorPage* m_page4;
 
     void onChangePage( wxThreadEvent& event );
     void onNoHostsInTime( wxCommandEvent& event );

@@ -14,8 +14,8 @@ class RegistrationV1Server
 public:
     RegistrationV1Server( std::string address, uint16_t port );
 
-    void startServer();
-    void stopServer();
+    bool startServer();
+    bool stopServer();
 
 private:
     static const std::string REQUEST;

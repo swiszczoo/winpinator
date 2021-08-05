@@ -129,17 +129,12 @@ void RemoteManager::processAddHost( const zc::MdnsServiceData& data )
 
     // Fill RemoteInfo struct
     std::shared_ptr<RemoteInfo> info = std::make_shared<RemoteInfo>();
-    info->visible = false;
-    info->id = stripServiceFromIdent( data.name );
+    bool pushBack = true;
+
+    info->hostname = data.txtRecords.at( "hostname" );
     info->ips.valid = true;
     info->ips.ipv4 = data.ipv4;
     info->ips.ipv6 = data.ipv6;
-    info->port = data.port;
-    info->hostname = data.txtRecords.at( "hostname" );
-    info->state = RemoteStatus::REGISTRATION;
-    info->busy = false;
-    info->hasZcPresence = true;
-    info->stopping = ATOMIC_VAR_INIT( false );
 
     auto pair = std::make_pair( info->hostname, info->ips );
     if ( m_hostSet.find( pair ) == m_hostSet.end() )
@@ -150,19 +145,51 @@ void RemoteManager::processAddHost( const zc::MdnsServiceData& data )
     {
         // This host already exists, try to find it and unlock current wait op,
         // then return
+        
+        bool found = false;
 
         for ( std::shared_ptr<RemoteInfo>& hostInfo : m_hosts )
         {
             if ( info->hostname == hostInfo->hostname
                 && info->ips == hostInfo->ips )
             {
+                found = true;
+
                 hostInfo->stopVar.notify_all();
-                break;
+
+                if ( hostInfo->stopping )
+                {
+                    if ( hostInfo->thread.joinable() )
+                    {
+                        hostInfo->thread.join();
+                    }
+
+                    // We'll be trying to reconnect, so set the info pointer
+                    // to our old object
+
+                    info = hostInfo;
+                    pushBack = false;
+                }
+                else 
+                {
+                    return;
+                }
             }
         }
 
-        return;
+        if ( !found )
+        {
+            return;
+        }
     }
+
+    info->visible = false;
+    info->id = stripServiceFromIdent( data.name );
+    info->port = data.port;
+    info->state = RemoteStatus::REGISTRATION;
+    info->busy = false;
+    info->hasZcPresence = true;
+    info->stopping = ATOMIC_VAR_INIT( false );
 
     if ( data.txtRecords.find( "api-version" ) == data.txtRecords.end() )
     {
@@ -205,7 +232,10 @@ void RemoteManager::processAddHost( const zc::MdnsServiceData& data )
     info->thread = std::thread( std::bind(
         &RemoteManager::remoteThreadEntry, this, info ) );
 
-    m_hosts.push_back( info );
+    if ( pushBack )
+    {
+        m_hosts.push_back( info );
+    }
 }
 
 void RemoteManager::processRemoveHost( const std::string& id )

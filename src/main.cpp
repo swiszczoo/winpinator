@@ -190,6 +190,12 @@ void WinpinatorApp::onServiceEvent(wxThreadEvent& event)
 {
     auto serv = Globals::get()->getWinpinatorServiceInstance();
 
+    if ( serv->hasError() && !m_trayIcon->isInErrorState() )
+    {
+        m_trayIcon->setErrorState();
+        return;
+    }
+
     if ( !serv->isOnline() && !m_trayIcon->isInErrorState() )
     {
         m_trayIcon->setErrorState();

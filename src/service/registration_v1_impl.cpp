@@ -15,6 +15,8 @@ RegistrationV1Server::RegistrationV1Server( std::string address, uint16_t port )
     , m_port( port )
     , m_exiting( false )
 {
+    wxLogNull logNull;
+
     wxIPV4address addr;
     if ( !addr.Hostname( address ) )
     {
@@ -26,23 +28,31 @@ RegistrationV1Server::RegistrationV1Server( std::string address, uint16_t port )
     m_sock = std::make_unique<wxDatagramSocket>( addr, wxSOCKET_BLOCK );
 }
 
-void RegistrationV1Server::startServer()
+bool RegistrationV1Server::startServer()
 {
     if ( m_thread.joinable() )
     {
-        return;
+        return false;
+    }
+
+    if ( !m_sock->IsOk() )
+    {
+        wxLogDebug( "Registration v1 socket is broken!" );
+        return false;
     }
 
     m_exiting = false;
     m_thread = std::thread( std::bind(
         &RegistrationV1Server::threadMain, this ) );
+
+    return true;
 }
 
-void RegistrationV1Server::stopServer()
+bool RegistrationV1Server::stopServer()
 {
     if ( !m_thread.joinable() )
     {
-        return;
+        return false;
     }
 
     m_exiting = true;
@@ -50,6 +60,8 @@ void RegistrationV1Server::stopServer()
     m_sock->InterruptWait();
 
     m_thread.join();
+    
+    return true;
 }
 
 int RegistrationV1Server::threadMain()

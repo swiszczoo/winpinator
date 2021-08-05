@@ -176,6 +176,8 @@ void HostListPage::onManipulateList( wxThreadEvent& event )
         {
             if ( info->id == ptr->id )
             {
+                m_hostlist->updateItemById( 
+                    convertRemoteInfoToHostItem( info ) );
                 return;
             }
         }

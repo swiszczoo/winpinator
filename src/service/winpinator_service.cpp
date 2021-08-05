@@ -35,6 +35,7 @@ WinpinatorService::WinpinatorService()
     , m_online( false )
     , m_shouldRestart( false )
     , m_stopping( false )
+    , m_error( ServiceError::KEIN_ERROR )
     , m_ip( "" )
     , m_displayName( "" )
     , m_remoteMgr( nullptr )
@@ -103,6 +104,16 @@ const std::string& WinpinatorService::getDisplayName() const
     return m_displayName;
 }
 
+bool WinpinatorService::hasError() const
+{
+    return getError() != ServiceError::KEIN_ERROR;
+}
+
+ServiceError WinpinatorService::getError() const
+{
+    return m_error.load();
+}
+
 RemoteManager* WinpinatorService::getRemoteManager() const
 {
     return m_remoteMgr.get();
@@ -140,9 +151,27 @@ int WinpinatorService::startOnThisThread()
             lock.unlock();
 
             m_ready = false;
+            m_error = ServiceError::KEIN_ERROR;
             notifyStateChanged();
 
             serviceMain();
+
+            if ( m_error != ServiceError::KEIN_ERROR )
+            {
+                notifyStateChanged();
+
+                // If something went wrong, wait for explicit restart command
+                while ( true )
+                {
+                    Event ev;
+                    m_events.Receive( ev );
+
+                    if ( ev.type == EventType::RESTART_SERVICE )
+                    {
+                        break;
+                    }
+                }
+            }
         }
         else
         {
@@ -238,15 +267,37 @@ void WinpinatorService::serviceMain()
         AuthManager::get()->update( ipPair, m_port );
 
         // We have an IP so we can start registration servers
-        regServer1.startServer();
-        regServer2.startServer();
+        if ( !regServer1.startServer() )
+        {
+            m_error = ServiceError::REGISTRATION_V1_SERVER_FAILED;
+            m_remoteMgr->stop();
+            return;
+        }
+
+        if( !regServer2.startServer() )
+        {
+            m_error = ServiceError::REGISTRATION_V2_SERVER_FAILED;
+            m_remoteMgr->stop();
+            return;
+        }
 
         // ...and the rpc server
         ServerCredentials creds = AuthManager::get()->getServerCreds();
         rpcServer.setPemPrivateKey( creds.privateKey );
         rpcServer.setPemCertificate( creds.publicKey );
         rpcServer.setRemoteManager( m_remoteMgr );
-        rpcServer.startServer();
+        if( !rpcServer.startServer() )
+        {
+            m_error = ServiceError::WARP_SERVER_FAILED;
+            m_remoteMgr->stop();
+            return;
+        }
+    }
+    else 
+    {
+        m_error = ServiceError::ZEROCONF_SERVER_FAILED;
+        m_remoteMgr->stop();
+        return;
     }
 
     std::this_thread::sleep_for( std::chrono::seconds( 3 ) );
@@ -265,7 +316,13 @@ void WinpinatorService::serviceMain()
     zcService.setTxtRecord( "api-version", "2" );
     zcService.setTxtRecord( "auth-port", std::to_string( m_authPort ) );
 
-    zcService.registerService();
+    auto secondIpPair = zcService.registerService();
+    if ( !secondIpPair.get().valid )
+    {
+        m_error = ServiceError::ZEROCONF_SERVER_FAILED;
+        m_remoteMgr->stop();
+        return;
+    }
 
     // Start discovering other hosts on the network
     zc::MdnsClient zcClient( WinpinatorService::SERVICE_TYPE );

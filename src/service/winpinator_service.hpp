@@ -4,10 +4,12 @@
 #include "../zeroconf/mdns_types.hpp"
 #include "event.hpp"
 #include "remote_manager.hpp"
+#include "service_errors.hpp"
 
 #include <wx/wx.h>
 #include <wx/msgqueue.h>
 
+#include <atomic>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -34,6 +36,9 @@ public:
     std::string getIpAddress();
     const std::string& getDisplayName() const;
 
+    bool hasError() const;
+    ServiceError getError() const;
+
     RemoteManager* getRemoteManager() const;
 
     int startOnThisThread();
@@ -52,6 +57,8 @@ private:
     bool m_online;
     bool m_shouldRestart;
     bool m_stopping;
+
+    std::atomic<ServiceError> m_error;
 
     std::string m_ip;
     std::string m_displayName;

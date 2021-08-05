@@ -67,6 +67,7 @@ Status WarpServiceImpl::WaitingForDuplex( grpc::ServerContext* context,
     bool responseFlag = false;
 
     // try for ~5 seconds( the caller aborts at 4 )
+    // we actually wait for 10 seconds
     while ( i < MAX_TRIES )
     {
         responseFlag = false;
@@ -93,7 +94,7 @@ Status WarpServiceImpl::WaitingForDuplex( grpc::ServerContext* context,
                     " remote to connect back to you." );
             }
             
-            std::this_thread::sleep_for( std::chrono::milliseconds( 250 ) );
+            std::this_thread::sleep_for( std::chrono::milliseconds( 500 ) );
         }
     }
 

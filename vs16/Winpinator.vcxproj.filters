@@ -178,6 +178,12 @@
     <ClInclude Include="..\src\service\remote_handler.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\service_errors.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\page_error.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -285,6 +291,9 @@
     <ClCompile Include="..\src\service\remote_handler.cpp">
       <Filter>Sources\service</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\gui\page_error.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\win32\manifest.manifest">
@@ -326,6 +335,9 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\res\tray_ok.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\error.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
