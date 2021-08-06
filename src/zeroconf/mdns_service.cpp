@@ -1,5 +1,7 @@
 #include "mdns_service.hpp"
 
+#include "../thread_name.hpp"
+
 #include <memory>
 #include <vector>
 
@@ -326,6 +328,8 @@ bool MdnsService::isServiceRunning()
 
 int MdnsService::workerImpl( std::shared_ptr<std::promise<MdnsIpPair>> promise )
 {
+    setThreadName( "mDNS service worker" );
+
     auto hostname = std::make_unique<char[]>( m_hostname.size() + 1 );
     auto servName = std::make_unique<char[]>( m_srvType.size() + 1 );
 

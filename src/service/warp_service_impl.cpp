@@ -1,5 +1,6 @@
 #include "warp_service_impl.hpp"
 
+#include "../thread_name.hpp"
 #include "service_utils.hpp"
 
 #include <grpcpp/grpcpp.h>
@@ -269,6 +270,8 @@ int WarpServer::threadMain( uint16_t port, std::string priv, std::string pub,
     std::shared_ptr<RemoteManager> mgr, std::shared_ptr<std::string> avatar, 
     std::promise<bool>& startProm )
 {
+    setThreadName( "Warp service worker (gRPC server controller)" );
+
     std::string address = "0.0.0.0:" + std::to_string( port );
     WarpServiceImpl service( mgr, avatar );
 

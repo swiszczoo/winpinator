@@ -1,5 +1,6 @@
 #include "registration_v2_impl.hpp"
 
+#include "../thread_name.hpp"
 #include "auth_manager.hpp"
 
 #include <grpcpp/grpcpp.h>
@@ -84,6 +85,8 @@ bool RegistrationV2Server::stopServer()
 int RegistrationV2Server::threadMain( uint16_t port, 
     std::promise<bool>& startProm )
 {
+    setThreadName( "Registration V2 worker (gRPC server controller)" );
+
     std::string address = "0.0.0.0:" + std::to_string( port );
     RegistrationV2Impl service;
 

@@ -1,5 +1,7 @@
 #include "mdns_client.hpp"
 
+#include "../thread_name.hpp"
+
 #include <stdlib.h>
 
 namespace zc
@@ -146,6 +148,8 @@ void MdnsClient::repeatQuery()
 
 int MdnsClient::workerImpl()
 {
+    setThreadName( "mDNS client worker" );
+
     sendMdnsQuery( m_srvType.c_str(), MDNS_RECORDTYPE_ANY );
     return EXIT_SUCCESS;
 }

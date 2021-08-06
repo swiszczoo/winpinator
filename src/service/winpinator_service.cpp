@@ -3,6 +3,7 @@
 #include "../zeroconf/mdns_client.hpp"
 #include "../zeroconf/mdns_service.hpp"
 
+#include "../thread_name.hpp"
 #include "account_picture_extractor.hpp"
 #include "auth_manager.hpp"
 #include "registration_v1_impl.hpp"
@@ -341,6 +342,16 @@ void WinpinatorService::serviceMain()
 
     zcClient.repeatQuery();
 
+    // Test for RACE CONDITIONS
+    /* std::thread thr( [this]() {
+        std::this_thread::sleep_for( std::chrono::seconds( 4 ) );
+        Event raceEv;
+        raceEv.type = EventType::RESTART_SERVICE;
+        postEvent( raceEv );
+    } ); 
+
+    thr.detach(); */
+
     Event ev;
     while ( true )
     {
@@ -429,6 +440,8 @@ void WinpinatorService::onServiceRemoved( const std::string& serviceName )
 int WinpinatorService::networkPollingMain( std::mutex& mtx,
     std::condition_variable& condVar )
 {
+    setThreadName( "Network polling worker" );
+
     // This thread is responsible for polling
     // if we still have network connection
 

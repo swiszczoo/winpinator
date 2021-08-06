@@ -1,5 +1,6 @@
 #include "remote_manager.hpp"
 
+#include "../thread_name.hpp"
 #include "auth_manager.hpp"
 #include "remote_handler.hpp"
 #include "service_utils.hpp"
@@ -36,7 +37,7 @@ RemoteManager::~RemoteManager()
 
 void RemoteManager::stop()
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::shared_lock<std::shared_mutex> lck( m_mutex );
 
     for ( std::shared_ptr<RemoteInfo>& info : m_hosts )
     {
@@ -59,20 +60,20 @@ void RemoteManager::stop()
 
 size_t RemoteManager::getTotalHostsCount()
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::shared_lock<std::shared_mutex> guard( m_mutex );
 
     return m_hosts.size();
 }
 
 size_t RemoteManager::getVisibleHostsCount()
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::shared_lock<std::shared_mutex> guard( m_mutex );
     return _getVisibleHostsCount();
 }
 
 std::vector<RemoteInfoPtr> RemoteManager::generateCurrentHostList()
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::shared_lock<std::shared_mutex> guard( m_mutex );
 
     std::vector<RemoteInfoPtr> result;
 
@@ -89,7 +90,7 @@ std::vector<RemoteInfoPtr> RemoteManager::generateCurrentHostList()
 
 void RemoteManager::setServiceType( const std::string& serviceType )
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::lock_guard<std::shared_mutex> guard( m_mutex );
 
     m_srvType = serviceType;
 
@@ -101,14 +102,14 @@ void RemoteManager::setServiceType( const std::string& serviceType )
 
 const std::string& RemoteManager::getServiceType()
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::shared_lock<std::shared_mutex> guard( m_mutex );
 
     return m_srvType;
 }
 
 void RemoteManager::processAddHost( const zc::MdnsServiceData& data )
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::lock_guard<std::shared_mutex> guard( m_mutex );
 
     // Check if our peer is a 'real' type host
     // Otherwise ignore it
@@ -240,7 +241,7 @@ void RemoteManager::processAddHost( const zc::MdnsServiceData& data )
 
 void RemoteManager::processRemoveHost( const std::string& id )
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::lock_guard<std::shared_mutex> guard( m_mutex );
 
     std::string strippedId = stripServiceFromIdent( id );
 
@@ -255,7 +256,7 @@ void RemoteManager::processRemoveHost( const std::string& id )
 
 bool RemoteManager::isHostAvailable( const std::string& id, bool strip )
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::shared_lock<std::shared_mutex> guard( m_mutex );
 
     if ( strip )
     {
@@ -286,7 +287,7 @@ bool RemoteManager::isHostAvailable( const std::string& id, bool strip )
 std::shared_ptr<RemoteInfo>
 RemoteManager::getRemoteInfo( const std::string& id, bool strip )
 {
-    std::lock_guard<std::mutex> guard( m_mutex );
+    std::shared_lock<std::shared_mutex> guard( m_mutex );
 
     if ( strip )
     {
@@ -335,6 +336,8 @@ std::string RemoteManager::stripServiceFromIdent(
 
 int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
 {
+    setThreadName( "Remote thread for \"" + serviceInfo->hostname + "\"" );
+
     if ( serviceInfo->apiVersion == 1 )
     {
         if ( !doRegistrationV1( serviceInfo.get() ) )
@@ -364,7 +367,7 @@ int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
     }
 
     // Notify about new host
-    std::unique_lock<std::mutex> lock( m_mutex );
+    std::shared_lock<std::shared_mutex> lock( m_mutex );
 
     serviceInfo->visible = true;
     serviceInfo->state = RemoteStatus::INIT_CONNECTING;
@@ -383,7 +386,7 @@ int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
 
     RemoteHandler handler( serviceInfo );
     handler.setEditListener( [this]( RemoteInfoPtr info ) {
-        std::lock_guard<std::mutex> lock( m_mutex );
+        std::shared_lock<std::shared_mutex> lock( m_mutex );
         m_srv->notifyObservers( [info]( IServiceObserver* observer ) {
             observer->onEditHost( info );
         } );

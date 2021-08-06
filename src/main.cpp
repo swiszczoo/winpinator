@@ -3,6 +3,7 @@
 #include "running_instance_detector.hpp"
 #include "service/service_observer.hpp"
 #include "service/winpinator_service.hpp"
+#include "thread_name.hpp"
 #include "tray_icon.hpp"
 #include "winpinator_dde_client.hpp"
 #include "winpinator_dde_server.hpp"
@@ -221,6 +222,8 @@ void WinpinatorApp::onStateChanged()
 
 int serviceMain( std::promise<void>& promise )
 {
+    setThreadName( "Main Service Thread" );
+
     // Initialize protobuf/grpc
     grpc::EnableDefaultHealthCheckService( true );
 

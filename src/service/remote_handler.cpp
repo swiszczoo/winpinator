@@ -234,6 +234,7 @@ bool RemoteHandler::secureLoopV2()
 
     std::shared_ptr<grpc::Channel> channel = grpc::CreateChannel(
         target, creds );
+    std::weak_ptr<grpc::Channel> chanPtr = channel;
 
     if ( channel->WaitForConnected( timeout ) )
     {
@@ -242,15 +243,24 @@ bool RemoteHandler::secureLoopV2()
             maxDline, &cq, nullptr );
 
         // Start a thread that listens to disconnects
-        std::thread discoListener( [this, &cq, channel, maxDline]() {
-            while ( channel->GetState( false ) == GRPC_CHANNEL_READY )
+        std::thread discoListener( [this, &cq, chanPtr, maxDline]() {
+            while ( true )
             {
+                auto channel = chanPtr.lock();
+                if ( !channel 
+                    || channel->GetState( false ) != GRPC_CHANNEL_READY )
+                {
+                    break;
+                }
+                channel = nullptr;
+
                 void* tag;
                 bool ok;
                 if ( cq.Next( &tag, &ok ) )
                 {
-
-                    if ( channel->GetState( false ) != GRPC_CHANNEL_READY )
+                    auto channel = chanPtr.lock();
+                    if ( !channel 
+                        || channel->GetState( false ) != GRPC_CHANNEL_READY )
                     {
                         break;
                     }
@@ -289,6 +299,12 @@ bool RemoteHandler::secureLoopV2()
 
             m_info->stopVar.wait_for( lock,
                 std::chrono::seconds( V2_CHANNEL_RETRY_WAIT_TIME ) );
+
+            lock.lock();
+            m_info->stub = nullptr;
+            channel = nullptr;
+            lock.unlock();
+
             cq.Shutdown();
             discoListener.join();
             return true;
@@ -303,12 +319,19 @@ bool RemoteHandler::secureLoopV2()
 
         if ( m_info->stopping )
         {
+            m_info->stub = nullptr;
+            channel = nullptr;
+
             cq.Shutdown();
             discoListener.join();
             return false;
         }
 
         m_info->stopVar.wait( lock );
+
+        m_info->stub = nullptr;
+        channel = nullptr;
+
         cq.Shutdown();
         discoListener.join();
     }

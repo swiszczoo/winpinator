@@ -2,6 +2,8 @@
 #include "observable_service.hpp"
 #include "remote_info.hpp"
 
+#include <shared_mutex>
+
 namespace srv
 {
 
@@ -32,7 +34,7 @@ private:
     static const std::string FALLBACK_OS;
     static const std::string REQUEST;
 
-    std::mutex m_mutex;
+    std::shared_mutex m_mutex;
     std::vector<std::shared_ptr<RemoteInfo>> m_hosts;
     std::set<std::pair<std::string, zc::MdnsIpPair>> m_hostSet;
     std::string m_srvType;

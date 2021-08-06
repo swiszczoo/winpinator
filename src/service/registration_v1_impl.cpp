@@ -1,5 +1,6 @@
 #include "registration_v1_impl.hpp"
 
+#include "../thread_name.hpp"
 #include "auth_manager.hpp"
 
 #include <stdlib.h>
@@ -66,6 +67,8 @@ bool RegistrationV1Server::stopServer()
 
 int RegistrationV1Server::threadMain()
 {
+    setThreadName( "Registration V1 worker" );
+
     while ( !m_exiting )
     {
         wxIPV4address peerAddr;
