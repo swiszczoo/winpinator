@@ -15,7 +15,7 @@ public:
     srv::ServiceError getServiceError() const;
 
 private:
-    static const wxString s_text;
+    static const wxString TEXT;
 
     srv::ServiceError m_srvError;
 

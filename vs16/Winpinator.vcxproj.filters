@@ -187,6 +187,9 @@
     <ClInclude Include="..\src\thread_name.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\page_transferlist.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -297,6 +300,9 @@
     <ClCompile Include="..\src\gui\page_error.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\gui\page_transferlist.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\win32\manifest.manifest">
@@ -341,6 +347,18 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\res\error.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\back.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\forward.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\send_file.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\send_directory.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

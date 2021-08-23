@@ -11,7 +11,7 @@ public:
     explicit NoHostsPage( wxWindow* parent );
 
 private:
-    static const wxString s_text;
+    static const wxString TEXT;
 
     wxStaticBitmap* m_icon;
     wxStaticText* m_label;

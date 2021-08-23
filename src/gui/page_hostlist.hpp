@@ -31,8 +31,8 @@ private:
         RESET
     };
 
-    static const wxString s_details;
-    static const wxString s_detailsWrapped;
+    static const wxString DETAILS;
+    static const wxString DETAILS_WRAPPED;
     static const int NO_HOSTS_TIMEOUT_MILLIS;
 
     wxStaticText* m_header;

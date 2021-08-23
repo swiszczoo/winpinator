@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\globals.hpp" />
     <ClInclude Include="..\src\gui\page_error.hpp" />
+    <ClInclude Include="..\src\gui\page_transferlist.hpp" />
     <ClInclude Include="..\src\gui\progress_label.hpp" />
     <ClInclude Include="..\src\gui\screen_selector.hpp" />
     <ClInclude Include="..\src\gui\spritesheet_animator.hpp" />
@@ -208,6 +209,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\globals.cpp" />
     <ClCompile Include="..\src\gui\page_error.cpp" />
+    <ClCompile Include="..\src\gui\page_transferlist.cpp" />
     <ClCompile Include="..\src\gui\progress_label.cpp" />
     <ClCompile Include="..\src\gui\screen_selector.cpp" />
     <ClCompile Include="..\src\gui\spritesheet_animator.cpp" />
@@ -247,12 +249,16 @@
     <Manifest Include="..\win32\manifest.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\res\back.png" />
     <Image Include="..\res\blot.png" />
     <Image Include="..\res\error.png" />
+    <Image Include="..\res\forward.png" />
     <Image Include="..\res\icon.ico" />
     <Image Include="..\res\icon256.png" />
     <Image Include="..\res\info.png" />
     <Image Include="..\res\refresh.png" />
+    <Image Include="..\res\send_directory.png" />
+    <Image Include="..\res\send_file.png" />
     <Image Include="..\res\spinner16.png" />
     <Image Include="..\res\spinner48.png" />
     <Image Include="..\res\tray_err.ico" />

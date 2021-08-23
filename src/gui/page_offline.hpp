@@ -11,7 +11,7 @@ public:
     explicit OfflinePage( wxWindow* parent );
 
 private:
-    static wxString s_text;
+    static wxString TEXT;
 
     wxStaticBitmap* m_icon;
     wxStaticText* m_label;

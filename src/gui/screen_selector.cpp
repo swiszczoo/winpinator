@@ -33,6 +33,8 @@ ScreenSelector::ScreenSelector( wxWindow* parent )
     m_book->AddPage( m_page3, wxEmptyString );
     m_page4 = new ErrorPage( m_book );
     m_book->AddPage( m_page4, wxEmptyString );
+    m_page5 = new TransferListPage( m_book );
+    m_book->AddPage( m_page5, wxEmptyString );
 
     srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
 
