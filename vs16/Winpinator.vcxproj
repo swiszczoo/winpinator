@@ -177,6 +177,7 @@
     <ClInclude Include="..\src\gui\page_offline.hpp" />
     <ClInclude Include="..\src\gui\tool_button.hpp" />
     <ClInclude Include="..\src\service\auth_manager.hpp" />
+    <ClInclude Include="..\src\service\database_manager.hpp" />
     <ClInclude Include="..\src\service\event.hpp" />
     <ClInclude Include="..\src\service\observable_service.hpp" />
     <ClInclude Include="..\src\service\registration_v1_impl.hpp" />
@@ -228,6 +229,7 @@
     <ClCompile Include="..\src\proto-gen\warp.grpc.pb.cc" />
     <ClCompile Include="..\src\proto-gen\warp.pb.cc" />
     <ClCompile Include="..\src\service\auth_manager.cpp" />
+    <ClCompile Include="..\src\service\database_manager.cpp" />
     <ClCompile Include="..\src\service\observable_service.cpp" />
     <ClCompile Include="..\src\service\registration_v1_impl.cpp" />
     <ClCompile Include="..\src\service\registration_v2_impl.cpp" />

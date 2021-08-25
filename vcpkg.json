@@ -7,6 +7,7 @@
     "grpc",
     "libsodium",
     "openssl",
+    "sqlite3",
     "wintoast",
     "wxwidgets",
     "zlib"
