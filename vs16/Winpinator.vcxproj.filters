@@ -193,6 +193,9 @@
     <ClInclude Include="..\src\service\database_manager.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\status_text.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -308,6 +311,9 @@
     </ClCompile>
     <ClCompile Include="..\src\service\database_manager.cpp">
       <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\status_text.cpp">
+      <Filter>Sources\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

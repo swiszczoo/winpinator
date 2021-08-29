@@ -1,6 +1,7 @@
 #include "page_transferlist.hpp"
 
 #include "../../win32/resource.h"
+#include "../globals.hpp"
 #include "utils.hpp"
 
 #include <wx/translation.h>
@@ -8,15 +9,21 @@
 namespace gui
 {
 
-TransferListPage::TransferListPage( wxWindow* parent )
+wxDEFINE_EVENT( EVT_GO_BACK, wxCommandEvent );
+
+TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
     : wxPanel( parent, wxID_ANY ) 
+    , m_target( targetId )
     , m_header( nullptr )
     , m_details( nullptr )
     , m_backBtn( nullptr )
     , m_fileBtn( nullptr )
     , m_directoryBtn( nullptr )
     , m_opList( nullptr )
+    , m_statusLabel( nullptr )
 {
+    auto srv = Globals::get()->getWinpinatorServiceInstance();
+
     wxBoxSizer* margSizer = new wxBoxSizer( wxHORIZONTAL );
     
     margSizer->AddSpacer( FromDIP( 20 ) );
@@ -58,7 +65,18 @@ TransferListPage::TransferListPage( wxWindow* parent )
     m_opList = new wxScrolledWindow( this );
     m_opList->SetScrollRate( 0, FromDIP( 5 ) );
     m_opList->SetWindowStyle( wxBORDER_THEME | wxVSCROLL /* | wxALWAYS_SHOW_SB */);
-    mainSizer->Add( m_opList, 1, wxBOTTOM | wxEXPAND, FromDIP( 30 ) );
+    mainSizer->Add( m_opList, 1, wxEXPAND );
+
+    m_statusLabel = new StatusText( this );
+    srv::RemoteInfoPtr currentInfo = srv->getRemoteManager()
+        ->getRemoteInfo( targetId );
+
+    if ( currentInfo )
+    {
+        m_statusLabel->setStatus( currentInfo->state );
+    }
+
+    mainSizer->Add( m_statusLabel, 0, wxBOTTOM | wxEXPAND, FromDIP( 30 ) );
 
     margSizer->Add( mainSizer, 10, wxEXPAND );
 
@@ -72,7 +90,12 @@ TransferListPage::TransferListPage( wxWindow* parent )
 
     SetSizer( margSizer );
 
+    observeService( srv );
+
     // Events 
+    Bind( wxEVT_DPI_CHANGED, &TransferListPage::onDpiChanged, this );
+    m_backBtn->Bind( wxEVT_BUTTON, &TransferListPage::onBackClicked, this );
+    Bind( wxEVT_THREAD, &TransferListPage::onUpdateStatus, this );
 }
 
 void TransferListPage::loadIcons()
@@ -102,6 +125,35 @@ void TransferListPage::loadSingleIcon( const wxString& res,
 void TransferListPage::onDpiChanged( wxDPIChangedEvent& event )
 {
     loadIcons();
+}
+
+void TransferListPage::onBackClicked( wxCommandEvent& event )
+{
+    // Repost this as a EVT_GO_BACK event
+
+    wxCommandEvent evnt( EVT_GO_BACK );
+    wxPostEvent( this, evnt );
+}
+
+void TransferListPage::onUpdateStatus( wxThreadEvent& event )
+{
+    srv::RemoteInfoPtr info = event.GetPayload<srv::RemoteInfoPtr>();
+    m_statusLabel->setStatus( info->state );
+}
+
+void TransferListPage::onStateChanged()
+{
+    // Stub!
+}
+
+void TransferListPage::onEditHost( srv::RemoteInfoPtr newInfo )
+{
+    if ( newInfo->id == m_target )
+    {
+        wxThreadEvent evnt( wxEVT_THREAD );
+        evnt.SetPayload( newInfo );
+        wxQueueEvent( this, evnt.Clone() );
+    }
 }
 
 };

@@ -14,6 +14,7 @@ namespace gui
 {
 
 wxDEFINE_EVENT( EVT_NO_HOSTS_IN_TIME, wxCommandEvent );
+wxDEFINE_EVENT( EVT_TARGET_SELECTED, wxCommandEvent );
 
 const wxString HostListPage::DETAILS = _(
     "Below is a list of currently available computers. "
@@ -105,11 +106,17 @@ HostListPage::HostListPage( wxWindow* parent )
     Bind( wxEVT_BUTTON, &HostListPage::onRefreshClicked, this );
     Bind( wxEVT_TIMER, &HostListPage::onTimerTicked, this );
     Bind( wxEVT_THREAD, &HostListPage::onManipulateList, this );
+    m_hostlist->Bind( wxEVT_LISTBOX, 
+        &HostListPage::onHostSelectionChanged, this );
+    m_fwdBtn->Bind( wxEVT_BUTTON, &HostListPage::onNextClicked, this );
 }
 
 void HostListPage::refreshAll()
 {
     m_timer.StartOnce( HostListPage::NO_HOSTS_TIMEOUT_MILLIS );
+
+    // Remember currently selected item id
+    const wxString& currentId = m_hostlist->getSelectedIdent();
 
     // Get current service state (host list)
     auto serv = Globals::get()->getWinpinatorServiceInstance();
@@ -118,10 +125,22 @@ void HostListPage::refreshAll()
     
     m_hostlist->clear();
 
+    size_t count = 0;
+    int selmark = wxNOT_FOUND;
     for ( srv::RemoteInfoPtr remote : m_trackedRemotes )
     {
         m_hostlist->addItem( convertRemoteInfoToHostItem( remote ) );
+
+        if ( remote->id == currentId )
+        {
+            selmark = (int)count;
+        }
+
+        count++;
     }
+
+    m_hostlist->SetSelection( selmark );
+    m_fwdBtn->Enable( selmark != wxNOT_FOUND );
 }
 
 void HostListPage::onDpiChanged( wxDPIChangedEvent& event )
@@ -208,6 +227,34 @@ void HostListPage::onManipulateList( wxThreadEvent& event )
     
 }
 
+void HostListPage::onHostSelectionChanged( wxCommandEvent& event )
+{
+    const wxString& ident = m_hostlist->getSelectedIdent();
+
+    if ( !ident.empty() )
+    {
+        m_fwdBtn->Enable();
+    }
+    else
+    {
+        m_fwdBtn->Disable();
+    }
+}
+
+void HostListPage::onNextClicked( wxCommandEvent& event )
+{
+    const wxString& selId = m_hostlist->getSelectedIdent();
+
+    if ( !selId.empty() )
+    {
+        // Post an event to notify about target change
+
+        wxCommandEvent evnt( EVT_TARGET_SELECTED );
+        evnt.SetString( selId );
+        wxPostEvent( this, evnt );
+    }
+}
+
 void HostListPage::loadIcon()
 {
     wxBitmap original;
@@ -259,6 +306,8 @@ HostItem HostListPage::convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo )
     }
     else
     {
+        wxLogNull logNull;
+
         wxImage loader;
         wxMemoryInputStream inStream( rinfo->avatarBuffer.data(), 
             rinfo->avatarBuffer.size() );

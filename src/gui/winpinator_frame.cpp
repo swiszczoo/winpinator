@@ -72,6 +72,8 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     Bind( wxEVT_MENU, &WinpinatorFrame::onMenuItemSelected, this );
     Bind( wxEVT_THREAD, &WinpinatorFrame::onChangeStatusBarText, this );
     Bind( wxEVT_DPI_CHANGED, &WinpinatorFrame::onDpiChanged, this );
+    m_selector->Bind( EVT_UPDATE_BANNER_TARGET, 
+        &WinpinatorFrame::onUpdateBannerTarget, this );
 }
 
 void WinpinatorFrame::setupMenuBar()
@@ -198,6 +200,18 @@ void WinpinatorFrame::onAboutSelected()
     info.SetCopyright( _( "\u00a92021 £ukasz Œwiszcz" ) );
 
     wxAboutBox( info, this );
+}
+
+void WinpinatorFrame::onUpdateBannerTarget( wxCommandEvent& event )
+{
+    if ( event.GetClientData() )
+    {
+        m_banner->setTargetInfo( *(srv::RemoteInfoPtr*)event.GetClientData() );
+    }
+    else
+    {
+        m_banner->setTargetInfo( nullptr );
+    }
 }
 
 void WinpinatorFrame::onStateChanged()

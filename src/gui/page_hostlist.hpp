@@ -14,6 +14,7 @@ namespace gui
 {
 
 wxDECLARE_EVENT( EVT_NO_HOSTS_IN_TIME, wxCommandEvent );
+wxDECLARE_EVENT( EVT_TARGET_SELECTED, wxCommandEvent );
 
 class HostListPage : public wxPanel, srv::IServiceObserver
 {
@@ -57,6 +58,8 @@ private:
     void onTimerTicked( wxTimerEvent& event );
 
     void onManipulateList( wxThreadEvent& event );
+    void onHostSelectionChanged( wxCommandEvent& event );
+    void onNextClicked( wxCommandEvent& event );
 
     void loadIcon();
 

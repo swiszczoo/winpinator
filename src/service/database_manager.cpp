@@ -33,6 +33,7 @@ DatabaseManager::DatabaseManager( const wxString& dbPath )
         m_dbOpen = true;
     }
 
+    setupUpdateFunctionVector();
     enforceIntegrity();
 }
 
@@ -46,6 +47,20 @@ DatabaseManager::~DatabaseManager()
     {
         sqlite3_close( m_db );
     }
+}
+
+bool DatabaseManager::isDatabaseAvailable()
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    return m_dbOpen;
+}
+
+void DatabaseManager::setupUpdateFunctionVector()
+{
+    m_updFunctions = {
+        std::bind( &DatabaseManager::updateFromVer0ToVer1, this ) // 0 -> 1
+    };
 }
 
 bool DatabaseManager::enforceIntegrity()
@@ -86,20 +101,27 @@ bool DatabaseManager::enforceIntegrity()
 
 void DatabaseManager::performUpdate( int currentLevel )
 {
-    switch ( currentLevel )
+    sqlite3_exec( m_db, "BEGIN TRANSACTION", NULL, NULL, NULL );
+
+    bool updateSuccess = false;
+    if ( currentLevel > 0 && currentLevel < m_updFunctions.size() )
     {
-    case 0:
-        updateFromVer0ToVer1();
-        return;
+        updateSuccess = m_updFunctions[currentLevel]();
+    }
+
+    if ( updateSuccess )
+    {
+        sqlite3_exec( m_db, "COMMIT", NULL, NULL, NULL );
+    }
+    else
+    {
+        sqlite3_exec( m_db, "ROLLBACK", NULL, NULL, NULL );
     }
 }
 
-void DatabaseManager::updateFromVer0ToVer1()
+bool DatabaseManager::updateFromVer0ToVer1()
 {
     // This routine creates entire db structure from scratch
-
-    sqlite3_exec( m_db, "BEGIN TRANSACTION", NULL, NULL, NULL );
-
 
     int results = 0;
 
@@ -131,14 +153,7 @@ void DatabaseManager::updateFromVer0ToVer1()
     results |= sqlite3_exec( m_db,
         "INSERT INTO meta VALUES ( 'db_version', 1 );", NULL, NULL, NULL );
 
-    if ( results != SQLITE_OK )
-    {
-        sqlite3_exec( m_db, "ROLLBACK", NULL, NULL, NULL );
-    }
-    else
-    {
-        sqlite3_exec( m_db, "COMMIT", NULL, NULL, NULL );
-    }
+    return results == SQLITE_OK;
 }
 
 };

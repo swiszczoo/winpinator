@@ -25,7 +25,7 @@ enum class RemoteStatus
 
 struct RemoteInfo
 {
-    RemoteStatus state;
+    std::atomic<RemoteStatus> state;
 
     std::string id;
 

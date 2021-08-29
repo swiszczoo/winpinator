@@ -101,4 +101,25 @@ void Utils::drawTextEllipse( wxDC& dc, const wxString& text,
     }
 }
 
+wxString Utils::getStatusString( srv::RemoteStatus status )
+{
+    switch ( status )
+    {
+    case srv::RemoteStatus::OFFLINE:
+        return _( "Offline" );
+    case srv::RemoteStatus::REGISTRATION:
+        return _( "Registration in progress..." );
+    case srv::RemoteStatus::INIT_CONNECTING:
+        return _( "Connecting..." );
+    case srv::RemoteStatus::UNREACHABLE:
+        return _( "Host unreachable" );
+    case srv::RemoteStatus::AWAITING_DUPLEX:
+        return _( "Establishing duplex connection..." );
+    case srv::RemoteStatus::ONLINE:
+        return _( "Ready" );
+    }
+
+    return _( "Unknown" );
+};
+
 };

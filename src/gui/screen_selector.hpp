@@ -13,6 +13,8 @@
 namespace gui
 {
 
+wxDECLARE_EVENT( EVT_UPDATE_BANNER_TARGET, wxCommandEvent );
+
 class ScreenSelector : public wxPanel, srv::IServiceObserver
 {
 public:
@@ -45,11 +47,16 @@ private:
 
     void onChangePage( wxThreadEvent& event );
     void onNoHostsInTime( wxCommandEvent& event );
+    void onTargetSelected( wxCommandEvent& event );
     void onRetryClicked( wxCommandEvent& event );
 
     virtual void onHostCountChanged( size_t newCount ) override;
 
+    void onTransferBackClicked( wxCommandEvent& event );
+
     void changePage( SelectorPage newPage );
+
+    void setupTransferScreenEvents();
 };
 
 };

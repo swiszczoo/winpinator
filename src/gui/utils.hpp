@@ -1,7 +1,9 @@
 #pragma once
-#include <memory>
+#include "../service/remote_info.hpp"
 
 #include <wx/wx.h>
+
+#include <memory>
 
 
 namespace gui
@@ -18,6 +20,8 @@ public:
 
     static void drawTextEllipse( wxDC& dc, const wxString& text,
         const wxPoint& pnt, const wxCoord maxWidth );
+
+    static wxString getStatusString( srv::RemoteStatus status );
 
 private:
     // We need a friend to create a unique_ptr

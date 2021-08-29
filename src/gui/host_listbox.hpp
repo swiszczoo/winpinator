@@ -35,6 +35,8 @@ public:
     void removeItem( size_t position );
     void clear();
 
+    wxString getSelectedIdent() const;
+
 protected:
     virtual void OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const;
     virtual void OnDrawBackground( wxDC& dc, 
@@ -54,7 +56,6 @@ private:
     void loadIcons();
     void calcRowHeight();
     bool scaleProfilePic( HostItem& item ) const;
-    wxString getStatusString( srv::RemoteStatus status ) const;
 };
 
 };

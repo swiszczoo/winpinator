@@ -300,7 +300,6 @@ bool RemoteHandler::secureLoopV2()
             m_info->stopVar.wait_for( lock,
                 std::chrono::seconds( V2_CHANNEL_RETRY_WAIT_TIME ) );
 
-            lock.lock();
             m_info->stub = nullptr;
             channel = nullptr;
             lock.unlock();

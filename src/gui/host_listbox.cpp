@@ -79,6 +79,18 @@ void HostListbox::clear()
     RefreshAll();
 }
 
+wxString HostListbox::getSelectedIdent() const
+{
+    if ( GetSelection() == wxNOT_FOUND )
+    {
+        return "";
+    }
+
+    // If filtering will be ever implemented, change this implementation
+
+    return m_items[GetSelection()].id;
+}
+
 void HostListbox::OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const
 {
     const int MARGIN = FromDIP( 10 );
@@ -181,7 +193,7 @@ void HostListbox::OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const
     dc.DrawText( stateLabel,
         wxPoint( column2 + maxC2 - stateWidth, OFF2 ) );
 
-    wxString stateText = getStatusString( item.state );
+    wxString stateText = Utils::getStatusString( item.state );
     
 
     dc.SetTextForeground( BLACK );
@@ -301,6 +313,10 @@ void HostListbox::onRightClick( wxMouseEvent& event )
     if ( hotItem >= 0 && hotItem < GetItemCount() )
     {
         SetSelection( hotItem );
+
+        wxCommandEvent evnt( wxEVT_LISTBOX );
+        evnt.SetInt( hotItem );
+        wxPostEvent( this, evnt );
     }
 }
 
@@ -346,27 +362,6 @@ bool HostListbox::scaleProfilePic( HostItem& item ) const
         item.profilePic->Scale( targetDim, targetDim, wxIMAGE_QUALITY_BICUBIC ) );
 
     return true;
-}
-
-wxString HostListbox::getStatusString( srv::RemoteStatus status ) const
-{
-    switch ( status )
-    {
-    case srv::RemoteStatus::OFFLINE:
-        return _( "Offline" );
-    case srv::RemoteStatus::REGISTRATION:
-        return _( "Registration in progress..." );
-    case srv::RemoteStatus::INIT_CONNECTING:
-        return _( "Connecting..." );
-    case srv::RemoteStatus::UNREACHABLE:
-        return _( "Host unreachable" );
-    case srv::RemoteStatus::AWAITING_DUPLEX:
-        return _( "Establishing duplex connection..." );
-    case srv::RemoteStatus::ONLINE:
-        return _( "Ready" );
-    }
-
-    return _( "Unknown" );
 }
 
 };

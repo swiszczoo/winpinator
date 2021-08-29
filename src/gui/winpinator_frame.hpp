@@ -38,6 +38,8 @@ private:
     void onShowReleaseNotesSelected();
     void onAboutSelected();
 
+    void onUpdateBannerTarget( wxCommandEvent& event );
+
     virtual void onStateChanged();
     virtual void onIpAddressChanged( std::string newIp );
 };
