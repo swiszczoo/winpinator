@@ -22,6 +22,7 @@ ScreenSelector::ScreenSelector( wxWindow* parent )
     wxBoxSizer* mainSizer = new wxBoxSizer( wxVERTICAL );
 
     m_book = new wxSimplebook( this );
+    m_book->SetDoubleBuffered( true );
     //m_book->SetEffect( wxShowEffect::wxSHOW_EFFECT_SLIDE_TO_LEFT );
     //m_book->SetEffectTimeout( 300 );
     mainSizer->Add( m_book, 1, wxEXPAND );

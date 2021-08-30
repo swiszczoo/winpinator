@@ -196,6 +196,12 @@
     <ClInclude Include="..\src\gui\status_text.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\transfer_history.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\history_group_header.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -313,6 +319,12 @@
       <Filter>Sources\service</Filter>
     </ClCompile>
     <ClCompile Include="..\src\gui\status_text.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\transfer_history.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\history_group_header.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
   </ItemGroup>

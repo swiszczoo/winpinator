@@ -19,6 +19,7 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
     , m_backBtn( nullptr )
     , m_fileBtn( nullptr )
     , m_directoryBtn( nullptr )
+    , m_opPanel( nullptr )
     , m_opList( nullptr )
     , m_statusLabel( nullptr )
 {
@@ -62,10 +63,18 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
 
     mainSizer->AddSpacer( FromDIP( 4 ) );
 
-    m_opList = new wxScrolledWindow( this );
-    m_opList->SetScrollRate( 0, FromDIP( 5 ) );
-    m_opList->SetWindowStyle( wxBORDER_THEME | wxVSCROLL /* | wxALWAYS_SHOW_SB */);
-    mainSizer->Add( m_opList, 1, wxEXPAND );
+    m_opPanel = new wxPanel( this );
+
+    wxBoxSizer* opSizer = new wxBoxSizer( wxVERTICAL );
+    m_opPanel->SetSizer( opSizer );
+
+    m_opList = new ScrolledTransferHistory( m_opPanel );
+    m_opList->SetBackgroundColour( 
+        wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
+
+    opSizer->Add( m_opList, 1, wxEXPAND | wxTOP | wxLEFT | wxRIGHT, 1 );
+
+    mainSizer->Add( m_opPanel, 1, wxEXPAND );
 
     m_statusLabel = new StatusText( this );
     srv::RemoteInfoPtr currentInfo = srv->getRemoteManager()
@@ -73,7 +82,7 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
 
     if ( currentInfo )
     {
-        m_statusLabel->setStatus( currentInfo->state );
+        updateForStatus( currentInfo->state );
     }
 
     mainSizer->Add( m_statusLabel, 0, wxBOTTOM | wxEXPAND, FromDIP( 30 ) );
@@ -138,7 +147,7 @@ void TransferListPage::onBackClicked( wxCommandEvent& event )
 void TransferListPage::onUpdateStatus( wxThreadEvent& event )
 {
     srv::RemoteInfoPtr info = event.GetPayload<srv::RemoteInfoPtr>();
-    m_statusLabel->setStatus( info->state );
+    updateForStatus( info->state );
 }
 
 void TransferListPage::onStateChanged()
@@ -154,6 +163,18 @@ void TransferListPage::onEditHost( srv::RemoteInfoPtr newInfo )
         evnt.SetPayload( newInfo );
         wxQueueEvent( this, evnt.Clone() );
     }
+}
+
+void TransferListPage::updateForStatus( srv::RemoteStatus status )
+{
+    m_statusLabel->setStatus( status );
+    m_opPanel->SetBackgroundColour( m_statusLabel->getBarColor() );
+    m_opPanel->Refresh();
+
+    bool enableSending = ( status == srv::RemoteStatus::ONLINE );
+
+    m_fileBtn->Enable( enableSending );
+    m_directoryBtn->Enable( enableSending );
 }
 
 };

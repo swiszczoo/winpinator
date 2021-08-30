@@ -70,6 +70,11 @@ srv::RemoteStatus StatusText::getStatus() const
     return m_status;
 }
 
+wxColour StatusText::getBarColor() const
+{
+    return m_accentColor;
+}
+
 void StatusText::setColors( wxColour accentColor, wxColour bgColor )
 {
     m_accentColor = accentColor;

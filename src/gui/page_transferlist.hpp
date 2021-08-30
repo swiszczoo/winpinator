@@ -4,6 +4,7 @@
 #include "../service/service_observer.hpp"
 #include "status_text.hpp"
 #include "tool_button.hpp"
+#include "transfer_history.hpp"
 
 namespace gui
 {
@@ -23,7 +24,8 @@ private:
     ToolButton* m_backBtn;
     ToolButton* m_fileBtn;
     ToolButton* m_directoryBtn;
-    wxScrolledWindow* m_opList;
+    wxPanel* m_opPanel;
+    ScrolledTransferHistory* m_opList;
     StatusText* m_statusLabel;
 
     wxBitmap m_backBmp;
@@ -39,6 +41,8 @@ private:
 
     void onStateChanged() override;
     void onEditHost( srv::RemoteInfoPtr newInfo ) override;
+
+    void updateForStatus( srv::RemoteStatus status );
 };
 
 };

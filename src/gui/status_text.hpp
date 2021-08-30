@@ -14,6 +14,8 @@ public:
     void setStatus( srv::RemoteStatus status );
     srv::RemoteStatus getStatus() const;
 
+    wxColour getBarColor() const;
+
 private:
     static const wxColour GREEN_ACCENT;
     static const wxColour GREEN_BACKGROUND;
