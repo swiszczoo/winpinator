@@ -1,10 +1,12 @@
 #pragma once
+#include "history_item.hpp"
+
 #include <wx/wx.h>
 
 namespace gui
 {
 
-class HistoryGroupHeader : public wxPanel
+class HistoryGroupHeader : public HistoryItem
 {
 public:
     explicit HistoryGroupHeader( wxWindow* parent, const wxString& label );
@@ -15,6 +17,7 @@ private:
 
     void onPaint( wxPaintEvent& event );
     void onSize( wxSizeEvent& event );
+    void ignoreErase( wxEraseEvent& event );
 };
 
 };

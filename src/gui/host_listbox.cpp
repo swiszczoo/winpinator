@@ -15,7 +15,7 @@ HostListbox::HostListbox( wxWindow* parent )
     , m_rowHeight( 0 )
     , m_hotItem( -1 )
 {
-    SetWindowTheme( GetHWND(), L"Explorer", NULL );
+    SetWindowTheme( GetHWND(), _T("Explorer"), NULL );
 
     calcRowHeight();
     loadIcons();

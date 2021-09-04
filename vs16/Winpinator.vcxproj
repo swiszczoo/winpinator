@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\globals.hpp" />
     <ClInclude Include="..\src\gui\history_group_header.hpp" />
+    <ClInclude Include="..\src\gui\history_item.hpp" />
     <ClInclude Include="..\src\gui\page_error.hpp" />
     <ClInclude Include="..\src\gui\page_transferlist.hpp" />
     <ClInclude Include="..\src\gui\progress_label.hpp" />
@@ -213,6 +214,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\globals.cpp" />
     <ClCompile Include="..\src\gui\history_group_header.cpp" />
+    <ClCompile Include="..\src\gui\history_item.cpp" />
     <ClCompile Include="..\src\gui\page_error.cpp" />
     <ClCompile Include="..\src\gui\page_transferlist.cpp" />
     <ClCompile Include="..\src\gui\progress_label.cpp" />

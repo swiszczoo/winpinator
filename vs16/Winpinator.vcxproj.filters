@@ -202,6 +202,9 @@
     <ClInclude Include="..\src\gui\history_group_header.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\history_item.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -325,6 +328,9 @@
       <Filter>Sources\gui</Filter>
     </ClCompile>
     <ClCompile Include="..\src\gui\history_group_header.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\history_item.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
   </ItemGroup>

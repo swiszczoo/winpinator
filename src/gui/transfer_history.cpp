@@ -15,6 +15,7 @@ const std::vector<wxString> ScrolledTransferHistory::TIME_SPECS = {
     _( "Earlier this month" ),
     _( "Last month" ),
     _( "Earlier this year" ),
+    _( "Last year" ),
     _( "A long time ago" )
 };
 
@@ -37,7 +38,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
     for ( const wxString& spec : ScrolledTransferHistory::TIME_SPECS )
     {
         HistoryGroupHeader* header = new HistoryGroupHeader( this, spec );
-        sizer->Add( header, 0, wxEXPAND | wxTOP | wxBOTTOM, FromDIP( 3 ) );
+        sizer->Add( header, 0, wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 3 ) );
 
         wxPanel* panel = new wxPanel( this );
         wxBoxSizer* panelSizer = new wxBoxSizer( wxVERTICAL );
@@ -48,6 +49,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
         m_timeHeaders.push_back( header );
         m_timeGroups.push_back( panel );
         m_timeSizers.push_back( panelSizer );
+        registerHistoryItem( header );
     }
 
     SetSizer( sizer );
@@ -55,7 +57,70 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
     SetDropTarget( new DropTargetImpl( this ) );
 
     // Events
+    Bind( wxEVT_SCROLLWIN_BOTTOM,
+        &ScrolledTransferHistory::onScrollWindow, this );
+    Bind( wxEVT_SCROLLWIN_LINEDOWN,
+        &ScrolledTransferHistory::onScrollWindow, this );
+    Bind( wxEVT_SCROLLWIN_LINEUP,
+        &ScrolledTransferHistory::onScrollWindow, this );
+    Bind( wxEVT_SCROLLWIN_PAGEDOWN,
+        &ScrolledTransferHistory::onScrollWindow, this );
+    Bind( wxEVT_SCROLLWIN_PAGEUP,
+        &ScrolledTransferHistory::onScrollWindow, this );
+    Bind( wxEVT_SCROLLWIN_THUMBRELEASE, 
+        &ScrolledTransferHistory::onScrollWindow, this );
+    Bind( wxEVT_SCROLLWIN_THUMBTRACK,
+        &ScrolledTransferHistory::onScrollWindow, this );
+    Bind( wxEVT_SCROLLWIN_TOP,
+        &ScrolledTransferHistory::onScrollWindow, this );
+    Bind( wxEVT_ENTER_WINDOW, &ScrolledTransferHistory::onMouseEnter, this );
+    Bind( wxEVT_LEAVE_WINDOW, &ScrolledTransferHistory::onMouseLeave, this );
+    Bind( wxEVT_MOTION, &ScrolledTransferHistory::onMouseMotion, this );
+}
 
+void ScrolledTransferHistory::registerHistoryItem( HistoryItem* item )
+{
+    m_historyItems.push_back( item );
+
+    item->Bind( wxEVT_ENTER_WINDOW, 
+        &ScrolledTransferHistory::onMouseEnter, this );
+    item->Bind( wxEVT_LEAVE_WINDOW, 
+        &ScrolledTransferHistory::onMouseLeave, this );
+    item->Bind( wxEVT_MOTION, &ScrolledTransferHistory::onMouseMotion, this );
+}
+
+void ScrolledTransferHistory::refreshAllHistoryItems( bool insideParent )
+{
+    for ( HistoryItem* item : m_historyItems )
+    {
+        item->updateHoverState( insideParent );
+    }
+}
+
+void ScrolledTransferHistory::onScrollWindow( wxScrollWinEvent& event )
+{
+    refreshAllHistoryItems( true );
+    event.Skip( true );
+}
+
+void ScrolledTransferHistory::onMouseEnter( wxMouseEvent& event )
+{
+    refreshAllHistoryItems( true );
+    event.Skip( true );
+}
+
+void ScrolledTransferHistory::onMouseLeave( wxMouseEvent& event )
+{
+    bool outside = event.GetEventObject() == this;
+
+    refreshAllHistoryItems( !outside );
+    event.Skip( true );
+}
+
+void ScrolledTransferHistory::onMouseMotion( wxMouseEvent& event )
+{
+    refreshAllHistoryItems( true );
+    event.Skip( true );
 }
 
 // Drop target implementation
