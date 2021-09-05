@@ -165,10 +165,13 @@ void WinpinatorApp::showMainFrame()
 
 void WinpinatorApp::onMainFrameDestroyed( wxWindowDestroyEvent& event )
 {
-    m_topLvl->Unbind( 
-        wxEVT_DESTROY, &WinpinatorApp::onMainFrameDestroyed, this );
+    if ( event.GetEventObject() == m_topLvl )
+    {
+        m_topLvl->Unbind(
+            wxEVT_DESTROY, &WinpinatorApp::onMainFrameDestroyed, this );
 
-    m_topLvl = nullptr;
+        m_topLvl = nullptr;
+    }
 }
 
 void WinpinatorApp::onDDEOpenCalled( wxCommandEvent& event )

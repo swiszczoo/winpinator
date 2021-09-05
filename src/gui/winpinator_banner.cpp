@@ -69,7 +69,7 @@ void WinpinatorBanner::setTargetInfo( srv::RemoteInfoPtr targetPtr )
 
     m_targetMode = true;
     m_targetName = targetPtr->fullName;
-    m_targetDetails.Printf( "%s@%s / %s", 
+    m_targetDetails.Printf( L"%s@%s \x2022 %s", 
         targetPtr->shortName, targetPtr->hostname, targetPtr->ips.ipv4 );
 
     if ( targetPtr->avatarBuffer.empty() )

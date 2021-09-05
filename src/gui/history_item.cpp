@@ -18,6 +18,12 @@ HistoryItem::HistoryItem( wxWindow* parent )
     Bind( wxEVT_ERASE_BACKGROUND, &HistoryItem::onErase, this );
 }
 
+void HistoryItem::eraseNullSink( wxEraseEvent& event )
+{
+    // This is a null sink/handler, it does completely nothing
+    // but blocks event propagation
+}
+
 void HistoryItem::updateHoverState( bool insideParent )
 {
     bool previousState = m_hovering;

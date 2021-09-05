@@ -438,6 +438,13 @@ void RemoteHandler::updateRemoteMachineAvatar()
             StartCall();
         }
 
+        void setRefs( std::shared_ptr<grpc::ClientContext> ref1,
+            std::shared_ptr<LookupName> ref2 )
+        {
+            m_clientCtx = ref1;
+            m_request = ref2;
+        }
+
         void OnReadDone( bool ok ) override
         {
             if ( ok )
@@ -469,6 +476,11 @@ void RemoteHandler::updateRemoteMachineAvatar()
         std::shared_ptr<Reader> m_inst;
         RemoteInfoPtr m_info;
         std::function<void( RemoteInfoPtr )> m_editHandler;
+        
+        // gRPC ref holders - they will be released after this reader object
+        // deletes itself
+        std::shared_ptr<grpc::ClientContext> m_clientCtx;
+        std::shared_ptr<LookupName> m_request;
 
         std::string m_buffer;
         RemoteMachineAvatar m_chunk;
@@ -477,6 +489,7 @@ void RemoteHandler::updateRemoteMachineAvatar()
     std::shared_ptr<Reader> responseReader = std::make_shared<Reader>(
         m_info, m_editHandler );
     responseReader->setInstance( responseReader );
+    responseReader->setRefs( ctx, request );
 
     m_info->stub->experimental_async()->GetRemoteMachineAvatar( ctx.get(),
         request.get(), responseReader.get() );

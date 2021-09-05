@@ -7,48 +7,52 @@ namespace gui
 
 HistoryGroupHeader::HistoryGroupHeader( wxWindow* parent,
     const wxString& label )
-    : HistoryItem( parent  )
-    , m_label( nullptr )
+    : HistoryItem( parent )
+    , m_label( label )
+    , m_pen( wxNullPen )
 {
-    wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
-
-    sizer->AddSpacer( FromDIP( 3 ) );
-
-    m_label = new wxStaticText( this, wxID_ANY, label );
-    m_label->SetFont( Utils::get()->getHeaderFont() );
-    m_label->SetForegroundColour( Utils::get()->getHeaderColor() );
-    sizer->Add( m_label, 0, wxLEFT, FromDIP( 10 ) );
-
     m_pen.SetColour( Utils::get()->getHeaderColor() );
     m_pen.SetWidth( FromDIP( 1 ) );
 
-    sizer->AddSpacer( FromDIP( 3 ) );
-
-    SetSizer( sizer );
-
-    Fit();
+    updateSize();
 
     // Events
 
     Bind( wxEVT_PAINT, &HistoryGroupHeader::onPaint, this );
     Bind( wxEVT_SIZE, &HistoryGroupHeader::onSize, this );
-    m_label->Bind( wxEVT_ERASE_BACKGROUND, 
-        &HistoryGroupHeader::ignoreErase, this );
+    Bind( wxEVT_DPI_CHANGED, &HistoryGroupHeader::onDpiChanged, this );
+}
+
+void HistoryGroupHeader::updateSize()
+{
+    wxSize height = Utils::get()->getHeaderFont().GetPixelSize();
+
+    SetMinSize( wxSize( 16, height.GetHeight() * 1.2 + 2 * FromDIP( 3 ) ) );
 }
 
 void HistoryGroupHeader::onPaint( wxPaintEvent& event )
 {
     wxPaintDC dc( this );
-    const int MARGIN = FromDIP( 10 );
+    wxSize size = dc.GetSize();
+    const int MARGIN = FromDIP( 8 );
 
-    int lineY = dc.GetSize().y / 2;
-    int lineX1 = m_label->GetSize().x + 2 * MARGIN;
-    int lineX2 = dc.GetSize().x - MARGIN;
+    dc.SetFont( Utils::get()->getHeaderFont() );
+    dc.SetTextForeground( Utils::get()->getHeaderColor() );
+
+    wxSize labelExtent = dc.GetTextExtent( m_label );
+    wxSize baselineExtent = dc.GetTextExtent( "AAA" );
+
+    int textX = MARGIN;
+    int textY = ( size.y - baselineExtent.y ) / 2;
+
+    dc.DrawText( m_label, textX, textY );
+
+    int lineY = size.y / 2;
+    int lineX1 = labelExtent.GetWidth() + 2 * MARGIN;
+    int lineX2 = size.x - MARGIN;
 
     dc.SetPen( m_pen );
     dc.DrawLine( lineX1, lineY, lineX2, lineY );
-
-    event.Skip( true );
 }
 
 void HistoryGroupHeader::onSize( wxSizeEvent& event )
@@ -56,10 +60,10 @@ void HistoryGroupHeader::onSize( wxSizeEvent& event )
     Refresh();
 }
 
-void HistoryGroupHeader::ignoreErase( wxEraseEvent& event )
+void HistoryGroupHeader::onDpiChanged( wxDPIChangedEvent& event )
 {
-    // do nothing
-    int a = 5;
+    updateSize();
+    Refresh();
 }
 
 };

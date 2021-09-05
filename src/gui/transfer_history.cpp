@@ -38,13 +38,15 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
     for ( const wxString& spec : ScrolledTransferHistory::TIME_SPECS )
     {
         HistoryGroupHeader* header = new HistoryGroupHeader( this, spec );
-        sizer->Add( header, 0, wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 3 ) );
+        sizer->Add( header, 0, wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 5 ) );
 
         wxPanel* panel = new wxPanel( this );
         wxBoxSizer* panelSizer = new wxBoxSizer( wxVERTICAL );
         panel->SetSizer( panelSizer );
 
         sizer->Add( panel, 0, wxEXPAND );
+
+        sizer->AddSpacer( FromDIP( 2 ) );
 
         m_timeHeaders.push_back( header );
         m_timeGroups.push_back( panel );

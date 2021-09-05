@@ -15,6 +15,9 @@ public:
     HistoryItem( wxWindow* parent );
     void updateHoverState( bool insideParent );
 
+protected:
+    void eraseNullSink( wxEraseEvent& event );
+
 private:
     bool m_hovering;
 

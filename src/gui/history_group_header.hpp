@@ -12,12 +12,14 @@ public:
     explicit HistoryGroupHeader( wxWindow* parent, const wxString& label );
 
 private:
-    wxStaticText* m_label;
+    wxString m_label;
     wxPen m_pen;
+
+    void updateSize();
 
     void onPaint( wxPaintEvent& event );
     void onSize( wxSizeEvent& event );
-    void ignoreErase( wxEraseEvent& event );
+    void onDpiChanged( wxDPIChangedEvent& event );
 };
 
 };
