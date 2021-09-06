@@ -1,5 +1,6 @@
 #include "transfer_history.hpp"
 
+#include "../../win32/resource.h"
 #include "utils.hpp"
 
 #include <wx/translation.h>
@@ -21,6 +22,8 @@ const std::vector<wxString> ScrolledTransferHistory::TIME_SPECS = {
 
 ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
     : wxScrolledWindow( parent, wxID_ANY )
+    , m_emptyLabel( nullptr )
+    , m_stdBitmaps()
 {
     SetWindowStyle( wxBORDER_NONE | wxVSCROLL );
     SetScrollRate( 0, FromDIP( 8 ) );
@@ -58,7 +61,10 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
     sizer->SetSizeHints( this );
     SetDropTarget( new DropTargetImpl( this ) );
 
+    reloadStdBitmaps();
+
     // Events
+
     Bind( wxEVT_SCROLLWIN_BOTTOM,
         &ScrolledTransferHistory::onScrollWindow, this );
     Bind( wxEVT_SCROLLWIN_LINEDOWN,
@@ -99,6 +105,38 @@ void ScrolledTransferHistory::refreshAllHistoryItems( bool insideParent )
     }
 }
 
+void ScrolledTransferHistory::reloadStdBitmaps()
+{
+    loadSingleBitmap( IDB_TRANSFER_FILE_X, 
+        &m_stdBitmaps.transferFileX, 64 );
+    loadSingleBitmap( IDB_TRANSFER_FILE_FILE, 
+        &m_stdBitmaps.transferFileFile, 64 );
+    loadSingleBitmap( IDB_TRANSFER_DIR_X,
+        &m_stdBitmaps.transferDirX, 64 );
+    loadSingleBitmap( IDB_TRANSFER_DIR_DIR,
+        &m_stdBitmaps.transferDirDir, 64 );
+    loadSingleBitmap( IDB_TRANSFER_DIR_FILE,
+        &m_stdBitmaps.transferDirFile, 64 );
+
+    loadSingleBitmap( IDB_TRANSFER_UP,
+        &m_stdBitmaps.badgeUp, 20 );
+    loadSingleBitmap( IDB_TRANSFER_DOWN,
+        &m_stdBitmaps.badgeDown, 20 );
+}
+
+void ScrolledTransferHistory::loadSingleBitmap( 
+    int resId, wxBitmap* dest, int dip )
+{
+    wxBitmap orig( Utils::makeIntResource( resId ), 
+        wxBITMAP_TYPE_PNG_RESOURCE );
+
+    wxImage img = orig.ConvertToImage();
+
+    int targetSize = FromDIP( dip );
+
+    *dest = img.Scale( targetSize, targetSize, wxIMAGE_QUALITY_BICUBIC );
+}
+
 void ScrolledTransferHistory::onScrollWindow( wxScrollWinEvent& event )
 {
     refreshAllHistoryItems( true );
@@ -123,6 +161,16 @@ void ScrolledTransferHistory::onMouseMotion( wxMouseEvent& event )
 {
     refreshAllHistoryItems( true );
     event.Skip( true );
+}
+
+void ScrolledTransferHistory::onDpiChanged( wxDPIChangedEvent& event )
+{
+    reloadStdBitmaps();
+
+    for ( HistoryItem* item : m_historyItems )
+    {
+        item->Refresh();
+    }
 }
 
 // Drop target implementation

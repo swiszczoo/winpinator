@@ -1,6 +1,7 @@
 #pragma once
 #include "history_group_header.hpp"
 #include "history_item.hpp"
+#include "history_std_bitmaps.hpp"
 
 #include <wx/wx.h>
 
@@ -37,14 +38,19 @@ private:
     std::vector<wxBoxSizer*> m_timeSizers;
     std::vector<HistoryItem*> m_historyItems;
 
+    HistoryStdBitmaps m_stdBitmaps;
+
     void registerHistoryItem( HistoryItem* item );
 
     void refreshAllHistoryItems( bool insideParent );
+    void reloadStdBitmaps();
+    void loadSingleBitmap( int resId, wxBitmap* dest, int dip );
 
     void onScrollWindow( wxScrollWinEvent& event );
     void onMouseEnter( wxMouseEvent& event );
     void onMouseLeave( wxMouseEvent& event );
     void onMouseMotion( wxMouseEvent& event );
+    void onDpiChanged( wxDPIChangedEvent& event );
 
     friend class ScrolledTransferHistory::DropTargetImpl;
 };

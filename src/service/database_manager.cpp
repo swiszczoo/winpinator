@@ -132,7 +132,7 @@ bool DatabaseManager::updateFromVer0ToVer1()
         "); ",
         NULL, NULL, NULL );
 
-    results |= sqlite3_exec( m_db, 
+    results |= sqlite3_exec( m_db,
         "CREATE TABLE IF NOT EXISTS transfers( "
         "  [id] INTEGER PRIMARY KEY AUTOINCREMENT, "
         "  target_id TEXT, "

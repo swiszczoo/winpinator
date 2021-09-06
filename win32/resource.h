@@ -19,13 +19,20 @@
 #define IDB_FORWARD                     114
 #define IDB_SEND_FILE                   115
 #define IDB_SEND_DIR                    116
+#define IDB_TRANSFER_FILE_X             117
+#define IDB_TRANSFER_FILE_FILE          118
+#define IDB_TRANSFER_DIR_X              119
+#define IDB_TRANSFER_DIR_DIR            120
+#define IDB_TRANSFER_DIR_FILE           121
+#define IDB_TRANSFER_UP                 122
+#define IDB_TRANSFER_DOWN               123
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        117
+#define _APS_NEXT_RESOURCE_VALUE        124
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101

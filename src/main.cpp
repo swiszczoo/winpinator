@@ -12,12 +12,12 @@
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/health_check_service_interface.h>
 
-#include <wx/wx.h>
 #include <wx/log.h>
 #include <wx/socket.h>
+#include <wx/wx.h>
 
-#include <stdlib.h>
 #include <Windows.h>
+#include <stdlib.h>
 
 #include <functional>
 #include <future>
@@ -62,7 +62,7 @@ WinpinatorApp::WinpinatorApp()
     , m_detector( nullptr )
     , m_ddeServer( nullptr )
 {
-    // Events 
+    // Events
 
     Bind( EVT_OPEN_APP_WINDOW, &WinpinatorApp::onDDEOpenCalled, this );
     Bind( EVT_RESTORE_WINDOW, &WinpinatorApp::onRestore, this );
@@ -94,7 +94,7 @@ bool WinpinatorApp::OnInit()
         // Do not start another instance
         return false;
     }
-    else 
+    else
     {
         wxLogDebug( "[RUNINST] First instance." );
 
@@ -111,7 +111,7 @@ bool WinpinatorApp::OnInit()
     std::promise<void> promise;
     std::future<void> future = promise.get_future();
 
-    m_srvThread = std::thread( std::bind( serviceMain, 
+    m_srvThread = std::thread( std::bind( serviceMain,
         std::ref( promise ) ) );
 
     // Wait for the service to become valid
@@ -120,7 +120,7 @@ bool WinpinatorApp::OnInit()
     // Set up tray icon
     m_trayIcon = new TrayIcon();
     m_trayIcon->setEventHandler( this );
-    
+
     auto serv = Globals::get()->getWinpinatorServiceInstance();
     observeService( serv );
 
@@ -190,7 +190,7 @@ void WinpinatorApp::onRestore( wxCommandEvent& event )
     }
 }
 
-void WinpinatorApp::onServiceEvent(wxThreadEvent& event)
+void WinpinatorApp::onServiceEvent( wxThreadEvent& event )
 {
     auto serv = Globals::get()->getWinpinatorServiceInstance();
 

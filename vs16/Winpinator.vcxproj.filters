@@ -205,6 +205,12 @@
     <ClInclude Include="..\src\gui\history_item.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\history_element_pending.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\history_std_bitmaps.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -333,6 +339,9 @@
     <ClCompile Include="..\src\gui\history_item.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\gui\history_element_pending.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\win32\manifest.manifest">
@@ -389,6 +398,27 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\res\send_directory.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_file_x.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_file_file.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_dir_x.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_dir_dir.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_dir_file.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_badge_up.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_badge_down.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
