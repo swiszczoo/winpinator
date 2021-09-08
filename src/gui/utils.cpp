@@ -1,7 +1,10 @@
 #include "utils.hpp"
 
 #ifdef _WIN32
+#include <wx/msw/private.h>
 #include <wx/msw/uxtheme.h>
+#include <shellapi.h>
+#include <Shlobj.h>
 #endif
 
 namespace gui
@@ -121,5 +124,45 @@ wxString Utils::getStatusString( srv::RemoteStatus status )
 
     return _( "Unknown" );
 };
+
+wxIcon Utils::extractIconWithSize( const wxIconLocation& loc, wxCoord dim )
+{
+    HICON largeIcon;
+    if ( SHDefExtractIconW( loc.GetFileName().wc_str(),
+             loc.GetIndex(), 0, &largeIcon, NULL, dim )
+        != S_OK )
+    {
+        return wxIcon( loc );
+    }
+    
+    SIZE test;
+    getIconDimensions( largeIcon, &test );
+
+    wxIcon icon;
+    icon.SetHandle( largeIcon );
+
+    return icon;
+}
+
+bool Utils::getIconDimensions( HICON hico, SIZE* psiz )
+{
+    ICONINFO ii;
+    BOOL fResult = GetIconInfo( hico, &ii );
+    if ( fResult )
+    {
+        BITMAP bm;
+        fResult = GetObject( ii.hbmMask, sizeof( bm ), &bm ) == sizeof( bm );
+        if ( fResult )
+        {
+            psiz->cx = bm.bmWidth;
+            psiz->cy = ii.hbmColor ? bm.bmHeight : bm.bmHeight / 2;
+        }
+        if ( ii.hbmMask )
+            DeleteObject( ii.hbmMask );
+        if ( ii.hbmColor )
+            DeleteObject( ii.hbmColor );
+    }
+    return fResult;
+}
 
 };

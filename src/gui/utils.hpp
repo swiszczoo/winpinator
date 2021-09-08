@@ -23,6 +23,9 @@ public:
 
     static wxString getStatusString( srv::RemoteStatus status );
 
+    static wxIcon extractIconWithSize( const wxIconLocation& loc, wxCoord dim );
+    static bool getIconDimensions( HICON hico, SIZE* psiz );
+
 private:
     // We need a friend to create a unique_ptr
     friend std::unique_ptr<Utils> std::make_unique<Utils>();

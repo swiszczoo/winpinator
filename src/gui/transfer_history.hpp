@@ -33,9 +33,15 @@ private:
     static const std::vector<wxString> TIME_SPECS;
 
     wxStaticText* m_emptyLabel;
+
+    HistoryGroupHeader* m_pendingHeader;
+    wxPanel* m_pendingPanel;
+    wxBoxSizer* m_pendingSizer;
+
     std::vector<HistoryGroupHeader*> m_timeHeaders;
     std::vector<wxPanel*> m_timeGroups;
     std::vector<wxBoxSizer*> m_timeSizers;
+
     std::vector<HistoryItem*> m_historyItems;
 
     HistoryStdBitmaps m_stdBitmaps;

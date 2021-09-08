@@ -25,7 +25,7 @@ HistoryGroupHeader::HistoryGroupHeader( wxWindow* parent,
 
 void HistoryGroupHeader::updateSize()
 {
-    wxSize height = Utils::get()->getHeaderFont().GetPixelSize();
+    wxSize height = FromDIP( Utils::get()->getHeaderFont().GetPixelSize() );
 
     SetMinSize( wxSize( 16, height.GetHeight() * 1.2 + 2 * FromDIP( 3 ) ) );
 }

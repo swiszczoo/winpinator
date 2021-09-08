@@ -1,5 +1,7 @@
 #include "transfer_history.hpp"
 
+#include "history_element_pending.hpp"
+
 #include "../../win32/resource.h"
 #include "utils.hpp"
 
@@ -38,6 +40,26 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
     sizer->Add( m_emptyLabel, 0, 
         wxALIGN_CENTER_HORIZONTAL | wxALL, FromDIP( 12 ) );
 
+    // "In progress" ops view
+
+    m_pendingHeader = new HistoryGroupHeader( this, _( "In progress" ) );
+    sizer->Add( m_pendingHeader, 0, wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 5 ) );
+
+    m_pendingPanel = new wxPanel( this );
+    m_pendingSizer = new wxBoxSizer( wxVERTICAL );
+    m_pendingPanel->SetSizer( m_pendingSizer );
+
+    sizer->Add( m_pendingPanel, 0, wxEXPAND | wxBOTTOM, FromDIP( 5 ) );
+    registerHistoryItem( m_pendingHeader );
+
+    HistoryPendingElement* test = new HistoryPendingElement( 
+        m_pendingPanel, &m_stdBitmaps );
+    test->setPeerName( "FirstName Surname" );
+    m_pendingSizer->Add( test, 0, wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 11 ) );
+    registerHistoryItem( test );
+
+    // Historical ops view
+
     for ( const wxString& spec : ScrolledTransferHistory::TIME_SPECS )
     {
         HistoryGroupHeader* header = new HistoryGroupHeader( this, spec );
@@ -47,9 +69,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
         wxBoxSizer* panelSizer = new wxBoxSizer( wxVERTICAL );
         panel->SetSizer( panelSizer );
 
-        sizer->Add( panel, 0, wxEXPAND );
-
-        sizer->AddSpacer( FromDIP( 2 ) );
+        sizer->Add( panel, 0, wxEXPAND | wxBOTTOM, FromDIP( 2 ) );
 
         m_timeHeaders.push_back( header );
         m_timeGroups.push_back( panel );
