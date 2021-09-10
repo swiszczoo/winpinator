@@ -12,7 +12,7 @@ HistoryGroupHeader::HistoryGroupHeader( wxWindow* parent,
     , m_pen( wxNullPen )
 {
     m_pen.SetColour( Utils::get()->getHeaderColor() );
-    m_pen.SetWidth( FromDIP( 1 ) );
+    m_pen.SetWidth( 1 );
 
     updateSize();
 

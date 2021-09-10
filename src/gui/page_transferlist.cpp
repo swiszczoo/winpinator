@@ -55,7 +55,7 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
     m_fileBtn->SetWindowStyle( wxBU_EXACTFIT );
     buttonSizer->Add( m_fileBtn, 0, wxEXPAND | wxRIGHT, FromDIP( 4 ) );
 
-    m_directoryBtn = new ToolButton( this, wxID_ANY, _( "Send a directory..." ) );
+    m_directoryBtn = new ToolButton( this, wxID_ANY, _( "Send a folder..." ) );
     m_directoryBtn->SetWindowStyle( wxBU_EXACTFIT );
     buttonSizer->Add( m_directoryBtn, 0, wxEXPAND );
 

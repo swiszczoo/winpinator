@@ -21,7 +21,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     , m_banner( nullptr )
 {
     SetSize( FromDIP( 800 ), FromDIP( 620 ) );
-    SetMinSize( FromDIP( wxSize( 540, 400 ) ) );
+    SetMinSize( FromDIP( wxSize( 610, 400 ) ) );
 
     wxIconBundle icons( Utils::makeIntResource( IDI_WINPINATOR ),
         GetModuleHandle( NULL ) );

@@ -3,6 +3,7 @@
 
 #include <wx/wx.h>
 
+#include <cstdint>
 #include <memory>
 
 
@@ -25,6 +26,9 @@ public:
 
     static wxIcon extractIconWithSize( const wxIconLocation& loc, wxCoord dim );
     static bool getIconDimensions( HICON hico, SIZE* psiz );
+
+    static wxString fileSizeToString( long long bytes );
+    static wxString formatDate( uint64_t timestamp, std::string format );
 
 private:
     // We need a friend to create a unique_ptr

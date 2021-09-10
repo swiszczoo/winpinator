@@ -54,7 +54,18 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
 
     HistoryPendingElement* test = new HistoryPendingElement( 
         m_pendingPanel, &m_stdBitmaps );
-    test->setPeerName( "FirstName Surname" );
+    HistoryPendingData testData;
+    testData.filePaths.push_back( "C:\\Users\\test\\Documents\\abc.html" );
+    testData.numFiles = 1;
+    testData.numFolders = 0;
+    testData.opStartTime = 1631240663;
+    testData.opState = HistoryPendingState::AWAIT_PEER_APPROVAL;
+    testData.outcoming = true;
+    testData.progress = 0;
+    testData.singleElementName = "abc.html";
+    testData.totalSizeBytes = 65536;
+    test->setData( testData );
+    test->setPeerName( "John Smith" );
     m_pendingSizer->Add( test, 0, wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 11 ) );
     registerHistoryItem( test );
 

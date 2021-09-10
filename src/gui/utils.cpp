@@ -7,6 +7,10 @@
 #include <Shlobj.h>
 #endif
 
+#include <chrono>
+#include <iomanip>
+#include <sstream>
+
 namespace gui
 {
 
@@ -139,7 +143,7 @@ wxIcon Utils::extractIconWithSize( const wxIconLocation& loc, wxCoord dim )
     getIconDimensions( largeIcon, &test );
 
     wxIcon icon;
-    icon.SetHandle( largeIcon );
+    icon.CreateFromHICON( largeIcon );
 
     return icon;
 }
@@ -164,5 +168,41 @@ bool Utils::getIconDimensions( HICON hico, SIZE* psiz )
     }
     return fResult;
 }
+
+wxString Utils::fileSizeToString( long long bytes )
+{
+    wxString out;
+
+    if ( bytes > 1024 * 1024 * 1024 )
+    {
+        out.Printf( "%.1lf GB", bytes / 1024.0 / 1024.0 / 1024.0 );
+    }
+    else if ( bytes > 1024 * 1024 )
+    {
+        out.Printf( "%.1lf MB", bytes / 1024.0 / 1024.0 );
+    }
+    else if ( bytes > 1024 )
+    {
+        out.Printf( "%.1lf KB", bytes / 1024.0 );
+    }
+    else
+    {
+        out.Printf( "%lld B", bytes );
+    }
+
+    return out;
+}
+
+wxString Utils::formatDate( uint64_t timestamp, std::string format )
+{
+    std::time_t temp = timestamp;
+    std::tm* t = std::localtime( &temp );
+    std::stringstream ss; 
+    ss << std::put_time( t, format.c_str() );
+    std::string output = ss.str();
+
+    return output;
+}
+
 
 };

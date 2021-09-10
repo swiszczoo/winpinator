@@ -17,7 +17,8 @@ enum class HistoryPendingState
     AWAIT_PEER_APPROVAL,
     AWAIT_MY_APPROVAL,
     TRANSFER_RUNNING,
-    TRANSFER_PAUSED
+    TRANSFER_PAUSED,
+    OVERWRITE_NEEDED
 };
 
 struct HistoryPendingData
@@ -31,7 +32,7 @@ struct HistoryPendingData
 
     std::vector<wxString> filePaths;
 
-    int totalSizeBytes;
+    long long totalSizeBytes;
     
     bool outcoming;
     float progress;
@@ -53,9 +54,16 @@ private:
 
     // Await peer approval
     wxBoxSizer* m_info;
-    wxStaticText* m_infoLabel;
+    wxString m_infoLabel;
     wxGauge* m_infoProgress;
+    wxBoxSizer* m_buttonSizer;
     wxButton* m_infoCancel;
+    wxButton* m_infoAllow;
+    wxButton* m_infoReject;
+    wxButton* m_infoPause;
+    wxButton* m_infoStop;
+    wxButton* m_infoOverwrite;
+    int m_infoSpacing;
 
     // Other stuff
 
@@ -66,10 +74,14 @@ private:
     wxIcon m_fileIcon;
     wxIconLocation m_fileIconLoc;
 
+    void calculateLayout();
+    void setupForState( HistoryPendingState state );
+
     void onPaint( wxPaintEvent& event );
     void onDpiChanged( wxDPIChangedEvent& event );
 
     const wxBitmap& determineBitmapToDraw() const;
+    wxString determineHeaderString() const;
 };
 
 };
