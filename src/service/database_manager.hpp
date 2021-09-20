@@ -1,4 +1,6 @@
 #pragma once
+#include "database_types.h"
+
 #include <wx/wx.h>
 
 #include <sqlite3.h>
@@ -17,6 +19,10 @@ public:
 
     bool isDatabaseAvailable();
 
+    // Data query and modification functions
+
+    bool addTransfer( const db::Transfer& record );
+
 private:
     static const int TARGET_DB_VER;
 
@@ -28,6 +34,9 @@ private:
 
     void setupUpdateFunctionVector();
     bool enforceIntegrity();
+
+    void beginTransaction();
+    bool endTransaction( int result );
 
     // Update functions
     void performUpdate( int currentLevel );

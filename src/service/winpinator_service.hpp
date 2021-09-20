@@ -2,6 +2,7 @@
 #include "observable_service.hpp"
 
 #include "../zeroconf/mdns_types.hpp"
+#include "database_manager.hpp"
 #include "event.hpp"
 #include "remote_manager.hpp"
 #include "service_errors.hpp"
@@ -66,7 +67,9 @@ private:
     std::thread m_pollingThread;
     wxMessageQueue<Event> m_events;
     std::shared_ptr<RemoteManager> m_remoteMgr;
+    std::shared_ptr<DatabaseManager> m_db;
 
+    void initDatabase();
     void serviceMain();
 
     void notifyStateChanged();

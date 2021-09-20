@@ -74,7 +74,7 @@ HostListPage::HostListPage( wxWindow* parent )
 
     wxBoxSizer* bottomBar = new wxBoxSizer( wxHORIZONTAL );
 
-    m_progLbl = new ProgressLabel( this, 
+    m_progLbl = new ProgressLabel( this,
         _( "Searching for computers on your network..." ) );
     bottomBar->Add( m_progLbl, 0, wxALIGN_CENTER_VERTICAL, 0 );
 
@@ -106,8 +106,10 @@ HostListPage::HostListPage( wxWindow* parent )
     Bind( wxEVT_BUTTON, &HostListPage::onRefreshClicked, this );
     Bind( wxEVT_TIMER, &HostListPage::onTimerTicked, this );
     Bind( wxEVT_THREAD, &HostListPage::onManipulateList, this );
-    m_hostlist->Bind( wxEVT_LISTBOX, 
+    m_hostlist->Bind( wxEVT_LISTBOX,
         &HostListPage::onHostSelectionChanged, this );
+    m_hostlist->Bind( wxEVT_LISTBOX_DCLICK,
+        &HostListPage::onHostListDoubleClicked, this );
     m_fwdBtn->Bind( wxEVT_BUTTON, &HostListPage::onNextClicked, this );
 }
 
@@ -122,7 +124,7 @@ void HostListPage::refreshAll()
     auto serv = Globals::get()->getWinpinatorServiceInstance();
 
     m_trackedRemotes = serv->getRemoteManager()->generateCurrentHostList();
-    
+
     m_hostlist->clear();
 
     size_t count = 0;
@@ -196,7 +198,7 @@ void HostListPage::onManipulateList( wxThreadEvent& event )
         {
             if ( info->id == ptr->id )
             {
-                m_hostlist->updateItemById( 
+                m_hostlist->updateItemById(
                     convertRemoteInfoToHostItem( info ) );
                 return;
             }
@@ -222,9 +224,7 @@ void HostListPage::onManipulateList( wxThreadEvent& event )
 
         break;
     }
-    
     }
-    
 }
 
 void HostListPage::onHostSelectionChanged( wxCommandEvent& event )
@@ -239,6 +239,11 @@ void HostListPage::onHostSelectionChanged( wxCommandEvent& event )
     {
         m_fwdBtn->Disable();
     }
+}
+
+void HostListPage::onHostListDoubleClicked( wxCommandEvent& event )
+{
+    onNextClicked( event );
 }
 
 void HostListPage::onNextClicked( wxCommandEvent& event )
@@ -309,7 +314,7 @@ HostItem HostListPage::convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo )
         wxLogNull logNull;
 
         wxImage loader;
-        wxMemoryInputStream inStream( rinfo->avatarBuffer.data(), 
+        wxMemoryInputStream inStream( rinfo->avatarBuffer.data(),
             rinfo->avatarBuffer.size() );
 
         loader.LoadFile( inStream, wxBITMAP_TYPE_ANY );
@@ -321,7 +326,7 @@ HostItem HostListPage::convertRemoteInfoToHostItem( srv::RemoteInfoPtr rinfo )
             m_avatarCache[rinfo->id] = result.profilePic;
         }
     }
-    
+
     result.state = rinfo->state;
 
     if ( rinfo->state == srv::RemoteStatus::ONLINE )

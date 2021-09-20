@@ -270,6 +270,7 @@
     <ClInclude Include="..\src\gui\tool_button.hpp" />
     <ClInclude Include="..\src\service\auth_manager.hpp" />
     <ClInclude Include="..\src\service\database_manager.hpp" />
+    <ClInclude Include="..\src\service\database_types.h" />
     <ClInclude Include="..\src\service\event.hpp" />
     <ClInclude Include="..\src\service\observable_service.hpp" />
     <ClInclude Include="..\src\service\registration_v1_impl.hpp" />

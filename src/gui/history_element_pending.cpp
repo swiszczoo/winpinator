@@ -10,6 +10,7 @@ namespace gui
 {
 
 const int HistoryPendingElement::ICON_SIZE = 64;
+const int HistoryPendingElement::PROGRESS_RANGE = 1000000;
 
 HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
     HistoryStdBitmaps* bitmaps )
@@ -39,7 +40,7 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
 
     m_info->AddStretchSpacer( 1 );
 
-    m_infoProgress = new wxGauge( this, wxID_ANY, 1000000 );
+    m_infoProgress = new wxGauge( this, wxID_ANY, PROGRESS_RANGE );
     m_infoProgress->SetMinSize( FromDIP( wxSize( 16, 16 ) ) );
     m_infoProgress->Hide();
     m_info->Add( m_infoProgress, 0, wxEXPAND | wxBOTTOM, FromDIP( 3 ) );
@@ -108,9 +109,13 @@ void HistoryPendingElement::setData( const HistoryPendingData& newData )
 
             if ( fileType->GetIcon( &loc ) && wxFileExists( loc.GetFileName() ) )
             {
-                m_fileIcon = Utils::extractIconWithSize(
-                    loc, FromDIP( ICON_SIZE ) );
-                m_fileIconLoc = loc;
+                if ( loc.GetFileName() != m_fileIconLoc.GetFileName() 
+                    || loc.GetIndex() != m_fileIconLoc.GetIndex() )
+                {
+                    m_fileIcon = Utils::extractIconWithSize(
+                        loc, FromDIP( ICON_SIZE ) );
+                    m_fileIconLoc = loc;
+                }
             }
 
             if ( !m_fileIcon.IsOk() )
@@ -122,6 +127,12 @@ void HistoryPendingElement::setData( const HistoryPendingData& newData )
 
             delete fileType;
         }
+    }
+
+    if ( newData.opState == HistoryPendingState::TRANSFER_PAUSED
+        || newData.opState == HistoryPendingState::TRANSFER_RUNNING )
+    {
+        updateProgress( newData.sentBytes );
     }
 }
 
@@ -143,9 +154,101 @@ const wxString& HistoryPendingElement::getPeerName() const
     return m_peerName;
 }
 
+void HistoryPendingElement::updateProgress( int sentBytes )
+{
+    m_data.sentBytes = sentBytes;
+
+    int remainingSecs = calculateRemainingSeconds();
+    int bytesPerSecond = calculateTransferSpeed();
+
+    wxString remainingString;
+    wxString speedString;
+
+    if ( remainingSecs == -1 )
+    {
+        remainingString = _( "calculating remaining time" );
+    }
+    else if ( remainingSecs < 5 )
+    {
+        remainingString = _( "a few seconds remaining" );
+    }
+    else if ( remainingSecs < 60 ) // Less than a minute
+    {
+
+        remainingString.Printf(
+            wxPLURAL( "%d sec remaining", "%d secs remaining", remainingSecs ),
+            remainingSecs );
+    }
+    else if ( remainingSecs < 60 * 60 ) // Less than an hour
+    {
+        int minutes = (int)round( remainingSecs / 60.f );
+
+        remainingString.Printf(
+            wxPLURAL( "%d min remaining", "%d mins remaining", minutes ),
+            minutes );
+    }
+    else if ( remainingSecs < 24 * 60 * 60 ) // Less than a day
+    {
+        int hours = (int)round( remainingSecs / ( 3600.f ) );
+
+        remainingString.Printf(
+            wxPLURAL( "%d hour remaining", "%d hours remaining", hours ),
+            hours );
+    }
+    else if ( remainingSecs < 7 * 24 * 60 * 60 ) // Less than a week
+    {
+        int days = (int)round( remainingSecs / ( 3600.f ) );
+
+        remainingString.Printf(
+            wxPLURAL( "%d day remaining", "%d days remaining", days ),
+            days );
+    }
+    else
+    {
+        remainingString = _( "many days remaining" );
+    }
+
+    // TRANSLATORS: this is a format string for transfer speed,
+    // the %s part will be replaced with appropriate file size equivalent,
+    // e.g. 25,4MB or 32,6KB
+    speedString.Printf( _( "%s/s" ), Utils::fileSizeToString( bytesPerSecond ) );
+
+    wxString detailsString;
+
+    // TRANSLATORS: the subsequent %s placeholders stand for:
+    // current sent bytes, transfer total size, transfer speed, remaining time
+    detailsString.Printf( _( L"%s of %s \x2022 %s \x2022 %s" ),
+        Utils::fileSizeToString( m_data.sentBytes ),
+        Utils::fileSizeToString( m_data.totalSizeBytes ),
+        speedString, remainingString );
+
+    m_infoLabel = detailsString;
+
+    m_infoProgress->SetValue( (int)( (float)m_data.sentBytes
+        / (float)m_data.totalSizeBytes * PROGRESS_RANGE ) );
+
+    Refresh();
+}
+
 void HistoryPendingElement::calculateLayout()
 {
-    wxCoord width = GetTextExtent( m_infoLabel ).x;
+    wxCoord width = 0;
+
+    if ( m_data.opState == HistoryPendingState::TRANSFER_PAUSED
+        || m_data.opState == HistoryPendingState::TRANSFER_RUNNING )
+    {
+        // TRANSLATORS: This string does not show up in app, but is used
+        // to determine progress bar width, so it should be longest possible
+        // transfer progress label text
+        width = GetTextExtent(
+            _( L"999.9MB of 999.9MB \x2022 999.9MB/s \x2022 a few seconds remaining" ) )
+                    .x;
+    }
+    else
+    {
+        width = GetTextExtent( m_infoLabel ).x;
+    }
+
     wxCoord margins = FromDIP( 8 ) * 2;
 
     m_info->SetMinSize( width + margins, FromDIP( 16 ) );
@@ -378,10 +481,20 @@ wxString HistoryPendingElement::determineHeaderString() const
 
     wxString both;
 
-    // TRANSLATORS: <2 folders> and <5 files>
+    // TRANSLATORS: format string, e.g. <2 folders> and <5 files>
     both.Printf( _( "%s and %s" ), folderPart, filePart );
 
     return both;
+}
+
+int HistoryPendingElement::calculateRemainingSeconds() const
+{
+    return 200;
+}
+
+int HistoryPendingElement::calculateTransferSpeed() const
+{
+    return 1e6;
 }
 
 };

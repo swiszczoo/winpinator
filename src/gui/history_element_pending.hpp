@@ -35,7 +35,7 @@ struct HistoryPendingData
     long long totalSizeBytes;
     
     bool outcoming;
-    float progress;
+    long long sentBytes;
 };
 
 class HistoryPendingElement : public HistoryItem
@@ -49,8 +49,11 @@ public:
     void setPeerName( const wxString& peerName );
     const wxString& getPeerName() const;
 
+    void updateProgress( int sentBytes );
+
 private:
     static const int ICON_SIZE;
+    static const int PROGRESS_RANGE;
 
     // Await peer approval
     wxBoxSizer* m_info;
@@ -82,6 +85,9 @@ private:
 
     const wxBitmap& determineBitmapToDraw() const;
     wxString determineHeaderString() const;
+
+    int calculateRemainingSeconds() const;
+    int calculateTransferSpeed() const;
 };
 
 };

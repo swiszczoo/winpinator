@@ -197,7 +197,7 @@ void WinpinatorFrame::onAboutSelected()
     info.SetVersion( "0.1.0" );
     info.SetDescription( _( "Winpinator is an unofficial port of an excellent "
                             "file transfer tool Warpinator for Windows" ) );
-    info.SetCopyright( _( "\u00a92021 £ukasz Œwiszcz" ) );
+    info.SetCopyright( _( "\u00a92021 ï¿½ukasz ï¿½wiszcz" ) );
 
     wxAboutBox( info, this );
 }

@@ -66,6 +66,11 @@ void Utils::drawTextEllipse( wxDC& dc, const wxString& text,
 {
     const wxCoord ellipsisLength = dc.GetTextExtent( "..." ).GetWidth();
 
+    if ( maxWidth < ellipsisLength )
+    {
+        return;
+    }
+
     if ( dc.GetTextExtent( text ).GetWidth() <= maxWidth )
     {
         dc.DrawText( text, pnt );

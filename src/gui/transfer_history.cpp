@@ -11,15 +11,15 @@ namespace gui
 {
 
 const std::vector<wxString> ScrolledTransferHistory::TIME_SPECS = {
-    _( "Today" ),
-    _( "Yesterday" ),
-    _( "Earlier this week" ),
-    _( "Last week" ),
-    _( "Earlier this month" ),
-    _( "Last month" ),
-    _( "Earlier this year" ),
-    _( "Last year" ),
-    _( "A long time ago" )
+    wxTRANSLATE( "Today" ),
+    wxTRANSLATE( "Yesterday" ),
+    wxTRANSLATE( "Earlier this week" ),
+    wxTRANSLATE( "Last week" ),
+    wxTRANSLATE( "Earlier this month" ),
+    wxTRANSLATE( "Last month" ),
+    wxTRANSLATE( "Earlier this year" ),
+    wxTRANSLATE( "Last year" ),
+    wxTRANSLATE( "A long time ago" )
 };
 
 ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
@@ -59,9 +59,9 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
     testData.numFiles = 1;
     testData.numFolders = 0;
     testData.opStartTime = 1631240663;
-    testData.opState = HistoryPendingState::AWAIT_PEER_APPROVAL;
+    testData.opState = HistoryPendingState::TRANSFER_RUNNING;
     testData.outcoming = true;
-    testData.progress = 0;
+    testData.sentBytes = 34683;
     testData.singleElementName = "abc.html";
     testData.totalSizeBytes = 65536;
     test->setData( testData );
@@ -73,7 +73,8 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
 
     for ( const wxString& spec : ScrolledTransferHistory::TIME_SPECS )
     {
-        HistoryGroupHeader* header = new HistoryGroupHeader( this, spec );
+        HistoryGroupHeader* header = new HistoryGroupHeader( this, 
+            wxGetTranslation( spec ) );
         sizer->Add( header, 0, wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 5 ) );
 
         wxPanel* panel = new wxPanel( this );

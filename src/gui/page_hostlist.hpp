@@ -59,6 +59,7 @@ private:
 
     void onManipulateList( wxThreadEvent& event );
     void onHostSelectionChanged( wxCommandEvent& event );
+    void onHostListDoubleClicked( wxCommandEvent& event );
     void onNextClicked( wxCommandEvent& event );
 
     void loadIcon();

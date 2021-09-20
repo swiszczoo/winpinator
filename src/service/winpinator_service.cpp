@@ -12,6 +12,7 @@
 #include "warp_service_impl.hpp"
 
 #include <wx/mstream.h>
+#include <wx/stdpaths.h>
 
 #include <algorithm>
 
@@ -40,6 +41,7 @@ WinpinatorService::WinpinatorService()
     , m_ip( "" )
     , m_displayName( "" )
     , m_remoteMgr( nullptr )
+    , m_db( nullptr )
 {
     DWORD netFlag = NETWORK_ALIVE_LAN;
     bool result = IsNetworkAlive( &netFlag );
@@ -61,6 +63,8 @@ WinpinatorService::WinpinatorService()
     zc::MdnsIpPair ipPair;
     ipPair.valid = false;
     AuthManager::get()->update( ipPair, 0 );
+
+    initDatabase();
 }
 
 void WinpinatorService::setGrpcPort( uint16_t port )
@@ -195,6 +199,14 @@ void WinpinatorService::postEvent( const Event& evnt )
     m_events.Post( evnt );
 }
 
+void WinpinatorService::initDatabase()
+{
+    wxFileName fname( 
+        wxStandardPaths::Get().GetUserDataDir(), "winpinator.db" );
+
+    m_db = std::make_shared<DatabaseManager>( fname.GetFullPath() );
+}
+
 void WinpinatorService::serviceMain()
 {
     // Reset event queue
@@ -207,7 +219,7 @@ void WinpinatorService::serviceMain()
     // Try to gather user account picture
     std::string avatarData;
     AccountPictureExtractor extractor;
-    if( extractor.process() )
+    if ( extractor.process() )
     {
         const wxImage& img = extractor.getHighResImage();
         wxMemoryOutputStream mos;
@@ -275,7 +287,7 @@ void WinpinatorService::serviceMain()
             return;
         }
 
-        if( !regServer2.startServer() )
+        if ( !regServer2.startServer() )
         {
             m_error = ServiceError::REGISTRATION_V2_SERVER_FAILED;
             m_remoteMgr->stop();
@@ -287,14 +299,14 @@ void WinpinatorService::serviceMain()
         rpcServer.setPemPrivateKey( creds.privateKey );
         rpcServer.setPemCertificate( creds.publicKey );
         rpcServer.setRemoteManager( m_remoteMgr );
-        if( !rpcServer.startServer() )
+        if ( !rpcServer.startServer() )
         {
             m_error = ServiceError::WARP_SERVER_FAILED;
             m_remoteMgr->stop();
             return;
         }
     }
-    else 
+    else
     {
         m_error = ServiceError::ZEROCONF_SERVER_FAILED;
         m_remoteMgr->stop();
