@@ -17,6 +17,8 @@ enum class TransferElementType
 
 struct TransferElement
 {
+    int id;
+
     TransferElementType elementType;
     std::wstring elementName; // File or folder name
     std::wstring relativePath; // Path relative to root of the transfer
@@ -43,6 +45,8 @@ enum class TransferType
 
 struct Transfer
 {
+    int id;
+
     std::wstring targetId;
     TransferType transferType;
     long long transferTimestamp;

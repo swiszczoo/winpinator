@@ -211,7 +211,10 @@
     <ClInclude Include="..\src\gui\history_std_bitmaps.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\service\database_types.h">
+    <ClInclude Include="..\src\service\database_types.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\service\database_utils.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
   </ItemGroup>
@@ -344,6 +347,9 @@
     </ClCompile>
     <ClCompile Include="..\src\gui\history_element_pending.cpp">
       <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\database_utils.cpp">
+      <Filter>Sources\service</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

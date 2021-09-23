@@ -1,6 +1,9 @@
 #include "database_manager.hpp"
 
+#include <algorithm>
+
 #define UPD_EXEC( command ) results |= sqlite3_exec( m_db, command, NULL, NULL, NULL )
+#define FIX_ENUM( val, unk ) DatabaseManager::fixEnum( (int&)(val), (int)(unk) )
 
 namespace srv
 {
@@ -78,7 +81,7 @@ bool DatabaseManager::enforceIntegrity()
     do
     {
         sqlite3_prepare_v2( m_db,
-            "SELECT value FROM meta WHERE key='db_version'", -1, &qry, NULL );
+            "SELECT value FROM meta WHERE key='db_version';", -1, &qry, NULL );
 
         if ( qry )
         {
@@ -103,20 +106,28 @@ bool DatabaseManager::enforceIntegrity()
 
 void DatabaseManager::beginTransaction()
 {
-    sqlite3_exec( m_db, "BEGIN TRANSACTION", NULL, NULL, NULL );
+    sqlite3_exec( m_db, "BEGIN TRANSACTION;", NULL, NULL, NULL );
 }
 
 bool DatabaseManager::endTransaction( int result )
 {
     if ( result == SQLITE_OK )
     {
-        sqlite3_exec( m_db, "COMMIT", NULL, NULL, NULL );
+        sqlite3_exec( m_db, "COMMIT;", NULL, NULL, NULL );
         return true;
     }
     else
     {
-        sqlite3_exec( m_db, "ROLLBACK", NULL, NULL, NULL );
+        sqlite3_exec( m_db, "ROLLBACK;", NULL, NULL, NULL );
         return false;
+    }
+}
+
+inline void DatabaseManager::fixEnum( int& val, const int unkVal )
+{
+    if ( val < 0 || val > unkVal )
+    {
+        val = unkVal;
     }
 }
 
@@ -132,11 +143,11 @@ void DatabaseManager::performUpdate( int currentLevel )
 
     if ( updateSuccess )
     {
-        sqlite3_exec( m_db, "COMMIT", NULL, NULL, NULL );
+        sqlite3_exec( m_db, "COMMIT;", NULL, NULL, NULL );
     }
     else
     {
-        sqlite3_exec( m_db, "ROLLBACK", NULL, NULL, NULL );
+        sqlite3_exec( m_db, "ROLLBACK;", NULL, NULL, NULL );
     }
 }
 
@@ -199,16 +210,16 @@ bool DatabaseManager::addTransfer( const db::Transfer& record )
     // Insert the 'transfer' record
 
     sqlite3_stmt* transferStmt;
-    sqlite3_prepare_v2( m_db, 
+    sqlite3_prepare_v2( m_db,
         "INSERT INTO transfers( target_id, transfer_type, transfer_timestamp, "
         "file_count, folder_count, total_size_bytes, outgoing, status ) "
         "VALUES ( ?, ?, ?, ?, ?, ?, ?, ? );",
         -1, &transferStmt, NULL );
 
-    sqlite3_bind_text16( transferStmt, 1, 
+    sqlite3_bind_text16( transferStmt, 1,
         record.targetId.c_str(), -1, SQLITE_STATIC );
     sqlite3_bind_int( transferStmt, 2, (int)record.transferType );
-    sqlite3_bind_int64( transferStmt, 3, 
+    sqlite3_bind_int64( transferStmt, 3,
         (sqlite3_int64)record.transferTimestamp );
     sqlite3_bind_int( transferStmt, 4, record.fileCount );
     sqlite3_bind_int( transferStmt, 5, record.folderCount );
@@ -236,7 +247,7 @@ bool DatabaseManager::addTransfer( const db::Transfer& record )
         sqlite3_clear_bindings( pathStmt );
 
         sqlite3_bind_int( pathStmt, 1, transferId );
-        sqlite3_bind_text16( pathStmt, 2, 
+        sqlite3_bind_text16( pathStmt, 2,
             element.elementName.c_str(), -1, SQLITE_STATIC );
         sqlite3_bind_int( pathStmt, 3, (int)element.elementType );
         sqlite3_bind_text16( pathStmt, 4,
@@ -247,7 +258,157 @@ bool DatabaseManager::addTransfer( const db::Transfer& record )
         results |= sqlite3_step( pathStmt );
     }
 
+    sqlite3_finalize( pathStmt );
+
     return endTransaction( results );
+}
+
+bool DatabaseManager::clearAllTransfers()
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    if ( !m_dbOpen )
+    {
+        return false;
+    }
+
+    int results = 0;
+
+    beginTransaction();
+    results |= sqlite3_exec( m_db, "DELETE FROM transfers;", NULL, NULL, NULL );
+    return endTransaction( results );
+}
+
+bool DatabaseManager::deleteTransfer( int id )
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    if ( !m_dbOpen )
+    {
+        return false;
+    }
+
+    int results = 0;
+
+    beginTransaction();
+
+    sqlite3_stmt* deleteStmt;
+    sqlite3_prepare_v2( m_db, "DELETE FROM transfers WHERE id=?;",
+        -1, &deleteStmt, NULL );
+    sqlite3_bind_int( deleteStmt, 1, id );
+    results |= sqlite3_step( deleteStmt );
+    sqlite3_finalize( deleteStmt );
+
+    return endTransaction( results );
+}
+
+std::vector<db::Transfer> DatabaseManager::queryTransfers( bool queryPaths,
+    const std::string conditions )
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    if ( !m_dbOpen )
+    {
+        return {};
+    }
+
+    std::vector<db::Transfer> records;
+
+    sqlite3_stmt* queryStmt;
+
+    if ( conditions.empty() )
+    {
+        sqlite3_prepare_v2( m_db, "SELECT * FROM transfers;",
+            -1, &queryStmt, NULL );
+    }
+    else
+    {
+        std::string query = "SELECT * FROM transfers WHERE ";
+        query += conditions;
+        query += ';';
+
+        sqlite3_prepare_v2( m_db, query.c_str(), -1, &queryStmt, NULL );
+    }
+
+    while ( sqlite3_step( queryStmt ) != SQLITE_DONE )
+    {
+        db::Transfer record;
+        record.id
+            = sqlite3_column_int( queryStmt, 0 );
+        record.targetId
+            = (const wchar_t*)sqlite3_column_text16( queryStmt, 1 );
+        record.transferType
+            = (db::TransferType)sqlite3_column_int( queryStmt, 2 );
+        record.transferTimestamp
+            = sqlite3_column_int64( queryStmt, 3 );
+        record.fileCount
+            = sqlite3_column_int( queryStmt, 4 );
+        record.folderCount
+            = sqlite3_column_int( queryStmt, 5 );
+        record.totalSizeBytes
+            = sqlite3_column_int64( queryStmt, 6 );
+        record.outgoing
+            = (bool)sqlite3_column_int( queryStmt, 7 );
+        record.status
+            = (db::TransferStatus)sqlite3_column_int( queryStmt, 8 );
+
+        FIX_ENUM( record.transferType, db::TransferType::UNKNOWN );
+        FIX_ENUM( record.status, db::TransferStatus::UNKNOWN );
+
+        if ( queryPaths )
+        {
+            queryTransferPaths( record );
+        }
+    }
+
+    sqlite3_finalize( queryStmt );
+
+    return records;
+}
+
+void DatabaseManager::queryTransferPaths( db::Transfer& record )
+{
+    sqlite3_stmt* pathStmt;
+    sqlite3_prepare_v2( m_db, "SELECT * FROM transfer_paths WHERE transfer_id=?;",
+        -1, &pathStmt, NULL );
+    sqlite3_bind_int( pathStmt, 1, record.id );
+
+    while ( sqlite3_step( pathStmt ) != SQLITE_DONE )
+    {
+        db::TransferElement pathRecord;
+        pathRecord.id
+            = sqlite3_column_int( pathStmt, 0 );
+        pathRecord.elementName
+            = (const wchar_t*)sqlite3_column_text16( pathStmt, 2 );
+        pathRecord.elementType
+            = (db::TransferElementType)sqlite3_column_int( pathStmt, 3 );
+        pathRecord.relativePath
+            = (const wchar_t*)sqlite3_column_text16( pathStmt, 4 );
+        pathRecord.absolutePath
+            = (const wchar_t*)sqlite3_column_text16( pathStmt, 5 );
+
+        FIX_ENUM( pathRecord.elementType, db::TransferElementType::UNKNOWN );
+
+        record.elements.push_back( pathRecord );
+    }
+
+    sqlite3_finalize( pathStmt );
+}
+
+db::Transfer DatabaseManager::getTransfer( int id, bool queryPaths )
+{
+    std::string condition = "id=" + std::to_string( id );
+
+    auto result = queryTransfers( queryPaths, condition );
+
+    if ( result.empty() )
+    {
+        db::Transfer transfer;
+        transfer.id = -1;
+        return transfer;
+    }
+
+    return result[0];
 }
 
 };
