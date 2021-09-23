@@ -16,7 +16,7 @@ namespace gui
 class ScrolledTransferHistory : public wxScrolledWindow
 {
 public:
-    ScrolledTransferHistory( wxWindow* parent );
+    explicit ScrolledTransferHistory( wxWindow* parent );
 
 private:
     class DropTargetImpl : public wxFileDropTarget

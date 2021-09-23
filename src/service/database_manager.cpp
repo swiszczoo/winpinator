@@ -275,7 +275,10 @@ bool DatabaseManager::clearAllTransfers()
     int results = 0;
 
     beginTransaction();
-    results |= sqlite3_exec( m_db, "DELETE FROM transfers;", NULL, NULL, NULL );
+    results |= sqlite3_exec( m_db, 
+        "DELETE FROM transfers;", NULL, NULL, NULL );
+    results |= sqlite3_exec( m_db,
+        "DELETE FROM transfer_paths;", NULL, NULL, NULL );
     return endTransaction( results );
 }
 
@@ -299,6 +302,13 @@ bool DatabaseManager::deleteTransfer( int id )
     results |= sqlite3_step( deleteStmt );
     sqlite3_finalize( deleteStmt );
 
+    sqlite3_stmt* pathsStmt;
+    sqlite3_prepare_v2( m_db, "DELETE FROM transfer_paths WHERE transfer_id=?;",
+        -1, &pathsStmt, NULL );
+    sqlite3_bind_int( pathsStmt, 1, id );
+    results |= sqlite3_step( pathsStmt );
+    sqlite3_finalize( pathsStmt );
+
     return endTransaction( results );
 }
 
@@ -318,14 +328,15 @@ std::vector<db::Transfer> DatabaseManager::queryTransfers( bool queryPaths,
 
     if ( conditions.empty() )
     {
-        sqlite3_prepare_v2( m_db, "SELECT * FROM transfers;",
+        sqlite3_prepare_v2( m_db, 
+            "SELECT * FROM transfers ORDER BY transfer_timestamp DESC;",
             -1, &queryStmt, NULL );
     }
     else
     {
         std::string query = "SELECT * FROM transfers WHERE ";
         query += conditions;
-        query += ';';
+        query += " ORDER BY transfer_timestamp DESC;";
 
         sqlite3_prepare_v2( m_db, query.c_str(), -1, &queryStmt, NULL );
     }
@@ -333,6 +344,7 @@ std::vector<db::Transfer> DatabaseManager::queryTransfers( bool queryPaths,
     while ( sqlite3_step( queryStmt ) != SQLITE_DONE )
     {
         db::Transfer record;
+
         record.id
             = sqlite3_column_int( queryStmt, 0 );
         record.targetId

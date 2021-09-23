@@ -109,7 +109,7 @@ void HistoryPendingElement::setData( const HistoryPendingData& newData )
 
             if ( fileType->GetIcon( &loc ) && wxFileExists( loc.GetFileName() ) )
             {
-                if ( loc.GetFileName() != m_fileIconLoc.GetFileName() 
+                if ( loc.GetFileName() != m_fileIconLoc.GetFileName()
                     || loc.GetIndex() != m_fileIconLoc.GetIndex() )
                 {
                     m_fileIcon = Utils::extractIconWithSize(
@@ -372,14 +372,17 @@ void HistoryPendingElement::onPaint( wxPaintEvent& event )
     int columnWidth = std::max( sizeWidth, startTimeWidth );
     int lineHeight = dc.GetTextExtent( "A" ).y + FromDIP( 4 );
 
-    dc.DrawText( sizeLabel,
-        contentOffsetX + columnWidth - sizeWidth, offsetY );
-    dc.DrawText( startTimeLabel,
-        contentOffsetX + columnWidth - startTimeWidth, offsetY + lineHeight );
+    int detailsWidth = contentWidth - columnWidth - FromDIP( 4 );
+
+    if ( detailsWidth > 0 )
+    {
+        dc.DrawText( sizeLabel,
+            contentOffsetX + columnWidth - sizeWidth, offsetY );
+        dc.DrawText( startTimeLabel,
+            contentOffsetX + columnWidth - startTimeWidth, offsetY + lineHeight );
+    }
 
     dc.SetTextForeground( GetForegroundColour() );
-
-    int detailsWidth = contentWidth - columnWidth - FromDIP( 4 );
 
     int detailsX = columnWidth + contentOffsetX + FromDIP( 4 );
 
