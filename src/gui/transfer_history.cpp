@@ -11,6 +11,7 @@ namespace gui
 {
 
 const std::vector<wxString> ScrolledTransferHistory::TIME_SPECS = {
+    wxTRANSLATE( "Soon in the future" ),
     wxTRANSLATE( "Today" ),
     wxTRANSLATE( "Yesterday" ),
     wxTRANSLATE( "Earlier this week" ),

@@ -164,6 +164,7 @@ bool DatabaseManager::updateFromVer0ToVer1()
     UPD_EXEC( "CREATE TABLE IF NOT EXISTS transfers( "
               "  [id] INTEGER PRIMARY KEY AUTOINCREMENT, "
               "  target_id TEXT, "
+              "  single_name TEXT, "
               "  transfer_type INTEGER, "
               "  transfer_timestamp INTEGER, "
               "  file_count INTEGER, "
@@ -211,21 +212,24 @@ bool DatabaseManager::addTransfer( const db::Transfer& record )
 
     sqlite3_stmt* transferStmt;
     sqlite3_prepare_v2( m_db,
-        "INSERT INTO transfers( target_id, transfer_type, transfer_timestamp, "
-        "file_count, folder_count, total_size_bytes, outgoing, status ) "
-        "VALUES ( ?, ?, ?, ?, ?, ?, ?, ? );",
+        "INSERT INTO transfers( target_id, single_name, transfer_type, "
+        "transfer_timestamp, file_count, folder_count, total_size_bytes, "
+        "outgoing, status ) "
+        "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? );",
         -1, &transferStmt, NULL );
 
     sqlite3_bind_text16( transferStmt, 1,
         record.targetId.c_str(), -1, SQLITE_STATIC );
-    sqlite3_bind_int( transferStmt, 2, (int)record.transferType );
-    sqlite3_bind_int64( transferStmt, 3,
+    sqlite3_bind_text16( transferStmt, 2,
+        record.singleElementName.c_str(), -1, SQLITE_STATIC );
+    sqlite3_bind_int( transferStmt, 3, (int)record.transferType );
+    sqlite3_bind_int64( transferStmt, 4,
         (sqlite3_int64)record.transferTimestamp );
-    sqlite3_bind_int( transferStmt, 4, record.fileCount );
-    sqlite3_bind_int( transferStmt, 5, record.folderCount );
-    sqlite3_bind_int64( transferStmt, 6, (sqlite3_int64)record.totalSizeBytes );
-    sqlite3_bind_int( transferStmt, 7, record.outgoing ? 1 : 0 );
-    sqlite3_bind_int( transferStmt, 8, (int)record.status );
+    sqlite3_bind_int( transferStmt, 5, record.fileCount );
+    sqlite3_bind_int( transferStmt, 6, record.folderCount );
+    sqlite3_bind_int64( transferStmt, 7, (sqlite3_int64)record.totalSizeBytes );
+    sqlite3_bind_int( transferStmt, 8, record.outgoing ? 1 : 0 );
+    sqlite3_bind_int( transferStmt, 9, (int)record.status );
 
     results |= sqlite3_step( transferStmt );
     int transferId = sqlite3_last_insert_rowid( m_db );
@@ -349,20 +353,22 @@ std::vector<db::Transfer> DatabaseManager::queryTransfers( bool queryPaths,
             = sqlite3_column_int( queryStmt, 0 );
         record.targetId
             = (const wchar_t*)sqlite3_column_text16( queryStmt, 1 );
+        record.singleElementName
+            = (const wchar_t*)sqlite3_column_text16( queryStmt, 2 );
         record.transferType
-            = (db::TransferType)sqlite3_column_int( queryStmt, 2 );
+            = (db::TransferType)sqlite3_column_int( queryStmt, 3 );
         record.transferTimestamp
-            = sqlite3_column_int64( queryStmt, 3 );
+            = sqlite3_column_int64( queryStmt, 4 );
         record.fileCount
-            = sqlite3_column_int( queryStmt, 4 );
-        record.folderCount
             = sqlite3_column_int( queryStmt, 5 );
+        record.folderCount
+            = sqlite3_column_int( queryStmt, 6 );
         record.totalSizeBytes
-            = sqlite3_column_int64( queryStmt, 6 );
+            = sqlite3_column_int64( queryStmt, 7 );
         record.outgoing
-            = (bool)sqlite3_column_int( queryStmt, 7 );
+            = (bool)sqlite3_column_int( queryStmt, 8 );
         record.status
-            = (db::TransferStatus)sqlite3_column_int( queryStmt, 8 );
+            = (db::TransferStatus)sqlite3_column_int( queryStmt, 9 );
 
         FIX_ENUM( record.transferType, db::TransferType::UNKNOWN );
         FIX_ENUM( record.status, db::TransferStatus::UNKNOWN );

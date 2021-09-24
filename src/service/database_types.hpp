@@ -48,6 +48,7 @@ struct Transfer
     int id;
 
     std::wstring targetId;
+    std::wstring singleElementName;
     TransferType transferType;
     long long transferTimestamp;
     int fileCount;

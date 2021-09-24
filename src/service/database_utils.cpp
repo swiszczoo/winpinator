@@ -7,7 +7,7 @@
 namespace srv
 {
 
-const std::time_t DatabaseUtils::DAY = 24 * 60 * 60;
+const std::time_t DatabaseUtils::DAY = 24 * 60 * 60LL;
 
 std::string DatabaseUtils::getSpecSQLCondition( 
     const std::string fieldName, TimeSpec spec, std::time_t current )
@@ -25,11 +25,21 @@ std::string DatabaseUtils::getSpecSQLCondition(
 
     switch ( spec )
     {
+    case TimeSpec::IN_THE_FUTURE:
+    {
+        std::time_t today = std::mktime( &currTime );
+        std::time_t greaterThan = today + DAY;
+        
+        return fieldName + ">=" + std::to_string( greaterThan );
+    }
     case TimeSpec::TODAY:
     {
         std::time_t greaterThan = std::mktime( &currTime );
+        std::time_t lessThan = greaterThan + DAY;
 
-        return fieldName + ">=" + std::to_string( greaterThan );
+        return (
+            fieldName + '<' + std::to_string( lessThan ) + " AND "
+            + fieldName + ">=" + std::to_string( greaterThan ) );
     }
     case TimeSpec::YESTERDAY:
     {

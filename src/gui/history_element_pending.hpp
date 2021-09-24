@@ -1,8 +1,7 @@
 #pragma once
-#include "history_item.hpp"
+#include "history_item_icon.hpp"
 #include "history_std_bitmaps.hpp"
 
-#include <wx/simplebook.h>
 #include <wx/wx.h>
 
 #include <vector>
@@ -38,10 +37,10 @@ struct HistoryPendingData
     long long sentBytes;
 };
 
-class HistoryPendingElement : public HistoryItem
+class HistoryPendingElement : public HistoryIconItem
 {
 public:
-    HistoryPendingElement( wxWindow* parent, HistoryStdBitmaps* bitmaps );
+    explicit HistoryPendingElement( wxWindow* parent, HistoryStdBitmaps* bitmaps );
 
     void setData( const HistoryPendingData& newData );
     const HistoryPendingData& getData() const;
@@ -74,17 +73,10 @@ private:
     HistoryPendingData m_data;
     wxString m_peerName;
 
-    wxIcon m_fileIcon;
-    wxIconLocation m_fileIconLoc;
-
     void calculateLayout();
     void setupForState( HistoryPendingState state );
 
     void onPaint( wxPaintEvent& event );
-    void onDpiChanged( wxDPIChangedEvent& event );
-
-    const wxBitmap& determineBitmapToDraw() const;
-    wxString determineHeaderString() const;
 
     int calculateRemainingSeconds() const;
     int calculateTransferSpeed() const;

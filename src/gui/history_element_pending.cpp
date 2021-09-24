@@ -14,7 +14,7 @@ const int HistoryPendingElement::PROGRESS_RANGE = 1000000;
 
 HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
     HistoryStdBitmaps* bitmaps )
-    : HistoryItem( parent )
+    : HistoryIconItem( parent, bitmaps )
     , m_info( nullptr )
     , m_infoLabel( "" )
     , m_buttonSizer( nullptr )
@@ -27,8 +27,6 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
     , m_bitmaps( bitmaps )
     , m_data()
     , m_peerName( wxEmptyString )
-    , m_fileIcon( wxNullIcon )
-    , m_fileIconLoc()
 {
     wxBoxSizer* horzSizer = new wxBoxSizer( wxHORIZONTAL );
 
@@ -82,52 +80,14 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
     // Events
 
     Bind( wxEVT_PAINT, &HistoryPendingElement::onPaint, this );
-    Bind( wxEVT_DPI_CHANGED, &HistoryPendingElement::onDpiChanged, this );
 }
 
 void HistoryPendingElement::setData( const HistoryPendingData& newData )
 {
     m_data = newData;
-    m_fileIcon = wxNullIcon;
-    m_fileIconLoc = wxIconLocation();
-
-    if ( newData.numFiles == 1 && newData.numFolders == 0 )
-    {
-        // If this transfer is a single file, try to load its extension icon
-
-        assert( newData.filePaths.size() == 1 );
-
-        wxFileName fileName( newData.filePaths[0] );
-        wxString extension = fileName.GetExt();
-
-        wxIconLocation loc;
-        wxFileType* fileType = wxTheMimeTypesManager->GetFileTypeFromExtension( extension );
-
-        if ( fileType )
-        {
-            wxLogNull logNull;
-
-            if ( fileType->GetIcon( &loc ) && wxFileExists( loc.GetFileName() ) )
-            {
-                if ( loc.GetFileName() != m_fileIconLoc.GetFileName()
-                    || loc.GetIndex() != m_fileIconLoc.GetIndex() )
-                {
-                    m_fileIcon = Utils::extractIconWithSize(
-                        loc, FromDIP( ICON_SIZE ) );
-                    m_fileIconLoc = loc;
-                }
-            }
-
-            if ( !m_fileIcon.IsOk() )
-            {
-                // If something failed, fall back to standard file icon
-                m_fileIcon = wxNullIcon;
-                m_fileIconLoc = wxIconLocation();
-            }
-
-            delete fileType;
-        }
-    }
+    
+    setIcons( newData.numFolders, newData.numFiles, newData.singleElementName );
+    setOutcoming( newData.outcoming );
 
     if ( newData.opState == HistoryPendingState::TRANSFER_PAUSED
         || newData.opState == HistoryPendingState::TRANSFER_RUNNING )
@@ -174,7 +134,6 @@ void HistoryPendingElement::updateProgress( int sentBytes )
     }
     else if ( remainingSecs < 60 ) // Less than a minute
     {
-
         remainingString.Printf(
             wxPLURAL( "%d sec remaining", "%d secs remaining", remainingSecs ),
             remainingSecs );
@@ -316,35 +275,7 @@ void HistoryPendingElement::onPaint( wxPaintEvent& event )
     wxSize size = dc.GetSize();
     wxColour GRAY = wxSystemSettings::GetColour( wxSYS_COLOUR_GRAYTEXT );
 
-    // Draw op icon
-
-    wxCoord iconOffset;
-    wxCoord iconWidth;
-    wxCoord contentOffsetX;
-
-    if ( m_fileIcon.IsOk() )
-    {
-        iconOffset = ( size.GetHeight() - m_fileIcon.GetHeight() ) / 2;
-        iconWidth = m_fileIcon.GetWidth();
-        dc.DrawIcon( m_fileIcon, iconOffset, iconOffset );
-    }
-    else
-    {
-        const wxBitmap& icon = determineBitmapToDraw();
-        iconOffset = ( size.GetHeight() - icon.GetHeight() ) / 2;
-        iconWidth = icon.GetWidth();
-        dc.DrawBitmap( icon, iconOffset, iconOffset );
-    }
-
-    contentOffsetX = iconOffset + iconWidth + FromDIP( 8 );
-
-    // Draw direction badge
-
-    const wxBitmap& badge = ( ( m_data.outcoming )
-            ? m_bitmaps->badgeUp
-            : m_bitmaps->badgeDown );
-    wxCoord badgeOffset = iconOffset + iconWidth - badge.GetWidth();
-    dc.DrawBitmap( badge, badgeOffset, badgeOffset );
+    wxCoord contentOffsetX = drawIcon( dc );
 
     // Draw operation heading
 
@@ -413,81 +344,6 @@ void HistoryPendingElement::onPaint( wxPaintEvent& event )
     dc.DrawText( m_infoLabel, labelX, labelY );
 
     event.Skip( true );
-}
-
-void HistoryPendingElement::onDpiChanged( wxDPIChangedEvent& event )
-{
-    if ( m_fileIconLoc.IsOk() )
-    {
-        m_fileIcon = Utils::extractIconWithSize(
-            m_fileIconLoc, FromDIP( ICON_SIZE ) );
-    }
-
-    Refresh();
-}
-
-const wxBitmap& HistoryPendingElement::determineBitmapToDraw() const
-{
-    if ( m_data.numFolders == 0 )
-    {
-        if ( m_data.numFiles > 1 )
-        {
-            return m_bitmaps->transferFileFile;
-        }
-
-        return m_bitmaps->transferFileX;
-    }
-
-    if ( m_data.numFiles == 0 )
-    {
-        if ( m_data.numFolders > 1 )
-        {
-            return m_bitmaps->transferDirDir;
-        }
-
-        return m_bitmaps->transferDirX;
-    }
-
-    return m_bitmaps->transferDirFile;
-}
-
-wxString HistoryPendingElement::determineHeaderString() const
-{
-    if ( m_data.numFiles == 0 && m_data.numFolders == 0 )
-    {
-        return _( "Empty" );
-    }
-
-    if ( ( m_data.numFiles == 1 && m_data.numFolders == 0 )
-        || ( m_data.numFiles == 0 && m_data.numFolders == 1 ) )
-    {
-        // If we send a single element, return its name
-
-        return m_data.singleElementName;
-    }
-
-    wxString filePart = wxPLURAL( "%d file", "%d files", m_data.numFiles );
-    filePart.Printf( filePart.Clone(), m_data.numFiles );
-    wxString folderPart = wxPLURAL(
-        "%d folder", "%d folders", m_data.numFolders );
-    folderPart.Printf( folderPart.Clone(), m_data.numFolders );
-
-    if ( m_data.numFiles == 0 )
-    {
-        return folderPart;
-    }
-
-    if ( m_data.numFolders == 0 )
-    {
-        return filePart;
-    }
-
-    wxString both;
-
-    // TRANSLATORS: format string, e.g. <2 folders> and <5 files>
-    both.Printf( _( "%s and %s" ), folderPart, filePart );
-
-    return both;
 }
 
 int HistoryPendingElement::calculateRemainingSeconds() const

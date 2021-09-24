@@ -7,6 +7,7 @@ namespace srv
 
 enum class TimeSpec
 {
+    IN_THE_FUTURE,
     TODAY,
     YESTERDAY,
     THIS_WEEK,

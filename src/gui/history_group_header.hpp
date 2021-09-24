@@ -11,6 +11,9 @@ class HistoryGroupHeader : public HistoryItem
 public:
     explicit HistoryGroupHeader( wxWindow* parent, const wxString& label );
 
+    void SetLabel( const wxString& label ) override;
+    wxString GetLabel() const override;
+
 private:
     wxString m_label;
     wxPen m_pen;

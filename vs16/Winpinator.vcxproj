@@ -250,6 +250,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\globals.hpp" />
+    <ClInclude Include="..\src\gui\history_element_finished.hpp" />
+    <ClInclude Include="..\src\gui\history_item_icon.hpp" />
     <ClInclude Include="..\src\gui\history_element_pending.hpp" />
     <ClInclude Include="..\src\gui\history_group_header.hpp" />
     <ClInclude Include="..\src\gui\history_item.hpp" />
@@ -303,6 +305,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\globals.cpp" />
+    <ClCompile Include="..\src\gui\history_element_finished.cpp" />
+    <ClCompile Include="..\src\gui\history_item_icon.cpp" />
     <ClCompile Include="..\src\gui\history_element_pending.cpp" />
     <ClCompile Include="..\src\gui\history_group_header.cpp" />
     <ClCompile Include="..\src\gui\history_item.cpp" />

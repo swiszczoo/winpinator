@@ -23,6 +23,17 @@ HistoryGroupHeader::HistoryGroupHeader( wxWindow* parent,
     Bind( wxEVT_DPI_CHANGED, &HistoryGroupHeader::onDpiChanged, this );
 }
 
+void HistoryGroupHeader::SetLabel( const wxString& label )
+{
+    m_label = label;
+    Refresh();
+}
+
+wxString HistoryGroupHeader::GetLabel() const
+{
+    return m_label;
+}
+
 void HistoryGroupHeader::updateSize()
 {
     wxSize height = FromDIP( Utils::get()->getHeaderFont().GetPixelSize() );
