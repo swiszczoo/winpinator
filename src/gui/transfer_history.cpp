@@ -1,6 +1,8 @@
 #include "transfer_history.hpp"
 
+#include "../service/database_types.hpp"
 #include "history_element_pending.hpp"
+#include "history_element_finished.hpp"
 
 #include "../../win32/resource.h"
 #include "utils.hpp"
@@ -29,7 +31,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
     , m_stdBitmaps()
 {
     SetWindowStyle( wxBORDER_NONE | wxVSCROLL );
-    SetScrollRate( 0, FromDIP( 8 ) );
+    SetScrollRate( 0, FromDIP( 15 ) );
 
     wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
 
@@ -89,6 +91,24 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
         m_timeSizers.push_back( panelSizer );
         registerHistoryItem( header );
     }
+
+    // Test 2
+    HistoryFinishedElement* test2 = new HistoryFinishedElement(
+        m_timeGroups[0], &m_stdBitmaps );
+    srv::db::Transfer test2Data;
+    test2Data.fileCount = 1;
+    test2Data.folderCount = 0;
+    test2Data.id = 1;
+    test2Data.outgoing = false;
+    test2Data.singleElementName = L"def.docx";
+    test2Data.status = srv::db::TransferStatus::SUCCEEDED;
+    test2Data.targetId = L"";
+    test2Data.totalSizeBytes = 941365;
+    test2Data.transferTimestamp = 1632688103;
+    test2Data.transferType = srv::db::TransferType::SINGLE_FILE;
+    test2->setData( test2Data );
+    m_timeSizers[0]->Add( test2, 0, wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 11 ) );
+    registerHistoryItem( test2 );
 
     SetSizer( sizer );
     sizer->SetSizeHints( this );
