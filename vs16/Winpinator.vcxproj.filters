@@ -442,5 +442,14 @@
     <Image Include="..\res\transfer_badge_down.png">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="..\res\transfer_status_success.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_status_cancelled.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_status_error.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

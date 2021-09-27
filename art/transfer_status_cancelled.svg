@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 4.2333332 4.2333332"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="transfer_status_cancelled.svg"
+   inkscape:export-filename="C:\Users\lukas\Desktop\Projekty\Winpinator\res\transfer_status_cancelled.png"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="6.8133032"
+     inkscape:cx="-8.5861436"
+     inkscape:cy="-0.66047259"
+     inkscape:window-width="1600"
+     inkscape:window-height="837"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Warstwa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path4391"
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#cc6600;fill-opacity:1;stroke:none;stroke-width:2.05838;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+       inkscape:transform-center-y="-0.48408317"
+       d="M 8 2.5117188 L 1.6621094 13.488281 L 14.337891 13.488281 L 8 2.5117188 z M 7.46875 5.7773438 L 8.5078125 5.7773438 L 8.3925781 9.6972656 L 7.5761719 9.6972656 L 7.46875 5.7773438 z M 7.9648438 10.912109 C 7.9762216 10.91159 7.9884174 10.912109 8 10.912109 C 8.1812813 10.912109 8.3377635 10.978387 8.4707031 11.111328 C 8.6036518 11.24024 8.6699219 11.396719 8.6699219 11.582031 C 8.6699219 11.767349 8.6036518 11.925777 8.4707031 12.054688 C 8.3377507 12.183603 8.1812873 12.248047 8 12.248047 C 7.8146822 12.248047 7.6563854 12.1836 7.5234375 12.054688 C 7.3945254 11.925775 7.3300781 11.767348 7.3300781 11.582031 C 7.3300781 11.396717 7.3945254 11.240239 7.5234375 11.111328 C 7.6480804 10.986685 7.7941764 10.919898 7.9648438 10.912109 z "
+       transform="scale(0.26458333)" />
+  </g>
+</svg>

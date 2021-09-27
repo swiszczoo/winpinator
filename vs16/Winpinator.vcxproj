@@ -374,6 +374,9 @@
     <Image Include="..\res\transfer_dir_x.png" />
     <Image Include="..\res\transfer_file_file.png" />
     <Image Include="..\res\transfer_file_x.png" />
+    <Image Include="..\res\transfer_status_cancelled.png" />
+    <Image Include="..\res\transfer_status_error.png" />
+    <Image Include="..\res\transfer_status_success.png" />
     <Image Include="..\res\tray_err.ico" />
     <Image Include="..\res\tray_ok.ico" />
     <Image Include="..\res\tray_wait.ico" />
