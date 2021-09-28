@@ -124,6 +124,11 @@ RemoteManager* WinpinatorService::getRemoteManager() const
     return m_remoteMgr.get();
 }
 
+DatabaseManager* WinpinatorService::getDb() const
+{
+    return m_db.get();
+}
+
 int WinpinatorService::startOnThisThread()
 {
     m_stopping = false;

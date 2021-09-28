@@ -10,12 +10,17 @@ class HistoryIconItem : public HistoryItem
 public:
     explicit HistoryIconItem( wxWindow* parent, HistoryStdBitmaps* bmps );
 
+    void setIsLast( bool isLast );
+    bool isLast() const;
+
 protected:
     void setIcons( int folderCount, int fileCount, const wxString& fileExt );
     void setOutcoming( bool outcoming );
 
     const wxBitmap& determineBitmapToDraw() const;
     wxString determineHeaderString() const;
+
+    wxString getElementType() const;
 
     wxCoord drawIcon( wxPaintDC& dc ); // Returns content offset in pixels
 
@@ -27,11 +32,15 @@ private:
     int m_folderCount;
     int m_fileCount;
     bool m_outcoming;
+    bool m_last;
 
     wxIcon m_fileIcon;
     wxIconLocation m_fileIconLoc;
 
+    wxString m_elementType;
+
     void onDpiChanged( wxDPIChangedEvent& event );
+    void setupElementType();
 };
 
 };

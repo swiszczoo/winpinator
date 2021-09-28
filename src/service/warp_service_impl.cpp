@@ -12,6 +12,7 @@ namespace srv
 {
 
 const int WarpServer::DEFAULT_SERVICE_PORT = 52000;
+const std::string WarpServer::EMPTY = "";
 
 WarpServiceImpl::WarpServiceImpl( std::shared_ptr<RemoteManager> mgr, 
     std::shared_ptr<std::string> avatar )
@@ -210,7 +211,7 @@ const std::string& WarpServer::getAvatarBytes() const
 {
     if ( !m_avatar )
     {
-        return "";
+        return WarpServer::EMPTY;
     }
 
     return *m_avatar;

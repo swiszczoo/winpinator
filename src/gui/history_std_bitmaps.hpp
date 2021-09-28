@@ -14,6 +14,12 @@ struct HistoryStdBitmaps
 
     wxBitmap badgeUp;
     wxBitmap badgeDown;
+
+    wxBitmap statusSuccess;
+    wxBitmap statusCancelled;
+    wxBitmap statusError;
+
+    wxPen separatorPen;
 };
 
 };

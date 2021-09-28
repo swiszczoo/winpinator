@@ -1,4 +1,5 @@
 #pragma once
+#include "history_element_finished.hpp"
 #include "history_group_header.hpp"
 #include "history_item.hpp"
 #include "history_std_bitmaps.hpp"
@@ -30,27 +31,35 @@ private:
         ScrolledTransferHistory* m_instance;
     };
 
+    struct TimeGroup
+    {
+        HistoryGroupHeader* header;
+        wxPanel* panel;
+        wxBoxSizer* sizer;
+
+        std::vector<int> currentIds;
+        std::vector<HistoryFinishedElement*> elements;
+    };
+
     static const std::vector<wxString> TIME_SPECS;
 
     wxStaticText* m_emptyLabel;
 
-    HistoryGroupHeader* m_pendingHeader;
-    wxPanel* m_pendingPanel;
-    wxBoxSizer* m_pendingSizer;
-
-    std::vector<HistoryGroupHeader*> m_timeHeaders;
-    std::vector<wxPanel*> m_timeGroups;
-    std::vector<wxBoxSizer*> m_timeSizers;
+    TimeGroup m_pendingGroup;
+    std::vector<TimeGroup> m_timeGroups;
 
     std::vector<HistoryItem*> m_historyItems;
 
     HistoryStdBitmaps m_stdBitmaps;
 
     void registerHistoryItem( HistoryItem* item );
+    void unregisterHistoryItem( HistoryItem* item );
 
     void refreshAllHistoryItems( bool insideParent );
     void reloadStdBitmaps();
     void loadSingleBitmap( int resId, wxBitmap* dest, int dip );
+
+    void updateTimeGroups();
 
     void onScrollWindow( wxScrollWinEvent& event );
     void onMouseEnter( wxMouseEvent& event );

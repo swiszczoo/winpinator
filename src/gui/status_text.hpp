@@ -17,13 +17,6 @@ public:
     wxColour getBarColor() const;
 
 private:
-    static const wxColour GREEN_ACCENT;
-    static const wxColour GREEN_BACKGROUND;
-    static const wxColour ORANGE_ACCENT;
-    static const wxColour ORANGE_BACKGROUND;
-    static const wxColour RED_ACCENT;
-    static const wxColour RED_BACKGROUND;
-
     srv::RemoteStatus m_status;
 
     wxStaticText* m_label;

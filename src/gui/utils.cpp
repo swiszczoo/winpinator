@@ -1,10 +1,10 @@
 #include "utils.hpp"
 
 #ifdef _WIN32
+#include <Shlobj.h>
+#include <shellapi.h>
 #include <wx/msw/private.h>
 #include <wx/msw/uxtheme.h>
-#include <shellapi.h>
-#include <Shlobj.h>
 #endif
 
 #include <chrono>
@@ -13,6 +13,13 @@
 
 namespace gui
 {
+
+const wxColour Utils::GREEN_ACCENT = wxColour( 30, 123, 30 );
+const wxColour Utils::GREEN_BACKGROUND = wxColour( 152, 230, 152 );
+const wxColour Utils::ORANGE_ACCENT = wxColour( 204, 102, 0 );
+const wxColour Utils::ORANGE_BACKGROUND = wxColour( 255, 217, 179 );
+const wxColour Utils::RED_ACCENT = wxColour( 204, 0, 0 );
+const wxColour Utils::RED_BACKGROUND = wxColour( 255, 190, 190 );
 
 std::unique_ptr<Utils> Utils::s_inst = nullptr;
 
@@ -61,7 +68,7 @@ wxColour Utils::getHeaderColor() const
     return m_headerColor;
 }
 
-void Utils::drawTextEllipse( wxDC& dc, const wxString& text, 
+void Utils::drawTextEllipse( wxDC& dc, const wxString& text,
     const wxPoint& pnt, const wxCoord maxWidth )
 {
     const wxCoord ellipsisLength = dc.GetTextExtent( "..." ).GetWidth();
@@ -86,8 +93,9 @@ void Utils::drawTextEllipse( wxDC& dc, const wxString& text,
         {
             int center = ( p + k ) / 2;
 
-            const wxCoord currWidth = dc.GetTextExtent( 
-                text.Left( center ) ).GetWidth();
+            const wxCoord currWidth = dc.GetTextExtent(
+                                            text.Left( center ) )
+                                          .GetWidth();
 
             if ( currWidth < maxWidth - ellipsisLength )
             {
@@ -143,7 +151,7 @@ wxIcon Utils::extractIconWithSize( const wxIconLocation& loc, wxCoord dim )
     {
         return wxIcon( loc );
     }
-    
+
     SIZE test;
     getIconDimensions( largeIcon, &test );
 
@@ -202,12 +210,11 @@ wxString Utils::formatDate( uint64_t timestamp, std::string format )
 {
     std::time_t temp = timestamp;
     std::tm* t = std::localtime( &temp );
-    std::stringstream ss; 
+    std::stringstream ss;
     ss << std::put_time( t, format.c_str() );
     std::string output = ss.str();
 
     return output;
 }
-
 
 };

@@ -4,6 +4,7 @@
 
 #define UPD_EXEC( command ) results |= sqlite3_exec( m_db, command, NULL, NULL, NULL )
 #define FIX_ENUM( val, unk ) DatabaseManager::fixEnum( (int&)(val), (int)(unk) )
+#define FIX_RESULTS( res ) if ( res == SQLITE_DONE ) res = SQLITE_OK
 
 namespace srv
 {
@@ -232,6 +233,8 @@ bool DatabaseManager::addTransfer( const db::Transfer& record )
     sqlite3_bind_int( transferStmt, 9, (int)record.status );
 
     results |= sqlite3_step( transferStmt );
+    FIX_RESULTS( results );
+
     int transferId = sqlite3_last_insert_rowid( m_db );
 
     sqlite3_finalize( transferStmt );
@@ -260,6 +263,7 @@ bool DatabaseManager::addTransfer( const db::Transfer& record )
             element.absolutePath.c_str(), -1, SQLITE_STATIC );
 
         results |= sqlite3_step( pathStmt );
+        FIX_RESULTS( results );
     }
 
     sqlite3_finalize( pathStmt );
@@ -281,8 +285,10 @@ bool DatabaseManager::clearAllTransfers()
     beginTransaction();
     results |= sqlite3_exec( m_db, 
         "DELETE FROM transfers;", NULL, NULL, NULL );
+    FIX_RESULTS( results );
     results |= sqlite3_exec( m_db,
         "DELETE FROM transfer_paths;", NULL, NULL, NULL );
+    FIX_RESULTS( results );
     return endTransaction( results );
 }
 
@@ -304,6 +310,7 @@ bool DatabaseManager::deleteTransfer( int id )
         -1, &deleteStmt, NULL );
     sqlite3_bind_int( deleteStmt, 1, id );
     results |= sqlite3_step( deleteStmt );
+    FIX_RESULTS( results );
     sqlite3_finalize( deleteStmt );
 
     sqlite3_stmt* pathsStmt;
@@ -311,6 +318,7 @@ bool DatabaseManager::deleteTransfer( int id )
         -1, &pathsStmt, NULL );
     sqlite3_bind_int( pathsStmt, 1, id );
     results |= sqlite3_step( pathsStmt );
+    FIX_RESULTS( results );
     sqlite3_finalize( pathsStmt );
 
     return endTransaction( results );
@@ -377,6 +385,8 @@ std::vector<db::Transfer> DatabaseManager::queryTransfers( bool queryPaths,
         {
             queryTransferPaths( record );
         }
+
+        records.push_back( record );
     }
 
     sqlite3_finalize( queryStmt );

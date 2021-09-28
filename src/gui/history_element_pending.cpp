@@ -4,8 +4,6 @@
 #include <wx/filename.h>
 #include <wx/mimetype.h>
 
-#include <Windows.h>
-
 namespace gui
 {
 
@@ -85,7 +83,7 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
 void HistoryPendingElement::setData( const HistoryPendingData& newData )
 {
     m_data = newData;
-    
+
     setIcons( newData.numFolders, newData.numFiles, newData.singleElementName );
     setOutcoming( newData.outcoming );
 
@@ -295,34 +293,37 @@ void HistoryPendingElement::onPaint( wxPaintEvent& event )
     dc.SetFont( GetFont() );
     dc.SetTextForeground( GRAY );
 
+    const wxString typeLabel = _( "Type:" );
     const wxString sizeLabel = _( "Total size:" );
-    const wxString startTimeLabel = _( "Start time:" );
 
+    int typeWidth = dc.GetTextExtent( typeLabel ).x;
     int sizeWidth = dc.GetTextExtent( sizeLabel ).x;
-    int startTimeWidth = dc.GetTextExtent( startTimeLabel ).x;
-    int columnWidth = std::max( sizeWidth, startTimeWidth );
+    int columnWidth = std::max( sizeWidth, typeWidth );
     int lineHeight = dc.GetTextExtent( "A" ).y + FromDIP( 4 );
 
     int detailsWidth = contentWidth - columnWidth - FromDIP( 4 );
 
     if ( detailsWidth > 0 )
     {
+        dc.DrawText( typeLabel,
+            contentOffsetX, offsetY );
         dc.DrawText( sizeLabel,
-            contentOffsetX + columnWidth - sizeWidth, offsetY );
-        dc.DrawText( startTimeLabel,
-            contentOffsetX + columnWidth - startTimeWidth, offsetY + lineHeight );
+            contentOffsetX, offsetY + lineHeight );
+
+        dc.SetTextForeground( GetForegroundColour() );
+
+        int typeX = contentOffsetX + FromDIP( 5 ) + typeWidth;
+        int sizeX = contentOffsetX + FromDIP( 5 ) + sizeWidth;
+
+        Utils::drawTextEllipse( dc, getElementType(),
+            wxPoint( typeX, offsetY ),
+            m_info->GetPosition().x - FromDIP( 4 ) - typeX );
+
+        Utils::drawTextEllipse( dc, 
+            Utils::fileSizeToString( m_data.totalSizeBytes ),
+            wxPoint( sizeX, offsetY + lineHeight ),
+            m_info->GetPosition().x - FromDIP( 4 ) - typeX );
     }
-
-    dc.SetTextForeground( GetForegroundColour() );
-
-    int detailsX = columnWidth + contentOffsetX + FromDIP( 4 );
-
-    Utils::drawTextEllipse( dc, Utils::fileSizeToString( m_data.totalSizeBytes ),
-        wxPoint( detailsX, offsetY ), detailsWidth );
-    Utils::drawTextEllipse( dc,
-        // TRANSLATORS: time format string
-        Utils::formatDate( m_data.opStartTime, _( "%I:%M %p" ).ToStdString() ),
-        wxPoint( detailsX, offsetY + lineHeight ), detailsWidth );
 
     // Draw status label
 

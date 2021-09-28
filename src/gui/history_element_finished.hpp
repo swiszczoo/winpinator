@@ -26,6 +26,7 @@ private:
 
     enum class MenuID
     {
+        ID_OPEN,
         ID_EXPLORER,
         ID_PATHS,
         ID_REMOVE
@@ -33,9 +34,14 @@ private:
 
     HistoryStdBitmaps* m_bitmaps;
     TransferData m_data;
+    wxFont m_bold;
+    wxBrush m_brush;
 
     void onPaint( wxPaintEvent& event );
     void onContextMenu( wxContextMenuEvent& event );
+
+    wxString determineStatusString();
+    const wxBitmap& setupStatusDrawing( wxDC* dc );
 };
 
 };

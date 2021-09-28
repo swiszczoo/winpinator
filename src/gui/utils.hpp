@@ -13,6 +13,13 @@ namespace gui
 class Utils
 {
 public:
+    static const wxColour GREEN_ACCENT;
+    static const wxColour GREEN_BACKGROUND;
+    static const wxColour ORANGE_ACCENT;
+    static const wxColour ORANGE_BACKGROUND;
+    static const wxColour RED_ACCENT;
+    static const wxColour RED_BACKGROUND;
+
     static Utils* get();
     static wxString makeIntResource( int resource );
 

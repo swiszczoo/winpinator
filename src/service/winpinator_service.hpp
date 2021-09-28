@@ -41,6 +41,7 @@ public:
     ServiceError getError() const;
 
     RemoteManager* getRemoteManager() const;
+    DatabaseManager* getDb() const;
 
     int startOnThisThread();
 

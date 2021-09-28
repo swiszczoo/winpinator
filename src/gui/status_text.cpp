@@ -5,13 +5,6 @@
 namespace gui
 {
 
-const wxColour StatusText::GREEN_ACCENT = wxColour( 30, 123, 30 );
-const wxColour StatusText::GREEN_BACKGROUND = wxColour( 152, 230, 152 );
-const wxColour StatusText::ORANGE_ACCENT = wxColour( 204, 102, 0 );
-const wxColour StatusText::ORANGE_BACKGROUND = wxColour( 255, 217, 179 );
-const wxColour StatusText::RED_ACCENT = wxColour( 204, 0, 0 );
-const wxColour StatusText::RED_BACKGROUND = wxColour( 255, 190, 190 );
-
 StatusText::StatusText( wxWindow* parent )
     : wxPanel( parent )
     , m_status( srv::RemoteStatus::OFFLINE )
@@ -47,16 +40,16 @@ void StatusText::setStatus( srv::RemoteStatus status )
 
     if ( status == srv::RemoteStatus::ONLINE )
     {
-        setColors( StatusText::GREEN_ACCENT, StatusText::GREEN_BACKGROUND );
+        setColors( Utils::GREEN_ACCENT, Utils::GREEN_BACKGROUND );
     }
     else if ( status == srv::RemoteStatus::OFFLINE
         || status == srv::RemoteStatus::UNREACHABLE )
     {
-        setColors( StatusText::RED_ACCENT, StatusText::RED_BACKGROUND );
+        setColors( Utils::RED_ACCENT, Utils::RED_BACKGROUND );
     }
     else
     {
-        setColors( StatusText::ORANGE_ACCENT, StatusText::ORANGE_BACKGROUND );
+        setColors( Utils::ORANGE_ACCENT, Utils::ORANGE_BACKGROUND );
     }
 
     m_label->SetLabel( Utils::getStatusString( status ) );

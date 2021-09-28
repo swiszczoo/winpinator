@@ -68,6 +68,7 @@ public:
 
 private:
     static const int DEFAULT_SERVICE_PORT;
+    static const std::string EMPTY;
 
     uint16_t m_port;
     std::string m_privKey;

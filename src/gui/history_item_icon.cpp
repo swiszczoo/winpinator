@@ -20,10 +20,23 @@ HistoryIconItem::HistoryIconItem( wxWindow* parent, HistoryStdBitmaps* bmps )
     , m_outcoming( false )
     , m_fileIcon( wxNullIcon )
     , m_fileIconLoc()
+    , m_elementType( wxEmptyString )
+    , m_last( false )
 {
     // Events
 
     Bind( wxEVT_DPI_CHANGED, &HistoryIconItem::onDpiChanged, this );
+}
+
+void HistoryIconItem::setIsLast( bool isLast )
+{
+    m_last = isLast;
+    Refresh();
+}
+
+bool HistoryIconItem::isLast() const
+{
+    return m_last;
 }
 
 void HistoryIconItem::setIcons( int folderCount, int fileCount,
@@ -36,6 +49,8 @@ void HistoryIconItem::setIcons( int folderCount, int fileCount,
 
     m_fileIcon = wxNullIcon;
     m_fileIconLoc = wxIconLocation();
+
+    m_elementType = wxEmptyString;
 
     if ( fileCount == 1 && folderCount == 0 )
     {
@@ -50,6 +65,8 @@ void HistoryIconItem::setIcons( int folderCount, int fileCount,
         if ( fileType )
         {
             wxLogNull logNull;
+
+            fileType->GetDescription( &m_elementType );
 
             if ( fileType->GetIcon( &loc ) && wxFileExists( loc.GetFileName() ) )
             {
@@ -71,6 +88,11 @@ void HistoryIconItem::setIcons( int folderCount, int fileCount,
 
             delete fileType;
         }
+    }
+
+    if ( m_elementType.empty() )
+    {
+        setupElementType();
     }
 
     Refresh();
@@ -147,9 +169,23 @@ wxString HistoryIconItem::determineHeaderString() const
     return both;
 }
 
+wxString HistoryIconItem::getElementType() const
+{
+    return m_elementType;
+}
+
 wxCoord HistoryIconItem::drawIcon( wxPaintDC& dc )
 {
     wxSize size = dc.GetSize();
+    
+    // Draw a bottom separator if we're not the last item
+
+    if ( !m_last )
+    {
+        dc.SetPen( m_bitmaps->separatorPen );
+        dc.DrawLine( 0, size.y - 1, size.x, size.y - 1 );
+    }
+
     // Draw op icon
 
     wxCoord iconOffset;
@@ -192,6 +228,42 @@ void HistoryIconItem::onDpiChanged( wxDPIChangedEvent& event )
     }
 
     Refresh();
+}
+
+void HistoryIconItem::setupElementType()
+{
+    if ( m_folderCount == 0 && m_fileCount == 1 )
+    {
+        m_elementType = _( "Empty" );
+        return;
+    }
+
+    if ( m_folderCount == 0 )
+    {
+        if ( m_fileCount == 1 )
+        {
+            m_elementType = _( "File" );
+        }
+        else
+        {
+            m_elementType = _( "Multiple files" );
+        }
+    }
+    else if ( m_fileCount == 0 )
+    {
+        if ( m_folderCount == 1 )
+        {
+            m_elementType = _( "Folder" );
+        }
+        else
+        {
+            m_elementType = _( "Multiple folders" );
+        }
+    }
+    else
+    {
+        m_elementType = _( "Mixed elements" );
+    }
 }
 
 };
