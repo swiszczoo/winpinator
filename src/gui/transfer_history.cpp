@@ -27,10 +27,12 @@ const std::vector<wxString> ScrolledTransferHistory::TIME_SPECS = {
     wxTRANSLATE( "A long time ago" )
 };
 
-ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
+ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
+    const wxString& targetId )
     : wxScrolledWindow( parent, wxID_ANY )
     , m_emptyLabel( nullptr )
     , m_stdBitmaps()
+    , m_targetId( targetId )
 {
     SetWindowStyle( wxBORDER_NONE | wxVSCROLL );
     SetScrollRate( 0, FromDIP( 15 ) );
@@ -46,6 +48,8 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
 
     sizer->Add( m_emptyLabel, 0, 
         wxALIGN_CENTER_HORIZONTAL | wxALL, FromDIP( 12 ) );
+    
+    sizer->AddSpacer( FromDIP( 5 ) );
 
     // "In progress" ops view
 
@@ -131,6 +135,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent )
     Bind( wxEVT_ENTER_WINDOW, &ScrolledTransferHistory::onMouseEnter, this );
     Bind( wxEVT_LEAVE_WINDOW, &ScrolledTransferHistory::onMouseLeave, this );
     Bind( wxEVT_MOTION, &ScrolledTransferHistory::onMouseMotion, this );
+    Bind( wxEVT_DPI_CHANGED, &ScrolledTransferHistory::onDpiChanged, this );
 }
 
 void ScrolledTransferHistory::registerHistoryItem( HistoryItem* item )
@@ -216,6 +221,7 @@ void ScrolledTransferHistory::updateTimeGroups()
     srv::DatabaseManager* db = srv->getDb();
 
     std::time_t tim = time( NULL );
+    bool anyElement = false;
 
     for ( int i = 0; i < m_timeGroups.size(); i++ )
     {
@@ -223,7 +229,8 @@ void ScrolledTransferHistory::updateTimeGroups()
 
         std::string conditions = srv::DatabaseUtils::getSpecSQLCondition(
             "transfer_timestamp", (srv::TimeSpec)i, tim );
-        auto records = db->queryTransfers( false, conditions );
+        auto records = db->queryTransfers( false, 
+            m_targetId.ToStdWstring(), conditions );
 
         int lookupIdx = 0;
 
@@ -279,8 +286,6 @@ void ScrolledTransferHistory::updateTimeGroups()
                         group.currentIds.begin() + lookupIdx );
 
                     lookupIdx--;
-                    processed = true;
-                    break;
                 }
             }
 
@@ -332,6 +337,24 @@ void ScrolledTransferHistory::updateTimeGroups()
                 (int)group.elements.size() );
 
             group.header->SetLabel( fmt );
+
+            anyElement = true;
+        }
+    }
+
+    // TODO: also ensure that we don't have any pending transfers yet
+    if ( anyElement )
+    {
+        if ( m_emptyLabel->IsShown() )
+        {
+            m_emptyLabel->Hide();
+        }
+    }
+    else
+    {
+        if ( !m_emptyLabel->IsShown() )
+        {
+            m_emptyLabel->Show();
         }
     }
 }

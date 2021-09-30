@@ -363,7 +363,6 @@ void MdnsService::unlockThread()
 
     sockaddr_storage addr_storage;
     sockaddr_in addr;
-    sockaddr_in6 addr6;
     sockaddr* saddr = (struct sockaddr*)&addr_storage;
     socklen_t saddrlen = sizeof( struct sockaddr_storage );
 

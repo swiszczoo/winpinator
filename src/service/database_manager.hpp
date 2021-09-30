@@ -25,8 +25,9 @@ public:
     bool clearAllTransfers();
     bool deleteTransfer( int id );
     std::vector<db::Transfer> queryTransfers( bool queryPaths,
-        const std::string conditions = "" );
-    db::Transfer getTransfer( int id, bool queryPaths );
+        const std::wstring targetId, const std::string conditions = "" );
+    db::Transfer getTransfer( int id, 
+        const std::wstring targetId, bool queryPaths );
 
 private:
     static const int TARGET_DB_VER;

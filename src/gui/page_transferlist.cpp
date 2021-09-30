@@ -68,7 +68,7 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
     wxBoxSizer* opSizer = new wxBoxSizer( wxVERTICAL );
     m_opPanel->SetSizer( opSizer );
 
-    m_opList = new ScrolledTransferHistory( m_opPanel );
+    m_opList = new ScrolledTransferHistory( m_opPanel, targetId );
     m_opList->SetBackgroundColour( 
         wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
 

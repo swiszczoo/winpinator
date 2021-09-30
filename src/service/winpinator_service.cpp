@@ -11,6 +11,8 @@
 #include "service_utils.hpp"
 #include "warp_service_impl.hpp"
 
+#include <wintoast/wintoastlib.h>
+
 #include <wx/mstream.h>
 #include <wx/stdpaths.h>
 
@@ -144,6 +146,32 @@ int WinpinatorService::startOnThisThread()
         }
     }
 
+    // Initialize utility libraries
+    // 1. WinToast
+    if ( WinToastLib::WinToast::isCompatible() )
+    {
+        using namespace WinToastLib;
+
+        WinToast::instance()->setAppName( L"Winpinator" );
+        const auto aumi = WinToast::configureAUMI( L"Swiszczu", L"Winpinator" );
+        WinToast::instance()->setAppUserModelId( aumi );
+
+        WinToast::WinToastError err;
+        if ( !WinToast::instance()->initialize( &err ) )
+        {
+            wxLogDebug(
+                "Can't initialize WinToast library, error is %d!", (int)err );
+        }
+        else
+        {
+            wxLogDebug( "WinToast library initialized successfully" );
+        }
+    }
+    else
+    {
+        wxLogDebug( "OS isn't compatible with toast notifications" );
+    }
+
     std::mutex varLock;
     std::condition_variable condVar;
 
@@ -206,7 +234,7 @@ void WinpinatorService::postEvent( const Event& evnt )
 
 void WinpinatorService::initDatabase()
 {
-    wxFileName fname( 
+    wxFileName fname(
         wxStandardPaths::Get().GetUserDataDir(), "winpinator.db" );
 
     m_db = std::make_shared<DatabaseManager>( fname.GetFullPath() );
@@ -247,6 +275,47 @@ void WinpinatorService::serviceMain()
             wxLogDebug( "[APE] ERROR: Windows Registry key not found!" );
             break;
         }
+    }
+
+    // Test
+    {
+        using namespace WinToastLib;
+
+        WinToastTemplate templ = WinToastTemplate(
+            WinToastTemplate::ImageAndText02 );
+        templ.setTextField( L"Test toast notification",
+            WinToastTemplate::TextField::FirstLine );
+        templ.setTextField( L"Just testing, something should appear on the screen!",
+            WinToastTemplate::TextField::SecondLine );
+        templ.addAction( L"Allow" );
+        templ.addAction( L"Deny" );
+
+        class TestHandler : public IWinToastHandler
+        {
+            void toastActivated() const
+            {
+                wxLogDebug( "Toast activated" );
+            }
+
+            void toastActivated( int actionIndex ) const
+            {
+                wxLogDebug( "Toast activated - %d", actionIndex );
+            }
+
+            void toastDismissed( WinToastDismissalReason state ) const
+            {
+                wxLogDebug( "Toast dismissed" );
+            }
+
+            void toastFailed() const
+            {
+                wxLogDebug( "Toast failed" );
+            }
+        };
+
+        TestHandler* hndler = new TestHandler;
+
+        WinToast::instance()->showToast( templ, hndler );
     }
 
     // Start the registration service (v1)

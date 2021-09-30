@@ -17,7 +17,8 @@ namespace gui
 class ScrolledTransferHistory : public wxScrolledWindow
 {
 public:
-    explicit ScrolledTransferHistory( wxWindow* parent );
+    explicit ScrolledTransferHistory( wxWindow* parent, 
+        const wxString& targetId );
 
 private:
     class DropTargetImpl : public wxFileDropTarget
@@ -51,6 +52,8 @@ private:
     std::vector<HistoryItem*> m_historyItems;
 
     HistoryStdBitmaps m_stdBitmaps;
+
+    wxString m_targetId;
 
     void registerHistoryItem( HistoryItem* item );
     void unregisterHistoryItem( HistoryItem* item );

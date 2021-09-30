@@ -42,8 +42,8 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
     m_info->Add( m_infoProgress, 0, wxEXPAND | wxBOTTOM, FromDIP( 3 ) );
 
     wxFont guiFont = GetFont();
-    m_infoSpacing = FromDIP( guiFont.GetPixelSize().GetHeight() ) * 1.2
-        + FromDIP( 6 );
+    int hejt = guiFont.GetPixelSize().GetHeight();
+    m_infoSpacing = guiFont.GetPixelSize().GetHeight() * 1.2 + FromDIP( 6 );
     m_info->AddSpacer( m_infoSpacing );
 
     m_buttonSizer = new wxBoxSizer( wxHORIZONTAL );
@@ -286,7 +286,7 @@ void HistoryPendingElement::onPaint( wxPaintEvent& event )
     Utils::drawTextEllipse( dc, determineHeaderString(),
         wxPoint( contentOffsetX, offsetY ), contentWidth );
 
-    offsetY += dc.GetTextExtent( "A" ).y + FromDIP( 4 );
+    offsetY += dc.GetTextExtent( "A" ).y + 4;
 
     // Draw details labels
 
@@ -299,7 +299,7 @@ void HistoryPendingElement::onPaint( wxPaintEvent& event )
     int typeWidth = dc.GetTextExtent( typeLabel ).x;
     int sizeWidth = dc.GetTextExtent( sizeLabel ).x;
     int columnWidth = std::max( sizeWidth, typeWidth );
-    int lineHeight = dc.GetTextExtent( "A" ).y + FromDIP( 4 );
+    int lineHeight = dc.GetTextExtent( "A" ).y + 4;
 
     int detailsWidth = contentWidth - columnWidth - FromDIP( 4 );
 

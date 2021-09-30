@@ -59,34 +59,38 @@ void HistoryIconItem::setIcons( int folderCount, int fileCount,
         wxFileName fileName( fileExt );
         wxString extension = fileName.GetExt();
 
-        wxIconLocation loc;
-        wxFileType* fileType = wxTheMimeTypesManager->GetFileTypeFromExtension( extension );
-
-        if ( fileType )
+        if ( !extension.empty() )
         {
-            wxLogNull logNull;
+            wxIconLocation loc;
+            wxFileType* fileType
+                = wxTheMimeTypesManager->GetFileTypeFromExtension( extension );
 
-            fileType->GetDescription( &m_elementType );
-
-            if ( fileType->GetIcon( &loc ) && wxFileExists( loc.GetFileName() ) )
+            if ( fileType )
             {
-                if ( loc.GetFileName() != m_fileIconLoc.GetFileName()
-                    || loc.GetIndex() != m_fileIconLoc.GetIndex() )
+                wxLogNull logNull;
+
+                fileType->GetDescription( &m_elementType );
+
+                if ( fileType->GetIcon( &loc ) && wxFileExists( loc.GetFileName() ) )
                 {
-                    m_fileIcon = Utils::extractIconWithSize(
-                        loc, FromDIP( ICON_SIZE ) );
-                    m_fileIconLoc = loc;
+                    if ( loc.GetFileName() != m_fileIconLoc.GetFileName()
+                        || loc.GetIndex() != m_fileIconLoc.GetIndex() )
+                    {
+                        m_fileIcon = Utils::extractIconWithSize(
+                            loc, FromDIP( ICON_SIZE ) );
+                        m_fileIconLoc = loc;
+                    }
                 }
-            }
 
-            if ( !m_fileIcon.IsOk() )
-            {
-                // If something failed, fall back to standard file icon
-                m_fileIcon = wxNullIcon;
-                m_fileIconLoc = wxIconLocation();
-            }
+                if ( !m_fileIcon.IsOk() )
+                {
+                    // If something failed, fall back to standard file icon
+                    m_fileIcon = wxNullIcon;
+                    m_fileIconLoc = wxIconLocation();
+                }
 
-            delete fileType;
+                delete fileType;
+            }
         }
     }
 
@@ -177,7 +181,7 @@ wxString HistoryIconItem::getElementType() const
 wxCoord HistoryIconItem::drawIcon( wxPaintDC& dc )
 {
     wxSize size = dc.GetSize();
-    
+
     // Draw a bottom separator if we're not the last item
 
     if ( !m_last )
@@ -232,7 +236,7 @@ void HistoryIconItem::onDpiChanged( wxDPIChangedEvent& event )
 
 void HistoryIconItem::setupElementType()
 {
-    if ( m_folderCount == 0 && m_fileCount == 1 )
+    if ( m_folderCount == 0 && m_fileCount == 0 )
     {
         m_elementType = _( "Empty" );
         return;

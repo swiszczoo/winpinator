@@ -325,7 +325,7 @@ bool DatabaseManager::deleteTransfer( int id )
 }
 
 std::vector<db::Transfer> DatabaseManager::queryTransfers( bool queryPaths,
-    const std::string conditions )
+    const std::wstring targetId, const std::string conditions )
 {
     std::lock_guard<std::mutex> guard( m_mutex );
 
@@ -341,17 +341,20 @@ std::vector<db::Transfer> DatabaseManager::queryTransfers( bool queryPaths,
     if ( conditions.empty() )
     {
         sqlite3_prepare_v2( m_db, 
-            "SELECT * FROM transfers ORDER BY transfer_timestamp DESC;",
+            "SELECT * FROM transfers WHERE target_id=? "
+            "ORDER BY transfer_timestamp DESC;",
             -1, &queryStmt, NULL );
     }
     else
     {
-        std::string query = "SELECT * FROM transfers WHERE ";
+        std::string query = "SELECT * FROM transfers WHERE (";
         query += conditions;
-        query += " ORDER BY transfer_timestamp DESC;";
+        query += ") AND target_id=? ORDER BY transfer_timestamp DESC;";
 
         sqlite3_prepare_v2( m_db, query.c_str(), -1, &queryStmt, NULL );
     }
+
+    sqlite3_bind_text16( queryStmt, 1, targetId.c_str(), -1, SQLITE_STATIC );
 
     while ( sqlite3_step( queryStmt ) != SQLITE_DONE )
     {
@@ -423,11 +426,12 @@ void DatabaseManager::queryTransferPaths( db::Transfer& record )
     sqlite3_finalize( pathStmt );
 }
 
-db::Transfer DatabaseManager::getTransfer( int id, bool queryPaths )
+db::Transfer DatabaseManager::getTransfer( int id, 
+    const std::wstring targetId, bool queryPaths )
 {
     std::string condition = "id=" + std::to_string( id );
 
-    auto result = queryTransfers( queryPaths, condition );
+    auto result = queryTransfers( queryPaths, targetId, condition );
 
     if ( result.empty() )
     {

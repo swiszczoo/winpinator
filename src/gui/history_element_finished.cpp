@@ -85,7 +85,7 @@ void HistoryFinishedElement::onPaint( wxPaintEvent& event )
     Utils::drawTextEllipse( dc, determineHeaderString(),
         wxPoint( contentOffsetX, offsetY ), topContentWidth );
 
-    offsetY += dc.GetTextExtent( "A" ).y + FromDIP( 4 );
+    offsetY += dc.GetTextExtent( "A" ).y + 4;
 
     // Draw details labels
     // Column 1
@@ -100,7 +100,7 @@ void HistoryFinishedElement::onPaint( wxPaintEvent& event )
     int typeWidth = dc.GetTextExtent( typeLabel ).x;
     int sizeWidth = dc.GetTextExtent( sizeLabel ).x;
     int columnWidth = std::max( sizeWidth, typeWidth );
-    int lineHeight = dc.GetTextExtent( "A" ).y + FromDIP( 4 );
+    int lineHeight = dc.GetTextExtent( "A" ).y + 4;
 
     int detailsWidth = colWidth - columnWidth - FromDIP( 4 );
 

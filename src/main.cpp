@@ -102,6 +102,7 @@ bool WinpinatorApp::OnInit()
         m_ddeServer = std::make_unique<WinpinatorDDEServer>( this );
     }
 
+
     // Start the service in the background thread
 
     // We must ensure that ui thread waits until global service pointer
