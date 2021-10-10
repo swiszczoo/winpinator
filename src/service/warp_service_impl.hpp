@@ -2,6 +2,7 @@
 #include "../proto-gen/warp.grpc.pb.h"
 
 #include "remote_manager.hpp"
+#include "transfer_manager.hpp"
 
 #include <grpcpp/server.h>
 
@@ -19,7 +20,8 @@ using grpc::ServerContext;
 class WarpServiceImpl : public Warp::Service
 {
 public:
-    explicit WarpServiceImpl( std::shared_ptr<RemoteManager> mgr, 
+    explicit WarpServiceImpl( std::shared_ptr<RemoteManager> remoteMgr, 
+        std::shared_ptr<TransferManager> transferMgr,
         std::shared_ptr<std::string> avatar );
 
 protected:
@@ -36,9 +38,12 @@ protected:
     Status GetRemoteMachineAvatar( grpc::ServerContext* context,
         const LookupName* request, 
         grpc::ServerWriter<RemoteMachineAvatar>* writer ) override;
+    Status ProcessTransferOpRequest( grpc::ServerContext* context,
+        const TransferOpRequest* request, VoidType* response ) override;
 
 private:
-    std::shared_ptr<RemoteManager> m_manager;
+    std::shared_ptr<RemoteManager> m_remoteMgr;
+    std::shared_ptr<TransferManager> m_transferMgr;
     std::shared_ptr<std::string> m_avatar;
 };
 
@@ -63,6 +68,9 @@ public:
     void setRemoteManager( std::shared_ptr<RemoteManager> mgr );
     std::shared_ptr<RemoteManager> getRemoteManager() const;
 
+    void setTransferManager( std::shared_ptr<TransferManager> mgr );
+    std::shared_ptr<TransferManager> getTransferManager() const;
+
     bool startServer();
     bool stopServer();
 
@@ -75,11 +83,13 @@ private:
     std::string m_pubKey;
     std::shared_ptr<std::string> m_avatar;
     std::shared_ptr<RemoteManager> m_remoteMgr;
+    std::shared_ptr<TransferManager> m_transferMgr;
     std::unique_ptr<grpc::Server> m_server;
     std::thread m_thread;
 
     int threadMain( uint16_t port, std::string priv, std::string pub,
-        std::shared_ptr<RemoteManager> mgr,
+        std::shared_ptr<RemoteManager> remoteMgr,
+        std::shared_ptr<TransferManager> transferMgr,
         std::shared_ptr<std::string> avatar, 
         std::promise<bool>& startProm );
 };

@@ -306,6 +306,8 @@ bool RemoteHandler::secureLoopV2()
 
             cq.Shutdown();
             discoListener.join();
+
+            m_info->stopping = false;
             return true;
         }
 

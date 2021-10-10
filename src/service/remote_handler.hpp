@@ -10,7 +10,7 @@ namespace srv
 class RemoteHandler
 {
 public:
-    RemoteHandler( RemoteInfoPtr info );
+    explicit RemoteHandler( RemoteInfoPtr info );
     void setEditListener( std::function<void( RemoteInfoPtr )> listener );
     void process();
 

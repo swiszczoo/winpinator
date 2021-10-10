@@ -6,6 +6,7 @@
 #include "event.hpp"
 #include "remote_manager.hpp"
 #include "service_errors.hpp"
+#include "transfer_manager.hpp"
 
 #include <wx/wx.h>
 #include <wx/msgqueue.h>
@@ -41,6 +42,7 @@ public:
     ServiceError getError() const;
 
     RemoteManager* getRemoteManager() const;
+    TransferManager* getTransferManager() const;
     DatabaseManager* getDb() const;
 
     int startOnThisThread();
@@ -68,6 +70,7 @@ private:
     std::thread m_pollingThread;
     wxMessageQueue<Event> m_events;
     std::shared_ptr<RemoteManager> m_remoteMgr;
+    std::shared_ptr<TransferManager> m_transferMgr;
     std::shared_ptr<DatabaseManager> m_db;
 
     void initDatabase();

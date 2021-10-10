@@ -65,4 +65,8 @@ void IServiceObserver::onHostCountChanged( size_t newCount )
 {
 }
 
+void IServiceObserver::onAddTransfer( srv::TransferOp transfer )
+{
+}
+
 };

@@ -223,6 +223,12 @@
     <ClInclude Include="..\src\gui\history_item_icon.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\transfer_manager.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\service\transfer_types.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -362,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="..\src\gui\history_item_icon.cpp">
       <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\transfer_manager.cpp">
+      <Filter>Sources\service</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

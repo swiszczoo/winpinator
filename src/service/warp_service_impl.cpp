@@ -14,9 +14,11 @@ namespace srv
 const int WarpServer::DEFAULT_SERVICE_PORT = 52000;
 const std::string WarpServer::EMPTY = "";
 
-WarpServiceImpl::WarpServiceImpl( std::shared_ptr<RemoteManager> mgr, 
+WarpServiceImpl::WarpServiceImpl( std::shared_ptr<RemoteManager> remoteMgr, 
+    std::shared_ptr<TransferManager> transferMgr,
     std::shared_ptr<std::string> avatar )
-    : m_manager( mgr )
+    : m_remoteMgr( remoteMgr )
+    , m_transferMgr( transferMgr )
     , m_avatar( avatar )
 {
 }
@@ -28,7 +30,7 @@ Status WarpServiceImpl::Ping( grpc::ServerContext* context,
 
     const std::string& id = request->id();
 
-    if ( !m_manager->isHostAvailable( id ) )
+    if ( !m_remoteMgr->isHostAvailable( id ) )
     {
         wxLogDebug( "Server Ping: ping is from unknown remote "
             "(or not fully online yet)" );
@@ -46,7 +48,7 @@ Status WarpServiceImpl::CheckDuplexConnection( grpc::ServerContext* context,
 
     bool responseFlag = false;
     
-    auto remote = m_manager->getRemoteInfo( request->id() );
+    auto remote = m_remoteMgr->getRemoteInfo( request->id() );
     if ( remote )
     {
         responseFlag = ( remote->state == RemoteStatus::AWAITING_DUPLEX
@@ -74,7 +76,7 @@ Status WarpServiceImpl::WaitingForDuplex( grpc::ServerContext* context,
     {
         responseFlag = false;
 
-        auto remote = m_manager->getRemoteInfo( request->id() );
+        auto remote = m_remoteMgr->getRemoteInfo( request->id() );
         if ( remote )
         {
             responseFlag = ( remote->state == RemoteStatus::AWAITING_DUPLEX
@@ -151,6 +153,60 @@ Status WarpServiceImpl::GetRemoteMachineAvatar( grpc::ServerContext* context,
     return Status::OK;
 }
 
+Status WarpServiceImpl::ProcessTransferOpRequest( grpc::ServerContext* context,
+    const TransferOpRequest* request, VoidType* response )
+{
+    if ( !request->has_info() )
+    {
+        return Status( grpc::StatusCode::INVALID_ARGUMENT, "Missing OpInfo" );
+    }
+
+    const OpInfo& info = request->info();
+
+    wxLogDebug( "Server RPC: ProcessTransferOpRequest from '%s'",
+        info.readable_name() );
+
+    const std::string& id = info.ident();
+
+    if ( !m_remoteMgr->isHostAvailable( id ) )
+    {
+        wxLogDebug( "Received transfer op request for unknown op" );
+        return Status( grpc::StatusCode::PERMISSION_DENIED,
+            "Invalid sender ident" );
+    }
+
+    for ( TransferOp& existingOp : m_transferMgr->getTransfersForRemote( id ) )
+    {
+        if ( existingOp.startTime == info.timestamp() )
+        {
+            existingOp.useCompression = info.use_compression();
+            existingOp.status = OpStatus::WAITING_PERMISSION;
+            return Status::OK;
+        }
+    }
+
+    TransferOp op;
+    op.outcoming = false;
+    op.startTime = info.timestamp();
+    op.senderNameUtf8 = request->sender_name();
+    op.receiverUtf8 = request->receiver();
+    op.receiverNameUtf8 = request->receiver_name();
+    op.status = OpStatus::WAITING_PERMISSION;
+    op.totalSize = request->size();
+    op.totalCount = request->count();
+    op.mimeIfSingleUtf8 = request->mime_if_single();
+    op.nameIfSingleUtf8 = request->name_if_single();
+    
+    for ( std::string basename : request->top_dir_basenames() )
+    {
+        op.topDirBasenamesUtf8.push_back( basename );
+    }
+
+    m_transferMgr->registerTransfer( id, op );
+
+    return Status::OK;
+}
+
 //
 // Server implementation
 
@@ -160,6 +216,7 @@ WarpServer::WarpServer()
     , m_pubKey( "" )
     , m_avatar( nullptr )
     , m_remoteMgr( nullptr )
+    , m_transferMgr( nullptr )
     , m_server( nullptr )
 {
 }
@@ -227,6 +284,16 @@ std::shared_ptr<RemoteManager> WarpServer::getRemoteManager() const
     return m_remoteMgr;
 }
 
+void WarpServer::setTransferManager( std::shared_ptr<TransferManager> mgr )
+{
+    m_transferMgr = mgr;
+}
+
+std::shared_ptr<TransferManager> WarpServer::getTransferManager() const
+{
+    return m_transferMgr;
+}
+
 bool WarpServer::startServer()
 {
     if ( m_server )
@@ -239,7 +306,7 @@ bool WarpServer::startServer()
     std::future<bool> startedFuture = startedPromise.get_future();
 
     m_thread = std::thread( std::bind( &WarpServer::threadMain, this,
-        m_port, m_privKey, m_pubKey, m_remoteMgr, m_avatar,
+        m_port, m_privKey, m_pubKey, m_remoteMgr, m_transferMgr, m_avatar,
         std::ref( startedPromise ) ) );
 
     // Wait for the server pointer to become valid
@@ -268,13 +335,15 @@ bool WarpServer::stopServer()
 }
 
 int WarpServer::threadMain( uint16_t port, std::string priv, std::string pub,
-    std::shared_ptr<RemoteManager> mgr, std::shared_ptr<std::string> avatar, 
+    std::shared_ptr<RemoteManager> remoteMgr, 
+    std::shared_ptr<TransferManager> transferMgr, 
+    std::shared_ptr<std::string> avatar, 
     std::promise<bool>& startProm )
 {
     setThreadName( "Warp service worker (gRPC server controller)" );
 
     std::string address = "0.0.0.0:" + std::to_string( port );
-    WarpServiceImpl service( mgr, avatar );
+    WarpServiceImpl service( remoteMgr, transferMgr, avatar );
 
     grpc::SslServerCredentialsOptions::PemKeyCertPair pair;
     pair.private_key = priv;

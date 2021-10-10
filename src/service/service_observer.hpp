@@ -1,6 +1,7 @@
 #pragma once
 #include "observable_service.hpp"
 #include "remote_info.hpp"
+#include "transfer_types.hpp"
 
 #include <string>
 #include <vector>
@@ -21,10 +22,14 @@ public:
     // Listeners to be overriden (must be virtual)
     virtual void onStateChanged() = 0;
     virtual void onIpAddressChanged( std::string newIp );
+
     virtual void onAddHost( srv::RemoteInfoPtr info );
     virtual void onEditHost( srv::RemoteInfoPtr newInfo );
     virtual void onDeleteHost( const std::string& id );
+
     virtual void onHostCountChanged( size_t newCount );
+
+    virtual void onAddTransfer( srv::TransferOp transfer );
 
 protected:
     void observeService( ObservableService* service );

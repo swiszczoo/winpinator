@@ -43,6 +43,7 @@ WinpinatorService::WinpinatorService()
     , m_ip( "" )
     , m_displayName( "" )
     , m_remoteMgr( nullptr )
+    , m_transferMgr( nullptr )
     , m_db( nullptr )
 {
     DWORD netFlag = NETWORK_ALIVE_LAN;
@@ -124,6 +125,11 @@ ServiceError WinpinatorService::getError() const
 RemoteManager* WinpinatorService::getRemoteManager() const
 {
     return m_remoteMgr.get();
+}
+
+TransferManager* WinpinatorService::getTransferManager() const
+{
+    return m_transferMgr.get();
 }
 
 DatabaseManager* WinpinatorService::getDb() const
@@ -249,6 +255,10 @@ void WinpinatorService::serviceMain()
     m_remoteMgr = std::make_shared<RemoteManager>( this );
     m_remoteMgr->setServiceType( WinpinatorService::SERVICE_TYPE );
 
+    // Initialize transfer manager
+    m_transferMgr = std::make_shared<TransferManager>( this );
+    
+
     // Try to gather user account picture
     std::string avatarData;
     AccountPictureExtractor extractor;
@@ -357,6 +367,7 @@ void WinpinatorService::serviceMain()
         if ( !regServer1.startServer() )
         {
             m_error = ServiceError::REGISTRATION_V1_SERVER_FAILED;
+            m_transferMgr->stop();
             m_remoteMgr->stop();
             return;
         }
@@ -364,6 +375,7 @@ void WinpinatorService::serviceMain()
         if ( !regServer2.startServer() )
         {
             m_error = ServiceError::REGISTRATION_V2_SERVER_FAILED;
+            m_transferMgr->stop();
             m_remoteMgr->stop();
             return;
         }
@@ -373,9 +385,11 @@ void WinpinatorService::serviceMain()
         rpcServer.setPemPrivateKey( creds.privateKey );
         rpcServer.setPemCertificate( creds.publicKey );
         rpcServer.setRemoteManager( m_remoteMgr );
+        rpcServer.setTransferManager( m_transferMgr );
         if ( !rpcServer.startServer() )
         {
             m_error = ServiceError::WARP_SERVER_FAILED;
+            m_transferMgr->stop();
             m_remoteMgr->stop();
             return;
         }
@@ -383,6 +397,7 @@ void WinpinatorService::serviceMain()
     else
     {
         m_error = ServiceError::ZEROCONF_SERVER_FAILED;
+        m_transferMgr->stop();
         m_remoteMgr->stop();
         return;
     }
@@ -407,6 +422,7 @@ void WinpinatorService::serviceMain()
     if ( !secondIpPair.get().valid )
     {
         m_error = ServiceError::ZEROCONF_SERVER_FAILED;
+        m_transferMgr->stop();
         m_remoteMgr->stop();
         return;
     }
@@ -468,6 +484,7 @@ void WinpinatorService::serviceMain()
 
     // Service cleanup
     zcClient.stopListening();
+    m_transferMgr->stop();
     m_remoteMgr->stop();
 
     // Stop registration servers
