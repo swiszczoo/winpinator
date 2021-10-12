@@ -86,6 +86,7 @@ void HistoryPendingElement::setData( const HistoryPendingData& newData )
 
     setIcons( newData.numFolders, newData.numFiles, newData.singleElementName );
     setOutcoming( newData.outcoming );
+    setFinished( false );
 
     if ( newData.opState == HistoryPendingState::TRANSFER_PAUSED
         || newData.opState == HistoryPendingState::TRANSFER_RUNNING )

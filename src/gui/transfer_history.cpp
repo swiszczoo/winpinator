@@ -1,10 +1,10 @@
 #include "transfer_history.hpp"
 
+#include "../globals.hpp"
 #include "../service/database_types.hpp"
 #include "../service/database_utils.hpp"
-#include "../globals.hpp"
-#include "history_element_pending.hpp"
 #include "history_element_finished.hpp"
+#include "history_element_pending.hpp"
 
 #include "../../win32/resource.h"
 #include "utils.hpp"
@@ -42,19 +42,19 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
     wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
 
     m_emptyLabel = new wxStaticText( this, wxID_ANY, _( "There is no transfer "
-        "history for this device..." ) );
-    m_emptyLabel->SetForegroundColour( 
+                                                        "history for this device..." ) );
+    m_emptyLabel->SetForegroundColour(
         wxSystemSettings::GetColour( wxSYS_COLOUR_GRAYTEXT ) );
 
-    sizer->Add( m_emptyLabel, 0, 
+    sizer->Add( m_emptyLabel, 0,
         wxALIGN_CENTER_HORIZONTAL | wxALL, FromDIP( 12 ) );
-    
+
     sizer->AddSpacer( FromDIP( 5 ) );
 
     // "In progress" ops view
 
     m_pendingGroup.header = new HistoryGroupHeader( this, _( "In progress" ) );
-    sizer->Add( m_pendingGroup.header, 0, 
+    sizer->Add( m_pendingGroup.header, 0,
         wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 5 ) );
 
     m_pendingGroup.panel = new wxPanel( this );
@@ -64,30 +64,11 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
     sizer->Add( m_pendingGroup.panel, 0, wxEXPAND | wxBOTTOM, FromDIP( 5 ) );
     registerHistoryItem( m_pendingGroup.header );
 
-    HistoryPendingElement* test = new HistoryPendingElement( 
-        m_pendingGroup.panel, &m_stdBitmaps );
-    HistoryPendingData testData;
-    testData.filePaths.push_back( "C:\\Users\\test\\Documents\\abc.html" );
-    testData.numFiles = 1;
-    testData.numFolders = 0;
-    testData.opStartTime = 1631240663;
-    testData.opState = HistoryPendingState::TRANSFER_RUNNING;
-    testData.outcoming = true;
-    testData.sentBytes = 34683;
-    testData.singleElementName = "abc.html";
-    testData.totalSizeBytes = 65536;
-    test->setData( testData );
-    test->setIsLast( true );
-    test->setPeerName( "John Smith" );
-    m_pendingGroup.sizer->Add( test, 0, 
-        wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 11 ) );
-    registerHistoryItem( test );
-
     // Historical ops view
 
     for ( const wxString& spec : ScrolledTransferHistory::TIME_SPECS )
     {
-        HistoryGroupHeader* header = new HistoryGroupHeader( this, 
+        HistoryGroupHeader* header = new HistoryGroupHeader( this,
             wxGetTranslation( spec ) );
         sizer->Add( header, 0, wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 5 ) );
 
@@ -97,7 +78,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
 
         sizer->Add( panel, 0, wxEXPAND | wxBOTTOM, FromDIP( 2 ) );
 
-        TimeGroup group;
+        TimeGroup<HistoryFinishedElement> group;
         group.header = header;
         group.panel = panel;
         group.sizer = panelSizer;
@@ -111,6 +92,10 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
     sizer->SetSizeHints( this );
     SetDropTarget( new DropTargetImpl( this ) );
 
+    auto srv = Globals::get()->getWinpinatorServiceInstance();
+    observeService( srv );
+
+    loadAllTransfers();
     reloadStdBitmaps();
     updateTimeGroups();
 
@@ -126,7 +111,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
         &ScrolledTransferHistory::onScrollWindow, this );
     Bind( wxEVT_SCROLLWIN_PAGEUP,
         &ScrolledTransferHistory::onScrollWindow, this );
-    Bind( wxEVT_SCROLLWIN_THUMBRELEASE, 
+    Bind( wxEVT_SCROLLWIN_THUMBRELEASE,
         &ScrolledTransferHistory::onScrollWindow, this );
     Bind( wxEVT_SCROLLWIN_THUMBTRACK,
         &ScrolledTransferHistory::onScrollWindow, this );
@@ -136,15 +121,16 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
     Bind( wxEVT_LEAVE_WINDOW, &ScrolledTransferHistory::onMouseLeave, this );
     Bind( wxEVT_MOTION, &ScrolledTransferHistory::onMouseMotion, this );
     Bind( wxEVT_DPI_CHANGED, &ScrolledTransferHistory::onDpiChanged, this );
+    Bind( wxEVT_THREAD, &ScrolledTransferHistory::onThreadEvent, this );
 }
 
 void ScrolledTransferHistory::registerHistoryItem( HistoryItem* item )
 {
     m_historyItems.push_back( item );
 
-    item->Bind( wxEVT_ENTER_WINDOW, 
+    item->Bind( wxEVT_ENTER_WINDOW,
         &ScrolledTransferHistory::onMouseEnter, this );
-    item->Bind( wxEVT_LEAVE_WINDOW, 
+    item->Bind( wxEVT_LEAVE_WINDOW,
         &ScrolledTransferHistory::onMouseLeave, this );
     item->Bind( wxEVT_MOTION, &ScrolledTransferHistory::onMouseMotion, this );
 }
@@ -164,7 +150,7 @@ void ScrolledTransferHistory::unregisterHistoryItem( HistoryItem* item )
         &ScrolledTransferHistory::onMouseEnter, this );
     item->Unbind( wxEVT_LEAVE_WINDOW,
         &ScrolledTransferHistory::onMouseLeave, this );
-    item->Unbind( wxEVT_MOTION, 
+    item->Unbind( wxEVT_MOTION,
         &ScrolledTransferHistory::onMouseMotion, this );
 }
 
@@ -178,9 +164,9 @@ void ScrolledTransferHistory::refreshAllHistoryItems( bool insideParent )
 
 void ScrolledTransferHistory::reloadStdBitmaps()
 {
-    loadSingleBitmap( IDB_TRANSFER_FILE_X, 
+    loadSingleBitmap( IDB_TRANSFER_FILE_X,
         &m_stdBitmaps.transferFileX, 64 );
-    loadSingleBitmap( IDB_TRANSFER_FILE_FILE, 
+    loadSingleBitmap( IDB_TRANSFER_FILE_FILE,
         &m_stdBitmaps.transferFileFile, 64 );
     loadSingleBitmap( IDB_TRANSFER_DIR_X,
         &m_stdBitmaps.transferDirX, 64 );
@@ -202,10 +188,10 @@ void ScrolledTransferHistory::reloadStdBitmaps()
         &m_stdBitmaps.statusError, 16 );
 }
 
-void ScrolledTransferHistory::loadSingleBitmap( 
+void ScrolledTransferHistory::loadSingleBitmap(
     int resId, wxBitmap* dest, int dip )
 {
-    wxBitmap orig( Utils::makeIntResource( resId ), 
+    wxBitmap orig( Utils::makeIntResource( resId ),
         wxBITMAP_TYPE_PNG_RESOURCE );
 
     wxImage img = orig.ConvertToImage();
@@ -213,6 +199,126 @@ void ScrolledTransferHistory::loadSingleBitmap(
     int targetSize = FromDIP( dip );
 
     *dest = img.Scale( targetSize, targetSize, wxIMAGE_QUALITY_BICUBIC );
+}
+
+void ScrolledTransferHistory::addPendingTransfer(
+    const srv::TransferOp& transfer )
+{
+    auto srv = Globals::get()->getWinpinatorServiceInstance();
+    auto info = srv->getRemoteManager()->getRemoteInfo( m_targetId.ToStdString() );
+
+    HistoryPendingElement* element = new HistoryPendingElement(
+        m_pendingGroup.panel, &m_stdBitmaps );
+    HistoryPendingData data = convertOpToData( transfer );
+    
+    {
+        std::lock_guard<std::mutex> guard( info->mutex );
+
+        element->setData( data );
+        element->setPeerName( info->fullName );
+    }
+
+    m_pendingGroup.elements.insert( 
+        m_pendingGroup.elements.begin(), element );
+    m_pendingGroup.currentIds.insert( 
+        m_pendingGroup.currentIds.begin(), transfer.id );
+
+    m_pendingGroup.sizer->Insert( 0, element, 0, 
+        wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 11 ) );
+
+    registerHistoryItem( element );
+
+    updateTimeGroups();
+    Layout();
+}
+
+void ScrolledTransferHistory::updatePendingTransfer(
+    const srv::TransferOp& transfer )
+{
+}
+
+void ScrolledTransferHistory::deletePendingTransfer( int transferId )
+{
+    updateTimeGroups();
+}
+
+void ScrolledTransferHistory::loadAllTransfers()
+{
+    const std::string remoteId = m_targetId.ToStdString();
+
+    auto srv = Globals::get()->getWinpinatorServiceInstance();
+
+    auto transfers = srv->getTransferManager()->getTransfersForRemote(
+        remoteId );
+
+    m_pendingGroup.sizer->Clear( true );
+    m_pendingGroup.currentIds.clear();
+    m_pendingGroup.elements.clear();
+
+    for ( srv::TransferOp& transfer : transfers )
+    {
+        addPendingTransfer( transfer );
+    }
+
+    updateTimeGroups();
+}
+
+HistoryPendingData ScrolledTransferHistory::convertOpToData(
+    const srv::TransferOp& transfer )
+{
+    HistoryPendingData out;
+
+    out.transferId = transfer.id;
+    out.outcoming = transfer.outcoming;
+    
+    if ( transfer.mimeIfSingleUtf8 == "inode/directory" )
+    {
+        out.numFolders = transfer.topDirBasenamesUtf8.size();
+        out.numFiles = 0;
+    }
+    else
+    {
+        out.numFolders = 0;
+        out.numFiles = transfer.topDirBasenamesUtf8.size();
+    }
+
+    if ( transfer.totalCount == 1 )
+    {
+        out.singleElementName = wxString::FromUTF8( transfer.nameIfSingleUtf8 );
+    }
+    else if ( transfer.topDirBasenamesUtf8.size() == 1)
+    {
+        out.singleElementName = wxString::FromUTF8( 
+            transfer.topDirBasenamesUtf8[0] );
+    }
+
+    out.opStartTime = transfer.meta.localTimestamp;
+    out.sentBytes = 0;
+    out.totalSizeBytes = transfer.totalSize;
+    
+    if ( transfer.outcoming )
+    {
+        if ( transfer.status == srv::OpStatus::WAITING_PERMISSION )
+        {
+            out.opState = HistoryPendingState::AWAIT_PEER_APPROVAL;
+        }
+    }
+    else
+    {
+        if ( transfer.status == srv::OpStatus::WAITING_PERMISSION )
+        {
+            if ( transfer.meta.mustOverwrite )
+            {
+                out.opState = HistoryPendingState::OVERWRITE_NEEDED;
+            }
+            else
+            {
+                out.opState = HistoryPendingState::AWAIT_MY_APPROVAL;
+            }
+        }
+    }
+
+    return out;
 }
 
 void ScrolledTransferHistory::updateTimeGroups()
@@ -225,11 +331,11 @@ void ScrolledTransferHistory::updateTimeGroups()
 
     for ( int i = 0; i < m_timeGroups.size(); i++ )
     {
-        TimeGroup& group = m_timeGroups[i];
+        TimeGroup<HistoryFinishedElement>& group = m_timeGroups[i];
 
         std::string conditions = srv::DatabaseUtils::getSpecSQLCondition(
             "transfer_timestamp", (srv::TimeSpec)i, tim );
-        auto records = db->queryTransfers( false, 
+        auto records = db->queryTransfers( false,
             m_targetId.ToStdWstring(), conditions );
 
         int lookupIdx = 0;
@@ -246,15 +352,17 @@ void ScrolledTransferHistory::updateTimeGroups()
                     // Just update
                     group.elements[lookupIdx]->setData( record );
                     processed = true;
+
+                    lookupIdx++;
                     break;
                 }
-                
+
                 const srv::db::Transfer& data = group.elements[lookupIdx]->getData();
-                
+
                 if ( data.transferTimestamp <= record.transferTimestamp )
                 {
                     // We should insert a new record here
-                    HistoryFinishedElement* elem = new HistoryFinishedElement( 
+                    HistoryFinishedElement* elem = new HistoryFinishedElement(
                         group.panel, &m_stdBitmaps );
                     elem->setData( record );
 
@@ -282,7 +390,7 @@ void ScrolledTransferHistory::updateTimeGroups()
                     elem->Destroy();
 
                     group.elements.erase( group.elements.begin() + lookupIdx );
-                    group.currentIds.erase( 
+                    group.currentIds.erase(
                         group.currentIds.begin() + lookupIdx );
 
                     lookupIdx--;
@@ -342,7 +450,30 @@ void ScrolledTransferHistory::updateTimeGroups()
         }
     }
 
-    // TODO: also ensure that we don't have any pending transfers yet
+    if ( m_pendingGroup.elements.empty() )
+    {
+        if ( m_pendingGroup.panel->IsShown() )
+        {
+            m_pendingGroup.header->Hide();
+            m_pendingGroup.panel->Hide();
+        }
+    }
+    else
+    {
+        if ( !m_pendingGroup.panel->IsShown() )
+        {
+            m_pendingGroup.header->Show();
+            m_pendingGroup.panel->Show();
+        }
+
+        wxString fmt = wxString::Format( "In progress (%d)",
+            (int)m_pendingGroup.elements.size() );
+
+        m_pendingGroup.header->SetLabel( fmt );
+
+        anyElement = true;
+    }
+
     if ( anyElement )
     {
         if ( m_emptyLabel->IsShown() )
@@ -395,15 +526,39 @@ void ScrolledTransferHistory::onDpiChanged( wxDPIChangedEvent& event )
     }
 }
 
+void ScrolledTransferHistory::onThreadEvent( wxThreadEvent& event )
+{
+    switch ( (ThreadEventType)event.GetInt() )
+    {
+    case ThreadEventType::ADD:
+        addPendingTransfer( event.GetPayload<srv::TransferOp>() );
+        break;
+    }
+}
+
+// Observer methods
+
+void ScrolledTransferHistory::onStateChanged()
+{
+}
+
+void ScrolledTransferHistory::onAddTransfer( srv::TransferOp transfer )
+{
+    wxThreadEvent evnt;
+    evnt.SetInt( (int)ThreadEventType::ADD );
+    evnt.SetPayload( transfer );
+    wxQueueEvent( this, evnt.Clone() );
+}
+
 // Drop target implementation
 
-ScrolledTransferHistory::DropTargetImpl::DropTargetImpl( 
+ScrolledTransferHistory::DropTargetImpl::DropTargetImpl(
     ScrolledTransferHistory* obj )
     : m_instance( obj )
 {
 }
 
-bool ScrolledTransferHistory::DropTargetImpl::OnDropFiles( wxCoord x, 
+bool ScrolledTransferHistory::DropTargetImpl::OnDropFiles( wxCoord x,
     wxCoord y, const wxArrayString& filenames )
 {
     return true;

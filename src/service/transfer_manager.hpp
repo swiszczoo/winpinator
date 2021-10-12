@@ -2,6 +2,9 @@
 #include "observable_service.hpp"
 #include "transfer_types.hpp"
 
+#include <wx/wx.h>
+
+#include <atomic>
 #include <map>
 #include <mutex>
 #include <vector>
@@ -13,6 +16,10 @@ class TransferManager
 {
 public:
     explicit TransferManager( ObservableService* service );
+    ~TransferManager();
+
+    void setOutputPath( const std::wstring& outputPath );
+    std::wstring getOutputPath();
 
     void stop();
 
@@ -31,11 +38,18 @@ public:
     std::vector<TransferOp> getTransfersForRemote( const std::string& remoteId );
 
 private:
+    std::atomic_bool m_running;
+
     ObservableService* m_srv;
     int m_lastId;
     std::mutex m_mtx;
+    std::wstring m_outputPath;
 
     std::map<std::string, std::vector<TransferOp>> m_transfers;
+
+    void checkTransferDiskSpace( TransferOp& op );
+    void checkTransferMustOverwrite( TransferOp& op );
+    void setTransferTimestamp( TransferOp& op );
 };
 
 };

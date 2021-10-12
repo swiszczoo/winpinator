@@ -22,6 +22,7 @@ HistoryIconItem::HistoryIconItem( wxWindow* parent, HistoryStdBitmaps* bmps )
     , m_fileIconLoc()
     , m_elementType( wxEmptyString )
     , m_last( false )
+    , m_finished( false )
 {
     // Events
 
@@ -109,6 +110,13 @@ void HistoryIconItem::setOutcoming( bool outcoming )
     Refresh();
 }
 
+void HistoryIconItem::setFinished( bool finished )
+{
+    m_finished = finished;
+
+    Refresh();
+}
+
 const wxBitmap& HistoryIconItem::determineBitmapToDraw() const
 {
     if ( m_folderCount == 0 )
@@ -147,6 +155,15 @@ wxString HistoryIconItem::determineHeaderString() const
         // If we send a single element, return its name
 
         return m_singleElementName;
+    }
+
+    if ( !m_outcoming && !m_finished && m_folderCount == 0 )
+    {
+        int elementCount = m_fileCount;
+
+        return wxString::Format(
+            wxPLURAL( "%d element", "%d elements", elementCount ),
+            elementCount );
     }
 
     wxString filePart = wxPLURAL( "%d file", "%d files", m_fileCount );

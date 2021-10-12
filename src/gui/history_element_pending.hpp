@@ -22,6 +22,8 @@ enum class HistoryPendingState
 
 struct HistoryPendingData
 {
+    int transferId;
+
     HistoryPendingState opState;
     int64_t opStartTime;
 

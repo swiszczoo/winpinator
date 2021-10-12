@@ -39,6 +39,13 @@ struct TransferOp
     std::string nameIfSingleUtf8;
     std::vector<std::string> topDirBasenamesUtf8;
 
+    struct
+    {
+        bool notEnoughSpace;
+        bool mustOverwrite;
+        std::time_t localTimestamp;
+    } meta;
+
     bool useCompression;
 };
 

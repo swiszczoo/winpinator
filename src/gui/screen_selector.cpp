@@ -133,7 +133,8 @@ void ScreenSelector::onTargetSelected( wxCommandEvent& event )
         srv::RemoteInfoPtr infoObj = serv->getRemoteManager()
                                          ->getRemoteInfo( event.GetString() );
         wxCommandEvent bannerEvent( EVT_UPDATE_BANNER_TARGET );
-        bannerEvent.SetClientData( &infoObj );
+        // FIXME: this shared_ptr may no longer exist!
+        bannerEvent.SetClientData( &infoObj ); 
         wxPostEvent( this, bannerEvent );
 
         changePage( SelectorPage::TRANSFER_LIST );

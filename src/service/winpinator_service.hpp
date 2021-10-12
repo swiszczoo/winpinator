@@ -8,6 +8,8 @@
 #include "service_errors.hpp"
 #include "transfer_manager.hpp"
 
+#include <wintoast/wintoastlib.h>
+
 #include <wx/wx.h>
 #include <wx/msgqueue.h>
 
@@ -22,7 +24,7 @@
 namespace srv
 {
 
-class WinpinatorService : public ObservableService
+class WinpinatorService : public ObservableService, WinToastLib::IWinToastHandler
 {
 public:
     WinpinatorService();
@@ -83,6 +85,13 @@ private:
     void onServiceRemoved( const std::string& serviceName );
 
     int networkPollingMain( std::mutex& mtx, std::condition_variable& condVar );
+
+    // Toast notification handler impl
+
+    void toastActivated() const override;
+    void toastActivated( int actionIndex ) const override;
+    void toastDismissed( WinToastDismissalReason state ) const override;
+    void toastFailed() const override;
 };
 
 };

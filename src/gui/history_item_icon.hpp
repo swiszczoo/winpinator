@@ -16,6 +16,7 @@ public:
 protected:
     void setIcons( int folderCount, int fileCount, const wxString& fileExt );
     void setOutcoming( bool outcoming );
+    void setFinished( bool finished );
 
     const wxBitmap& determineBitmapToDraw() const;
     wxString determineHeaderString() const;
@@ -33,6 +34,7 @@ private:
     int m_fileCount;
     bool m_outcoming;
     bool m_last;
+    bool m_finished;
 
     wxIcon m_fileIcon;
     wxIconLocation m_fileIconLoc;

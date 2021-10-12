@@ -31,6 +31,7 @@ void HistoryFinishedElement::setData( const TransferData& newData )
     setIcons( newData.folderCount,
         newData.fileCount, newData.singleElementName );
     setOutcoming( newData.outgoing );
+    setFinished( true );
 }
 
 const TransferData& HistoryFinishedElement::getData() const

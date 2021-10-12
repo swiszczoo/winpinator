@@ -287,47 +287,6 @@ void WinpinatorService::serviceMain()
         }
     }
 
-    // Test
-    {
-        using namespace WinToastLib;
-
-        WinToastTemplate templ = WinToastTemplate(
-            WinToastTemplate::ImageAndText02 );
-        templ.setTextField( L"Test toast notification",
-            WinToastTemplate::TextField::FirstLine );
-        templ.setTextField( L"Just testing, something should appear on the screen!",
-            WinToastTemplate::TextField::SecondLine );
-        templ.addAction( L"Allow" );
-        templ.addAction( L"Deny" );
-
-        class TestHandler : public IWinToastHandler
-        {
-            void toastActivated() const
-            {
-                wxLogDebug( "Toast activated" );
-            }
-
-            void toastActivated( int actionIndex ) const
-            {
-                wxLogDebug( "Toast activated - %d", actionIndex );
-            }
-
-            void toastDismissed( WinToastDismissalReason state ) const
-            {
-                wxLogDebug( "Toast dismissed" );
-            }
-
-            void toastFailed() const
-            {
-                wxLogDebug( "Toast failed" );
-            }
-        };
-
-        TestHandler* hndler = new TestHandler;
-
-        WinToast::instance()->showToast( templ, hndler );
-    }
-
     // Start the registration service (v1)
     RegistrationV1Server regServer1( "0.0.0.0", m_port );
 
@@ -480,6 +439,14 @@ void WinpinatorService::serviceMain()
         {
             m_remoteMgr->processRemoveHost( *ev.eventData.removedData );
         }
+        if ( ev.type == EventType::SHOW_TOAST_NOTIFICATION )
+        {
+            if ( WinToastLib::WinToast::instance()->isInitialized() )
+            {
+                WinToastLib::WinToast::instance()->showToast( 
+                    *ev.eventData.toastData, this );
+            }
+        }
     }
 
     // Service cleanup
@@ -598,6 +565,22 @@ int WinpinatorService::networkPollingMain( std::mutex& mtx,
     }
 
     return EXIT_SUCCESS;
+}
+
+void WinpinatorService::toastActivated() const
+{
+}
+
+void WinpinatorService::toastActivated( int actionIndex ) const
+{
+}
+
+void WinpinatorService::toastDismissed( WinToastDismissalReason state ) const
+{
+}
+
+void WinpinatorService::toastFailed() const
+{
 }
 
 };

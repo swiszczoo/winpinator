@@ -1,8 +1,11 @@
 #pragma once
 #include "history_element_finished.hpp"
+#include "history_element_pending.hpp"
 #include "history_group_header.hpp"
 #include "history_item.hpp"
 #include "history_std_bitmaps.hpp"
+
+#include "../service/service_observer.hpp"
 
 #include <wx/wx.h>
 
@@ -14,7 +17,7 @@
 namespace gui
 {
 
-class ScrolledTransferHistory : public wxScrolledWindow
+class ScrolledTransferHistory : public wxScrolledWindow, srv::IServiceObserver
 {
 public:
     explicit ScrolledTransferHistory( wxWindow* parent, 
@@ -32,6 +35,7 @@ private:
         ScrolledTransferHistory* m_instance;
     };
 
+    template <class T>
     struct TimeGroup
     {
         HistoryGroupHeader* header;
@@ -39,15 +43,22 @@ private:
         wxBoxSizer* sizer;
 
         std::vector<int> currentIds;
-        std::vector<HistoryFinishedElement*> elements;
+        std::vector<T*> elements;
+    };
+
+    enum class ThreadEventType
+    {
+        ADD,
+        UPDATE,
+        REMOVE
     };
 
     static const std::vector<wxString> TIME_SPECS;
 
     wxStaticText* m_emptyLabel;
 
-    TimeGroup m_pendingGroup;
-    std::vector<TimeGroup> m_timeGroups;
+    TimeGroup<HistoryPendingElement> m_pendingGroup;
+    std::vector<TimeGroup<HistoryFinishedElement>> m_timeGroups;
 
     std::vector<HistoryItem*> m_historyItems;
 
@@ -62,6 +73,12 @@ private:
     void reloadStdBitmaps();
     void loadSingleBitmap( int resId, wxBitmap* dest, int dip );
 
+    void addPendingTransfer( const srv::TransferOp& transfer );
+    void updatePendingTransfer( const srv::TransferOp& transfer );
+    void deletePendingTransfer( int transferId );
+    void loadAllTransfers();
+    HistoryPendingData convertOpToData( const srv::TransferOp& transfer );
+
     void updateTimeGroups();
 
     void onScrollWindow( wxScrollWinEvent& event );
@@ -69,6 +86,11 @@ private:
     void onMouseLeave( wxMouseEvent& event );
     void onMouseMotion( wxMouseEvent& event );
     void onDpiChanged( wxDPIChangedEvent& event );
+    void onThreadEvent( wxThreadEvent& event );
+
+    // Observer methods
+    virtual void onStateChanged() override;
+    virtual void onAddTransfer( srv::TransferOp transfer ) override;
 
     friend class ScrolledTransferHistory::DropTargetImpl;
 };
