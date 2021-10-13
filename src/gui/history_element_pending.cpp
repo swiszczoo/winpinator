@@ -54,7 +54,7 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
     m_infoAllow = new wxButton( this, wxID_ANY, _( "&Accept" ) );
     m_buttonSizer->Add( m_infoAllow, 0, wxEXPAND | wxRIGHT, FromDIP( 2 ) );
 
-    m_infoReject = new wxButton( this, wxID_ANY, _( "&Reject" ) );
+    m_infoReject = new wxButton( this, wxID_ANY, _( "&Decline" ) );
     m_buttonSizer->Add( m_infoReject, 0, wxEXPAND | wxRIGHT, FromDIP( 2 ) );
 
     m_infoPause = new wxButton( this, wxID_ANY, wxEmptyString );
@@ -262,6 +262,12 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
         m_infoProgress->Show();
         m_infoPause->Show();
         m_infoStop->Show();
+        break;
+
+    case HistoryPendingState::DISK_FULL:
+        m_infoLabel = _( "Not enough disk space! Files cannot be received!" );
+
+        m_infoCancel->Show();
         break;
     }
 

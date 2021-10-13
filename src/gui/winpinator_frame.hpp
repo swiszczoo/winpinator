@@ -14,6 +14,8 @@ class WinpinatorFrame : public wxFrame, srv::IServiceObserver
 public:
     explicit WinpinatorFrame( wxWindow* parent );
 
+    bool showTransferScreen( const wxString& remoteId );
+
 private:
     wxMenuBar* m_menuBar;
     wxMenu* m_fileMenu;
@@ -38,7 +40,7 @@ private:
     void onShowReleaseNotesSelected();
     void onAboutSelected();
 
-    void onUpdateBannerTarget( wxCommandEvent& event );
+    void onUpdateBannerTarget( PointerEvent& event );
 
     virtual void onStateChanged();
     virtual void onIpAddressChanged( std::string newIp );

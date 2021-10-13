@@ -2,7 +2,7 @@
 #include <wx/image.h>
 
 
-enum ExtractorError
+enum class ExtractorError
 {
     OK,
     REG_KEY_NOT_FOUND,

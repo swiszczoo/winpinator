@@ -1,11 +1,12 @@
 #include "screen_selector.hpp"
 
 #include "../globals.hpp"
+#include "pointer_event.hpp"
 
 namespace gui
 {
 
-wxDEFINE_EVENT( EVT_UPDATE_BANNER_TARGET, wxCommandEvent );
+wxDEFINE_EVENT( EVT_UPDATE_BANNER_TARGET, PointerEvent );
 
 ScreenSelector::ScreenSelector( wxWindow* parent )
     : srv::IServiceObserver()
@@ -60,6 +61,28 @@ ScreenSelector::ScreenSelector( wxWindow* parent )
     m_page3->Bind( wxEVT_BUTTON, &ScreenSelector::onRetryClicked, this );
 }
 
+bool ScreenSelector::showTransferScreen( const wxString& remoteId )
+{
+    if ( !m_page5 || m_page5->getTargetId() != remoteId )
+    {
+        removeTransferListPage();
+
+        auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+        if ( serv->getRemoteManager()->isHostAvailable( remoteId.ToStdString() ) )
+        {
+            setupTransferListPage( remoteId );
+            return true;
+        }
+
+        return false;
+    }
+
+    m_page5->scrollToTop();
+    
+    return true;
+}
+
 void ScreenSelector::onStateChanged()
 {
     srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
@@ -95,7 +118,9 @@ void ScreenSelector::onStateChanged()
         return;
     }
 
-    if ( serv->isServiceReady() && m_currentPage != SelectorPage::HOST_LIST )
+    if ( serv->isServiceReady() 
+        && m_currentPage != SelectorPage::HOST_LIST
+        && m_currentPage != SelectorPage::TRANSFER_LIST )
     {
         m_currentPage = SelectorPage::HOST_LIST;
 
@@ -108,7 +133,10 @@ void ScreenSelector::onStateChanged()
 
 void ScreenSelector::onChangePage( wxThreadEvent& event )
 {
-    changePage( (SelectorPage)event.GetInt() );
+    if ( (SelectorPage)event.GetInt() == m_currentPage )
+    {
+        changePage( (SelectorPage)event.GetInt() );
+    }
 }
 
 void ScreenSelector::onNoHostsInTime( wxCommandEvent& event )
@@ -123,21 +151,7 @@ void ScreenSelector::onTargetSelected( wxCommandEvent& event )
 {
     if ( m_currentPage == SelectorPage::HOST_LIST )
     {
-        m_page5 = new TransferListPage( m_book, event.GetString() );
-        m_book->AddPage( m_page5, wxEmptyString );
-
-        setupTransferScreenEvents();
-
-        auto serv = Globals::get()->getWinpinatorServiceInstance();
-
-        srv::RemoteInfoPtr infoObj = serv->getRemoteManager()
-                                         ->getRemoteInfo( event.GetString() );
-        wxCommandEvent bannerEvent( EVT_UPDATE_BANNER_TARGET );
-        // FIXME: this shared_ptr may no longer exist!
-        bannerEvent.SetClientData( &infoObj ); 
-        wxPostEvent( this, bannerEvent );
-
-        changePage( SelectorPage::TRANSFER_LIST );
+        setupTransferListPage( event.GetString() );
     }
 }
 
@@ -167,8 +181,6 @@ void ScreenSelector::onTransferBackClicked( wxCommandEvent& event )
 
 void ScreenSelector::changePage( SelectorPage page )
 {
-    //m_page0->Disable();
-    //m_page1->Disable();
     m_page2->Disable();
     m_page3->Disable();
     m_page4->Disable();
@@ -180,15 +192,9 @@ void ScreenSelector::changePage( SelectorPage page )
     m_currentPage = page;
     m_book->SetSelection( (int)page );
 
-    // Remove transfer list page
-    if ( page != SelectorPage::TRANSFER_LIST && m_page5 )
+    if ( page != SelectorPage::TRANSFER_LIST )
     {
-        m_book->DeletePage( (int)SelectorPage::TRANSFER_LIST );
-        m_page5 = nullptr;
-
-        wxCommandEvent bannerEvent( EVT_UPDATE_BANNER_TARGET );
-        bannerEvent.SetClientData( nullptr );
-        wxPostEvent( this, bannerEvent );
+        removeTransferListPage();
     }
 
     if ( page == SelectorPage::NO_HOSTS )
@@ -230,6 +236,37 @@ void ScreenSelector::changePage( SelectorPage page )
         m_page5->Enable();
         m_page5->Refresh();
     }
+}
+
+void ScreenSelector::removeTransferListPage()
+{
+    if ( m_page5 )
+    {
+        m_book->DeletePage( (int)SelectorPage::TRANSFER_LIST );
+        m_page5 = nullptr;
+
+        PointerEvent bannerEvent( EVT_UPDATE_BANNER_TARGET );
+        bannerEvent.setSharedPointer<std::nullptr_t>( nullptr );
+        wxPostEvent( this, bannerEvent );
+    }
+}
+
+void ScreenSelector::setupTransferListPage( const wxString& targetId )
+{
+    m_page5 = new TransferListPage( m_book, targetId );
+    m_book->AddPage( m_page5, wxEmptyString );
+
+    setupTransferScreenEvents();
+
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    srv::RemoteInfoPtr infoObj = serv->getRemoteManager()
+                                     ->getRemoteInfo( targetId );
+    PointerEvent bannerEvent( EVT_UPDATE_BANNER_TARGET );
+    bannerEvent.setSharedPointer( infoObj );
+    wxPostEvent( this, bannerEvent );
+
+    changePage( SelectorPage::TRANSFER_LIST );
 }
 
 void ScreenSelector::setupTransferScreenEvents()

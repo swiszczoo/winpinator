@@ -107,6 +107,16 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
     Bind( wxEVT_THREAD, &TransferListPage::onUpdateStatus, this );
 }
 
+wxString TransferListPage::getTargetId() const
+{
+    return m_target;
+}
+
+void TransferListPage::scrollToTop()
+{
+    m_opList->Scroll( 0, 0 );
+}
+
 void TransferListPage::loadIcons()
 {
     loadSingleIcon( Utils::makeIntResource( IDB_BACK ), 

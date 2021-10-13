@@ -76,6 +76,11 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
         &WinpinatorFrame::onUpdateBannerTarget, this );
 }
 
+bool WinpinatorFrame::showTransferScreen( const wxString& remoteId )
+{
+    return m_selector->showTransferScreen( remoteId );
+}
+
 void WinpinatorFrame::setupMenuBar()
 {
     m_menuBar = new wxMenuBar();
@@ -202,16 +207,9 @@ void WinpinatorFrame::onAboutSelected()
     wxAboutBox( info, this );
 }
 
-void WinpinatorFrame::onUpdateBannerTarget( wxCommandEvent& event )
+void WinpinatorFrame::onUpdateBannerTarget( PointerEvent& event )
 {
-    if ( event.GetClientData() )
-    {
-        m_banner->setTargetInfo( *(srv::RemoteInfoPtr*)event.GetClientData() );
-    }
-    else
-    {
-        m_banner->setTargetInfo( nullptr );
-    }
+    m_banner->setTargetInfo( event.getSharedPointer<srv::RemoteInfo>() );
 }
 
 void WinpinatorFrame::onStateChanged()

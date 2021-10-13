@@ -226,6 +226,8 @@ void ScrolledTransferHistory::addPendingTransfer(
     m_pendingGroup.sizer->Insert( 0, element, 0, 
         wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 11 ) );
 
+    Scroll( 0, 0 );
+
     registerHistoryItem( element );
 
     updateTimeGroups();
@@ -307,7 +309,11 @@ HistoryPendingData ScrolledTransferHistory::convertOpToData(
     {
         if ( transfer.status == srv::OpStatus::WAITING_PERMISSION )
         {
-            if ( transfer.meta.mustOverwrite )
+            if ( transfer.meta.notEnoughSpace )
+            {
+                out.opState = HistoryPendingState::DISK_FULL;
+            }
+            else if ( transfer.meta.mustOverwrite )
             {
                 out.opState = HistoryPendingState::OVERWRITE_NEEDED;
             }

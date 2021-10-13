@@ -12,7 +12,7 @@ const wxString AccountPictureExtractor::s_keyName = "SOFTWARE\\Microsoft"
                                                     "\\AccountPicture";
 
 AccountPictureExtractor::AccountPictureExtractor()
-    : m_error( OK )
+    : m_error( ExtractorError::OK )
     , m_loRes( wxNullImage )
     , m_hiRes( wxNullImage )
 {
@@ -27,13 +27,13 @@ bool AccountPictureExtractor::process()
 
     if ( !key.Exists() )
     {
-        m_error = REG_KEY_NOT_FOUND;
+        m_error = ExtractorError::REG_KEY_NOT_FOUND;
         return false;
     }
 
     if ( !key.Open( wxRegKey::AccessMode::Read ) )
     {
-        m_error = REG_KEY_NOT_FOUND;
+        m_error = ExtractorError::REG_KEY_NOT_FOUND;
         return false;
     }
 
@@ -42,7 +42,7 @@ bool AccountPictureExtractor::process()
 
     if ( sourceBuf.IsEmpty() )
     {
-        m_error = REG_KEY_NOT_FOUND;
+        m_error = ExtractorError::REG_KEY_NOT_FOUND;
         return false;
     }
 
@@ -53,7 +53,7 @@ bool AccountPictureExtractor::process()
     wxString appDataDir;
     if ( !wxGetEnv( "APPDATA", &appDataDir ) )
     {
-        m_error = AVATAR_NOT_FOUND;
+        m_error = ExtractorError::AVATAR_NOT_FOUND;
         return false;
     }
 
@@ -64,7 +64,7 @@ bool AccountPictureExtractor::process()
     
     if ( !avatarDir.DirExists() )
     {
-        m_error = AVATAR_NOT_FOUND;
+        m_error = ExtractorError::AVATAR_NOT_FOUND;
         return false;
     }
 
@@ -73,7 +73,7 @@ bool AccountPictureExtractor::process()
 
     if ( !avatarFile.Exists() )
     {
-        m_error = AVATAR_NOT_FOUND;
+        m_error = ExtractorError::AVATAR_NOT_FOUND;
         return false;
     }
 
@@ -83,7 +83,7 @@ bool AccountPictureExtractor::process()
     wxFile avatar( avatarFile.GetFullPath(), wxFile::read );
     if ( !avatar.IsOpened() )
     {
-        m_error = AVATAR_FILE_UNREADABLE;
+        m_error = ExtractorError::AVATAR_FILE_UNREADABLE;
         return false;
     }
 

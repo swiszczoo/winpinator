@@ -133,4 +133,9 @@ std::string Utils::getOSVersionString()
     return "Windows NT";
 }
 
+wxString Utils::makeIntResource( int resource )
+{
+    return wxString::Format( "#%d", resource );
+}
+
 };

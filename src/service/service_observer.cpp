@@ -69,4 +69,8 @@ void IServiceObserver::onAddTransfer( srv::TransferOp transfer )
 {
 }
 
+void IServiceObserver::onOpenTransferUI( wxString remoteId )
+{
+}
+
 };

@@ -17,7 +17,8 @@ enum class HistoryPendingState
     AWAIT_MY_APPROVAL,
     TRANSFER_RUNNING,
     TRANSFER_PAUSED,
-    OVERWRITE_NEEDED
+    OVERWRITE_NEEDED,
+    DISK_FULL
 };
 
 struct HistoryPendingData

@@ -16,6 +16,9 @@ class TransferListPage : public wxPanel, srv::IServiceObserver
 public:
     explicit TransferListPage( wxWindow* parent, const wxString& targetId );
 
+    wxString getTargetId() const;
+    void scrollToTop();
+
 private:
     wxString m_target;
 

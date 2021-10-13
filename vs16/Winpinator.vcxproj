@@ -264,6 +264,7 @@
     <ClInclude Include="..\src\gui\history_std_bitmaps.hpp" />
     <ClInclude Include="..\src\gui\page_error.hpp" />
     <ClInclude Include="..\src\gui\page_transferlist.hpp" />
+    <ClInclude Include="..\src\gui\pointer_event.hpp" />
     <ClInclude Include="..\src\gui\progress_label.hpp" />
     <ClInclude Include="..\src\gui\screen_selector.hpp" />
     <ClInclude Include="..\src\gui\spritesheet_animator.hpp" />
@@ -281,6 +282,9 @@
     <ClInclude Include="..\src\service\database_types.hpp" />
     <ClInclude Include="..\src\service\database_utils.hpp" />
     <ClInclude Include="..\src\service\event.hpp" />
+    <ClInclude Include="..\src\service\icon_extractor.hpp" />
+    <ClInclude Include="..\src\service\notification.hpp" />
+    <ClInclude Include="..\src\service\notification_accept_files.hpp" />
     <ClInclude Include="..\src\service\observable_service.hpp" />
     <ClInclude Include="..\src\service\registration_v1_impl.hpp" />
     <ClInclude Include="..\src\service\registration_v2_impl.hpp" />
@@ -320,6 +324,7 @@
     <ClCompile Include="..\src\gui\history_item.cpp" />
     <ClCompile Include="..\src\gui\page_error.cpp" />
     <ClCompile Include="..\src\gui\page_transferlist.cpp" />
+    <ClCompile Include="..\src\gui\pointer_event.cpp" />
     <ClCompile Include="..\src\gui\progress_label.cpp" />
     <ClCompile Include="..\src\gui\screen_selector.cpp" />
     <ClCompile Include="..\src\gui\spritesheet_animator.cpp" />
@@ -342,6 +347,9 @@
     <ClCompile Include="..\src\service\auth_manager.cpp" />
     <ClCompile Include="..\src\service\database_manager.cpp" />
     <ClCompile Include="..\src\service\database_utils.cpp" />
+    <ClCompile Include="..\src\service\icon_extractor.cpp" />
+    <ClCompile Include="..\src\service\notification.cpp" />
+    <ClCompile Include="..\src\service\notification_accept_files.cpp" />
     <ClCompile Include="..\src\service\observable_service.cpp" />
     <ClCompile Include="..\src\service\registration_v1_impl.cpp" />
     <ClCompile Include="..\src\service\registration_v2_impl.cpp" />

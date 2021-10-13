@@ -6,6 +6,7 @@
 #include "page_offline.hpp"
 #include "page_starting.hpp"
 #include "page_transferlist.hpp"
+#include "pointer_event.hpp"
 
 #include <wx/simplebook.h>
 #include <wx/wx.h>
@@ -13,12 +14,14 @@
 namespace gui
 {
 
-wxDECLARE_EVENT( EVT_UPDATE_BANNER_TARGET, wxCommandEvent );
+wxDECLARE_EVENT( EVT_UPDATE_BANNER_TARGET, PointerEvent );
 
 class ScreenSelector : public wxPanel, srv::IServiceObserver
 {
 public:
     explicit ScreenSelector( wxWindow* parent );
+
+    bool showTransferScreen( const wxString& remoteId );
 
     // Service listeners
 
@@ -55,6 +58,8 @@ private:
     void onTransferBackClicked( wxCommandEvent& event );
 
     void changePage( SelectorPage newPage );
+    void removeTransferListPage();
+    void setupTransferListPage( const wxString& targetId );
 
     void setupTransferScreenEvents();
 };

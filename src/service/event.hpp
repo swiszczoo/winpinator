@@ -1,5 +1,6 @@
 #pragma once
 #include "../zeroconf/mdns_types.hpp"
+#include "notification.hpp"
 
 #include <wintoast/wintoastlib.h>
 
@@ -30,7 +31,7 @@ struct Event
     {
         std::shared_ptr<zc::MdnsServiceData> addedData;
         std::shared_ptr<std::string> removedData;
-        std::shared_ptr<WinToastLib::WinToastTemplate> toastData;
+        std::shared_ptr<ToastNotification> toastData;
     } eventData;
 };
 

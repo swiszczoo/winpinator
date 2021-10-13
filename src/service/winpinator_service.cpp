@@ -6,6 +6,7 @@
 #include "../thread_name.hpp"
 #include "account_picture_extractor.hpp"
 #include "auth_manager.hpp"
+#include "icon_extractor.hpp"
 #include "registration_v1_impl.hpp"
 #include "registration_v2_impl.hpp"
 #include "service_utils.hpp"
@@ -66,6 +67,8 @@ WinpinatorService::WinpinatorService()
     zc::MdnsIpPair ipPair;
     ipPair.valid = false;
     AuthManager::get()->update( ipPair, 0 );
+
+    IconExtractor::extractIcons();
 
     initDatabase();
 }
@@ -257,7 +260,7 @@ void WinpinatorService::serviceMain()
 
     // Initialize transfer manager
     m_transferMgr = std::make_shared<TransferManager>( this );
-    
+    m_transferMgr->setOutputPath( L"C:\\Users\\lukas\\Documents\\Winpinator" );
 
     // Try to gather user account picture
     std::string avatarData;
@@ -443,8 +446,11 @@ void WinpinatorService::serviceMain()
         {
             if ( WinToastLib::WinToast::instance()->isInitialized() )
             {
-                WinToastLib::WinToast::instance()->showToast( 
-                    *ev.eventData.toastData, this );
+                ev.eventData.toastData->setService( this );
+
+                WinToastLib::WinToast::instance()->showToast(
+                    ev.eventData.toastData->buildTemplate(),
+                    ev.eventData.toastData->instantiateListener() );
             }
         }
     }
@@ -565,22 +571,6 @@ int WinpinatorService::networkPollingMain( std::mutex& mtx,
     }
 
     return EXIT_SUCCESS;
-}
-
-void WinpinatorService::toastActivated() const
-{
-}
-
-void WinpinatorService::toastActivated( int actionIndex ) const
-{
-}
-
-void WinpinatorService::toastDismissed( WinToastDismissalReason state ) const
-{
-}
-
-void WinpinatorService::toastFailed() const
-{
 }
 
 };

@@ -1,4 +1,6 @@
 #pragma once
+#include <wx/string.h>
+
 #include <string>
 
 namespace srv
@@ -16,6 +18,8 @@ public:
     static std::wstring getUserShortName();
     static std::string generateUUID();
     static std::string getOSVersionString();
+
+    static wxString makeIntResource( int resource );
 };
 
 };

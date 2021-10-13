@@ -50,6 +50,7 @@ private:
     void checkTransferDiskSpace( TransferOp& op );
     void checkTransferMustOverwrite( TransferOp& op );
     void setTransferTimestamp( TransferOp& op );
+    void sendNotifications( const std::string& remoteId, TransferOp& op );
 };
 
 };

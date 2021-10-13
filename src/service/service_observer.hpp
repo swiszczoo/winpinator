@@ -3,6 +3,8 @@
 #include "remote_info.hpp"
 #include "transfer_types.hpp"
 
+#include <wx/string.h>
+
 #include <string>
 #include <vector>
 
@@ -30,6 +32,8 @@ public:
     virtual void onHostCountChanged( size_t newCount );
 
     virtual void onAddTransfer( srv::TransferOp transfer );
+
+    virtual void onOpenTransferUI( wxString remoteId );
 
 protected:
     void observeService( ObservableService* service );

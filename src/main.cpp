@@ -35,8 +35,14 @@ public:
     virtual int OnExit() override;
 
 private:
+    enum class EventType
+    {
+        STATE_CHANGED,
+        OPEN_TRANSFER_UI
+    };
+
     wxLocale m_locale;
-    wxTopLevelWindow* m_topLvl;
+    gui::WinpinatorFrame* m_topLvl;
     TrayIcon* m_trayIcon;
     std::thread m_srvThread;
 
@@ -51,6 +57,7 @@ private:
 
     // Service observer methods:
     virtual void onStateChanged();
+    virtual void onOpenTransferUI( wxString remoteId );
 };
 
 wxIMPLEMENT_APP( WinpinatorApp );
@@ -195,32 +202,50 @@ void WinpinatorApp::onServiceEvent( wxThreadEvent& event )
 {
     auto serv = Globals::get()->getWinpinatorServiceInstance();
 
-    if ( serv->hasError() && !m_trayIcon->isInErrorState() )
+    if ( event.GetInt() == (int)EventType::STATE_CHANGED )
     {
-        m_trayIcon->setErrorState();
-        return;
-    }
+        if ( serv->hasError() && !m_trayIcon->isInErrorState() )
+        {
+            m_trayIcon->setErrorState();
+            return;
+        }
 
-    if ( !serv->isOnline() && !m_trayIcon->isInErrorState() )
-    {
-        m_trayIcon->setErrorState();
+        if ( !serv->isOnline() && !m_trayIcon->isInErrorState() )
+        {
+            m_trayIcon->setErrorState();
+        }
+        else
+        {
+            if ( serv->isServiceReady() && !m_trayIcon->isInOkState() )
+            {
+                m_trayIcon->setOkState();
+            }
+            else if ( !serv->isServiceReady() && !m_trayIcon->isInWaitState() )
+            {
+                m_trayIcon->setWaitState();
+            }
+        }
     }
-    else
+    else if ( event.GetInt() == (int)EventType::OPEN_TRANSFER_UI )
     {
-        if ( serv->isServiceReady() && !m_trayIcon->isInOkState() )
-        {
-            m_trayIcon->setOkState();
-        }
-        else if ( !serv->isServiceReady() && !m_trayIcon->isInWaitState() )
-        {
-            m_trayIcon->setWaitState();
-        }
+        showMainFrame();
+
+        m_topLvl->showTransferScreen( event.GetString() );
     }
 }
 
 void WinpinatorApp::onStateChanged()
 {
     wxThreadEvent evnt( wxEVT_THREAD );
+    evnt.SetInt( (int)EventType::STATE_CHANGED );
+    wxQueueEvent( this, evnt.Clone() );
+}
+
+void WinpinatorApp::onOpenTransferUI( wxString remoteId )
+{
+    wxThreadEvent evnt( wxEVT_THREAD );
+    evnt.SetInt( (int)EventType::OPEN_TRANSFER_UI );
+    evnt.SetString( remoteId );
     wxQueueEvent( this, evnt.Clone() );
 }
 

@@ -1,6 +1,11 @@
 #include "transfer_manager.hpp"
 
+#include "../globals.hpp"
+#include "notification_accept_files.hpp"
+
 #include <wx/filename.h>
+
+#include <memory>
 
 namespace srv
 {
@@ -20,6 +25,20 @@ TransferManager::~TransferManager()
     }
 }
 
+void TransferManager::setOutputPath( const std::wstring& path )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    m_outputPath = path;
+}
+
+std::wstring TransferManager::getOutputPath()
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    return m_outputPath;
+}
+
 void TransferManager::stop()
 {
     std::lock_guard<std::mutex> guard( m_mtx );
@@ -36,6 +55,7 @@ void TransferManager::registerTransfer( const std::string& remoteId,
     checkTransferDiskSpace( transfer );
     checkTransferMustOverwrite( transfer );
     setTransferTimestamp( transfer );
+    sendNotifications( remoteId, transfer );
 
     m_transfers[remoteId].push_back( transfer );
 
@@ -92,9 +112,34 @@ void TransferManager::checkTransferMustOverwrite( TransferOp& op )
     op.meta.mustOverwrite = mustOverwrite;
 }
 
-void TransferManager::setTransferTimestamp(TransferOp& op)
+void TransferManager::setTransferTimestamp( TransferOp& op )
 {
     op.meta.localTimestamp = time( NULL );
+}
+
+void TransferManager::sendNotifications( const std::string& remoteId, 
+    TransferOp& op )
+{
+    if ( !op.outcoming )
+    {
+        // TODO: add failure case notification
+
+        auto notif = std::make_shared<AcceptFilesNotification>( remoteId, op.id );
+        notif->setSenderFullName( wxString::FromUTF8( op.senderNameUtf8 ) );
+        notif->setElementCount( op.topDirBasenamesUtf8.size() );
+        notif->setIsSingleFolder( op.mimeIfSingleUtf8 == "inode/directory" );
+        if ( op.topDirBasenamesUtf8.size() == 1 )
+        {
+            notif->setSingleElementName( 
+                wxString::FromUTF8( op.topDirBasenamesUtf8[0] ) );
+        }
+
+        Event evnt;
+        evnt.type = EventType::SHOW_TOAST_NOTIFICATION;
+        evnt.eventData.toastData = notif;
+        
+        Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
+    }
 }
 
 };
