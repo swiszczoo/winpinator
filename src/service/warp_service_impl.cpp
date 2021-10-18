@@ -196,6 +196,7 @@ Status WarpServiceImpl::ProcessTransferOpRequest( grpc::ServerContext* context,
     op.totalCount = request->count();
     op.mimeIfSingleUtf8 = request->mime_if_single();
     op.nameIfSingleUtf8 = request->name_if_single();
+    op.useCompression = info.use_compression();
     
     for ( std::string basename : request->top_dir_basenames() )
     {
@@ -205,6 +206,12 @@ Status WarpServiceImpl::ProcessTransferOpRequest( grpc::ServerContext* context,
     m_transferMgr->registerTransfer( id, op );
 
     return Status::OK;
+}
+
+Status WarpServiceImpl::StartTransfer( grpc::ServerContext* context,
+    const OpInfo* request, grpc::ServerWriter<FileChunk>* writer )
+{
+    return Status::CANCELLED;
 }
 
 //

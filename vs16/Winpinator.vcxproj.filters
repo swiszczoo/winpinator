@@ -241,6 +241,9 @@
     <ClInclude Include="..\src\service\icon_extractor.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\unix_permissions.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -394,6 +397,9 @@
       <Filter>Sources\service</Filter>
     </ClCompile>
     <ClCompile Include="..\src\service\icon_extractor.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\unix_permissions.cpp">
       <Filter>Sources\service</Filter>
     </ClCompile>
   </ItemGroup>

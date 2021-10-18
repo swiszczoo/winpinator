@@ -209,6 +209,8 @@ void ScrolledTransferHistory::addPendingTransfer(
 
     HistoryPendingElement* element = new HistoryPendingElement(
         m_pendingGroup.panel, &m_stdBitmaps );
+    element->setRemoteId( m_targetId );
+
     HistoryPendingData data = convertOpToData( transfer );
     
     {
@@ -322,6 +324,16 @@ HistoryPendingData ScrolledTransferHistory::convertOpToData(
                 out.opState = HistoryPendingState::AWAIT_MY_APPROVAL;
             }
         }
+    }
+
+    if ( transfer.status == srv::OpStatus::TRANSFERRING )
+    {
+        out.opState = HistoryPendingState::TRANSFER_RUNNING;
+    }
+
+    if ( transfer.status == srv::OpStatus::PAUSED )
+    {
+        out.opState = HistoryPendingState::TRANSFER_PAUSED;
     }
 
     return out;

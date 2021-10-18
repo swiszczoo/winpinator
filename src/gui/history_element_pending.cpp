@@ -1,4 +1,6 @@
 #include "history_element_pending.hpp"
+
+#include "../globals.hpp"
 #include "utils.hpp"
 
 #include <wx/filename.h>
@@ -25,6 +27,7 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
     , m_bitmaps( bitmaps )
     , m_data()
     , m_peerName( wxEmptyString )
+    , m_remoteId( "" )
 {
     wxBoxSizer* horzSizer = new wxBoxSizer( wxHORIZONTAL );
 
@@ -78,6 +81,9 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
     // Events
 
     Bind( wxEVT_PAINT, &HistoryPendingElement::onPaint, this );
+
+    m_infoAllow->Bind( wxEVT_BUTTON, 
+        &HistoryPendingElement::onAllowClicked, this );
 }
 
 void HistoryPendingElement::setData( const HistoryPendingData& newData )
@@ -111,6 +117,16 @@ void HistoryPendingElement::setPeerName( const wxString& peerName )
 const wxString& HistoryPendingElement::getPeerName() const
 {
     return m_peerName;
+}
+
+void HistoryPendingElement::setRemoteId( const std::string& remoteId )
+{
+    m_remoteId = remoteId;
+}
+
+const std::string& HistoryPendingElement::getRemoteId() const
+{
+    return m_remoteId;
 }
 
 void HistoryPendingElement::updateProgress( int sentBytes )
@@ -224,6 +240,14 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
     m_infoStop->Hide();
     m_infoOverwrite->Hide();
 
+    m_infoProgress->Disable();
+    m_infoCancel->Disable();
+    m_infoAllow->Disable();
+    m_infoReject->Disable();
+    m_infoPause->Disable();
+    m_infoStop->Disable();
+    m_infoOverwrite->Disable();
+
     switch ( state )
     {
     case HistoryPendingState::AWAIT_MY_APPROVAL:
@@ -232,6 +256,9 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
 
         m_infoAllow->Show();
         m_infoReject->Show();
+
+        m_infoAllow->Enable();
+        m_infoReject->Enable();
         break;
 
     case HistoryPendingState::AWAIT_PEER_APPROVAL:
@@ -239,6 +266,8 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
         m_infoLabel.Printf( _( "Awaiting approval from %s..." ), m_peerName );
 
         m_infoCancel->Show();
+
+        m_infoCancel->Enable();
         break;
 
     case HistoryPendingState::OVERWRITE_NEEDED:
@@ -246,6 +275,9 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
 
         m_infoOverwrite->Show();
         m_infoCancel->Show();
+
+        m_infoOverwrite->Enable();
+        m_infoCancel->Enable();
         break;
 
     case HistoryPendingState::TRANSFER_PAUSED:
@@ -254,6 +286,10 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
         m_infoProgress->Show();
         m_infoPause->Show();
         m_infoStop->Show();
+
+        m_infoProgress->Enable();
+        m_infoPause->Enable();
+        m_infoStop->Enable();
         break;
 
     case HistoryPendingState::TRANSFER_RUNNING:
@@ -262,12 +298,18 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
         m_infoProgress->Show();
         m_infoPause->Show();
         m_infoStop->Show();
+
+        m_infoProgress->Enable();
+        m_infoPause->Enable();
+        m_infoStop->Enable();
         break;
 
     case HistoryPendingState::DISK_FULL:
         m_infoLabel = _( "Not enough disk space! Files cannot be received!" );
 
         m_infoCancel->Show();
+
+        m_infoCancel->Enable();
         break;
     }
 
@@ -352,6 +394,14 @@ void HistoryPendingElement::onPaint( wxPaintEvent& event )
     dc.DrawText( m_infoLabel, labelX, labelY );
 
     event.Skip( true );
+}
+
+void HistoryPendingElement::onAllowClicked( wxCommandEvent& event )
+{
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    serv->getTransferManager()->replyAllowTransfer( 
+        m_remoteId, m_data.transferId, true );
 }
 
 int HistoryPendingElement::calculateRemainingSeconds() const

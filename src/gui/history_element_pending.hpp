@@ -51,6 +51,9 @@ public:
     void setPeerName( const wxString& peerName );
     const wxString& getPeerName() const;
 
+    void setRemoteId( const std::string& remoteId );
+    const std::string& getRemoteId() const;
+
     void updateProgress( int sentBytes );
 
 private:
@@ -75,11 +78,13 @@ private:
     HistoryStdBitmaps* m_bitmaps;
     HistoryPendingData m_data;
     wxString m_peerName;
+    std::string m_remoteId;
 
     void calculateLayout();
     void setupForState( HistoryPendingState state );
 
     void onPaint( wxPaintEvent& event );
+    void onAllowClicked( wxCommandEvent& event );
 
     int calculateRemainingSeconds() const;
     int calculateTransferSpeed() const;

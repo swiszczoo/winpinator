@@ -296,6 +296,7 @@
     <ClInclude Include="..\src\service\service_utils.hpp" />
     <ClInclude Include="..\src\service\transfer_manager.hpp" />
     <ClInclude Include="..\src\service\transfer_types.hpp" />
+    <ClInclude Include="..\src\service\unix_permissions.hpp" />
     <ClInclude Include="..\src\service\warp_service_impl.hpp" />
     <ClInclude Include="..\src\service\winpinator_service.hpp" />
     <ClInclude Include="..\src\thread_name.hpp" />
@@ -359,6 +360,7 @@
     <ClCompile Include="..\src\service\service_observer.cpp" />
     <ClCompile Include="..\src\service\service_utils.cpp" />
     <ClCompile Include="..\src\service\transfer_manager.cpp" />
+    <ClCompile Include="..\src\service\unix_permissions.cpp" />
     <ClCompile Include="..\src\service\warp_service_impl.cpp" />
     <ClCompile Include="..\src\service\winpinator_service.cpp" />
     <ClCompile Include="..\src\tray_icon.cpp" />

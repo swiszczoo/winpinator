@@ -261,6 +261,7 @@ void WinpinatorService::serviceMain()
     // Initialize transfer manager
     m_transferMgr = std::make_shared<TransferManager>( this );
     m_transferMgr->setOutputPath( L"C:\\Users\\lukas\\Documents\\Winpinator" );
+    m_transferMgr->setRemoteManager( m_remoteMgr );
 
     // Try to gather user account picture
     std::string avatarData;

@@ -422,6 +422,8 @@ void RemoteHandler::updateRemoteMachineAvatar()
         = std::make_shared<grpc::ClientContext>();
 
     std::shared_ptr<LookupName> request = std::make_shared<LookupName>();
+    request->set_id( m_ident );
+    request->set_readable_name( Utils::getHostname() );
 
     class Reader : public grpc::experimental::ClientReadReactor<RemoteMachineAvatar>
     {
@@ -452,6 +454,7 @@ void RemoteHandler::updateRemoteMachineAvatar()
             if ( ok )
             {
                 m_buffer += m_chunk.avatar_chunk();
+                StartRead( &m_chunk );
             }
         }
 

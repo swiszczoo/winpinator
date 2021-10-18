@@ -8,6 +8,7 @@ namespace srv
 
 enum class OpStatus
 {
+    INVALID_OP,
     INIT,
     CALCULATING,
     WAITING_PERMISSION,
@@ -21,6 +22,14 @@ enum class OpStatus
     FAILED_UNRECOVERABLE,
     FILE_NOT_FOUND,
     FINISHED
+};
+
+enum class FileType
+{
+    INVALID,
+    REGULAR_FILE,
+    DIRECTORY,
+    SYMBOLIC_LINK
 };
 
 struct TransferOp

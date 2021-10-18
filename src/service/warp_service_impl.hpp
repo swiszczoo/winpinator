@@ -41,6 +41,9 @@ protected:
     Status ProcessTransferOpRequest( grpc::ServerContext* context,
         const TransferOpRequest* request, VoidType* response ) override;
 
+    Status StartTransfer( grpc::ServerContext* context,
+        const OpInfo* request, grpc::ServerWriter<FileChunk>* writer ) override;
+
 private:
     std::shared_ptr<RemoteManager> m_remoteMgr;
     std::shared_ptr<TransferManager> m_transferMgr;
