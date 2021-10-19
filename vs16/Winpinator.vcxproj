@@ -270,6 +270,7 @@
     <ClInclude Include="..\src\gui\spritesheet_animator.hpp" />
     <ClInclude Include="..\src\gui\status_text.hpp" />
     <ClInclude Include="..\src\gui\transfer_history.hpp" />
+    <ClInclude Include="..\src\gui\transfer_speed_calculator.hpp" />
     <ClInclude Include="..\src\running_instance_detector.hpp" />
     <ClInclude Include="..\src\service\account_picture_extractor.hpp" />
     <ClInclude Include="..\src\gui\host_listbox.hpp" />
@@ -332,6 +333,7 @@
     <ClCompile Include="..\src\gui\spritesheet_animator.cpp" />
     <ClCompile Include="..\src\gui\status_text.cpp" />
     <ClCompile Include="..\src\gui\transfer_history.cpp" />
+    <ClCompile Include="..\src\gui\transfer_speed_calculator.cpp" />
     <ClCompile Include="..\src\running_instance_detector.cpp" />
     <ClCompile Include="..\src\service\account_picture_extractor.cpp" />
     <ClCompile Include="..\src\gui\host_listbox.cpp" />

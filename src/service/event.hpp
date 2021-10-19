@@ -21,7 +21,15 @@ enum class EventType
     REPEAT_MDNS_QUERY,
     HOST_ADDED,
     HOST_REMOVED,
-    SHOW_TOAST_NOTIFICATION
+    SHOW_TOAST_NOTIFICATION,
+    ACCEPT_TRANSFER_CLICKED,
+    DECLINE_TRANSFER_CLICKED
+};
+
+struct TransferData
+{
+    std::string remoteId;
+    int transferId;
 };
 
 struct Event
@@ -32,6 +40,7 @@ struct Event
         std::shared_ptr<zc::MdnsServiceData> addedData;
         std::shared_ptr<std::string> removedData;
         std::shared_ptr<ToastNotification> toastData;
+        std::shared_ptr<TransferData> transferData;
     } eventData;
 };
 

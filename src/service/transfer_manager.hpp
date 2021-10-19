@@ -32,7 +32,8 @@ public:
     void stop();
 
     void registerTransfer( const std::string& remoteId, 
-        TransferOp& transfer );
+        TransferOp& transfer, bool firstTry );
+
     void replyAllowTransfer( const std::string& remoteId,
         int transferId, bool allow );
     void resumeTransfer( const std::string& remoteId, 
@@ -42,6 +43,8 @@ public:
     void stopTransfer( const std::string& remoteId,
         int transferId );
     void finishTransfer( const std::string& remoteId, int transferId );
+
+    std::mutex& getMutex();
 
     std::vector<TransferOpPtr> getTransfersForRemote( 
         const std::string& remoteId );
@@ -95,6 +98,7 @@ private:
     void checkTransferDiskSpace( TransferOp& op );
     void checkTransferMustOverwrite( TransferOp& op );
     void setTransferTimestamp( TransferOp& op );
+    void setUpPauseLock( TransferOp& op );
     void sendNotifications( const std::string& remoteId, TransferOp& op );
     TransferOpPtr getTransferInfo( const std::string& remoteId, int transferId );
 

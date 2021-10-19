@@ -54,6 +54,7 @@ private:
     void onDDEOpenCalled( wxCommandEvent& event );
     void onRestore( wxCommandEvent& event );
     void onServiceEvent( wxThreadEvent& event );
+    void onExitApp( wxCommandEvent& event );
 
     // Service observer methods:
     virtual void onStateChanged();
@@ -74,6 +75,7 @@ WinpinatorApp::WinpinatorApp()
     Bind( EVT_OPEN_APP_WINDOW, &WinpinatorApp::onDDEOpenCalled, this );
     Bind( EVT_RESTORE_WINDOW, &WinpinatorApp::onRestore, this );
     Bind( wxEVT_THREAD, &WinpinatorApp::onServiceEvent, this );
+    Bind( EVT_EXIT_APP, &WinpinatorApp::onExitApp, this );
 }
 
 bool WinpinatorApp::OnInit()
@@ -232,6 +234,26 @@ void WinpinatorApp::onServiceEvent( wxThreadEvent& event )
 
         m_topLvl->showTransferScreen( event.GetString() );
     }
+}
+
+void WinpinatorApp::onExitApp( wxCommandEvent& event )
+{
+    if ( m_topLvl )
+    {
+        m_topLvl->Close( true );
+    }
+
+    srv::Event evnt;
+    evnt.type = srv::EventType::STOP_SERVICE;
+    
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+    if ( serv )
+    {
+        serv->postEvent( evnt );
+    }
+
+    m_trayIcon->Destroy();
+    m_trayIcon = nullptr;
 }
 
 void WinpinatorApp::onStateChanged()

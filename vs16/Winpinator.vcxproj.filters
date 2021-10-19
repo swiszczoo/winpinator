@@ -247,6 +247,9 @@
     <ClInclude Include="..\src\service\zlib_deflate.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\transfer_speed_calculator.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -407,6 +410,9 @@
     </ClCompile>
     <ClCompile Include="..\src\service\zlib_deflate.cpp">
       <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\transfer_speed_calculator.cpp">
+      <Filter>Sources\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

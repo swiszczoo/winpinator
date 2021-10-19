@@ -3,6 +3,8 @@
 #include <wx/filename.h>
 #include <wx/stdpaths.h>
 
+#include <memory>
+
 namespace srv
 {
 
@@ -120,14 +122,30 @@ void AcceptFilesNotification::Handler::toastActivated() const
 
 void AcceptFilesNotification::Handler::toastActivated( int actionIndex ) const
 {
+    Event evnt;
+    TransferData data;
+    data.remoteId = m_remoteId;
+    data.transferId = m_transferId;
+
+    evnt.eventData.transferData = std::make_shared<TransferData>( data );
+
+    switch ( (Actions)actionIndex )
+    {
+    case Actions::ACCEPT:
+        evnt.type = EventType::ACCEPT_TRANSFER_CLICKED;
+        m_service->postEvent( evnt );
+        break;
+
+    case Actions::DECLINE:
+        evnt.type = EventType::DECLINE_TRANSFER_CLICKED;
+        m_service->postEvent( evnt );
+        break;
+    }
 }
 
 void AcceptFilesNotification::Handler::toastDismissed(
     WinToastDismissalReason state ) const
 {
-    if ( state == WinToastDismissalReason::ApplicationHidden )
-    {
-    }
 }
 
 void AcceptFilesNotification::Handler::toastFailed() const

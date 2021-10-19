@@ -177,10 +177,16 @@ Status WarpServiceImpl::ProcessTransferOpRequest( grpc::ServerContext* context,
 
     for ( TransferOpPtr existingOp : m_transferMgr->getTransfersForRemote( id ) )
     {
+        std::unique_lock<std::mutex> lock( *existingOp->mutex );
+
         if ( existingOp->startTime == info.timestamp() )
         {
             existingOp->useCompression = info.use_compression();
             existingOp->status = OpStatus::WAITING_PERMISSION;
+
+            lock.unlock();
+
+            m_transferMgr->registerTransfer( id, *existingOp, false );
             return Status::OK;
         }
     }
@@ -203,7 +209,7 @@ Status WarpServiceImpl::ProcessTransferOpRequest( grpc::ServerContext* context,
         op.topDirBasenamesUtf8.push_back( basename );
     }
 
-    m_transferMgr->registerTransfer( id, op );
+    m_transferMgr->registerTransfer( id, op, true );
 
     return Status::OK;
 }

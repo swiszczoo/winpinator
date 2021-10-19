@@ -1,6 +1,7 @@
 #pragma once
 #include <atomic>
 #include <chrono>
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -33,10 +34,19 @@ enum class FileType
     SYMBOLIC_LINK
 };
 
+struct EventLock
+{
+    std::mutex mutex;
+    std::condition_variable condVar;
+    bool value;
+};
+
 struct TransferOp
 {
     int id;
     bool outcoming;
+
+    std::shared_ptr<std::mutex> mutex;
 
     std::time_t startTime;
     std::string senderNameUtf8;
@@ -61,6 +71,7 @@ struct TransferOp
     struct
     {
         std::chrono::steady_clock::time_point lastProgressUpdate;
+        std::shared_ptr<EventLock> pauseLock;
     } intern;
 
     bool useCompression;

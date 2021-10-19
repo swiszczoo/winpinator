@@ -84,6 +84,10 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
 
     m_infoAllow->Bind( wxEVT_BUTTON, 
         &HistoryPendingElement::onAllowClicked, this );
+    m_infoReject->Bind( wxEVT_BUTTON,
+        &HistoryPendingElement::onDeclineClicked, this );
+    m_infoPause->Bind( wxEVT_BUTTON,
+        &HistoryPendingElement::onPauseClicked, this );
 }
 
 void HistoryPendingElement::setData( const HistoryPendingData& newData )
@@ -104,6 +108,11 @@ void HistoryPendingElement::setData( const HistoryPendingData& newData )
     if ( newData.opState == HistoryPendingState::TRANSFER_PAUSED
         || newData.opState == HistoryPendingState::TRANSFER_RUNNING )
     {
+        if ( newData.sentBytes == 0 )
+        {
+            m_calculator.reset( 0, newData.totalSizeBytes );
+        }
+
         updateProgress( newData.sentBytes );
     }
 }
@@ -139,6 +148,7 @@ const std::string& HistoryPendingElement::getRemoteId() const
 void HistoryPendingElement::updateProgress( long long sentBytes )
 {
     m_data.sentBytes = sentBytes;
+    m_calculator.update( sentBytes );
 
     int remainingSecs = calculateRemainingSeconds();
     int bytesPerSecond = calculateTransferSpeed();
@@ -409,14 +419,37 @@ void HistoryPendingElement::onAllowClicked( wxCommandEvent& event )
         m_remoteId, m_data.transferId, true );
 }
 
+void HistoryPendingElement::onDeclineClicked( wxCommandEvent& event )
+{
+    disableAllButtons();
+}
+
+void HistoryPendingElement::onPauseClicked( wxCommandEvent& event )
+{
+    disableAllButtons();
+
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    if ( m_data.opState == HistoryPendingState::TRANSFER_RUNNING )
+    {
+        serv->getTransferManager()->pauseTransfer(
+            m_remoteId, m_data.transferId );
+    }
+    else if ( m_data.opState == HistoryPendingState::TRANSFER_PAUSED )
+    {
+        serv->getTransferManager()->resumeTransfer(
+            m_remoteId, m_data.transferId );
+    }
+}
+
 int HistoryPendingElement::calculateRemainingSeconds() const
 {
-    return 200;
+    return (int)m_calculator.getRemainingTimeInSeconds();
 }
 
 int HistoryPendingElement::calculateTransferSpeed() const
 {
-    return 1e6;
+    return (int)m_calculator.getTransferSpeedInBps();
 }
 
 void HistoryPendingElement::disableAllButtons()

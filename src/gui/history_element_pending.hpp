@@ -1,6 +1,7 @@
 #pragma once
 #include "history_item_icon.hpp"
 #include "history_std_bitmaps.hpp"
+#include "transfer_speed_calculator.hpp"
 
 #include <wx/wx.h>
 
@@ -80,11 +81,15 @@ private:
     wxString m_peerName;
     std::string m_remoteId;
 
+    TransferSpeedCalculator m_calculator;
+
     void calculateLayout();
     void setupForState( HistoryPendingState state );
 
     void onPaint( wxPaintEvent& event );
     void onAllowClicked( wxCommandEvent& event );
+    void onDeclineClicked( wxCommandEvent& event );
+    void onPauseClicked( wxCommandEvent& event );
 
     int calculateRemainingSeconds() const;
     int calculateTransferSpeed() const;

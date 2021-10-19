@@ -454,6 +454,20 @@ void WinpinatorService::serviceMain()
                     ev.eventData.toastData->instantiateListener() );
             }
         }
+        if ( ev.type == EventType::ACCEPT_TRANSFER_CLICKED )
+        {
+            m_transferMgr->replyAllowTransfer(
+                ev.eventData.transferData->remoteId,
+                ev.eventData.transferData->transferId,
+                true );
+        }
+        if ( ev.type == EventType::DECLINE_TRANSFER_CLICKED )
+        {
+            m_transferMgr->replyAllowTransfer(
+                ev.eventData.transferData->remoteId,
+                ev.eventData.transferData->transferId,
+                false );
+        }
     }
 
     // Service cleanup

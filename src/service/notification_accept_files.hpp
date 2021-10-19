@@ -33,6 +33,12 @@ private:
         Handler( AcceptFilesNotification* notification );
 
     private:
+        enum class Actions
+        {
+            ACCEPT = 0,
+            DECLINE
+        };
+
         std::string m_remoteId;
         int m_transferId;
         WinpinatorService* m_service;
