@@ -91,6 +91,7 @@ private:
     // Observer methods
     virtual void onStateChanged() override;
     virtual void onAddTransfer( srv::TransferOp transfer ) override;
+    virtual void onUpdateTransfer( srv::TransferOp transfer ) override;
 
     friend class ScrolledTransferHistory::DropTargetImpl;
 };

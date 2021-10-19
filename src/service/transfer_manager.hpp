@@ -2,16 +2,20 @@
 #include "observable_service.hpp"
 #include "remote_manager.hpp"
 #include "transfer_types.hpp"
+#include "zlib_deflate.hpp"
 
 #include <wx/wx.h>
 
 #include <atomic>
 #include <map>
+#include <memory>
 #include <mutex>
 #include <vector>
 
 namespace srv
 {
+
+typedef std::shared_ptr<TransferOp> TransferOpPtr;
 
 class TransferManager
 {
@@ -39,7 +43,8 @@ public:
         int transferId );
     void finishTransfer( const std::string& remoteId, int transferId );
 
-    std::vector<TransferOp> getTransfersForRemote( const std::string& remoteId );
+    std::vector<TransferOpPtr> getTransfersForRemote( 
+        const std::string& remoteId );
 
 private:
     class StartTransferReactor 
@@ -49,6 +54,8 @@ private:
         void setInstance( std::shared_ptr<StartTransferReactor> selfPtr );
         void setRefs( std::shared_ptr<grpc::ClientContext> ref1,
             std::shared_ptr<OpInfo> ref2 );
+        void setTransferPtr( TransferOpPtr transferPtr );
+        void setManager( TransferManager* mgr );
 
         void start();
 
@@ -62,8 +69,17 @@ private:
         std::shared_ptr<grpc::ClientContext> m_clientCtx;
         std::shared_ptr<OpInfo> m_request;
 
+        TransferOpPtr m_transfer;
+        TransferManager* m_mgr;
+
         FileChunk m_chunk;
+        ZlibDeflate m_compressor;
+        bool m_useCompression;
+
+        void updateProgress( long long chunkBytes );
     };
+
+    static const long long PROGRESS_FREQ_MILLIS;
 
     std::atomic_bool m_running;
     std::shared_ptr<RemoteManager> m_remoteMgr;
@@ -74,16 +90,20 @@ private:
     std::wstring m_outputPath;
     TransferOp m_empty;
 
-    std::map<std::string, std::vector<TransferOp>> m_transfers;
+    std::map<std::string, std::vector<TransferOpPtr>> m_transfers;
 
     void checkTransferDiskSpace( TransferOp& op );
     void checkTransferMustOverwrite( TransferOp& op );
     void setTransferTimestamp( TransferOp& op );
     void sendNotifications( const std::string& remoteId, TransferOp& op );
-    TransferOp& getTransferInfo( const std::string& remoteId, int transferId );
+    TransferOpPtr getTransferInfo( const std::string& remoteId, int transferId );
 
     void processStartOrResumeTransfer( const std::string& remoteId, 
-        TransferOp& op );
+        TransferOpPtr op );
+
+    OpInfo convertOpToOpInfo( const TransferOpPtr op, 
+        bool compressionEnabled ) const;
+    void sendStatusUpdateNotification( const TransferOpPtr op );
 };
 
 };

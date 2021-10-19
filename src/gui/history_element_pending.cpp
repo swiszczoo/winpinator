@@ -88,11 +88,18 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
 
 void HistoryPendingElement::setData( const HistoryPendingData& newData )
 {
+    HistoryPendingState oldState = m_data.opState;
+
     m_data = newData;
 
     setIcons( newData.numFolders, newData.numFiles, newData.singleElementName );
     setOutcoming( newData.outcoming );
     setFinished( false );
+
+    if ( newData.opState != oldState )
+    {
+        setupForState( newData.opState );
+    }
 
     if ( newData.opState == HistoryPendingState::TRANSFER_PAUSED
         || newData.opState == HistoryPendingState::TRANSFER_RUNNING )
@@ -129,7 +136,7 @@ const std::string& HistoryPendingElement::getRemoteId() const
     return m_remoteId;
 }
 
-void HistoryPendingElement::updateProgress( int sentBytes )
+void HistoryPendingElement::updateProgress( long long sentBytes )
 {
     m_data.sentBytes = sentBytes;
 
@@ -240,13 +247,7 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
     m_infoStop->Hide();
     m_infoOverwrite->Hide();
 
-    m_infoProgress->Disable();
-    m_infoCancel->Disable();
-    m_infoAllow->Disable();
-    m_infoReject->Disable();
-    m_infoPause->Disable();
-    m_infoStop->Disable();
-    m_infoOverwrite->Disable();
+    disableAllButtons();
 
     switch ( state )
     {
@@ -313,7 +314,9 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
         break;
     }
 
+    Layout();
     calculateLayout();
+    Layout();
 }
 
 void HistoryPendingElement::onPaint( wxPaintEvent& event )
@@ -398,6 +401,8 @@ void HistoryPendingElement::onPaint( wxPaintEvent& event )
 
 void HistoryPendingElement::onAllowClicked( wxCommandEvent& event )
 {
+    disableAllButtons();
+
     auto serv = Globals::get()->getWinpinatorServiceInstance();
 
     serv->getTransferManager()->replyAllowTransfer( 
@@ -412,6 +417,17 @@ int HistoryPendingElement::calculateRemainingSeconds() const
 int HistoryPendingElement::calculateTransferSpeed() const
 {
     return 1e6;
+}
+
+void HistoryPendingElement::disableAllButtons()
+{
+    m_infoProgress->Disable();
+    m_infoCancel->Disable();
+    m_infoAllow->Disable();
+    m_infoReject->Disable();
+    m_infoPause->Disable();
+    m_infoStop->Disable();
+    m_infoOverwrite->Disable();
 }
 
 };

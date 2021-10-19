@@ -54,7 +54,7 @@ public:
     void setRemoteId( const std::string& remoteId );
     const std::string& getRemoteId() const;
 
-    void updateProgress( int sentBytes );
+    void updateProgress( long long sentBytes );
 
 private:
     static const int ICON_SIZE;
@@ -88,6 +88,7 @@ private:
 
     int calculateRemainingSeconds() const;
     int calculateTransferSpeed() const;
+    void disableAllButtons();
 };
 
 };

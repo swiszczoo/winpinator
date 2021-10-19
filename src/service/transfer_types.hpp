@@ -1,4 +1,5 @@
 #pragma once
+#include <atomic>
 #include <chrono>
 #include <string>
 #include <vector>
@@ -53,7 +54,14 @@ struct TransferOp
         bool notEnoughSpace;
         bool mustOverwrite;
         std::time_t localTimestamp;
+
+        long long sentBytes;
     } meta;
+
+    struct
+    {
+        std::chrono::steady_clock::time_point lastProgressUpdate;
+    } intern;
 
     bool useCompression;
 };

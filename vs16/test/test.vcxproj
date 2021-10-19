@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\test\unix_permissions.test.cpp" />
+    <ClCompile Include="..\..\test\zlib_deflate.test.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

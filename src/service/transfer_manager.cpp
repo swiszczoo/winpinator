@@ -12,6 +12,8 @@
 namespace srv
 {
 
+const long long TransferManager::PROGRESS_FREQ_MILLIS = 100;
+
 TransferManager::TransferManager( ObservableService* service )
     : m_running( ATOMIC_VAR_INIT( true ) )
     , m_remoteMgr( nullptr )
@@ -68,6 +70,7 @@ void TransferManager::registerTransfer( const std::string& remoteId,
     std::lock_guard<std::mutex> guard( m_mtx );
 
     transfer.id = m_lastId;
+    transfer.meta.sentBytes = 0;
     m_lastId++;
 
     checkTransferDiskSpace( transfer );
@@ -75,7 +78,7 @@ void TransferManager::registerTransfer( const std::string& remoteId,
     setTransferTimestamp( transfer );
     sendNotifications( remoteId, transfer );
 
-    m_transfers[remoteId].push_back( transfer );
+    m_transfers[remoteId].push_back( std::make_shared<TransferOp>( transfer ) );
 
     m_srv->notifyObservers( [this, &transfer]( srv::IServiceObserver* observer )
         { observer->onAddTransfer( transfer ); } );
@@ -86,18 +89,18 @@ void TransferManager::replyAllowTransfer( const std::string& remoteId,
 {
     std::lock_guard<std::mutex> guard( m_mtx );
 
-    TransferOp& op = getTransferInfo( remoteId, transferId );
+    TransferOpPtr op = getTransferInfo( remoteId, transferId );
 
     if ( allow )
     {
-        if ( !op.outcoming && op.status == OpStatus::WAITING_PERMISSION )
+        if ( op && !op->outcoming && op->status == OpStatus::WAITING_PERMISSION )
         {
             processStartOrResumeTransfer( remoteId, op );
         }
     }
 }
 
-std::vector<TransferOp> TransferManager::getTransfersForRemote(
+std::vector<TransferOpPtr> TransferManager::getTransfersForRemote(
     const std::string& remoteId )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
@@ -143,9 +146,10 @@ void TransferManager::checkTransferMustOverwrite( TransferOp& op )
 void TransferManager::setTransferTimestamp( TransferOp& op )
 {
     op.meta.localTimestamp = time( NULL );
+    op.intern.lastProgressUpdate = std::chrono::steady_clock::now();
 }
 
-void TransferManager::sendNotifications( const std::string& remoteId, 
+void TransferManager::sendNotifications( const std::string& remoteId,
     TransferOp& op )
 {
     if ( !op.outcoming )
@@ -158,90 +162,122 @@ void TransferManager::sendNotifications( const std::string& remoteId,
         notif->setIsSingleFolder( op.mimeIfSingleUtf8 == "inode/directory" );
         if ( op.topDirBasenamesUtf8.size() == 1 )
         {
-            notif->setSingleElementName( 
+            notif->setSingleElementName(
                 wxString::FromUTF8( op.topDirBasenamesUtf8[0] ) );
         }
 
         Event evnt;
         evnt.type = EventType::SHOW_TOAST_NOTIFICATION;
         evnt.eventData.toastData = notif;
-        
+
         Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
     }
 }
 
-TransferOp& TransferManager::getTransferInfo( const std::string& remoteId, 
+TransferOpPtr TransferManager::getTransferInfo( const std::string& remoteId,
     int transferId )
 {
     if ( m_transfers.find( remoteId ) != m_transfers.end() )
     {
         auto& transferList = m_transfers[remoteId];
 
-        for ( TransferOp& op : transferList )
+        for ( TransferOpPtr op : transferList )
         {
-            if ( op.id == transferId )
+            if ( op->id == transferId )
             {
                 return op;
             }
         }
     }
 
-    return m_empty;
+    return nullptr;
 }
 
 void TransferManager::processStartOrResumeTransfer( const std::string& remoteId,
-    TransferOp& op )
+    TransferOpPtr op )
 {
     wxLogDebug( "TransferManager: processing start/resume transfer" );
 
-    RemoteInfoPtr info = m_remoteMgr->getRemoteInfo( remoteId );
-
-    if ( !info )
     {
-        wxLogDebug( "TransferManager: remote not found! ignoring!" );
-        return;
+        RemoteInfoPtr info = m_remoteMgr->getRemoteInfo( remoteId );
+
+        if ( !info )
+        {
+            wxLogDebug( "TransferManager: remote not found! ignoring!" );
+            return;
+        }
+
+        std::lock_guard<std::mutex> guard( info->mutex );
+
+        std::shared_ptr<grpc::ClientContext> ctx
+            = std::make_shared<grpc::ClientContext>();
+
+        // TODO: we can also request not to use compression
+        std::shared_ptr<OpInfo> request = std::make_shared<OpInfo>(
+            convertOpToOpInfo( op, true ) );
+
+        std::shared_ptr<StartTransferReactor> reactor
+            = std::make_shared<StartTransferReactor>();
+        reactor->setInstance( reactor );
+        reactor->setRefs( ctx, request );
+        reactor->setTransferPtr( op );
+        reactor->setManager( this );
+
+        wxLogDebug( "TransferManager: starting transfer!" );
+        op->status = OpStatus::TRANSFERRING;
+
+        info->stub->experimental_async()->StartTransfer( ctx.get(), request.get(),
+            reactor.get() );
+        reactor->start();
     }
 
-    std::lock_guard<std::mutex> guard( info->mutex );
+    sendStatusUpdateNotification( op );
+}
 
-    std::shared_ptr<grpc::ClientContext> ctx
-        = std::make_shared<grpc::ClientContext>();
-    std::shared_ptr<OpInfo> request = std::make_shared<OpInfo>();
+OpInfo TransferManager::convertOpToOpInfo( const TransferOpPtr op,
+    bool compressionEnabled ) const
+{
+    OpInfo info;
 
-    request->set_ident( AuthManager::get()->getIdent() );
-    request->set_timestamp( op.startTime );
-    request->set_readable_name( Utils::getHostname() );
+    info.set_ident( AuthManager::get()->getIdent() );
+    info.set_timestamp( op->startTime );
+    info.set_readable_name( Utils::getHostname() );
+    info.set_use_compression( op->useCompression && compressionEnabled );
 
-    // TODO: we can also request not to use compression
-    request->set_use_compression( op.useCompression );
+    return info;
+}
 
-    std::shared_ptr<StartTransferReactor> reactor 
-        = std::make_shared<StartTransferReactor>();
-    reactor->setInstance( reactor );
-    reactor->setRefs( ctx, request );
-    
-    wxLogDebug( "TransferManager: starting transfer!" );
-    op.status = OpStatus::TRANSFERRING;
-
-    info->stub->experimental_async()->StartTransfer( ctx.get(), request.get(),
-        reactor.get() );
-    reactor->start();
+void TransferManager::sendStatusUpdateNotification( const TransferOpPtr op )
+{
+    m_srv->notifyObservers( [this, &op]( IServiceObserver* observer )
+        { observer->onUpdateTransfer( *op ); } );
 }
 
 //
 // StartTransferReactor functions
 
-void TransferManager::StartTransferReactor::setInstance( 
+void TransferManager::StartTransferReactor::setInstance(
     std::shared_ptr<StartTransferReactor> selfPtr )
 {
     m_selfPtr = selfPtr;
 }
 
-void TransferManager::StartTransferReactor::setRefs( 
+void TransferManager::StartTransferReactor::setRefs(
     std::shared_ptr<grpc::ClientContext> ref1, std::shared_ptr<OpInfo> ref2 )
 {
     m_clientCtx = ref1;
     m_request = ref2;
+}
+
+void TransferManager::StartTransferReactor::setTransferPtr( TransferOpPtr ptr )
+{
+    m_transfer = ptr;
+    m_useCompression = ptr->useCompression;
+}
+
+void TransferManager::StartTransferReactor::setManager( TransferManager* mgr )
+{
+    m_mgr = mgr;
 }
 
 void TransferManager::StartTransferReactor::start()
@@ -259,11 +295,40 @@ void TransferManager::StartTransferReactor::OnReadDone( bool ok )
 {
     if ( ok )
     {
-        wxLogDebug( "StartTransferReactor: Successfully received file chunk (name=%s, type=%d, mode=%d, size=%d)", 
+        wxLogDebug( "StartTransferReactor: Successfully received file chunk (name=%s, type=%d, mode=%d, size=%d)",
             m_chunk.relative_path(), (int)m_chunk.file_type(), (int)m_chunk.file_mode(),
             (int)m_chunk.chunk().size() );
 
+        long long chunkSize = m_chunk.chunk().size();
+
+        if ( m_useCompression )
+        {
+            std::string decompressed = m_compressor.decompress( m_chunk.chunk() );
+            chunkSize = decompressed.size();
+        }
+
+        updateProgress( chunkSize );
+
         StartRead( &m_chunk );
+    }
+}
+
+void TransferManager::StartTransferReactor::updateProgress( long long chunkBytes )
+{
+    using namespace std::chrono;
+    std::lock_guard<std::mutex> lock( m_mgr->m_mtx );
+
+    m_transfer->meta.sentBytes += chunkBytes;
+
+    auto currentTime = std::chrono::steady_clock::now();
+    long long millisElapsed = duration_cast<milliseconds>( 
+        currentTime - m_transfer->intern.lastProgressUpdate ).count();
+
+    if ( millisElapsed > TransferManager::PROGRESS_FREQ_MILLIS )
+    {
+        m_mgr->sendStatusUpdateNotification( m_transfer );
+
+        m_transfer->intern.lastProgressUpdate = currentTime;
     }
 }
 

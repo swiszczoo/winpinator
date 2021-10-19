@@ -299,6 +299,7 @@
     <ClInclude Include="..\src\service\unix_permissions.hpp" />
     <ClInclude Include="..\src\service\warp_service_impl.hpp" />
     <ClInclude Include="..\src\service\winpinator_service.hpp" />
+    <ClInclude Include="..\src\service\zlib_deflate.hpp" />
     <ClInclude Include="..\src\thread_name.hpp" />
     <ClInclude Include="..\src\tray_icon.hpp" />
     <ClInclude Include="..\src\winpinator_dde_client.hpp" />
@@ -363,6 +364,7 @@
     <ClCompile Include="..\src\service\unix_permissions.cpp" />
     <ClCompile Include="..\src\service\warp_service_impl.cpp" />
     <ClCompile Include="..\src\service\winpinator_service.cpp" />
+    <ClCompile Include="..\src\service\zlib_deflate.cpp" />
     <ClCompile Include="..\src\tray_icon.cpp" />
     <ClCompile Include="..\src\winpinator_dde_client.cpp" />
     <ClCompile Include="..\src\winpinator_dde_consts.cpp" />

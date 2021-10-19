@@ -78,6 +78,11 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
 
 bool WinpinatorFrame::showTransferScreen( const wxString& remoteId )
 {
+    Iconize( false );
+    SetFocus();
+    Raise();
+    Show( true );
+
     return m_selector->showTransferScreen( remoteId );
 }
 

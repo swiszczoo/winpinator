@@ -175,12 +175,12 @@ Status WarpServiceImpl::ProcessTransferOpRequest( grpc::ServerContext* context,
             "Invalid sender ident" );
     }
 
-    for ( TransferOp& existingOp : m_transferMgr->getTransfersForRemote( id ) )
+    for ( TransferOpPtr existingOp : m_transferMgr->getTransfersForRemote( id ) )
     {
-        if ( existingOp.startTime == info.timestamp() )
+        if ( existingOp->startTime == info.timestamp() )
         {
-            existingOp.useCompression = info.use_compression();
-            existingOp.status = OpStatus::WAITING_PERMISSION;
+            existingOp->useCompression = info.use_compression();
+            existingOp->status = OpStatus::WAITING_PERMISSION;
             return Status::OK;
         }
     }

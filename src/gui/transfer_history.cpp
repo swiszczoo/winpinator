@@ -212,7 +212,7 @@ void ScrolledTransferHistory::addPendingTransfer(
     element->setRemoteId( m_targetId );
 
     HistoryPendingData data = convertOpToData( transfer );
-    
+
     {
         std::lock_guard<std::mutex> guard( info->mutex );
 
@@ -220,12 +220,12 @@ void ScrolledTransferHistory::addPendingTransfer(
         element->setPeerName( info->fullName );
     }
 
-    m_pendingGroup.elements.insert( 
+    m_pendingGroup.elements.insert(
         m_pendingGroup.elements.begin(), element );
-    m_pendingGroup.currentIds.insert( 
+    m_pendingGroup.currentIds.insert(
         m_pendingGroup.currentIds.begin(), transfer.id );
 
-    m_pendingGroup.sizer->Insert( 0, element, 0, 
+    m_pendingGroup.sizer->Insert( 0, element, 0,
         wxEXPAND | wxLEFT | wxRIGHT, FromDIP( 11 ) );
 
     Scroll( 0, 0 );
@@ -239,6 +239,25 @@ void ScrolledTransferHistory::addPendingTransfer(
 void ScrolledTransferHistory::updatePendingTransfer(
     const srv::TransferOp& transfer )
 {
+    HistoryPendingData newData = convertOpToData( transfer );
+
+    for ( int i = 0; i < m_pendingGroup.currentIds.size(); i++ )
+    {
+        if ( transfer.id == m_pendingGroup.currentIds[i] )
+        {
+            const HistoryPendingData oldData 
+                = m_pendingGroup.elements[i]->getData();
+
+            if ( newData.opState == oldData.opState )
+            {
+                m_pendingGroup.elements[i]->updateProgress( newData.sentBytes );
+            }
+            else
+            {
+                m_pendingGroup.elements[i]->setData( newData );
+            }
+        }
+    }
 }
 
 void ScrolledTransferHistory::deletePendingTransfer( int transferId )
@@ -259,9 +278,9 @@ void ScrolledTransferHistory::loadAllTransfers()
     m_pendingGroup.currentIds.clear();
     m_pendingGroup.elements.clear();
 
-    for ( srv::TransferOp& transfer : transfers )
+    for ( srv::TransferOpPtr transfer : transfers )
     {
-        addPendingTransfer( transfer );
+        addPendingTransfer( *transfer );
     }
 
     updateTimeGroups();
@@ -274,7 +293,7 @@ HistoryPendingData ScrolledTransferHistory::convertOpToData(
 
     out.transferId = transfer.id;
     out.outcoming = transfer.outcoming;
-    
+
     if ( transfer.mimeIfSingleUtf8 == "inode/directory" )
     {
         out.numFolders = transfer.topDirBasenamesUtf8.size();
@@ -290,16 +309,16 @@ HistoryPendingData ScrolledTransferHistory::convertOpToData(
     {
         out.singleElementName = wxString::FromUTF8( transfer.nameIfSingleUtf8 );
     }
-    else if ( transfer.topDirBasenamesUtf8.size() == 1)
+    else if ( transfer.topDirBasenamesUtf8.size() == 1 )
     {
-        out.singleElementName = wxString::FromUTF8( 
+        out.singleElementName = wxString::FromUTF8(
             transfer.topDirBasenamesUtf8[0] );
     }
 
     out.opStartTime = transfer.meta.localTimestamp;
-    out.sentBytes = 0;
+    out.sentBytes = transfer.meta.sentBytes;
     out.totalSizeBytes = transfer.totalSize;
-    
+
     if ( transfer.outcoming )
     {
         if ( transfer.status == srv::OpStatus::WAITING_PERMISSION )
@@ -549,8 +568,27 @@ void ScrolledTransferHistory::onThreadEvent( wxThreadEvent& event )
     switch ( (ThreadEventType)event.GetInt() )
     {
     case ThreadEventType::ADD:
-        addPendingTransfer( event.GetPayload<srv::TransferOp>() );
+    case ThreadEventType::UPDATE:
+    {
+        bool processed = false;
+        srv::TransferOp op = event.GetPayload<srv::TransferOp>();
+
+        for ( int i = 0; i < m_pendingGroup.currentIds.size(); i++ )
+        {
+            if ( op.id == m_pendingGroup.currentIds[i] )
+            {
+                updatePendingTransfer( op );
+                processed = true;
+                break;
+            }
+        }
+
+        if ( !processed )
+        {
+            addPendingTransfer( op );
+        }
         break;
+    }
     }
 }
 
@@ -564,6 +602,14 @@ void ScrolledTransferHistory::onAddTransfer( srv::TransferOp transfer )
 {
     wxThreadEvent evnt;
     evnt.SetInt( (int)ThreadEventType::ADD );
+    evnt.SetPayload( transfer );
+    wxQueueEvent( this, evnt.Clone() );
+}
+
+void ScrolledTransferHistory::onUpdateTransfer( srv::TransferOp transfer )
+{
+    wxThreadEvent evnt;
+    evnt.SetInt( (int)ThreadEventType::UPDATE );
     evnt.SetPayload( transfer );
     wxQueueEvent( this, evnt.Clone() );
 }
