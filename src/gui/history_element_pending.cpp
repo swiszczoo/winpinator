@@ -28,7 +28,10 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
     , m_data()
     , m_peerName( wxEmptyString )
     , m_remoteId( "" )
+    , m_scrollable( nullptr )
 {
+    SetCanFocus( true );
+
     wxBoxSizer* horzSizer = new wxBoxSizer( wxHORIZONTAL );
 
     horzSizer->AddStretchSpacer( 3 );
@@ -143,6 +146,12 @@ void HistoryPendingElement::setRemoteId( const std::string& remoteId )
 const std::string& HistoryPendingElement::getRemoteId() const
 {
     return m_remoteId;
+}
+
+void HistoryPendingElement::setScrollableRestorable( 
+    ScrollableRestorable* restorable )
+{
+    m_scrollable = restorable;
 }
 
 void HistoryPendingElement::updateProgress( long long sentBytes )
@@ -440,6 +449,8 @@ void HistoryPendingElement::onPauseClicked( wxCommandEvent& event )
         serv->getTransferManager()->resumeTransfer(
             m_remoteId, m_data.transferId );
     }
+
+    m_infoPause->SetFocus();
 }
 
 int HistoryPendingElement::calculateRemainingSeconds() const
@@ -454,13 +465,22 @@ int HistoryPendingElement::calculateTransferSpeed() const
 
 void HistoryPendingElement::disableAllButtons()
 {
-    m_infoProgress->Disable();
+    if ( m_scrollable )
+    {
+        m_scrollable->saveScrollPosition();
+    }
+
     m_infoCancel->Disable();
     m_infoAllow->Disable();
     m_infoReject->Disable();
     m_infoPause->Disable();
     m_infoStop->Disable();
     m_infoOverwrite->Disable();
+
+    if ( m_scrollable )
+    {
+        m_scrollable->restoreScrollPosition();
+    }
 }
 
 };

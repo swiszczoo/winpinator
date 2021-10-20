@@ -21,9 +21,15 @@ public:
     ExtractorError getProcessingError() const;
 
 private:
-    static const wxString s_keyName;
+    static const wxString USER_KEY_NAME;
+    static const wxString SYSTEM_KEY_NAME;
 
     ExtractorError m_error;
     wxImage m_loRes;
     wxImage m_hiRes;
+
+    bool tryExtractingFromUserRegistry();
+    bool tryExtractingFromSystemRegistry();
+
+    wxString getCurrentUserSID();
 };

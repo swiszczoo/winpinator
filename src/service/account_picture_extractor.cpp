@@ -7,9 +7,19 @@
 
 #include <memory>
 
-const wxString AccountPictureExtractor::s_keyName = "SOFTWARE\\Microsoft"
-                                                    "\\Windows\\CurrentVersion"
-                                                    "\\AccountPicture";
+#include <Windows.h>
+#include <sddl.h>
+
+const wxString AccountPictureExtractor::USER_KEY_NAME = "SOFTWARE\\Microsoft"
+                                                        "\\Windows"
+                                                        "\\CurrentVersion"
+                                                        "\\AccountPicture";
+
+const wxString AccountPictureExtractor::SYSTEM_KEY_NAME = "SOFTWARE\\Microsoft"
+                                                          "\\Windows"
+                                                          "\\CurrentVersion"
+                                                          "\\AccountPicture"
+                                                          "\\Users\\%s";
 
 AccountPictureExtractor::AccountPictureExtractor()
     : m_error( ExtractorError::OK )
@@ -20,10 +30,35 @@ AccountPictureExtractor::AccountPictureExtractor()
 
 bool AccountPictureExtractor::process()
 {
+    if ( tryExtractingFromSystemRegistry() )
+    {
+        return true;
+    }
+
+    return tryExtractingFromUserRegistry();
+}
+
+const wxImage& AccountPictureExtractor::getLowResImage() const
+{
+    return m_loRes;
+}
+
+const wxImage& AccountPictureExtractor::getHighResImage() const
+{
+    return m_hiRes;
+}
+
+ExtractorError AccountPictureExtractor::getProcessingError() const
+{
+    return m_error;
+}
+
+bool AccountPictureExtractor::tryExtractingFromUserRegistry()
+{
     // First of all, try to gather avatar filename from
     // Windows registry
 
-    wxRegKey key( wxRegKey::HKCU, AccountPictureExtractor::s_keyName );
+    wxRegKey key( wxRegKey::HKCU, AccountPictureExtractor::USER_KEY_NAME );
 
     if ( !key.Exists() )
     {
@@ -61,7 +96,7 @@ bool AccountPictureExtractor::process()
     avatarDir.AppendDir( "Microsoft" );
     avatarDir.AppendDir( "Windows" );
     avatarDir.AppendDir( "AccountPictures" );
-    
+
     if ( !avatarDir.DirExists() )
     {
         m_error = ExtractorError::AVATAR_NOT_FOUND;
@@ -106,7 +141,7 @@ bool AccountPictureExtractor::process()
 
         if ( *ptr == *JPEG_MAGIC_NUMBER )
         {
-            // JPEG header has probably been found. Verify it by checking 
+            // JPEG header has probably been found. Verify it by checking
             // if there is a 'JFIF' string at offset 0x06
             uint32_t* jfifPtr = (uint32_t*)( buffer.get() + off + 0x06 );
 
@@ -120,16 +155,16 @@ bool AccountPictureExtractor::process()
                 if ( !loResFound )
                 {
                     wxMemoryInputStream stream( ptr, jpegSize );
-                    this->m_loRes.LoadFile( stream, wxBITMAP_TYPE_JPEG );
+                    m_loRes.LoadFile( stream, wxBITMAP_TYPE_JPEG );
 
                     loResFound = true;
                 }
-                else 
+                else
                 {
                     wxMemoryInputStream stream( ptr, jpegSize );
-                    this->m_hiRes.LoadFile( stream, wxBITMAP_TYPE_JPEG );
+                    m_hiRes.LoadFile( stream, wxBITMAP_TYPE_JPEG );
 
-                    // Both JPEGs have been found, so we can safely 
+                    // Both JPEGs have been found, so we can safely
                     // finish our processing.
 
                     return true;
@@ -143,17 +178,59 @@ bool AccountPictureExtractor::process()
     return true;
 }
 
-const wxImage& AccountPictureExtractor::getLowResImage() const
+bool AccountPictureExtractor::tryExtractingFromSystemRegistry()
 {
-    return m_loRes;
+    wxString regKey = wxString::Format( 
+        AccountPictureExtractor::SYSTEM_KEY_NAME, getCurrentUserSID() );
+
+    wxRegKey key( wxRegKey::HKLM, regKey );
+
+    if ( !key.Exists() )
+    {
+        m_error = ExtractorError::REG_KEY_NOT_FOUND;
+        return false;
+    }
+
+    wxString loResPath, hiResPath;
+    key.QueryValue( "Image48", loResPath, false );
+    key.QueryValue( "Image240", hiResPath, false );
+
+    bool ok = false;
+
+    if ( wxFileExists( loResPath ) )
+    {
+        ok = true;
+        m_loRes.LoadFile( loResPath );
+    }
+
+    if ( wxFileExists( hiResPath ) )
+    {
+        ok = true;
+        m_hiRes.LoadFile( hiResPath );
+    }
+
+    return ok;
 }
 
-const wxImage& AccountPictureExtractor::getHighResImage() const
+wxString AccountPictureExtractor::getCurrentUserSID()
 {
-    return m_hiRes;
-}
+    HANDLE userToken;
+    BOOL b = OpenProcessToken( GetCurrentProcess(), TOKEN_READ, &userToken );
 
-ExtractorError AccountPictureExtractor::getProcessingError() const
-{
-    return m_error;
+    DWORD size = 0;
+    GetTokenInformation( userToken, TokenUser, NULL, size, &size );
+
+    PTOKEN_USER tokenInfo = (PTOKEN_USER)malloc( size );
+    GetTokenInformation( userToken, TokenUser, tokenInfo, size, &size );
+
+    LPWSTR sidBuf = 0;
+    ConvertSidToStringSidW( tokenInfo->User.Sid, &sidBuf );
+
+    wxString sidString( sidBuf );
+
+    CloseHandle( userToken );
+    LocalFree( sidBuf );
+    free( tokenInfo );
+
+    return sidString;
 }

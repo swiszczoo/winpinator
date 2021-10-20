@@ -1,6 +1,7 @@
 #pragma once
 #include "history_item_icon.hpp"
 #include "history_std_bitmaps.hpp"
+#include "scrollable_restorable.hpp"
 #include "transfer_speed_calculator.hpp"
 
 #include <wx/wx.h>
@@ -55,6 +56,8 @@ public:
     void setRemoteId( const std::string& remoteId );
     const std::string& getRemoteId() const;
 
+    void setScrollableRestorable( ScrollableRestorable* restorable );
+
     void updateProgress( long long sentBytes );
 
 private:
@@ -80,6 +83,7 @@ private:
     HistoryPendingData m_data;
     wxString m_peerName;
     std::string m_remoteId;
+    ScrollableRestorable* m_scrollable;
 
     TransferSpeedCalculator m_calculator;
 

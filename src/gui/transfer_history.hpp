@@ -4,6 +4,7 @@
 #include "history_group_header.hpp"
 #include "history_item.hpp"
 #include "history_std_bitmaps.hpp"
+#include "scrollable_restorable.hpp"
 
 #include "../service/service_observer.hpp"
 
@@ -17,7 +18,8 @@
 namespace gui
 {
 
-class ScrolledTransferHistory : public wxScrolledWindow, srv::IServiceObserver
+class ScrolledTransferHistory : 
+    public wxScrolledWindow, srv::IServiceObserver, public ScrollableRestorable
 {
 public:
     explicit ScrolledTransferHistory( wxWindow* parent, 
@@ -90,8 +92,13 @@ private:
 
     // Observer methods
     virtual void onStateChanged() override;
-    virtual void onAddTransfer( srv::TransferOp transfer ) override;
-    virtual void onUpdateTransfer( srv::TransferOp transfer ) override;
+    virtual void onAddTransfer( std::string remoteId, 
+        srv::TransferOp transfer ) override;
+    virtual void onUpdateTransfer( std::string remoteId,
+        srv::TransferOp transfer ) override;
+
+    virtual void saveScrollPosition() override;
+    virtual void restoreScrollPosition() override;
 
     friend class ScrolledTransferHistory::DropTargetImpl;
 };

@@ -65,11 +65,13 @@ void IServiceObserver::onHostCountChanged( size_t newCount )
 {
 }
 
-void IServiceObserver::onAddTransfer( srv::TransferOp transfer )
+void IServiceObserver::onAddTransfer( std::string remoteId, 
+    srv::TransferOp transfer )
 {
 }
 
-void IServiceObserver::onUpdateTransfer( srv::TransferOp transfer )
+void IServiceObserver::onUpdateTransfer( std::string remoteId, 
+    srv::TransferOp transfer )
 {
 }
 

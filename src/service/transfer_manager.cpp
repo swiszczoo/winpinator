@@ -91,8 +91,9 @@ void TransferManager::registerTransfer( const std::string& remoteId,
         m_transfers[remoteId].push_back( std::make_shared<TransferOp>( transfer ) );
     }
 
-    m_srv->notifyObservers( [this, &transfer]( srv::IServiceObserver* observer )
-        { observer->onAddTransfer( transfer ); } );
+    m_srv->notifyObservers(
+        [this, &remoteId, &transfer]( srv::IServiceObserver* observer )
+        { observer->onAddTransfer( remoteId, transfer ); } );
 }
 
 void TransferManager::replyAllowTransfer( const std::string& remoteId,
@@ -119,7 +120,7 @@ void TransferManager::replyAllowTransfer( const std::string& remoteId,
     }
 }
 
-void TransferManager::resumeTransfer( const std::string& remoteId, 
+void TransferManager::resumeTransfer( const std::string& remoteId,
     int transferId )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
@@ -147,7 +148,7 @@ void TransferManager::resumeTransfer( const std::string& remoteId,
         std::lock_guard<std::mutex> lck( *op->mutex );
         op->status = OpStatus::TRANSFERRING;
 
-        sendStatusUpdateNotification( op );
+        sendStatusUpdateNotification( remoteId, op );
     }
 }
 
@@ -179,7 +180,7 @@ void TransferManager::pauseTransfer( const std::string& remoteId,
         std::lock_guard<std::mutex> lck( *op->mutex );
         op->status = OpStatus::PAUSED;
 
-        sendStatusUpdateNotification( op );
+        sendStatusUpdateNotification( remoteId, op );
     }
 }
 
@@ -315,6 +316,7 @@ void TransferManager::processStartOrResumeTransfer( const std::string& remoteId,
         reactor->setInstance( reactor );
         reactor->setRefs( ctx, request );
         reactor->setTransferPtr( op );
+        reactor->setRemoteId( remoteId );
         reactor->setManager( this );
 
         wxLogDebug( "TransferManager: starting transfer!" );
@@ -326,7 +328,7 @@ void TransferManager::processStartOrResumeTransfer( const std::string& remoteId,
     }
 
     std::lock_guard<std::mutex> lck( *op->mutex );
-    sendStatusUpdateNotification( op );
+    sendStatusUpdateNotification( remoteId, op );
 }
 
 OpInfo TransferManager::convertOpToOpInfo( const TransferOpPtr op,
@@ -344,10 +346,11 @@ OpInfo TransferManager::convertOpToOpInfo( const TransferOpPtr op,
     return info;
 }
 
-void TransferManager::sendStatusUpdateNotification( const TransferOpPtr op )
+void TransferManager::sendStatusUpdateNotification( const std::string& remoteId,
+    const TransferOpPtr op )
 {
-    m_srv->notifyObservers( [this, &op]( IServiceObserver* observer )
-        { observer->onUpdateTransfer( *op ); } );
+    m_srv->notifyObservers( [this, &remoteId, &op]( IServiceObserver* observer )
+        { observer->onUpdateTransfer( remoteId, *op ); } );
 }
 
 //
@@ -370,6 +373,12 @@ void TransferManager::StartTransferReactor::setTransferPtr( TransferOpPtr ptr )
 {
     m_transfer = ptr;
     m_useCompression = ptr->useCompression;
+}
+
+void TransferManager::StartTransferReactor::setRemoteId( 
+    const std::string& remoteId )
+{
+    m_remoteId = remoteId;
 }
 
 void TransferManager::StartTransferReactor::setManager( TransferManager* mgr )
@@ -411,7 +420,7 @@ void TransferManager::StartTransferReactor::OnReadDone( bool ok )
 
         // Wait if op is paused
         std::unique_lock<std::mutex> lck( m_transfer->intern.pauseLock->mutex );
-        if ( m_transfer->intern.pauseLock->value ) 
+        if ( m_transfer->intern.pauseLock->value )
         {
             m_transfer->intern.pauseLock->condVar.wait( lck );
             lck.unlock();
@@ -432,14 +441,15 @@ void TransferManager::StartTransferReactor::updateProgress( long long chunkBytes
     }
 
     auto currentTime = std::chrono::steady_clock::now();
-    long long millisElapsed = duration_cast<milliseconds>( 
-        currentTime - m_transfer->intern.lastProgressUpdate ).count();
+    long long millisElapsed = duration_cast<milliseconds>(
+        currentTime - m_transfer->intern.lastProgressUpdate )
+                                  .count();
 
     if ( millisElapsed > TransferManager::PROGRESS_FREQ_MILLIS )
     {
         std::lock_guard<std::mutex> transferLock( *m_transfer->mutex );
-
-        m_mgr->sendStatusUpdateNotification( m_transfer );
+        
+        m_mgr->sendStatusUpdateNotification( m_remoteId, m_transfer );
         m_transfer->intern.lastProgressUpdate = currentTime;
     }
 }

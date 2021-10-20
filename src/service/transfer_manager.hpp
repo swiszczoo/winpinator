@@ -58,6 +58,7 @@ private:
         void setRefs( std::shared_ptr<grpc::ClientContext> ref1,
             std::shared_ptr<OpInfo> ref2 );
         void setTransferPtr( TransferOpPtr transferPtr );
+        void setRemoteId( const std::string& remoteId );
         void setManager( TransferManager* mgr );
 
         void start();
@@ -73,6 +74,7 @@ private:
         std::shared_ptr<OpInfo> m_request;
 
         TransferOpPtr m_transfer;
+        std::string m_remoteId;
         TransferManager* m_mgr;
 
         FileChunk m_chunk;
@@ -107,7 +109,8 @@ private:
 
     OpInfo convertOpToOpInfo( const TransferOpPtr op, 
         bool compressionEnabled ) const;
-    void sendStatusUpdateNotification( const TransferOpPtr op );
+    void sendStatusUpdateNotification( const std::string& remoteId, 
+        const TransferOpPtr op );
 };
 
 };

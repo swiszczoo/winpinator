@@ -210,6 +210,7 @@ void ScrolledTransferHistory::addPendingTransfer(
     HistoryPendingElement* element = new HistoryPendingElement(
         m_pendingGroup.panel, &m_stdBitmaps );
     element->setRemoteId( m_targetId );
+    element->setScrollableRestorable( this );
 
     HistoryPendingData data = convertOpToData( transfer );
 
@@ -245,7 +246,7 @@ void ScrolledTransferHistory::updatePendingTransfer(
     {
         if ( transfer.id == m_pendingGroup.currentIds[i] )
         {
-            const HistoryPendingData oldData 
+            const HistoryPendingData oldData
                 = m_pendingGroup.elements[i]->getData();
 
             if ( newData.opState == oldData.opState )
@@ -592,26 +593,44 @@ void ScrolledTransferHistory::onThreadEvent( wxThreadEvent& event )
     }
 }
 
+void ScrolledTransferHistory::saveScrollPosition()
+{
+    m_scrollPos = GetViewStart();
+}
+
+void ScrolledTransferHistory::restoreScrollPosition()
+{
+    Scroll( m_scrollPos );
+}
+
 // Observer methods
 
 void ScrolledTransferHistory::onStateChanged()
 {
 }
 
-void ScrolledTransferHistory::onAddTransfer( srv::TransferOp transfer )
+void ScrolledTransferHistory::onAddTransfer( std::string remoteId,
+    srv::TransferOp transfer )
 {
-    wxThreadEvent evnt;
-    evnt.SetInt( (int)ThreadEventType::ADD );
-    evnt.SetPayload( transfer );
-    wxQueueEvent( this, evnt.Clone() );
+    if ( remoteId == m_targetId )
+    {
+        wxThreadEvent evnt;
+        evnt.SetInt( (int)ThreadEventType::ADD );
+        evnt.SetPayload( transfer );
+        wxQueueEvent( this, evnt.Clone() );
+    }
 }
 
-void ScrolledTransferHistory::onUpdateTransfer( srv::TransferOp transfer )
+void ScrolledTransferHistory::onUpdateTransfer( std::string remoteId,
+    srv::TransferOp transfer )
 {
-    wxThreadEvent evnt;
-    evnt.SetInt( (int)ThreadEventType::UPDATE );
-    evnt.SetPayload( transfer );
-    wxQueueEvent( this, evnt.Clone() );
+    if ( remoteId == m_targetId )
+    {
+        wxThreadEvent evnt;
+        evnt.SetInt( (int)ThreadEventType::UPDATE );
+        evnt.SetPayload( transfer );
+        wxQueueEvent( this, evnt.Clone() );
+    }
 }
 
 // Drop target implementation

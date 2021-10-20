@@ -1,18 +1,18 @@
+#include "main.hpp"
+
 #include "globals.hpp"
-#include "gui/winpinator_frame.hpp"
-#include "running_instance_detector.hpp"
 #include "service/service_observer.hpp"
 #include "service/winpinator_service.hpp"
 #include "thread_name.hpp"
 #include "tray_icon.hpp"
 #include "winpinator_dde_client.hpp"
-#include "winpinator_dde_server.hpp"
 
 #include <google/protobuf/message_lite.h>
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/health_check_service_interface.h>
 
 #include <wx/log.h>
+#include <wx/msw/regconf.h>
 #include <wx/socket.h>
 #include <wx/wx.h>
 
@@ -27,40 +27,6 @@
 
 int serviceMain( std::promise<void>& promise );
 
-class WinpinatorApp : public wxApp, srv::IServiceObserver
-{
-public:
-    WinpinatorApp();
-    virtual bool OnInit() override;
-    virtual int OnExit() override;
-
-private:
-    enum class EventType
-    {
-        STATE_CHANGED,
-        OPEN_TRANSFER_UI
-    };
-
-    wxLocale m_locale;
-    gui::WinpinatorFrame* m_topLvl;
-    TrayIcon* m_trayIcon;
-    std::thread m_srvThread;
-
-    std::shared_ptr<RunningInstanceDetector> m_detector;
-    std::unique_ptr<WinpinatorDDEServer> m_ddeServer;
-
-    void showMainFrame();
-    void onMainFrameDestroyed( wxWindowDestroyEvent& event );
-    void onDDEOpenCalled( wxCommandEvent& event );
-    void onRestore( wxCommandEvent& event );
-    void onServiceEvent( wxThreadEvent& event );
-    void onExitApp( wxCommandEvent& event );
-
-    // Service observer methods:
-    virtual void onStateChanged();
-    virtual void onOpenTransferUI( wxString remoteId );
-};
-
 wxIMPLEMENT_APP( WinpinatorApp );
 
 WinpinatorApp::WinpinatorApp()
@@ -70,6 +36,9 @@ WinpinatorApp::WinpinatorApp()
     , m_detector( nullptr )
     , m_ddeServer( nullptr )
 {
+    m_config = std::unique_ptr<wxConfigBase>( wxConfigBase::Create() );
+    m_settings.loadFrom( m_config.get() );
+
     // Events
 
     Bind( EVT_OPEN_APP_WINDOW, &WinpinatorApp::onDDEOpenCalled, this );
@@ -156,6 +125,9 @@ int WinpinatorApp::OnExit()
 
     // Shut down protobuf
     google::protobuf::ShutdownProtobufLibrary();
+
+    // Save settings
+    m_settings.saveTo( m_config.get() );
 
     return EXIT_SUCCESS;
 }

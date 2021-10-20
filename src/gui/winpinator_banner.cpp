@@ -30,6 +30,7 @@ WinpinatorBanner::WinpinatorBanner( wxWindow* parent, int height )
     SetSize( size );
     SetMinSize( wxSize( 0, FromDIP( height ) ) );
 
+    
 
     m_headerFont = std::make_unique<wxFont>(
         wxSystemSettings::GetFont( wxSYS_DEFAULT_GUI_FONT ) );
