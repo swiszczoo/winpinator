@@ -8,6 +8,7 @@
 RunningInstanceDetector::RunningInstanceDetector( 
     const std::string& lockFileName )
     : m_handle( nullptr )
+    , m_path( wxEmptyString )
     , m_anotherRunning( false )
 {
     wxLogNull errorLock;
@@ -15,6 +16,7 @@ RunningInstanceDetector::RunningInstanceDetector(
     wxFileName fname( wxStandardPaths::Get().GetUserDataDir(), lockFileName ); 
 
     m_handle = std::make_unique<wxFile>();
+    m_path = fname.GetFullPath();
     
     if ( !m_handle->Open( fname.GetFullPath(), wxFile::write_excl ) )
     {
@@ -61,6 +63,16 @@ RunningInstanceDetector::RunningInstanceDetector(
     {
         writeCurrentPidToFile();
     }
+}
+
+RunningInstanceDetector::~RunningInstanceDetector()
+{
+    if ( m_handle )
+    {
+        free();
+    }
+
+    wxRemoveFile( m_path );
 }
 
 bool RunningInstanceDetector::isAnotherInstanceRunning()
