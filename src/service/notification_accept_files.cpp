@@ -65,7 +65,8 @@ WinToastLib::WinToastTemplate AcceptFilesNotification::buildTemplate()
     using namespace WinToastLib;
 
     WinToastTemplate templ( WinToastTemplate::ImageAndText02 );
-    templ.setTextField( _( "Incoming files" ), WinToastTemplate::FirstLine );
+    templ.setTextField( 
+        _( "Incoming files" ).ToStdWstring(), WinToastTemplate::FirstLine );
 
     wxString secondLine;
     wxFileName iconName( wxStandardPaths::Get().GetUserDataDir(), "a" );
@@ -95,9 +96,9 @@ WinToastLib::WinToastTemplate AcceptFilesNotification::buildTemplate()
     }
 
     templ.setTextField( secondLine.ToStdWstring(), WinToastTemplate::SecondLine );
-    templ.addAction( _( "Accept" ) );
-    templ.addAction( _( "Decline" ) );
-    templ.setImagePath( iconName.GetFullPath() );
+    templ.addAction( _( "Accept" ).ToStdWstring() );
+    templ.addAction( _( "Decline" ).ToStdWstring() );
+    templ.setImagePath( iconName.GetFullPath().ToStdWstring() );
 
     return templ;
 }

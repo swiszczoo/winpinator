@@ -78,7 +78,7 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
 
     m_statusLabel = new StatusText( this );
     srv::RemoteInfoPtr currentInfo = srv->getRemoteManager()
-        ->getRemoteInfo( targetId );
+        ->getRemoteInfo( targetId.ToStdString() );
 
     if ( currentInfo )
     {

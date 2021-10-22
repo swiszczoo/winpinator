@@ -252,13 +252,14 @@ void TransferManager::sendNotifications( const std::string& remoteId,
         // TODO: add failure case notification
 
         auto notif = std::make_shared<AcceptFilesNotification>( remoteId, op.id );
-        notif->setSenderFullName( wxString::FromUTF8( op.senderNameUtf8 ) );
+        notif->setSenderFullName( 
+            wxString::FromUTF8( op.senderNameUtf8 ).ToStdWstring() );
         notif->setElementCount( op.topDirBasenamesUtf8.size() );
         notif->setIsSingleFolder( op.mimeIfSingleUtf8 == "inode/directory" );
         if ( op.topDirBasenamesUtf8.size() == 1 )
         {
             notif->setSingleElementName(
-                wxString::FromUTF8( op.topDirBasenamesUtf8[0] ) );
+                wxString::FromUTF8( op.topDirBasenamesUtf8[0] ).ToStdWstring() );
         }
 
         Event evnt;
