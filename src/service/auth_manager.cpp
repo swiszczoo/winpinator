@@ -367,7 +367,7 @@ std::string AuthManager::ipPairToString( const zc::MdnsIpPair& pair )
 {
     if ( pair.valid )
     {
-        return wxString::Format( "%s\\%s", pair.ipv4, pair.ipv6 );
+        return wxString::Format( "%s\\%s", pair.ipv4, pair.ipv6 ).ToStdString();
     }
 
     return "invalid_pair";

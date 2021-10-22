@@ -92,7 +92,7 @@ std::string Utils::getOSVersionString()
 
     if ( pinfo.GetOperatingSystemId() != wxOperatingSystemId::wxOS_WINDOWS_NT )
     {
-        return _( "Unknown OS" );
+        return _( "Unknown OS" ).ToStdString();
     }
 
     int major = pinfo.GetOSMajorVersion();
