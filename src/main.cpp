@@ -212,6 +212,7 @@ void WinpinatorApp::onExitApp( wxCommandEvent& event )
 {
     if ( m_topLvl )
     {
+        m_topLvl->killAllDialogs();
         m_topLvl->Close( true );
     }
 

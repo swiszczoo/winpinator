@@ -13,5 +13,8 @@ public:
 };
 
 #ifndef NO_DECLARE_APP
-wxDECLARE_APP( WinpinatorAppBase );
+inline WinpinatorAppBase& GetApp()
+{
+    return *static_cast<WinpinatorAppBase*>( wxApp::GetInstance() );
+}
 #endif

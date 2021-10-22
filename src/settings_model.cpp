@@ -6,7 +6,8 @@
 std::unique_ptr<SettingsModel> SettingsModel::s_defaultInstance = nullptr;
 
 SettingsModel::SettingsModel()
-    : openWindowOnStart( true )
+    : localeName( "en_US" )
+    , openWindowOnStart( true )
     , autorun( false )
     , useCompression( true )
     , zlibCompressionLevel( 5 )
@@ -29,6 +30,8 @@ SettingsModel::SettingsModel()
 
 void SettingsModel::loadFrom( wxConfigBase* config )
 {
+    localeName = config->Read(
+        "General/LocaleName", getDefaults()->localeName );
     openWindowOnStart = config->ReadBool( 
         "General/OpenWindowAtStart", getDefaults()->openWindowOnStart );
     autorun = config->ReadBool(
@@ -62,6 +65,7 @@ void SettingsModel::loadFrom( wxConfigBase* config )
 
 void SettingsModel::saveTo( wxConfigBase* config )
 {
+    config->Write( "General/LocaleName", localeName );
     config->Write( "General/OpenWindowAtStart", openWindowOnStart );
     config->Write( "General/Autorun", autorun );
 

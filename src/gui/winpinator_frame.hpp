@@ -1,10 +1,12 @@
 #pragma once
-#include <wx/wx.h>
-
 #include "../service/service_observer.hpp"
 #include "screen_selector.hpp"
+#include "settings_dialog.hpp"
 #include "winpinator_banner.hpp"
 
+#include <wx/wx.h>
+
+#include <memory>
 
 namespace gui
 {
@@ -15,6 +17,7 @@ public:
     explicit WinpinatorFrame( wxWindow* parent );
 
     bool showTransferScreen( const wxString& remoteId );
+    void killAllDialogs();
 
 private:
     wxMenuBar* m_menuBar;
@@ -24,6 +27,7 @@ private:
 
     WinpinatorBanner* m_banner;
     ScreenSelector* m_selector;
+    SettingsDialog* m_settingsDlg;
 
     void setupMenuBar();
     void setupAccelTable();
@@ -47,4 +51,3 @@ private:
 };
 
 };
-

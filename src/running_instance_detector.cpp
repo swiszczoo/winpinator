@@ -67,6 +67,8 @@ RunningInstanceDetector::RunningInstanceDetector(
 
 RunningInstanceDetector::~RunningInstanceDetector()
 {
+    wxLogNull errorLock;
+
     if ( m_handle )
     {
         free();

@@ -14,6 +14,7 @@ public:
 
     // Settings fields
 
+    wxString localeName;
     bool openWindowOnStart;
     bool autorun;
 

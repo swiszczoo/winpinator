@@ -86,6 +86,14 @@ bool WinpinatorFrame::showTransferScreen( const wxString& remoteId )
     return m_selector->showTransferScreen( remoteId );
 }
 
+void WinpinatorFrame::killAllDialogs()
+{
+    if ( m_settingsDlg )
+    {
+        m_settingsDlg->EndModal( wxID_CANCEL );
+    }
+}
+
 void WinpinatorFrame::setupMenuBar()
 {
     m_menuBar = new wxMenuBar();
@@ -179,6 +187,18 @@ void WinpinatorFrame::onOpenFolderSelected()
 
 void WinpinatorFrame::onPrefsSelected()
 {
+    m_settingsDlg = new SettingsDialog( this );
+    if( m_settingsDlg->ShowModal() == wxID_OK )
+    {
+        // Restart service
+        srv::Event evnt;
+        evnt.type = srv::EventType::RESTART_SERVICE;
+
+        auto serv = Globals::get()->getWinpinatorServiceInstance();
+        serv->postEvent( evnt );
+    }
+    m_settingsDlg->Destroy();
+    m_settingsDlg = nullptr;
 }
 
 void WinpinatorFrame::onCloseSelected()

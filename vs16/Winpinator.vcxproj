@@ -264,6 +264,7 @@
     <ClInclude Include="..\src\gui\history_std_bitmaps.hpp" />
     <ClInclude Include="..\src\gui\page_error.hpp" />
     <ClInclude Include="..\src\gui\page_transferlist.hpp" />
+    <ClInclude Include="..\src\gui\permission_picker.hpp" />
     <ClInclude Include="..\src\gui\pointer_event.hpp" />
     <ClInclude Include="..\src\gui\progress_label.hpp" />
     <ClInclude Include="..\src\gui\screen_selector.hpp" />
@@ -332,6 +333,7 @@
     <ClCompile Include="..\src\gui\history_item.cpp" />
     <ClCompile Include="..\src\gui\page_error.cpp" />
     <ClCompile Include="..\src\gui\page_transferlist.cpp" />
+    <ClCompile Include="..\src\gui\permission_picker.cpp" />
     <ClCompile Include="..\src\gui\pointer_event.cpp" />
     <ClCompile Include="..\src\gui\progress_label.cpp" />
     <ClCompile Include="..\src\gui\screen_selector.cpp" />
