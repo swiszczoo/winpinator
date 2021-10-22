@@ -78,11 +78,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
 
 bool WinpinatorFrame::showTransferScreen( const wxString& remoteId )
 {
-    Iconize( false );
-    SetFocus();
-    Raise();
-    Show( true );
-
+    putOnTop();
     return m_selector->showTransferScreen( remoteId );
 }
 
@@ -92,6 +88,14 @@ void WinpinatorFrame::killAllDialogs()
     {
         m_settingsDlg->EndModal( wxID_CANCEL );
     }
+}
+
+void WinpinatorFrame::putOnTop()
+{
+    Iconize( false );
+    SetFocus();
+    Raise();
+    Show( true );
 }
 
 void WinpinatorFrame::setupMenuBar()

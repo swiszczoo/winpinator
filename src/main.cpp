@@ -170,6 +170,10 @@ void WinpinatorApp::onRestore( wxCommandEvent& event )
     {
         showMainFrame();
     }
+    else
+    {
+        m_topLvl->putOnTop();
+    }
 }
 
 void WinpinatorApp::onServiceEvent( wxThreadEvent& event )

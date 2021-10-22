@@ -18,6 +18,7 @@ public:
 
     bool showTransferScreen( const wxString& remoteId );
     void killAllDialogs();
+    void putOnTop();
 
 private:
     wxMenuBar* m_menuBar;
