@@ -66,25 +66,25 @@ TEST_F( ZlibDeflateTest, expectDeflateShrinksDownEnglishText )
 TEST_F( ZlibDeflateTest, expectDeflateToBeReversible )
 {
     std::mt19937 eng;
-    std::uniform_int_distribution<int> charDist( 0, 26 );
+    std::uniform_int_distribution<int> charDist( 0, 255 );
     std::uniform_int_distribution<int> sizeDist( 1000, 10000 );
 
     for ( int i = 0; i < 500; i++ )
     {
-        int textSize = sizeDist( eng );
+        int chunkSize = sizeDist( eng );
 
-        std::string text;
-        text.resize( textSize );
+        std::string chunk;
+        chunk.resize( chunkSize );
 
-        for ( int j = 0; j < textSize; j++ )
+        for ( int j = 0; j < chunkSize; j++ )
         {
-            text[j] = 'a' + charDist( eng );
+            chunk[j] = (char)( (unsigned char)charDist( eng ) );
         }
 
-        std::string compressed = instance->compress( text, i % 9 + 1 );
+        std::string compressed = instance->compress( chunk, i % 9 + 1 );
         std::string decompressed = instance->decompress( compressed );
         
-        EXPECT_EQ( text, decompressed );
+        EXPECT_EQ( chunk, decompressed );
     }
 }
 

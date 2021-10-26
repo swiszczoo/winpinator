@@ -268,6 +268,9 @@
     <ClInclude Include="..\src\gui\permission_picker.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\language_adapter.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -439,6 +442,9 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\src\gui\permission_picker.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\language_adapter.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
   </ItemGroup>

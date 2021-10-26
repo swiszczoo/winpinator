@@ -1,4 +1,5 @@
 #pragma once
+#include "language_adapter.hpp"
 #include "permission_picker.hpp"
 
 #include <wx/bmpcbox.h>
@@ -6,6 +7,8 @@
 #include <wx/notebook.h>
 #include <wx/spinctrl.h>
 #include <wx/wx.h>
+
+#include <memory>
 
 namespace gui
 {
@@ -16,6 +19,8 @@ public:
     explicit SettingsDialog( wxWindow* parent );
 
 private:
+    LanguageAdapter m_adapter;
+    std::vector<std::unique_ptr<wxBitmap>> m_loadedBitmaps;
     wxNotebook* m_notebook;
 
     wxPanel* m_panelGeneral;
@@ -55,6 +60,7 @@ private:
     void fillLocales();
 
     void onSaveSettings( wxCommandEvent& event );
+    std::unique_ptr<wxBitmap> loadScaledFlag( const wxString& path, int height );
 };
 
 };

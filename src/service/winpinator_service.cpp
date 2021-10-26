@@ -40,6 +40,7 @@ WinpinatorService::WinpinatorService()
     , m_online( false )
     , m_shouldRestart( false )
     , m_stopping( false )
+    , m_stopCalled( false )
     , m_error( ServiceError::KEIN_ERROR )
     , m_ip( "" )
     , m_displayName( "" )
@@ -254,6 +255,11 @@ void WinpinatorService::serviceMain()
     // Reset event queue
     m_events.Clear();
 
+    if ( m_stopCalled )
+    {
+        return;
+    }
+
     // Initialize remote manager
     m_remoteMgr = std::make_shared<RemoteManager>( this );
     m_remoteMgr->setServiceType( WinpinatorService::SERVICE_TYPE );
@@ -424,6 +430,7 @@ void WinpinatorService::serviceMain()
 
         if ( ev.type == EventType::STOP_SERVICE )
         {
+            m_stopCalled = true;
             break;
         }
         if ( ev.type == EventType::RESTART_SERVICE )

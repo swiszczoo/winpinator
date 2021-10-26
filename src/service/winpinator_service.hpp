@@ -63,6 +63,7 @@ private:
     bool m_online;
     bool m_shouldRestart;
     bool m_stopping;
+    bool m_stopCalled;
 
     std::atomic<ServiceError> m_error;
 

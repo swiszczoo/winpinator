@@ -236,7 +236,21 @@ void SettingsDialog::loadSettings()
 {
     SettingsModel& settings = GetApp().m_settings;
 
-    // TODO: locale name
+    m_localeName->SetSelection( 0 );
+
+    auto locales = m_adapter.getAllLanguages();
+    int i = 0;
+    for ( auto& locale : locales )
+    {
+        if ( locale.icuCode == settings.localeName )
+        {
+            m_localeName->SetSelection( i );
+            break;
+        }
+
+        i++;
+    }
+
     m_openWindowOnStart->SetValue( settings.openWindowOnStart );
     m_autorun->SetValue( settings.autorun );
     m_useCompression->SetValue( settings.useCompression );
@@ -256,7 +270,8 @@ void SettingsDialog::saveSettings()
 {
     SettingsModel& settings = GetApp().m_settings;
 
-    // TODO: locale name
+    settings.localeName = m_adapter.getLanguageInfoByIndex( 
+        m_localeName->GetSelection() ).icuCode;
     settings.openWindowOnStart = m_openWindowOnStart->IsChecked();
     settings.autorun = m_autorun->IsChecked();
     settings.useCompression = m_useCompression->IsChecked();
@@ -274,12 +289,37 @@ void SettingsDialog::saveSettings()
 
 void SettingsDialog::fillLocales()
 {
+    auto languages = m_adapter.getAllLanguages();
+
+    for ( auto& language : languages )
+    {
+        m_loadedBitmaps.push_back( loadScaledFlag( language.flagPath, 16 ) );
+
+        wxBitmap* bmp = m_loadedBitmaps.back().get();
+        m_localeName->Append( language.localName, *bmp );
+    }
 }
 
 void SettingsDialog::onSaveSettings( wxCommandEvent& event )
 {
     saveSettings();
     event.Skip();
+}
+
+std::unique_ptr<wxBitmap> SettingsDialog::loadScaledFlag(
+    const wxString& path, int height )
+{
+    wxImage img;
+    img.LoadFile( path, wxBITMAP_TYPE_PNG );
+
+    float scale = FromDIP( height ) / (float)img.GetSize().y;
+
+    int newWidth = (int)round( scale * img.GetSize().x );
+    int newHeight = (int)round( scale * img.GetSize().y );
+
+    auto bitmap = std::make_unique<wxBitmap>(
+        img.Scale( newWidth, newHeight, wxIMAGE_QUALITY_BICUBIC ) );
+    return bitmap;
 }
 
 };

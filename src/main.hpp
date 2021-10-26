@@ -27,7 +27,6 @@ private:
         OPEN_TRANSFER_UI
     };
 
-    wxLocale m_locale;
     gui::WinpinatorFrame* m_topLvl;
     TrayIcon* m_trayIcon;
     std::thread m_srvThread;

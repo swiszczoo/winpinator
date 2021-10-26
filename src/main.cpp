@@ -14,6 +14,7 @@
 #include <wx/log.h>
 #include <wx/msw/regconf.h>
 #include <wx/socket.h>
+#include <wx/stdpaths.h>
 #include <wx/wx.h>
 
 #include <Windows.h>
@@ -30,8 +31,7 @@ int serviceMain( std::promise<void>& promise );
 wxIMPLEMENT_APP( WinpinatorApp );
 
 WinpinatorApp::WinpinatorApp()
-    : m_locale()
-    , m_topLvl( nullptr )
+    : m_topLvl( nullptr )
     , m_trayIcon( nullptr )
     , m_detector( nullptr )
     , m_ddeServer( nullptr )
@@ -72,6 +72,9 @@ bool WinpinatorApp::OnInit()
 {
     wxInitAllImageHandlers();
     wxSocketBase::Initialize();
+
+    // Make AppData subdirectory
+    wxMkDir( wxStandardPaths::Get().GetUserDataDir() );
 
     // Start running instance detector
     m_detector = std::make_unique<RunningInstanceDetector>( "winpinator.lock" );
