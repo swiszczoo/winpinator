@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Languages>
+    <Language code="en_US" name="English (United States)" flag="us.png" />
+    <Language code="pl_PL" name="Polski" flag="pl.png" />
+</Languages>
