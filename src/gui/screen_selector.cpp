@@ -261,7 +261,7 @@ void ScreenSelector::setupTransferListPage( const wxString& targetId )
     auto serv = Globals::get()->getWinpinatorServiceInstance();
 
     srv::RemoteInfoPtr infoObj = serv->getRemoteManager()
-                                     ->getRemoteInfo( targetId );
+                                     ->getRemoteInfo( targetId.ToStdString() );
     PointerEvent bannerEvent( EVT_UPDATE_BANNER_TARGET );
     bannerEvent.setSharedPointer( infoObj );
     wxPostEvent( this, bannerEvent );

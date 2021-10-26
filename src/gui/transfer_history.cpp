@@ -209,7 +209,7 @@ void ScrolledTransferHistory::addPendingTransfer(
 
     HistoryPendingElement* element = new HistoryPendingElement(
         m_pendingGroup.panel, &m_stdBitmaps );
-    element->setRemoteId( m_targetId );
+    element->setRemoteId( m_targetId.ToStdString() );
     element->setScrollableRestorable( this );
 
     HistoryPendingData data = convertOpToData( transfer );

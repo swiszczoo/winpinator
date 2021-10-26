@@ -82,7 +82,7 @@ bool RemoteHandler::secureLoopV1()
         CONNECT_TIMEOUT, GPR_TIMESPAN );
 
     std::shared_ptr<grpc::Channel> channel = grpc::CreateChannel(
-        target, creds );
+        target.ToStdString(), creds );
 
     if ( channel->WaitForConnected( timeout ) )
     {
@@ -233,7 +233,7 @@ bool RemoteHandler::secureLoopV2()
     auto maxDline = std::chrono::time_point<std::chrono::system_clock>::max();
 
     std::shared_ptr<grpc::Channel> channel = grpc::CreateChannel(
-        target, creds );
+        target.ToStdString(), creds );
     std::weak_ptr<grpc::Channel> chanPtr = channel;
 
     if ( channel->WaitForConnected( timeout ) )
