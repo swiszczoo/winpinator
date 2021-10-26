@@ -30,7 +30,7 @@ int serviceMain( std::promise<void>& promise );
 wxIMPLEMENT_APP( WinpinatorApp );
 
 WinpinatorApp::WinpinatorApp()
-    : m_locale( wxLANGUAGE_ENGLISH_US )
+    : m_locale()
     , m_topLvl( nullptr )
     , m_trayIcon( nullptr )
     , m_detector( nullptr )
@@ -38,6 +38,27 @@ WinpinatorApp::WinpinatorApp()
 {
     m_config = std::unique_ptr<wxConfigBase>( wxConfigBase::Create() );
     m_settings.loadFrom( m_config.get() );
+
+    m_locale.AddCatalog( "locales" );
+
+    bool langInitialized = false;
+    const wxLanguageInfo* langInfo = wxLocale::FindLanguageInfo( 
+        m_settings.localeName );
+
+    if ( langInfo )
+    {
+        if ( wxLocale::IsAvailable( langInfo->Language ) )
+        {
+            m_locale.Init( langInfo->Language );
+            langInitialized = true;
+        }
+    }
+
+    if ( !langInitialized )
+    {
+        // Fall back to English (United States)
+        m_locale.Init( wxLANGUAGE_ENGLISH_US );
+    }
 
     // Events
 

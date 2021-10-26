@@ -449,8 +449,6 @@ void HistoryPendingElement::onPauseClicked( wxCommandEvent& event )
         serv->getTransferManager()->resumeTransfer(
             m_remoteId, m_data.transferId );
     }
-
-    m_infoPause->SetFocus();
 }
 
 int HistoryPendingElement::calculateRemainingSeconds() const
