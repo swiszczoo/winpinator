@@ -72,8 +72,10 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     Bind( wxEVT_MENU, &WinpinatorFrame::onMenuItemSelected, this );
     Bind( wxEVT_THREAD, &WinpinatorFrame::onChangeStatusBarText, this );
     Bind( wxEVT_DPI_CHANGED, &WinpinatorFrame::onDpiChanged, this );
-    m_selector->Bind( EVT_UPDATE_BANNER_TARGET, 
+    m_selector->Bind( EVT_UPDATE_BANNER_TARGET,
         &WinpinatorFrame::onUpdateBannerTarget, this );
+    m_selector->Bind( EVT_OPEN_SETTINGS,
+        &WinpinatorFrame::onSettingsClicked, this );
 }
 
 bool WinpinatorFrame::showTransferScreen( const wxString& remoteId )
@@ -185,6 +187,11 @@ void WinpinatorFrame::onDpiChanged( wxDPIChangedEvent& event )
     m_statusBar->SetStatusWidths( m_statusBar->GetFieldsCount(), statusWidths );
 }
 
+void WinpinatorFrame::onSettingsClicked( wxCommandEvent& event )
+{
+    onPrefsSelected();
+}
+
 void WinpinatorFrame::onOpenFolderSelected()
 {
 }
@@ -192,7 +199,7 @@ void WinpinatorFrame::onOpenFolderSelected()
 void WinpinatorFrame::onPrefsSelected()
 {
     m_settingsDlg = new SettingsDialog( this );
-    if( m_settingsDlg->ShowModal() == wxID_OK )
+    if ( m_settingsDlg->ShowModal() == wxID_OK )
     {
         // Restart service
         srv::Event evnt;

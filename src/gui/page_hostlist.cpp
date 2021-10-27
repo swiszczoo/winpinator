@@ -115,14 +115,19 @@ HostListPage::HostListPage( wxWindow* parent )
 
 void HostListPage::refreshAll()
 {
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    if ( !serv->isServiceReady() )
+    {
+        return;
+    }
+
     m_timer.StartOnce( HostListPage::NO_HOSTS_TIMEOUT_MILLIS );
 
     // Remember currently selected item id
     const wxString& currentId = m_hostlist->getSelectedIdent();
 
     // Get current service state (host list)
-    auto serv = Globals::get()->getWinpinatorServiceInstance();
-
     m_trackedRemotes = serv->getRemoteManager()->generateCurrentHostList();
 
     m_hostlist->clear();

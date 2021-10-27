@@ -7,6 +7,8 @@
 namespace gui
 {
 
+wxDEFINE_EVENT( EVT_OPEN_SETTINGS, wxCommandEvent );
+
 const wxString ErrorPage::TEXT = _( "A fatal error occured while trying "
                                         "to start the service!" );
 
@@ -67,6 +69,7 @@ ErrorPage::ErrorPage( wxWindow* parent )
 
     Bind( wxEVT_DPI_CHANGED, &ErrorPage::onDpiChanged, this );
     m_retryBtn->Bind( wxEVT_BUTTON, &ErrorPage::onRetryClicked, this );
+    m_settingsBtn->Bind( wxEVT_BUTTON, &ErrorPage::onSettingsClicked, this );
 }
 
 void ErrorPage::setServiceError( srv::ServiceError err ) 
@@ -97,7 +100,8 @@ void ErrorPage::onRetryClicked( wxCommandEvent& event )
 
 void ErrorPage::onSettingsClicked( wxCommandEvent& event )
 {
-
+    wxCommandEvent evnt( EVT_OPEN_SETTINGS );
+    wxPostEvent( this, evnt );
 }
 
 void ErrorPage::loadIcon()

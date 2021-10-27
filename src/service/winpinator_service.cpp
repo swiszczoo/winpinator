@@ -40,7 +40,6 @@ WinpinatorService::WinpinatorService()
     , m_online( false )
     , m_shouldRestart( false )
     , m_stopping( false )
-    , m_stopCalled( false )
     , m_error( ServiceError::KEIN_ERROR )
     , m_ip( "" )
     , m_displayName( "" )
@@ -216,6 +215,11 @@ int WinpinatorService::startOnThisThread()
 
                     if ( ev.type == EventType::RESTART_SERVICE )
                     {
+                        m_shouldRestart = true;
+                        break;
+                    }
+                    if ( ev.type == EventType::STOP_SERVICE )
+                    {
                         break;
                     }
                 }
@@ -252,13 +256,21 @@ void WinpinatorService::initDatabase()
 
 void WinpinatorService::serviceMain()
 {
+    // Ensure that no stop service message exists in event queue
+    wxMessageQueueError error;
+    do
+    {
+        Event evnt = {};
+        error = m_events.ReceiveTimeout( 1, evnt );
+
+        if ( evnt.type == EventType::STOP_SERVICE )
+        {
+            return;
+        }
+    } while ( error == wxMSGQUEUE_NO_ERROR );
+
     // Reset event queue
     m_events.Clear();
-
-    if ( m_stopCalled )
-    {
-        return;
-    }
 
     // Initialize remote manager
     m_remoteMgr = std::make_shared<RemoteManager>( this );
@@ -430,7 +442,6 @@ void WinpinatorService::serviceMain()
 
         if ( ev.type == EventType::STOP_SERVICE )
         {
-            m_stopCalled = true;
             break;
         }
         if ( ev.type == EventType::RESTART_SERVICE )

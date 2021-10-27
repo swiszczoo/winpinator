@@ -36,6 +36,7 @@ private:
     void onMenuItemSelected( wxCommandEvent& event );
     void onChangeStatusBarText( wxThreadEvent& event );
     void onDpiChanged( wxDPIChangedEvent& event );
+    void onSettingsClicked( wxCommandEvent& event );
 
     void onOpenFolderSelected();
     void onPrefsSelected();

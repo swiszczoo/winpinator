@@ -236,10 +236,7 @@ WarpServer::WarpServer()
 
 WarpServer::~WarpServer()
 {
-    if ( m_server )
-    {
-        stopServer();
-    }
+    stopServer();
 }
 
 void WarpServer::setPort( uint16_t port )
@@ -330,6 +327,11 @@ bool WarpServer::stopServer()
 {
     if ( !m_server )
     {
+        if ( m_thread.joinable() )
+        {
+            m_thread.join();
+        }
+
         // Server is not running
         return false;
     }

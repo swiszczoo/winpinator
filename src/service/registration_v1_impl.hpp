@@ -13,6 +13,7 @@ class RegistrationV1Server
 {
 public:
     RegistrationV1Server( std::string address, uint16_t port );
+    ~RegistrationV1Server();
 
     bool startServer();
     bool stopServer();

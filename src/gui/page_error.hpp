@@ -6,6 +6,8 @@
 namespace gui
 {
 
+wxDECLARE_EVENT( EVT_OPEN_SETTINGS, wxCommandEvent );
+
 class ErrorPage : public wxPanel
 {
 public:

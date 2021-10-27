@@ -29,6 +29,11 @@ RegistrationV1Server::RegistrationV1Server( std::string address, uint16_t port )
     m_sock = std::make_unique<wxDatagramSocket>( addr, wxSOCKET_BLOCK );
 }
 
+RegistrationV1Server::~RegistrationV1Server()
+{
+    stopServer();
+}
+
 bool RegistrationV1Server::startServer()
 {
     if ( m_thread.joinable() )

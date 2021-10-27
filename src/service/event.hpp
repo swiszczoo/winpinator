@@ -16,7 +16,7 @@ namespace srv
 
 enum class EventType
 {
-    STOP_SERVICE,
+    STOP_SERVICE = 1,
     RESTART_SERVICE,
     REPEAT_MDNS_QUERY,
     HOST_ADDED,
