@@ -2,6 +2,7 @@
 
 #include "../../win32/resource.h"
 #include "../globals.hpp"
+#include "../main_base.hpp"
 #include "utils.hpp"
 
 namespace gui
@@ -92,6 +93,8 @@ void ErrorPage::onRetryClicked( wxCommandEvent& event )
 {
     srv::Event evnt;
     evnt.type = srv::EventType::RESTART_SERVICE;
+    evnt.eventData.restartData = std::make_shared<SettingsModel>( 
+        GetApp().m_settings );
 
     Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
 

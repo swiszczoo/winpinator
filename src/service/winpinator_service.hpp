@@ -1,6 +1,7 @@
 #pragma once
 #include "observable_service.hpp"
 
+#include "../settings_model.hpp"
 #include "../zeroconf/mdns_types.hpp"
 #include "database_manager.hpp"
 #include "event.hpp"
@@ -47,7 +48,7 @@ public:
     TransferManager* getTransferManager() const;
     DatabaseManager* getDb() const;
 
-    int startOnThisThread();
+    int startOnThisThread( const SettingsModel& appSettings );
 
     void postEvent( const Event& evnt );
 
@@ -74,6 +75,8 @@ private:
     std::shared_ptr<RemoteManager> m_remoteMgr;
     std::shared_ptr<TransferManager> m_transferMgr;
     std::shared_ptr<DatabaseManager> m_db;
+
+    SettingsModel m_settings;
 
     void initDatabase();
     void serviceMain();

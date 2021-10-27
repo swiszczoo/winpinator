@@ -140,9 +140,10 @@ DatabaseManager* WinpinatorService::getDb() const
     return m_db.get();
 }
 
-int WinpinatorService::startOnThisThread()
+int WinpinatorService::startOnThisThread( const SettingsModel& appSettings )
 {
     m_stopping = false;
+    m_settings = appSettings;
 
     // Init WinSock library
     {
@@ -215,6 +216,10 @@ int WinpinatorService::startOnThisThread()
 
                     if ( ev.type == EventType::RESTART_SERVICE )
                     {
+                        if ( ev.eventData.restartData )
+                        {
+                            m_settings = *ev.eventData.restartData;
+                        }
                         m_shouldRestart = true;
                         break;
                     }
@@ -310,15 +315,15 @@ void WinpinatorService::serviceMain()
     }
 
     // Start the registration service (v1)
-    RegistrationV1Server regServer1( "0.0.0.0", m_port );
+    RegistrationV1Server regServer1( "0.0.0.0", m_settings.transferPort );
 
     // Start the registration service (v2)
     RegistrationV2Server regServer2;
-    regServer2.setPort( m_authPort );
+    regServer2.setPort( m_settings.registrationPort );
 
     // Start the main RPC service
     WarpServer rpcServer;
-    rpcServer.setPort( m_port );
+    rpcServer.setPort( m_settings.transferPort );
     if ( !avatarData.empty() )
     {
         rpcServer.setAvatarBytes( avatarData );
@@ -327,7 +332,7 @@ void WinpinatorService::serviceMain()
     // Register 'flush' type service for 3 seconds
     zc::MdnsService flushService( WinpinatorService::SERVICE_TYPE );
     flushService.setHostname( AuthManager::get()->getIdent() );
-    flushService.setPort( m_port );
+    flushService.setPort( m_settings.transferPort );
     flushService.setTxtRecord( "hostname", Utils::getHostname() );
     flushService.setTxtRecord( "type", "flush" );
 
@@ -342,7 +347,7 @@ void WinpinatorService::serviceMain()
         notifyIpChanged();
         lock.unlock();
 
-        AuthManager::get()->update( ipPair, m_port );
+        AuthManager::get()->update( ipPair, m_settings.transferPort );
 
         // We have an IP so we can start registration servers
         if ( !regServer1.startServer() )
@@ -392,7 +397,7 @@ void WinpinatorService::serviceMain()
     // Now register 'real' service
     zc::MdnsService zcService( WinpinatorService::SERVICE_TYPE );
     zcService.setHostname( AuthManager::get()->getIdent() );
-    zcService.setPort( m_port );
+    zcService.setPort( m_settings.transferPort );
     zcService.setTxtRecord( "hostname", Utils::getHostname() );
     zcService.setTxtRecord( "type", "real" );
     zcService.setTxtRecord( "os", Utils::getOSVersionString() );
@@ -446,6 +451,10 @@ void WinpinatorService::serviceMain()
         }
         if ( ev.type == EventType::RESTART_SERVICE )
         {
+            if ( ev.eventData.restartData )
+            {
+                m_settings = *ev.eventData.restartData;
+            }
             m_shouldRestart = true;
             break;
         }

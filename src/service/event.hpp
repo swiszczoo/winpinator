@@ -1,4 +1,5 @@
 #pragma once
+#include "../settings_model.hpp"
 #include "../zeroconf/mdns_types.hpp"
 #include "notification.hpp"
 
@@ -37,6 +38,7 @@ struct Event
     EventType type;
     struct
     {
+        std::shared_ptr<SettingsModel> restartData;
         std::shared_ptr<zc::MdnsServiceData> addedData;
         std::shared_ptr<std::string> removedData;
         std::shared_ptr<ToastNotification> toastData;

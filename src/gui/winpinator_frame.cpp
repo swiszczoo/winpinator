@@ -2,6 +2,7 @@
 
 #include "../../win32/resource.h"
 #include "../globals.hpp"
+#include "../main_base.hpp"
 #include "utils.hpp"
 
 #include <wx/aboutdlg.h>
@@ -204,6 +205,8 @@ void WinpinatorFrame::onPrefsSelected()
         // Restart service
         srv::Event evnt;
         evnt.type = srv::EventType::RESTART_SERVICE;
+        evnt.eventData.restartData = std::make_shared<SettingsModel>(
+            GetApp().m_settings );
 
         auto serv = Globals::get()->getWinpinatorServiceInstance();
         serv->postEvent( evnt );

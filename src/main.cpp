@@ -26,7 +26,7 @@
 #include <memory>
 #include <thread>
 
-int serviceMain( std::promise<void>& promise );
+int serviceMain( std::promise<void>& promise, SettingsModel settings );
 
 wxIMPLEMENT_APP( WinpinatorApp );
 
@@ -115,7 +115,7 @@ bool WinpinatorApp::OnInit()
     std::future<void> future = promise.get_future();
 
     m_srvThread = std::thread( std::bind( serviceMain,
-        std::ref( promise ) ) );
+        std::ref( promise ), m_settings ) );
 
     // Wait for the service to become valid
     future.wait();
@@ -133,7 +133,10 @@ bool WinpinatorApp::OnInit()
     }
 
     // Show main window
-    showMainFrame();
+    if ( m_settings.openWindowOnStart )
+    {
+        showMainFrame();
+    }
 
     return true;
 }
@@ -272,7 +275,7 @@ void WinpinatorApp::onOpenTransferUI( wxString remoteId )
     wxQueueEvent( this, evnt.Clone() );
 }
 
-int serviceMain( std::promise<void>& promise )
+int serviceMain( std::promise<void>& promise, SettingsModel settings )
 {
     setThreadName( "Main Service Thread" );
 
@@ -286,9 +289,9 @@ int serviceMain( std::promise<void>& promise )
     // Set our promise to true
     promise.set_value();
 
-    service->setGrpcPort( 52000 );
-    service->setAuthPort( 52001 );
-    int result = service->startOnThisThread();
+    service->setGrpcPort( settings.transferPort );
+    service->setAuthPort( settings.registrationPort );
+    int result = service->startOnThisThread( settings );
 
     Globals::get()->setWinpinatorServiceInstance( nullptr );
 
