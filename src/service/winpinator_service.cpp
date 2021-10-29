@@ -27,15 +27,12 @@
 namespace srv
 {
 
-const uint16_t DEFAULT_WINPINATOR_PORT = 52000;
 const std::string WinpinatorService::SERVICE_TYPE
     = "_warpinator._tcp.local.";
 const int WinpinatorService::s_pollingIntervalSec = 5;
 
 WinpinatorService::WinpinatorService()
     : m_mutex()
-    , m_port( DEFAULT_WINPINATOR_PORT )
-    , m_authPort( DEFAULT_WINPINATOR_PORT + 1 )
     , m_ready( false )
     , m_online( false )
     , m_shouldRestart( false )
@@ -71,26 +68,6 @@ WinpinatorService::WinpinatorService()
     IconExtractor::extractIcons();
 
     initDatabase();
-}
-
-void WinpinatorService::setGrpcPort( uint16_t port )
-{
-    m_port = port;
-}
-
-uint16_t WinpinatorService::getGrpcPort() const
-{
-    return m_port;
-}
-
-void WinpinatorService::setAuthPort( uint16_t authPort )
-{
-    m_authPort = authPort;
-}
-
-uint16_t WinpinatorService::getAuthPort() const
-{
-    return m_authPort;
 }
 
 bool WinpinatorService::isServiceReady() const
@@ -402,7 +379,8 @@ void WinpinatorService::serviceMain()
     zcService.setTxtRecord( "type", "real" );
     zcService.setTxtRecord( "os", Utils::getOSVersionString() );
     zcService.setTxtRecord( "api-version", "2" );
-    zcService.setTxtRecord( "auth-port", std::to_string( m_authPort ) );
+    zcService.setTxtRecord( "auth-port", 
+        std::to_string( m_settings.registrationPort ) );
 
     auto secondIpPair = zcService.registerService();
     if ( !secondIpPair.get().valid )

@@ -30,12 +30,6 @@ class WinpinatorService : public ObservableService
 public:
     WinpinatorService();
 
-    void setGrpcPort( uint16_t port );
-    uint16_t getGrpcPort() const;
-
-    void setAuthPort( uint16_t authPort );
-    uint16_t getAuthPort() const;
-
     bool isServiceReady() const;
     bool isOnline() const;
     std::string getIpAddress();
@@ -58,8 +52,6 @@ private:
 
     std::recursive_mutex m_mutex;
 
-    uint16_t m_port;
-    uint16_t m_authPort;
     bool m_ready;
     bool m_online;
     bool m_shouldRestart;

@@ -289,8 +289,6 @@ int serviceMain( std::promise<void>& promise, SettingsModel settings )
     // Set our promise to true
     promise.set_value();
 
-    service->setGrpcPort( settings.transferPort );
-    service->setAuthPort( settings.registrationPort );
     int result = service->startOnThisThread( settings );
 
     Globals::get()->setWinpinatorServiceInstance( nullptr );
