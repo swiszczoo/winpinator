@@ -81,6 +81,8 @@ private:
         ZlibDeflate m_compressor;
         bool m_useCompression;
 
+        wxString getAbsolutePath( wxString relativePath );
+        void updatePaths();
         void updateProgress( long long chunkBytes );
     };
 

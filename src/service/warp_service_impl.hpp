@@ -44,6 +44,11 @@ protected:
     Status StartTransfer( grpc::ServerContext* context,
         const OpInfo* request, grpc::ServerWriter<FileChunk>* writer ) override;
 
+    Status CancelTransferOpRequest( grpc::ServerContext* context,
+        const OpInfo* request, VoidType* response ) override;
+    Status StopTransfer( grpc::ServerContext* context,
+        const StopInfo* request, VoidType* response ) override;
+
 private:
     std::shared_ptr<RemoteManager> m_remoteMgr;
     std::shared_ptr<TransferManager> m_transferMgr;

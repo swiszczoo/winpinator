@@ -217,6 +217,27 @@ Status WarpServiceImpl::ProcessTransferOpRequest( grpc::ServerContext* context,
 Status WarpServiceImpl::StartTransfer( grpc::ServerContext* context,
     const OpInfo* request, grpc::ServerWriter<FileChunk>* writer )
 {
+    wxLogDebug( "Server RPC: StartTransfer from '%s'",
+        request->readable_name() );
+
+    return Status::CANCELLED;
+}
+
+Status WarpServiceImpl::CancelTransferOpRequest( grpc::ServerContext* context,
+    const OpInfo* request, VoidType* response )
+{
+    wxLogDebug( "Server RPC: CancelTransferOpRequest from '%s'",
+        request->readable_name() );
+
+    return Status::CANCELLED;
+}
+
+Status WarpServiceImpl::StopTransfer( grpc::ServerContext* context,
+    const StopInfo* request, VoidType* response )
+{
+    wxLogDebug( "Server RPC: StopTransfer from '%s'",
+        request->info().readable_name() );
+
     return Status::CANCELLED;
 }
 

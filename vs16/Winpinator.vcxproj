@@ -308,6 +308,7 @@
     <ClInclude Include="..\src\service\database_utils.hpp" />
     <ClInclude Include="..\src\service\event.hpp" />
     <ClInclude Include="..\src\service\icon_extractor.hpp" />
+    <ClInclude Include="..\src\service\memory_manager.hpp" />
     <ClInclude Include="..\src\service\notification.hpp" />
     <ClInclude Include="..\src\service\notification_accept_files.hpp" />
     <ClInclude Include="..\src\service\observable_service.hpp" />
@@ -380,6 +381,7 @@
     <ClCompile Include="..\src\service\database_manager.cpp" />
     <ClCompile Include="..\src\service\database_utils.cpp" />
     <ClCompile Include="..\src\service\icon_extractor.cpp" />
+    <ClCompile Include="..\src\service\memory_manager.cpp" />
     <ClCompile Include="..\src\service\notification.cpp" />
     <ClCompile Include="..\src\service\notification_accept_files.cpp" />
     <ClCompile Include="..\src\service\observable_service.cpp" />
@@ -391,6 +393,7 @@
     <ClCompile Include="..\src\service\service_observer.cpp" />
     <ClCompile Include="..\src\service\service_utils.cpp" />
     <ClCompile Include="..\src\service\transfer_manager.cpp" />
+    <ClCompile Include="..\src\service\transfer_manager_reactor.cpp" />
     <ClCompile Include="..\src\service\unix_permissions.cpp" />
     <ClCompile Include="..\src\service\warp_service_impl.cpp" />
     <ClCompile Include="..\src\service\winpinator_service.cpp" />

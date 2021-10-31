@@ -72,6 +72,9 @@ struct TransferOp
     {
         std::chrono::steady_clock::time_point lastProgressUpdate;
         std::shared_ptr<EventLock> pauseLock;
+
+        std::vector<std::wstring> relativePaths;
+        std::vector<std::wstring> absolutePaths;
     } intern;
 
     bool useCompression;

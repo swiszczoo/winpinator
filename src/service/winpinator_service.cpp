@@ -7,6 +7,7 @@
 #include "account_picture_extractor.hpp"
 #include "auth_manager.hpp"
 #include "icon_extractor.hpp"
+#include "memory_manager.hpp"
 #include "registration_v1_impl.hpp"
 #include "registration_v2_impl.hpp"
 #include "service_utils.hpp"
@@ -218,6 +219,7 @@ int WinpinatorService::startOnThisThread( const SettingsModel& appSettings )
 
     m_pollingThread.join();
 
+    MemoryManager::getInstance()->shutdownAndFreeAll();
     WSACleanup();
 
     return EXIT_SUCCESS;
@@ -260,7 +262,7 @@ void WinpinatorService::serviceMain()
 
     // Initialize transfer manager
     m_transferMgr = std::make_shared<TransferManager>( this );
-    m_transferMgr->setOutputPath( L"C:\\Users\\lukas\\Documents\\Winpinator" );
+    m_transferMgr->setOutputPath( m_settings.outputPath.ToStdWstring() );
     m_transferMgr->setRemoteManager( m_remoteMgr );
 
     // Try to gather user account picture

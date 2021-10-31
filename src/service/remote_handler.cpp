@@ -288,6 +288,13 @@ bool RemoteHandler::secureLoopV2()
 
             if ( m_info->stopping )
             {
+                m_info->stub = nullptr;
+                channel = nullptr;
+                lock.unlock();
+
+                cq.Shutdown();
+                discoListener.join();
+
                 return false;
             }
 

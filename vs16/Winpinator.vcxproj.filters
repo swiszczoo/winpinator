@@ -271,6 +271,9 @@
     <ClInclude Include="..\src\gui\language_adapter.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\memory_manager.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -446,6 +449,12 @@
     </ClCompile>
     <ClCompile Include="..\src\gui\language_adapter.cpp">
       <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\transfer_manager_reactor.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\service\memory_manager.cpp">
+      <Filter>Sources\service</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
