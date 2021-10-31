@@ -17,6 +17,8 @@ namespace srv
 
 typedef std::shared_ptr<TransferOp> TransferOpPtr;
 
+class RemoteManager;
+
 class TransferManager
 {
 public:
@@ -29,6 +31,9 @@ public:
     void setRemoteManager( std::shared_ptr<RemoteManager> ptr );
     RemoteManager* getRemoteManager();
 
+    void setCompressionLevel( int level );
+    int getCompressionLevel();
+
     void stop();
 
     void registerTransfer( const std::string& remoteId, 
@@ -36,13 +41,13 @@ public:
 
     void replyAllowTransfer( const std::string& remoteId,
         int transferId, bool allow );
-    void resumeTransfer( const std::string& remoteId, 
-        int transferId );
-    void pauseTransfer( const std::string& remoteId,
-        int transferId );
-    void stopTransfer( const std::string& remoteId,
-        int transferId );
+    void cancelTransferRequest( const std::string& remoteId,
+        time_t timestamp );
+    void resumeTransfer( const std::string& remoteId, int transferId );
+    void pauseTransfer( const std::string& remoteId, int transferId );
+    void stopTransfer( const std::string& remoteId, int transferId );
     void finishTransfer( const std::string& remoteId, int transferId );
+    void failAll( const std::string& remoteId );
 
     std::mutex& getMutex();
 
@@ -95,6 +100,7 @@ private:
     int m_lastId;
     std::mutex m_mtx;
     std::wstring m_outputPath;
+    int m_compressionLevel;
     TransferOp m_empty;
 
     std::map<std::string, std::vector<TransferOpPtr>> m_transfers;
@@ -104,10 +110,13 @@ private:
     void setTransferTimestamp( TransferOp& op );
     void setUpPauseLock( TransferOp& op );
     void sendNotifications( const std::string& remoteId, TransferOp& op );
-    TransferOpPtr getTransferInfo( const std::string& remoteId, int transferId );
 
-    void processStartOrResumeTransfer( const std::string& remoteId, 
-        TransferOpPtr op );
+    TransferOpPtr getTransferInfo( const std::string& remoteId, int transferId );
+    TransferOpPtr getTransferByTimestamp(
+        const std::string& remoteId, time_t timestamp );
+
+    void processStartTransfer( const std::string& remoteId, TransferOpPtr op );
+    void processDeclineTransfer( const std::string& remoteId, TransferOpPtr op );
 
     OpInfo convertOpToOpInfo( const TransferOpPtr op, 
         bool compressionEnabled ) const;

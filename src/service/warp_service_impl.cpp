@@ -203,7 +203,7 @@ Status WarpServiceImpl::ProcessTransferOpRequest( grpc::ServerContext* context,
     op.mimeIfSingleUtf8 = request->mime_if_single();
     op.nameIfSingleUtf8 = request->name_if_single();
     op.useCompression = info.use_compression();
-    
+
     for ( std::string basename : request->top_dir_basenames() )
     {
         op.topDirBasenamesUtf8.push_back( basename );
@@ -226,10 +226,20 @@ Status WarpServiceImpl::StartTransfer( grpc::ServerContext* context,
 Status WarpServiceImpl::CancelTransferOpRequest( grpc::ServerContext* context,
     const OpInfo* request, VoidType* response )
 {
-    wxLogDebug( "Server RPC: CancelTransferOpRequest from '%s'",
+    wxLogDebug( "Server RPC: ProcessTransferOpRequest from '%s'",
         request->readable_name() );
 
-    return Status::CANCELLED;
+    const std::string& id = request->ident();
+
+    if ( !m_remoteMgr->isHostAvailable( id ) )
+    {
+        wxLogDebug( "Received cancel transfer op request for unknown op" );
+        return Status( grpc::StatusCode::PERMISSION_DENIED,
+            "Invalid sender ident" );
+    }
+
+    m_transferMgr->cancelTransferRequest( id, request->timestamp() );
+    return Status::OK;
 }
 
 Status WarpServiceImpl::StopTransfer( grpc::ServerContext* context,

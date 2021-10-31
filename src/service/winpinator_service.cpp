@@ -264,6 +264,10 @@ void WinpinatorService::serviceMain()
     m_transferMgr = std::make_shared<TransferManager>( this );
     m_transferMgr->setOutputPath( m_settings.outputPath.ToStdWstring() );
     m_transferMgr->setRemoteManager( m_remoteMgr );
+    m_transferMgr->setCompressionLevel( 
+        m_settings.useCompression ? m_settings.zlibCompressionLevel : 0 );
+
+    m_remoteMgr->setTransferManager( m_transferMgr.get() );
 
     // Try to gather user account picture
     std::string avatarData;
@@ -458,9 +462,14 @@ void WinpinatorService::serviceMain()
             {
                 ev.eventData.toastData->setService( this );
 
-                WinToastLib::WinToast::instance()->showToast(
+                auto handler = ev.eventData.toastData->instantiateListener();
+
+                if ( WinToastLib::WinToast::instance()->showToast(
                     ev.eventData.toastData->buildTemplate(),
-                    ev.eventData.toastData->instantiateListener() );
+                    handler ) == -1 )
+                {
+                    delete handler;
+                }
             }
         }
         if ( ev.type == EventType::ACCEPT_TRANSFER_CLICKED )

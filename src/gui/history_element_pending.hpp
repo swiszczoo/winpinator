@@ -94,6 +94,7 @@ private:
     void onAllowClicked( wxCommandEvent& event );
     void onDeclineClicked( wxCommandEvent& event );
     void onPauseClicked( wxCommandEvent& event );
+    void onCancelClicked( wxCommandEvent& event );
 
     int calculateRemainingSeconds() const;
     int calculateTransferSpeed() const;

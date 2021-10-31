@@ -6,22 +6,13 @@
 namespace srv
 {
 
-class AcceptFilesNotification : public ToastNotification
+class TransferFailedNotification : public ToastNotification
 {
 public:
-    explicit AcceptFilesNotification( std::string remoteId, int transferId );
+    explicit TransferFailedNotification( std::string remoteId );
 
     void setSenderFullName( std::wstring name );
     std::wstring getSenderFullName() const;
-
-    void setSingleElementName( std::wstring name );
-    std::wstring getSingleElementName() const;
-
-    void setIsSingleFolder( bool single );
-    bool isSingleFolder() const;
-
-    void setElementCount( int elementCount );
-    int getElementCount() const;
 
     virtual WinToastLib::WinToastTemplate buildTemplate() override;
     virtual WinToastLib::IWinToastHandler* instantiateListener() override;
@@ -30,17 +21,10 @@ private:
     class Handler : public WinToastLib::IWinToastHandler
     {
     public:
-        explicit Handler( AcceptFilesNotification* notification );
+        explicit Handler( TransferFailedNotification* notification );
 
     private:
-        enum class Actions
-        {
-            ACCEPT = 0,
-            DECLINE
-        };
-
         std::string m_remoteId;
-        int m_transferId;
         WinpinatorService* m_service;
 
         virtual void toastActivated() const override;
@@ -48,14 +32,8 @@ private:
         virtual void toastDismissed( WinToastDismissalReason state ) const override;
         virtual void toastFailed() const override;
     };
-
     std::string m_remoteId;
-    int m_transferId;
-
     std::wstring m_senderFullName;
-    std::wstring m_singleElementName;
-    bool m_isSingleFolder;
-    int m_elementCount;
 };
 
 };

@@ -1,17 +1,22 @@
 #pragma once
 #include "observable_service.hpp"
 #include "remote_info.hpp"
+#include "transfer_manager.hpp"
 
 #include <shared_mutex>
 
 namespace srv
 {
 
+class TransferManager;
+
 class RemoteManager
 {
 public:
     RemoteManager( ObservableService* service );
     ~RemoteManager();
+
+    void setTransferManager( TransferManager* mgr );
 
     void stop();
 
@@ -40,6 +45,7 @@ private:
     std::string m_srvType;
 
     ObservableService* m_srv;
+    TransferManager* m_transferMgr;
 
     std::string stripServiceFromIdent( const std::string& identStr ) const;
     int remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo );

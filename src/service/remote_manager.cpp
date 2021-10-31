@@ -25,14 +25,20 @@ const std::string RemoteManager::FALLBACK_OS = "Linux";
 const std::string RemoteManager::REQUEST = "REQUEST";
 
 RemoteManager::RemoteManager( ObservableService* service )
-    : m_srv( service )
-    , m_srvType( "" )
+    : m_srvType( "" )
+    , m_srv( service )
+    , m_transferMgr( nullptr )
 {
 }
 
 RemoteManager::~RemoteManager()
 {
     stop();
+}
+
+void RemoteManager::setTransferManager( TransferManager* mgr )
+{
+    m_transferMgr = mgr;
 }
 
 void RemoteManager::stop()
@@ -390,6 +396,11 @@ int RemoteManager::remoteThreadEntry( std::shared_ptr<RemoteInfo> serviceInfo )
         m_srv->notifyObservers( [info]( IServiceObserver* observer ) {
             observer->onEditHost( info );
         } );
+
+        if ( info->state != RemoteStatus::ONLINE && m_transferMgr )
+        {
+            m_transferMgr->failAll( info->id );
+        }
     } );
     handler.process();
 

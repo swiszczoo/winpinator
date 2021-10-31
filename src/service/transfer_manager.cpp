@@ -3,6 +3,7 @@
 #include "../globals.hpp"
 #include "auth_manager.hpp"
 #include "notification_accept_files.hpp"
+#include "notification_transfer_failed.hpp"
 #include "service_utils.hpp"
 
 #include <wx/filename.h>
@@ -19,6 +20,7 @@ TransferManager::TransferManager( ObservableService* service )
     , m_remoteMgr( nullptr )
     , m_srv( service )
     , m_lastId( 0 )
+    , m_compressionLevel( 0 )
     , m_empty()
 {
 }
@@ -57,6 +59,20 @@ RemoteManager* TransferManager::getRemoteManager()
     std::lock_guard<std::mutex> guard( m_mtx );
 
     return m_remoteMgr.get();
+}
+
+void TransferManager::setCompressionLevel( int level )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    m_compressionLevel = level;
+}
+
+int TransferManager::getCompressionLevel()
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    return m_compressionLevel;
 }
 
 void TransferManager::stop()
@@ -108,16 +124,45 @@ void TransferManager::replyAllowTransfer( const std::string& remoteId,
         return;
     }
 
-    if ( allow )
+    std::unique_lock<std::mutex> lock( *op->mutex );
+    if ( op->status == OpStatus::WAITING_PERMISSION )
     {
-        std::unique_lock<std::mutex> lock( *op->mutex );
-
-        if ( !op->outcoming && op->status == OpStatus::WAITING_PERMISSION )
+        if ( allow && !op->outcoming )
         {
             lock.unlock();
-            processStartOrResumeTransfer( remoteId, op );
+            processStartTransfer( remoteId, op );
+        }
+        else if ( !allow )
+        {
+            lock.unlock();
+            processDeclineTransfer( remoteId, op );
         }
     }
+}
+
+void TransferManager::cancelTransferRequest( const std::string& remoteId,
+    time_t transferId )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    TransferOpPtr op = getTransferByTimestamp( remoteId, transferId );
+    if ( !op )
+    {
+        return;
+    }
+
+    std::lock_guard<std::mutex> opLock( *op->mutex );
+    if ( op->outcoming )
+    {
+        op->status = OpStatus::CANCELLED_PERMISSION_BY_RECEIVER;
+    }
+    else
+    {
+        op->status = OpStatus::CANCELLED_PERMISSION_BY_SENDER;
+    }
+
+    sendStatusUpdateNotification( remoteId, op );
+    // TODO: finish transfer
 }
 
 void TransferManager::resumeTransfer( const std::string& remoteId,
@@ -181,6 +226,42 @@ void TransferManager::pauseTransfer( const std::string& remoteId,
         op->status = OpStatus::PAUSED;
 
         sendStatusUpdateNotification( remoteId, op );
+    }
+}
+
+void TransferManager::failAll( const std::string& remoteId )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    bool someFailed = false;
+    std::wstring senderName;
+    if ( m_transfers.find( remoteId ) != m_transfers.end() )
+    {
+        for ( auto& op : m_transfers[remoteId] )
+        {
+            std::lock_guard<std::mutex> lock( *op->mutex );
+            if ( op->status != OpStatus::FAILED )
+            {
+                someFailed = true;
+                senderName = wxString::FromUTF8( op->senderNameUtf8 ).ToStdWstring();
+            }
+
+            op->status = OpStatus::FAILED;
+
+            sendStatusUpdateNotification( remoteId, op );
+        }
+    }
+
+    if ( someFailed )
+    {
+        auto notif = std::make_shared<TransferFailedNotification>( remoteId );
+        notif->setSenderFullName( senderName );
+
+        Event evnt;
+        evnt.type = EventType::SHOW_TOAST_NOTIFICATION;
+        evnt.eventData.toastData = notif;
+
+        Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
     }
 }
 
@@ -249,10 +330,8 @@ void TransferManager::sendNotifications( const std::string& remoteId,
 {
     if ( !op.outcoming )
     {
-        // TODO: add failure case notification
-
         auto notif = std::make_shared<AcceptFilesNotification>( remoteId, op.id );
-        notif->setSenderFullName( 
+        notif->setSenderFullName(
             wxString::FromUTF8( op.senderNameUtf8 ).ToStdWstring() );
         notif->setElementCount( op.topDirBasenamesUtf8.size() );
         notif->setIsSingleFolder( op.mimeIfSingleUtf8 == "inode/directory" );
@@ -289,10 +368,29 @@ TransferOpPtr TransferManager::getTransferInfo( const std::string& remoteId,
     return nullptr;
 }
 
-void TransferManager::processStartOrResumeTransfer( const std::string& remoteId,
+TransferOpPtr TransferManager::getTransferByTimestamp(
+    const std::string& remoteId, time_t timestamp )
+{
+    if ( m_transfers.find( remoteId ) != m_transfers.end() )
+    {
+        auto& transferList = m_transfers[remoteId];
+
+        for ( TransferOpPtr op : transferList )
+        {
+            if ( op->startTime == timestamp )
+            {
+                return op;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+void TransferManager::processStartTransfer( const std::string& remoteId,
     TransferOpPtr op )
 {
-    wxLogDebug( "TransferManager: processing start/resume transfer" );
+    wxLogDebug( "TransferManager: processing start transfer" );
 
     {
         RemoteInfoPtr info = m_remoteMgr->getRemoteInfo( remoteId );
@@ -308,9 +406,8 @@ void TransferManager::processStartOrResumeTransfer( const std::string& remoteId,
         std::shared_ptr<grpc::ClientContext> ctx
             = std::make_shared<grpc::ClientContext>();
 
-        // TODO: we can also request not to use compression
         std::shared_ptr<OpInfo> request = std::make_shared<OpInfo>(
-            convertOpToOpInfo( op, true ) );
+            convertOpToOpInfo( op, m_compressionLevel > 0 ) );
 
         std::shared_ptr<StartTransferReactor> reactor
             = std::make_shared<StartTransferReactor>();
@@ -321,7 +418,6 @@ void TransferManager::processStartOrResumeTransfer( const std::string& remoteId,
         reactor->setManager( this );
 
         wxLogDebug( "TransferManager: starting transfer!" );
-        op->status = OpStatus::TRANSFERRING;
 
         info->stub->experimental_async()->StartTransfer( ctx.get(), request.get(),
             reactor.get() );
@@ -329,6 +425,47 @@ void TransferManager::processStartOrResumeTransfer( const std::string& remoteId,
     }
 
     std::lock_guard<std::mutex> lck( *op->mutex );
+    op->status = OpStatus::TRANSFERRING;
+    sendStatusUpdateNotification( remoteId, op );
+}
+
+void TransferManager::processDeclineTransfer( const std::string& remoteId,
+    TransferOpPtr op )
+{
+    wxLogDebug( "TransferManager: rejecting transfer" );
+
+    {
+        RemoteInfoPtr info = m_remoteMgr->getRemoteInfo( remoteId );
+
+        if ( !info )
+        {
+            wxLogDebug( "TransferManager: remote not found! ignoring!" );
+            return;
+        }
+
+        std::lock_guard<std::mutex> guard( info->mutex );
+
+        grpc::ClientContext ctx;
+        ctx.set_deadline( std::chrono::system_clock::now()
+            + std::chrono::seconds( 3 ) );
+        OpInfo request = convertOpToOpInfo( op, m_compressionLevel > 0 );
+        VoidType response;
+
+        if ( !info->stub->CancelTransferOpRequest( &ctx, request, &response ).ok() )
+        {
+            wxLogDebug( "TransferManager: CancelTransferOpRequest failed" );
+        }
+    }
+
+    std::lock_guard<std::mutex> lck( *op->mutex );
+    if ( op->outcoming )
+    {
+        op->status = OpStatus::CANCELLED_PERMISSION_BY_SENDER;
+    }
+    else
+    {
+        op->status = OpStatus::CANCELLED_PERMISSION_BY_RECEIVER;
+    }
     sendStatusUpdateNotification( remoteId, op );
 }
 

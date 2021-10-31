@@ -280,6 +280,9 @@
     <ClInclude Include="..\src\zeroconf\interface_utils.hpp">
       <Filter>Headers\zeroconf</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\notification_transfer_failed.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -468,6 +471,9 @@
     <ClCompile Include="..\src\zeroconf\interface_utils.cpp">
       <Filter>Sources\zeroconf</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\service\notification_transfer_failed.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\win32\manifest.manifest">
@@ -554,6 +560,9 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\res\transfer_status_error.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_failed.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
