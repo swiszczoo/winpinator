@@ -39,6 +39,9 @@ public:
     void setPort( std::uint16_t port );
     std::uint16_t getPort() const;
 
+    void setInterfaceName( const std::string& interf );
+    std::string getInterfaceName() const;
+
     std::future<MdnsIpPair> registerService();
     void unregisterService();
 
@@ -52,6 +55,7 @@ private:
     std::string m_srvType;
     std::string m_hostname;
     std::uint16_t m_port;
+    std::string m_interf;
 
     bool m_running;
     std::thread m_worker;
@@ -77,9 +81,10 @@ private:
     char m_sendbuffer[1024];
 
     int openClientSockets( int* sockets, int maxSockets, int port );
-    int openServiceSockets( int* sockets, int maxSockets );
+    int openServiceSockets( int* sockets, int maxSockets, const char* interf );
     int serviceMdns( const char* hostname, 
         const char* serviceNname, int servicePort,
+        const char* serviceInterf,
         std::shared_ptr<std::recursive_mutex> mutexRef,
         std::shared_ptr<std::promise<MdnsIpPair>> promise );
 

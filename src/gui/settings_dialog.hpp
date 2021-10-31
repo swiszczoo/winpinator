@@ -1,5 +1,6 @@
 #pragma once
 #include "language_adapter.hpp"
+#include "network_interface_adapter.hpp"
 #include "permission_picker.hpp"
 
 #include <wx/bmpcbox.h>
@@ -19,8 +20,10 @@ public:
     explicit SettingsDialog( wxWindow* parent );
 
 private:
-    LanguageAdapter m_adapter;
+    LanguageAdapter m_langAdapter;
+    NetworkInterfaceAdapter m_inetAdapter;
     std::vector<std::unique_ptr<wxBitmap>> m_loadedBitmaps;
+    std::vector<NetworkInterfaceAdapter::InetInfo> m_interfaces;
     wxNotebook* m_notebook;
 
     wxPanel* m_panelGeneral;
@@ -47,6 +50,7 @@ private:
     // Connection
 
     wxTextCtrl* m_groupCode;
+    wxChoice* m_networkInterface;
     wxSpinCtrl* m_transferPort;
     wxSpinCtrl* m_registrationPort;
 
@@ -58,6 +62,7 @@ private:
     void saveSettings();
 
     void fillLocales();
+    void fillInterfaces();
 
     void onSaveSettings( wxCommandEvent& event );
     std::unique_ptr<wxBitmap> loadScaledFlag( const wxString& path, int height );

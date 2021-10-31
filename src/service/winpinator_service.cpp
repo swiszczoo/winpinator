@@ -312,6 +312,7 @@ void WinpinatorService::serviceMain()
     zc::MdnsService flushService( WinpinatorService::SERVICE_TYPE );
     flushService.setHostname( AuthManager::get()->getIdent() );
     flushService.setPort( m_settings.transferPort );
+    flushService.setInterfaceName( m_settings.networkInterface.ToStdString() );
     flushService.setTxtRecord( "hostname", Utils::getHostname() );
     flushService.setTxtRecord( "type", "flush" );
 
@@ -377,6 +378,7 @@ void WinpinatorService::serviceMain()
     zc::MdnsService zcService( WinpinatorService::SERVICE_TYPE );
     zcService.setHostname( AuthManager::get()->getIdent() );
     zcService.setPort( m_settings.transferPort );
+    zcService.setInterfaceName( m_settings.networkInterface.ToStdString() );
     zcService.setTxtRecord( "hostname", Utils::getHostname() );
     zcService.setTxtRecord( "type", "real" );
     zcService.setTxtRecord( "os", Utils::getOSVersionString() );

@@ -18,6 +18,7 @@ SettingsModel::SettingsModel()
     , foldersDefaultPermissions( 775 )
     , executablesDefaultPermissions( 775 )
     , groupCode( "Warpinator" )
+    , networkInterface( "" )
     , transferPort( 42000 )
     , registrationPort( 42001 )
 {
@@ -57,6 +58,8 @@ void SettingsModel::loadFrom( wxConfigBase* config )
 
     groupCode = config->Read(
         "Connection/GroupCode", getDefaults()->groupCode );
+    networkInterface = config->Read(
+        "Connection/NetworkInterface", getDefaults()->networkInterface );
     transferPort = config->ReadLong(
         "Connection/TransferPort", getDefaults()->transferPort );
     registrationPort = config->Read(
@@ -80,6 +83,7 @@ void SettingsModel::saveTo( wxConfigBase* config )
     config->Write( "Permissions/Executable", executablesDefaultPermissions );
 
     config->Write( "Connection/GroupCode", groupCode );
+    config->Write( "Connection/NetworkInterface", networkInterface );
     config->Write( "Connection/TransferPort", transferPort );
     config->Write( "Connection/RegistrationPort", registrationPort );
 }

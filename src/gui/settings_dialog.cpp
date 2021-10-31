@@ -60,7 +60,15 @@ void SettingsDialog::createGeneralPage()
 
     wxStaticText* label;
 
-    label = new wxStaticText( m_panelGeneral, wxID_ANY, _( "Interface language (requires restart to take effect):" ) );
+    label = new wxStaticText( m_panelGeneral, wxID_ANY,
+        _( "Interface" ) );
+    label->SetFont( font );
+    label->SetForegroundColour( Utils::get()->getHeaderColor() );
+    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
+    sizer->AddSpacer( FromDIP( 5 ) );
+
+    label = new wxStaticText( m_panelGeneral, wxID_ANY, _( "Language (requires restart to take effect):" ) );
     sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     sizer->AddSpacer( FromDIP( 3 ) );
@@ -204,6 +212,18 @@ void SettingsDialog::createConnectionPage()
 
     sizer->AddSpacer( FromDIP( 5 ) );
 
+    label = new wxStaticText( m_panelConnection, wxID_ANY, 
+        _( "Network interface to use:" ) );
+    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
+    sizer->AddSpacer( FromDIP( 3 ) );
+
+    m_networkInterface = new wxChoice( m_panelConnection, wxID_ANY );
+    fillInterfaces();
+    sizer->Add( m_networkInterface, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
+    sizer->AddSpacer( FromDIP( 8 ) );
+
     wxBoxSizer* transferSizer = new wxBoxSizer( wxHORIZONTAL );
     wxBoxSizer* registrationSizer = new wxBoxSizer( wxHORIZONTAL );
 
@@ -238,7 +258,7 @@ void SettingsDialog::loadSettings()
 
     m_localeName->SetSelection( 0 );
 
-    auto locales = m_adapter.getAllLanguages();
+    auto locales = m_langAdapter.getAllLanguages();
     int i = 0;
     for ( auto& locale : locales )
     {
@@ -270,7 +290,7 @@ void SettingsDialog::saveSettings()
 {
     SettingsModel& settings = GetApp().m_settings;
 
-    settings.localeName = m_adapter.getLanguageInfoByIndex( 
+    settings.localeName = m_langAdapter.getLanguageInfoByIndex( 
         m_localeName->GetSelection() ).icuCode;
     settings.openWindowOnStart = m_openWindowOnStart->IsChecked();
     settings.autorun = m_autorun->IsChecked();
@@ -283,13 +303,17 @@ void SettingsDialog::saveSettings()
     settings.executablesDefaultPermissions = m_executableDefaultPerms->getPermissionMask();
     settings.foldersDefaultPermissions = m_folderDefaultPerms->getPermissionMask();
     settings.groupCode = m_groupCode->GetValue();
+    if ( m_networkInterface->GetSelection() > 0 )
+        settings.networkInterface = m_interfaces[m_networkInterface->GetSelection() - 1].name;
+    else
+        settings.networkInterface = "";
     settings.transferPort = m_transferPort->GetValue();
     settings.registrationPort = m_registrationPort->GetValue();
 }
 
 void SettingsDialog::fillLocales()
 {
-    auto languages = m_adapter.getAllLanguages();
+    auto languages = m_langAdapter.getAllLanguages();
 
     for ( auto& language : languages )
     {
@@ -297,6 +321,43 @@ void SettingsDialog::fillLocales()
 
         wxBitmap* bmp = m_loadedBitmaps.back().get();
         m_localeName->Append( language.localName, *bmp );
+    }
+}
+
+void SettingsDialog::fillInterfaces()
+{
+    SettingsModel& settings = GetApp().m_settings;
+    m_interfaces = m_inetAdapter.getAllInterfaces();
+
+    m_networkInterface->AppendString( _( "Automatic" ) );
+    m_networkInterface->SetSelection( 0 );
+    
+    bool selected = settings.networkInterface.empty();
+
+    for ( auto& interf : m_interfaces )
+    {
+        m_networkInterface->AppendString( wxString( interf.displayName ) );
+        if ( interf.name == settings.networkInterface )
+        {
+            m_networkInterface->SetSelection( m_networkInterface->GetCount() - 1 );
+            selected = true;
+        }
+    }
+
+    if ( !selected )
+    {
+        std::string defaultName = m_inetAdapter.getDefaultInterfaceName();
+
+        int i = 1;
+        for ( auto& interf : m_interfaces )
+        {
+            if ( interf.name == defaultName )
+            {
+                m_networkInterface->SetSelection( i );
+                break;
+            }
+            i++;
+        }
     }
 }
 

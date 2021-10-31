@@ -274,6 +274,12 @@
     <ClInclude Include="..\src\service\memory_manager.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\network_interface_adapter.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\zeroconf\interface_utils.hpp">
+      <Filter>Headers\zeroconf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -455,6 +461,12 @@
     </ClCompile>
     <ClCompile Include="..\src\service\memory_manager.cpp">
       <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\network_interface_adapter.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\zeroconf\interface_utils.cpp">
+      <Filter>Sources\zeroconf</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

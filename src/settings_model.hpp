@@ -29,6 +29,7 @@ public:
     int foldersDefaultPermissions;
 
     wxString groupCode;
+    wxString networkInterface;
     int transferPort;
     int registrationPort;
 

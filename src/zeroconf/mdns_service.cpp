@@ -1,6 +1,7 @@
 #include "mdns_service.hpp"
 
 #include "../thread_name.hpp"
+#include "interface_utils.hpp"
 
 #include <memory>
 #include <vector>
@@ -32,6 +33,7 @@ MdnsService::MdnsService( const std::string& serviceType )
     : m_srvType( serviceType )
     , m_hostname( "localhost" )
     , m_port( 80 )
+    , m_interf( "" )
     , m_running( false )
     , m_mtRunning( nullptr )
     , m_serviceAddressIpv4( { 0 } )
@@ -95,6 +97,16 @@ void MdnsService::setPort( std::uint16_t port )
 std::uint16_t MdnsService::getPort() const
 {
     return m_port;
+}
+
+void MdnsService::setInterfaceName( const std::string& interf )
+{
+    m_interf = interf;
+}
+
+std::string MdnsService::getInterfaceName() const
+{
+    return m_interf;
 }
 
 void MdnsService::setTxtRecord( const std::string& name,
@@ -171,7 +183,7 @@ void MdnsService::unregisterService()
 
     int sockets[32];
     int numSockets = openServiceSockets( sockets,
-        sizeof( sockets ) / sizeof( sockets[0] ) );
+        sizeof( sockets ) / sizeof( sockets[0] ), m_interf.c_str() );
 
     // printf( "Opened %d socket%s for mDNS service\n",
     //    numSockets, numSockets ? "s" : "" );
@@ -332,12 +344,14 @@ int MdnsService::workerImpl( std::shared_ptr<std::promise<MdnsIpPair>> promise )
 
     auto hostname = std::make_unique<char[]>( m_hostname.size() + 1 );
     auto servName = std::make_unique<char[]>( m_srvType.size() + 1 );
+    auto interfName = std::make_unique<char[]>( m_interf.size() + 1 );
 
     strcpy_s( hostname.get(), m_hostname.size() + 1, m_hostname.c_str() );
     strcpy_s( servName.get(), m_srvType.size() + 1, m_srvType.c_str() );
+    strcpy_s( interfName.get(), m_interf.size() + 1, m_interf.c_str() );
 
-    serviceMdns( hostname.get(), servName.get(), m_port, m_mtRunning,
-        std::move( promise ) );
+    serviceMdns( hostname.get(), servName.get(), m_port, interfName.get(), 
+        m_mtRunning, std::move( promise ) );
 
     return EXIT_SUCCESS;
 }
@@ -467,15 +481,6 @@ int MdnsService::openClientSockets( int* sockets, int maxSockets, int port )
                             logAddr = 0;
                         }
                     }
-                    /*
-                    if ( log_addr )
-                    {
-                        char buffer[128];
-                        mdns_string_t addr = ipv4_address_to_string( buffer, sizeof( buffer ), saddr,
-                            sizeof( struct sockaddr_in ) );
-                        printf( "Local IPv4 address: %.*s\n", MDNS_STRING_FORMAT( addr ) );
-                    }
-                    */
                 }
             }
             else if ( unicast->Address.lpSockaddr->sa_family == AF_INET6 )
@@ -616,7 +621,8 @@ int MdnsService::openClientSockets( int* sockets, int maxSockets, int port )
     return numSockets;
 }
 
-int MdnsService::openServiceSockets( int* sockets, int maxSockets )
+int MdnsService::openServiceSockets( int* sockets, int maxSockets, 
+    const char* interf )
 {
     // When recieving, each socket can recieve data from all network interfaces
     // Thus we only need to open one socket for each address family
@@ -632,7 +638,7 @@ int MdnsService::openServiceSockets( int* sockets, int maxSockets )
         memset( &sockAddr, 0, sizeof( struct sockaddr_in ) );
         sockAddr.sin_family = AF_INET;
 #ifdef _WIN32
-        sockAddr.sin_addr = in4addr_any;
+        sockAddr.sin_addr = InterfaceUtils::getInterfaceAddressV4( interf );
 #else
         sock_addr.sin_addr.s_addr = INADDR_ANY;
 #endif
@@ -650,7 +656,7 @@ int MdnsService::openServiceSockets( int* sockets, int maxSockets )
         struct sockaddr_in6 sockAddr;
         memset( &sockAddr, 0, sizeof( struct sockaddr_in6 ) );
         sockAddr.sin6_family = AF_INET6;
-        sockAddr.sin6_addr = in6addr_any;
+        sockAddr.sin6_addr = InterfaceUtils::getInterfaceAddressV6( interf );
         sockAddr.sin6_port = htons( MDNS_PORT );
 #ifdef __APPLE__
         sock_addr.sin6_len = sizeof( struct sockaddr_in6 );
@@ -666,6 +672,7 @@ int MdnsService::openServiceSockets( int* sockets, int maxSockets )
 // Provide a mDNS service, answering incoming DNS-SD and mDNS queries
 int MdnsService::serviceMdns( const char* hostname,
     const char* serviceName, int servicePort,
+    const char* serviceInterf,
     std::shared_ptr<std::recursive_mutex> mutexRef,
     std::shared_ptr<std::promise<MdnsIpPair>> promise )
 {
@@ -679,7 +686,7 @@ int MdnsService::serviceMdns( const char* hostname,
 
     int sockets[32];
     int numSockets = openServiceSockets( sockets,
-        sizeof( sockets ) / sizeof( sockets[0] ) );
+        sizeof( sockets ) / sizeof( sockets[0] ), serviceInterf );
 
     if ( numSockets <= 0 )
     {
