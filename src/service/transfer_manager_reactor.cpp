@@ -127,7 +127,12 @@ void TransferManager::StartTransferReactor::updatePaths()
     std::wstring currentPath;
     currentPath = wxString::FromUTF8( m_chunk.relative_path() ).ToStdWstring();
 
-    if ( lastPath != currentPath )
+    if ( currentPath.find( L':' ) != std::wstring::npos )
+    {
+        wxLogDebug( "StartTransferReactor: Ignoring invalid path! (%s)",
+            currentPath );
+    }
+    else if ( lastPath != currentPath )
     {
         wxString absolutePath = getAbsolutePath( currentPath );
         wxLogDebug( "StartTransferReactor: Appending new path (%s, absolute: %s)",

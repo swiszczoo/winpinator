@@ -10,7 +10,7 @@ namespace gui
 
 wxDEFINE_EVENT( EVT_OPEN_SETTINGS, wxCommandEvent );
 
-const wxString ErrorPage::TEXT = _( "A fatal error occured while trying "
+const wxString ErrorPage::TEXT = _( "A fatal error occurred while trying "
                                         "to start the service!" );
 
 ErrorPage::ErrorPage( wxWindow* parent )

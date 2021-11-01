@@ -173,15 +173,18 @@ void TransferListPage::onUpdateStatus( wxThreadEvent& event )
 void TransferListPage::onClearHistoryClicked( wxCommandEvent& event )
 {
     wxMessageDialog dialog( this, 
-        _( "This operation cannot be undone!" ), _( "Clear history" ) );
-    dialog.SetTitle( 
-        _( "Are you sure you want to clear entire history for this device?" ) );
-    dialog.SetMessageDialogStyle( wxID_YES | wxID_NO );
+        _( "Are you sure you want to clear entire history for this device?" ), _( "Clear history" ) );
+    dialog.SetExtendedMessage(
+        _( "This operation cannot be undone!" ) );
+    dialog.SetMessageDialogStyle( wxYES_NO );
 
     if ( dialog.ShowModal() == wxID_YES )
     {
         auto serv = Globals::get()->getWinpinatorServiceInstance();
-        // serv->getDb()->clearAllTransfersForRemote();
+        serv->getDb()->clearAllTransfersForRemote( m_target.ToStdString() );
+
+        m_opList->updateTimeGroups();
+        m_opList->updateLayout();
     }
 }
 

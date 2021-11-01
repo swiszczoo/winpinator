@@ -126,6 +126,11 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
     Bind( wxEVT_THREAD, &ScrolledTransferHistory::onThreadEvent, this );
 }
 
+void ScrolledTransferHistory::updateLayout()
+{
+    m_mainSizer->FitInside( this );
+}
+
 void ScrolledTransferHistory::registerHistoryItem( HistoryItem* item )
 {
     m_historyItems.push_back( item );
@@ -396,6 +401,25 @@ void ScrolledTransferHistory::updateTimeGroups()
             m_targetId.ToStdWstring(), conditions );
 
         int lookupIdx = 0;
+
+        if ( records.size() == 0 )
+        {
+            for ( ; lookupIdx < group.currentIds.size(); lookupIdx++ )
+            {
+                HistoryFinishedElement* elem = group.elements[lookupIdx];
+
+                unregisterHistoryItem( elem );
+
+                group.sizer->Remove( lookupIdx );
+                elem->Destroy();
+
+                group.elements.erase( group.elements.begin() + lookupIdx );
+                group.currentIds.erase(
+                    group.currentIds.begin() + lookupIdx );
+
+                lookupIdx--;
+            }
+        }
 
         for ( int j = 0; j < records.size(); j++ )
         {

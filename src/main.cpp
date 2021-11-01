@@ -42,7 +42,7 @@ WinpinatorApp::WinpinatorApp()
     m_locale.AddCatalog( "locales" );
 
     bool langInitialized = false;
-    const wxLanguageInfo* langInfo = wxLocale::FindLanguageInfo( 
+    const wxLanguageInfo* langInfo = wxLocale::FindLanguageInfo(
         m_settings.localeName );
 
     if ( langInfo )
@@ -64,6 +64,7 @@ WinpinatorApp::WinpinatorApp()
 
     Bind( EVT_OPEN_APP_WINDOW, &WinpinatorApp::onDDEOpenCalled, this );
     Bind( EVT_RESTORE_WINDOW, &WinpinatorApp::onRestore, this );
+    Bind( EVT_OPEN_SAVE_FOLDER, &WinpinatorApp::onOpenSaveFolder, this );
     Bind( wxEVT_THREAD, &WinpinatorApp::onServiceEvent, this );
     Bind( EVT_EXIT_APP, &WinpinatorApp::onExitApp, this );
 }
@@ -103,7 +104,6 @@ bool WinpinatorApp::OnInit()
         // Start the DDE server
         m_ddeServer = std::make_unique<WinpinatorDDEServer>( this );
     }
-
 
     // Start the service in the background thread
 
@@ -170,6 +170,8 @@ void WinpinatorApp::showMainFrame()
     m_topLvl->Show( true );
 
     m_topLvl->Bind( wxEVT_DESTROY, &WinpinatorApp::onMainFrameDestroyed, this );
+    m_topLvl->Bind(
+        gui::EVT_EXIT_APP_FROM_FRAME, &WinpinatorApp::onExitApp, this );
 }
 
 void WinpinatorApp::onMainFrameDestroyed( wxWindowDestroyEvent& event )
@@ -178,6 +180,8 @@ void WinpinatorApp::onMainFrameDestroyed( wxWindowDestroyEvent& event )
     {
         m_topLvl->Unbind(
             wxEVT_DESTROY, &WinpinatorApp::onMainFrameDestroyed, this );
+        m_topLvl->Unbind(
+            gui::EVT_EXIT_APP_FROM_FRAME, &WinpinatorApp::onExitApp, this );
 
         m_topLvl = nullptr;
     }
@@ -249,7 +253,7 @@ void WinpinatorApp::onExitApp( wxCommandEvent& event )
 
     srv::Event evnt;
     evnt.type = srv::EventType::STOP_SERVICE;
-    
+
     auto serv = Globals::get()->getWinpinatorServiceInstance();
     if ( serv )
     {
@@ -258,6 +262,17 @@ void WinpinatorApp::onExitApp( wxCommandEvent& event )
 
     m_trayIcon->Destroy();
     m_trayIcon = nullptr;
+}
+
+void WinpinatorApp::onOpenSaveFolder( wxCommandEvent& event )
+{
+    const wchar_t* command[] = {
+        L"explorer",
+        m_settings.outputPath.wc_str(),
+        NULL
+    };
+
+    wxExecute( command, wxEXEC_ASYNC, NULL );
 }
 
 void WinpinatorApp::onStateChanged()

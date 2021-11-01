@@ -49,14 +49,16 @@ public:
         time_t timestamp );
     void resumeTransfer( const std::string& remoteId, int transferId );
     void pauseTransfer( const std::string& remoteId, int transferId );
-    void stopTransfer( const std::string& remoteId, int transferId );
+    void stopTransfer( const std::string& remoteId, int transferId, bool error );
     void finishTransfer( const std::string& remoteId, int transferId );
+    void requestStopTransfer( const std::string& remoteId, int transferId );
     void failAll( const std::string& remoteId );
 
     std::mutex& getMutex();
 
     std::vector<TransferOpPtr> getTransfersForRemote( 
         const std::string& remoteId );
+    TransferOpPub getOp( const std::string& remoteId, time_t timestamp );
 
 private:
     class StartTransferReactor 
@@ -127,6 +129,9 @@ private:
         bool compressionEnabled ) const;
     void sendStatusUpdateNotification( const std::string& remoteId, 
         const TransferOpPtr op );
+    void sendFailureNotification( const std::string& remoteId, 
+        const std::wstring& senderName );
+
     void doFinishTransfer( const std::string& remoteId, int transferId );
     db::TransferStatus getOpStatus( const TransferOpPtr op );
     db::TransferType getOpType( const TransferOpPtr op );

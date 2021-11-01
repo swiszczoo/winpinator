@@ -80,7 +80,7 @@ private:
     char m_namebuffer[256];
     char m_sendbuffer[1024];
 
-    int openClientSockets( int* sockets, int maxSockets, int port );
+    int openClientSockets( int* sockets, int maxSockets, int port, const char* interf );
     int openServiceSockets( int* sockets, int maxSockets, const char* interf );
     int serviceMdns( const char* hostname, 
         const char* serviceNname, int servicePort,

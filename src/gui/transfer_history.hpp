@@ -25,6 +25,9 @@ public:
     explicit ScrolledTransferHistory( wxWindow* parent, 
         const wxString& targetId );
 
+    void updateTimeGroups();
+    void updateLayout();
+
 private:
     class DropTargetImpl : public wxFileDropTarget
     {
@@ -81,8 +84,6 @@ private:
     void deletePendingTransfer( int transferId );
     void loadAllTransfers();
     HistoryPendingData convertOpToData( const srv::TransferOpPub& transfer );
-
-    void updateTimeGroups();
 
     void onScrollWindow( wxScrollWinEvent& event );
     void onMouseEnter( wxMouseEvent& event );

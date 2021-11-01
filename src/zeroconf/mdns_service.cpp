@@ -407,7 +407,8 @@ void MdnsService::unlockThread()
     mdns_socket_close( m_socketToKill );
 }
 
-int MdnsService::openClientSockets( int* sockets, int maxSockets, int port )
+int MdnsService::openClientSockets( int* sockets, int maxSockets, int port, 
+    const char* interf )
 {
     // When sending, each socket can only send to one network interface
     // Thus we need to open one socket for each interface and address family
@@ -450,6 +451,11 @@ int MdnsService::openClientSockets( int* sockets, int maxSockets, int port )
             continue;
         if ( adapter->OperStatus != IfOperStatusUp )
             continue;
+
+        if ( strlen(interf) > 0 && strcmp( interf, adapter->AdapterName ) != 0 )
+        {
+            continue;
+        }
 
         for ( IP_ADAPTER_UNICAST_ADDRESS* unicast = adapter->FirstUnicastAddress; unicast;
               unicast = unicast->Next )
@@ -630,7 +636,11 @@ int MdnsService::openServiceSockets( int* sockets, int maxSockets,
 
     // Call the client socket function to enumerate and get local addresses,
     // but not open the actual sockets
-    openClientSockets( 0, 0, 0 );
+    openClientSockets( 0, 0, 0, interf );
+    if ( !m_hasIpv4 && !m_hasIpv6 )
+    {
+        openClientSockets( 0, 0, 0, "" );
+    }
 
     if ( numSockets < maxSockets )
     {
@@ -927,7 +937,11 @@ int MdnsService::serviceMdns( const char* hostname,
 
         m_socketToKill = sockets[0];
 
-        if ( select( nfds, &readfs, 0, 0, 0 ) >= 0 )
+        TIMEVAL timeout;
+        timeout.tv_sec = 10;
+        timeout.tv_usec = 0;
+
+        if ( select( nfds, &readfs, 0, 0, &timeout ) >= 0 )
         {
 #ifdef _MSC_VER
             //OutputDebugString( L"Select passed\n" );
@@ -952,7 +966,7 @@ int MdnsService::serviceMdns( const char* hostname,
                 FD_SET( sockets[isock], &readfs );
             }
         }
-        else
+        else if ( !m_running )
         {
             break;
         }

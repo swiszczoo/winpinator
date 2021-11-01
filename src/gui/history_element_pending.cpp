@@ -95,6 +95,8 @@ HistoryPendingElement::HistoryPendingElement( wxWindow* parent,
         &HistoryPendingElement::onCancelClicked, this );
     m_infoPause->Bind( wxEVT_BUTTON,
         &HistoryPendingElement::onPauseClicked, this );
+    m_infoStop->Bind( wxEVT_BUTTON,
+        &HistoryPendingElement::onStopClicked, this );
 }
 
 void HistoryPendingElement::setData( const HistoryPendingData& newData )
@@ -465,6 +467,25 @@ void HistoryPendingElement::onPauseClicked( wxCommandEvent& event )
     {
         serv->getTransferManager()->resumeTransfer(
             m_remoteId, m_data.transferId );
+    }
+}
+
+void HistoryPendingElement::onStopClicked( wxCommandEvent& event )
+{
+    disableAllButtons();
+
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    if ( m_data.opState == HistoryPendingState::TRANSFER_RUNNING
+        || m_data.opState == HistoryPendingState::TRANSFER_PAUSED )
+    {
+        srv::Event evnt;
+        evnt.type = srv::EventType::STOP_TRANSFER;
+        evnt.eventData.transferData = std::make_shared<srv::TransferData>();
+        evnt.eventData.transferData->remoteId = m_remoteId;
+        evnt.eventData.transferData->transferId = m_data.transferId;
+
+        serv->postEvent( evnt );
     }
 }
 

@@ -23,7 +23,7 @@ public:
 
     bool addTransfer( const db::Transfer& record );
     bool clearAllTransfers();
-    bool clearAllTransfersForRemote( int remoteId );
+    bool clearAllTransfersForRemote( std::string remoteId );
     bool deleteTransfer( int id );
     std::vector<db::Transfer> queryTransfers( bool queryPaths,
         const std::wstring targetId, const std::string conditions = "" );

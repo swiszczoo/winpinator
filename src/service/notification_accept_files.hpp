@@ -23,6 +23,9 @@ public:
     void setElementCount( int elementCount );
     int getElementCount() const;
 
+    void setOverwriteNeeded( bool required );
+    bool isOverwriteNeeded() const;
+
     virtual WinToastLib::WinToastTemplate buildTemplate() override;
     virtual WinToastLib::IWinToastHandler* instantiateListener() override;
 
@@ -56,6 +59,7 @@ private:
     std::wstring m_singleElementName;
     bool m_isSingleFolder;
     int m_elementCount;
+    bool m_overwriteNeeded;
 };
 
 };

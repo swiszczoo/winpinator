@@ -181,7 +181,7 @@ wxString HistoryFinishedElement::determineStatusString()
     case srv::db::TransferStatus::CANCELLED:
         return _( "Cancelled" );
     case srv::db::TransferStatus::FAILED:
-        return _( "Error occured" );
+        return _( "Error occurred" );
     default:
         return _( "Unknown" );
     }

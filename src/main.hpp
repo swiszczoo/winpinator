@@ -40,6 +40,7 @@ private:
     void onRestore( wxCommandEvent& event );
     void onServiceEvent( wxThreadEvent& event );
     void onExitApp( wxCommandEvent& event );
+    void onOpenSaveFolder( wxCommandEvent& event );
 
     // Service observer methods:
     virtual void onStateChanged();

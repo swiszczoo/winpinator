@@ -586,7 +586,11 @@ int MdnsClient::sendMdnsQuery( const char* service, int record )
 
         m_socketToKill = sockets[0];
 
-        res = select( nfds, &readfs, 0, 0, 0 );
+        TIMEVAL timeout;
+        timeout.tv_sec = 10;
+        timeout.tv_usec = 0;
+
+        res = select( nfds, &readfs, 0, 0, &timeout );
         if ( res > 0 )
         {
             for ( int isock = 0; isock < num_sockets; ++isock )
@@ -601,7 +605,7 @@ int MdnsClient::sendMdnsQuery( const char* service, int record )
                 FD_SET( sockets[isock], &readfs );
             }
         }
-    } while ( res > 0 );
+    } while ( res > 0 || m_running );
 
     free( buffer );
 

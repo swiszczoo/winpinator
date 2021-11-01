@@ -21,7 +21,7 @@ DatabaseManager::DatabaseManager( const wxString& dbPath )
 
     if ( err != SQLITE_OK && err != SQLITE_CANTOPEN )
     {
-        // A unusual error occured. Maybe the file is corrupt?
+        // A unusual error occurred. Maybe the file is corrupt?
         // Try removing db file from disk.
 
         if ( wxFileExists( dbPath ) )
@@ -294,7 +294,7 @@ bool DatabaseManager::clearAllTransfers()
     return endTransaction( results );
 }
 
-/* bool DatabaseManager::clearAllTransfersForRemote( int remoteId )
+bool DatabaseManager::clearAllTransfersForRemote( std::string remoteId )
 {
     std::lock_guard<std::mutex> guard( m_mutex );
 
@@ -303,19 +303,36 @@ bool DatabaseManager::clearAllTransfers()
         return false;
     }
 
-    std::string conditions = " WHERE "
-
     int results = 0;
 
     beginTransaction();
-    results |= sqlite3_exec( m_db,
-        "DELETE FROM transfers;", NULL, NULL, NULL );
+
+    sqlite3_stmt* transferStmt;
+    sqlite3_prepare_v2( m_db,
+        "DELETE FROM transfers WHERE target_id=?",
+        -1, &transferStmt, NULL );
+    sqlite3_bind_text( transferStmt, 1, remoteId.c_str(), -1, SQLITE_STATIC );
+    results |= sqlite3_step( transferStmt );
+    sqlite3_finalize( transferStmt );
     FIX_RESULTS( results );
-    results |= sqlite3_exec( m_db,
-        "DELETE FROM transfer_paths;", NULL, NULL, NULL );
+
+    sqlite3_stmt* pathsStmt;
+    sqlite3_prepare_v2( m_db,
+        "DELETE FROM transfer_paths WHERE ROWID IN ( "
+        "  SELECT transfer_paths.ROWID FROM transfers "
+        "  INNER JOIN transfer_paths ON ( "
+        "    transfers.id = transfer_paths.transfer_id "
+        "  ) "
+        "  WHERE transfers.target_id = ?"
+        ");",
+        -1, &pathsStmt, NULL );
+    sqlite3_bind_text( pathsStmt, 1, remoteId.c_str(), -1, SQLITE_STATIC );
+    results |= sqlite3_step( pathsStmt );
+    sqlite3_finalize( pathsStmt );
     FIX_RESULTS( results );
+
     return endTransaction( results );
-}*/
+}
 
 bool DatabaseManager::deleteTransfer( int id )
 {

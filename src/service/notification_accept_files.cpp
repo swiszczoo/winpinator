@@ -17,6 +17,7 @@ AcceptFilesNotification::AcceptFilesNotification(
     , m_singleElementName( L"" )
     , m_isSingleFolder( false )
     , m_elementCount( 0 )
+    , m_overwriteNeeded( false )
 {
 }
 
@@ -60,6 +61,16 @@ int AcceptFilesNotification::getElementCount() const
     return m_elementCount;
 }
 
+void AcceptFilesNotification::setOverwriteNeeded( bool required )
+{
+    m_overwriteNeeded = required;
+}
+
+bool AcceptFilesNotification::isOverwriteNeeded() const
+{
+    return m_overwriteNeeded;
+}
+
 WinToastLib::WinToastTemplate AcceptFilesNotification::buildTemplate()
 {
     using namespace WinToastLib;
@@ -95,9 +106,26 @@ WinToastLib::WinToastTemplate AcceptFilesNotification::buildTemplate()
             m_senderFullName, m_singleElementName );
     }
 
+    if ( m_overwriteNeeded )
+    {
+        // TRANSLATORS: this string is appended to notification message
+        // if overwrite is needed, e.g. 
+        // "A is sending you 5 files. Accepting this transfer..."
+        // The initial dot is necessary.
+        secondLine += _( ". Accepting this transfer will overwrite some files!" );
+    }
+
     templ.setTextField( secondLine.ToStdWstring(), WinToastTemplate::SecondLine );
-    templ.addAction( _( "Accept" ).ToStdWstring() );
-    templ.addAction( _( "Decline" ).ToStdWstring() );
+    if ( m_overwriteNeeded )
+    {
+        templ.addAction( _( "Overwrite" ).ToStdWstring() );
+        templ.addAction( _( "Cancel" ).ToStdWstring() );
+    }
+    else
+    {
+        templ.addAction( _( "Accept" ).ToStdWstring() );
+        templ.addAction( _( "Decline" ).ToStdWstring() );
+    }
     templ.setImagePath( iconName.GetFullPath().ToStdWstring() );
 
     return templ;

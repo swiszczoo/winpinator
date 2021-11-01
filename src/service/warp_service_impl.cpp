@@ -231,7 +231,8 @@ Status WarpServiceImpl::CancelTransferOpRequest( grpc::ServerContext* context,
 
     const std::string& id = request->ident();
 
-    if ( !m_remoteMgr->isHostAvailable( id ) )
+    if ( !m_remoteMgr->isHostAvailable( id )
+        || m_transferMgr->getOp( id, request->timestamp() ).id == -1 )
     {
         wxLogDebug( "Received cancel transfer op request for unknown op" );
         return Status( grpc::StatusCode::PERMISSION_DENIED,
@@ -245,10 +246,30 @@ Status WarpServiceImpl::CancelTransferOpRequest( grpc::ServerContext* context,
 Status WarpServiceImpl::StopTransfer( grpc::ServerContext* context,
     const StopInfo* request, VoidType* response )
 {
+    if ( !request->has_info() )
+    {
+        return Status( grpc::StatusCode::INVALID_ARGUMENT, "Missing OpInfo" );
+    }
+
+    const OpInfo& info = request->info();
+
     wxLogDebug( "Server RPC: StopTransfer from '%s'",
         request->info().readable_name() );
 
-    return Status::CANCELLED;
+    const std::string& id = info.ident();
+    TransferOpPub op = m_transferMgr->getOp( id, info.timestamp() );
+
+    if ( !m_remoteMgr->isHostAvailable( id ) || op.id == -1 )
+    {
+        wxLogDebug( "Received cancel transfer op request for unknown op" );
+        return Status( grpc::StatusCode::PERMISSION_DENIED,
+            "Invalid sender ident" );
+    }
+
+    bool error = request->error();
+    m_transferMgr->stopTransfer( id, op.id, error );
+
+    return Status::OK;
 }
 
 //

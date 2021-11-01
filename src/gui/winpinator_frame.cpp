@@ -13,6 +13,8 @@
 namespace gui
 {
 
+wxDEFINE_EVENT( EVT_EXIT_APP_FROM_FRAME, wxCommandEvent );
+
 WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     : wxFrame( parent, wxID_ANY, _( "Winpinator" ) )
     , m_menuBar( nullptr )
@@ -195,6 +197,15 @@ void WinpinatorFrame::onSettingsClicked( wxCommandEvent& event )
 
 void WinpinatorFrame::onOpenFolderSelected()
 {
+    const SettingsModel& settings = GetApp().m_settings;
+
+    const wchar_t* command[] = {
+        L"explorer",
+        settings.outputPath.wc_str(),
+        NULL
+    };
+
+    wxExecute( command, wxEXEC_ASYNC, NULL );
 }
 
 void WinpinatorFrame::onPrefsSelected()
@@ -222,7 +233,8 @@ void WinpinatorFrame::onCloseSelected()
 
 void WinpinatorFrame::onExitSelected()
 {
-    Close();
+    wxCommandEvent evnt( EVT_EXIT_APP_FROM_FRAME );
+    wxPostEvent( this, evnt );
 }
 
 void WinpinatorFrame::onHelpSelected()

@@ -454,7 +454,7 @@ void WinpinatorService::serviceMain()
         {
             break;
         }
-        if ( ev.type == EventType::RESTART_SERVICE )
+        else if ( ev.type == EventType::RESTART_SERVICE )
         {
             if ( ev.eventData.restartData )
             {
@@ -463,19 +463,19 @@ void WinpinatorService::serviceMain()
             m_shouldRestart = true;
             break;
         }
-        if ( ev.type == EventType::REPEAT_MDNS_QUERY )
+        else if ( ev.type == EventType::REPEAT_MDNS_QUERY )
         {
             zcClient.repeatQuery();
         }
-        if ( ev.type == EventType::HOST_ADDED )
+        else if ( ev.type == EventType::HOST_ADDED )
         {
             m_remoteMgr->processAddHost( *ev.eventData.addedData );
         }
-        if ( ev.type == EventType::HOST_REMOVED )
+        else if ( ev.type == EventType::HOST_REMOVED )
         {
             m_remoteMgr->processRemoveHost( *ev.eventData.removedData );
         }
-        if ( ev.type == EventType::SHOW_TOAST_NOTIFICATION )
+        else if ( ev.type == EventType::SHOW_TOAST_NOTIFICATION )
         {
             if ( WinToastLib::WinToast::instance()->isInitialized() )
             {
@@ -492,19 +492,25 @@ void WinpinatorService::serviceMain()
                 }
             }
         }
-        if ( ev.type == EventType::ACCEPT_TRANSFER_CLICKED )
+        else if ( ev.type == EventType::ACCEPT_TRANSFER_CLICKED )
         {
             m_transferMgr->replyAllowTransfer(
                 ev.eventData.transferData->remoteId,
                 ev.eventData.transferData->transferId,
                 true );
         }
-        if ( ev.type == EventType::DECLINE_TRANSFER_CLICKED )
+        else if ( ev.type == EventType::DECLINE_TRANSFER_CLICKED )
         {
             m_transferMgr->replyAllowTransfer(
                 ev.eventData.transferData->remoteId,
                 ev.eventData.transferData->transferId,
                 false );
+        }
+        else if ( ev.type == EventType::STOP_TRANSFER )
+        {
+            m_transferMgr->requestStopTransfer(
+                ev.eventData.transferData->remoteId,
+                ev.eventData.transferData->transferId );
         }
     }
 

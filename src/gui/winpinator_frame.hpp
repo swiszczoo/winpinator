@@ -11,6 +11,8 @@
 namespace gui
 {
 
+wxDECLARE_EVENT( EVT_EXIT_APP_FROM_FRAME, wxCommandEvent );
+
 class WinpinatorFrame : public wxFrame, srv::IServiceObserver
 {
 public:

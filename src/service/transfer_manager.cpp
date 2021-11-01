@@ -223,12 +223,17 @@ void TransferManager::pauseTransfer( const std::string& remoteId,
     TransferOpPtr op = getTransferInfo( remoteId, transferId );
     bool opRunning = false;
 
+    if ( !op )
+    {
+        return;
+    }
+
     {
         std::lock_guard<std::mutex> lck( *op->mutex );
         opRunning = op->status == OpStatus::TRANSFERRING;
     }
 
-    if ( !op || !opRunning )
+    if ( !opRunning )
     {
         return;
     }
@@ -247,11 +252,112 @@ void TransferManager::pauseTransfer( const std::string& remoteId,
     }
 }
 
+void TransferManager::stopTransfer( const std::string& remoteId, 
+    int transferId, bool error )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    TransferOpPtr op = getTransferInfo( remoteId, transferId );
+
+    if ( !op )
+    {
+        return;
+    }
+
+    {
+        std::lock_guard<std::mutex> opLock( *op->mutex );
+        if ( op->outcoming )
+        {
+            if ( error )
+            {
+                op->status = OpStatus::FAILED;
+                sendFailureNotification( remoteId,
+                    wxString::FromUTF8( op->receiverNameUtf8 ).ToStdWstring() );
+            }
+            else
+            {
+                op->status = OpStatus::STOPPED_BY_RECEIVER;
+            }
+        }
+        else
+        {
+            if ( error )
+            {
+                op->status = OpStatus::FAILED;
+                sendFailureNotification( remoteId,
+                    wxString::FromUTF8( op->senderNameUtf8 ).ToStdWstring() );
+            }
+            else
+            {
+                op->status = OpStatus::STOPPED_BY_SENDER;
+            }
+        }
+    }
+
+    doFinishTransfer( remoteId, op->id );
+}
+
 void TransferManager::finishTransfer( const std::string& remoteId,
     int transferId )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
     doFinishTransfer( remoteId, transferId );
+}
+
+void TransferManager::requestStopTransfer( const std::string& remoteId,
+    int transferId )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    TransferOpPtr op = getTransferInfo( remoteId, transferId );
+
+    if ( !op )
+    {
+        return;
+    }
+
+    RemoteInfoPtr info = m_remoteMgr->getRemoteInfo( remoteId );
+
+    if ( !info )
+    {
+        wxLogDebug( "TransferManager: remote not found! ignoring!" );
+        return;
+    }
+
+    std::unique_lock<std::mutex> lock( info->mutex );
+
+    grpc::ClientContext ctx;
+    ctx.set_deadline( std::chrono::system_clock::now()
+        + std::chrono::seconds( 3 ) );
+    StopInfo request;
+    OpInfo* opInfo = new OpInfo( convertOpToOpInfo( op, m_compressionLevel > 0 ) );
+    request.set_allocated_info( opInfo );
+    request.set_error( false );
+
+    VoidType response;
+
+    if ( !info->stub->StopTransfer( &ctx, request, &response ).ok() )
+    {
+        wxLogDebug( "TransferManager: StopTransfer failed" );
+    }
+    else
+    {
+        lock.unlock();
+
+        {
+            std::lock_guard<std::mutex> opLock( *op->mutex );
+            if ( op->outcoming )
+            {
+                op->status = OpStatus::STOPPED_BY_SENDER;
+            }
+            else
+            {
+                op->status = OpStatus::STOPPED_BY_RECEIVER;
+            }
+        }
+
+        doFinishTransfer( remoteId, transferId );
+    }
 }
 
 void TransferManager::failAll( const std::string& remoteId )
@@ -281,14 +387,7 @@ void TransferManager::failAll( const std::string& remoteId )
 
     if ( someFailed )
     {
-        auto notif = std::make_shared<TransferFailedNotification>( remoteId );
-        notif->setSenderFullName( senderName );
-
-        Event evnt;
-        evnt.type = EventType::SHOW_TOAST_NOTIFICATION;
-        evnt.eventData.toastData = notif;
-
-        Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
+        sendFailureNotification( remoteId, senderName );
     }
 }
 
@@ -308,6 +407,27 @@ std::vector<TransferOpPtr> TransferManager::getTransfersForRemote(
     }
 
     return {};
+}
+
+TransferOpPub TransferManager::getOp( const std::string& remoteId, 
+    time_t timestamp )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    TransferOpPtr ptr = getTransferByTimestamp( remoteId, timestamp );
+
+    if ( !ptr )
+    {
+        TransferOpPub invalid;
+        invalid.id = -1;
+
+        return invalid;
+    }
+
+    std::lock_guard<std::mutex> opLock( *ptr->mutex );
+    TransferOpPub op = *ptr;
+
+    return op;
 }
 
 void TransferManager::checkTransferDiskSpace( TransferOp& op )
@@ -362,6 +482,7 @@ void TransferManager::sendNotifications( const std::string& remoteId,
             wxString::FromUTF8( op.senderNameUtf8 ).ToStdWstring() );
         notif->setElementCount( op.topDirBasenamesUtf8.size() );
         notif->setIsSingleFolder( op.mimeIfSingleUtf8 == "inode/directory" );
+        notif->setOverwriteNeeded( op.meta.mustOverwrite );
         if ( op.topDirBasenamesUtf8.size() == 1 )
         {
             notif->setSingleElementName(
@@ -519,6 +640,19 @@ void TransferManager::sendStatusUpdateNotification( const std::string& remoteId,
 {
     m_srv->notifyObservers( [this, &remoteId, &op]( IServiceObserver* observer )
         { observer->onUpdateTransfer( remoteId, *op ); } );
+}
+
+void TransferManager::sendFailureNotification( const std::string& remoteId,
+    const std::wstring& senderName )
+{
+    auto notif = std::make_shared<TransferFailedNotification>( remoteId );
+    notif->setSenderFullName( senderName );
+
+    Event evnt;
+    evnt.type = EventType::SHOW_TOAST_NOTIFICATION;
+    evnt.eventData.toastData = notif;
+
+    Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
 }
 
 void TransferManager::doFinishTransfer( const std::string& remoteId,
