@@ -13,7 +13,7 @@
 namespace srv
 {
 
-const long long TransferManager::PROGRESS_FREQ_MILLIS = 100;
+const long long TransferManager::PROGRESS_FREQ_MILLIS = 250;
 
 TransferManager::TransferManager( ObservableService* service )
     : m_running( ATOMIC_VAR_INIT( true ) )
@@ -61,6 +61,20 @@ RemoteManager* TransferManager::getRemoteManager()
     return m_remoteMgr.get();
 }
 
+void TransferManager::setDatabaseManager( std::shared_ptr<DatabaseManager> ptr )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    m_dbMgr = ptr;
+}
+
+DatabaseManager* TransferManager::getDatabaseManager()
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    return m_dbMgr.get();
+}
+
 void TransferManager::setCompressionLevel( int level )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
@@ -95,6 +109,9 @@ void TransferManager::registerTransfer( const std::string& remoteId,
     std::lock_guard<std::mutex> lock( *transfer.mutex );
 
     transfer.meta.sentBytes = 0;
+
+    transfer.intern.fileCount = 0;
+    transfer.intern.dirCount = 0;
 
     checkTransferDiskSpace( transfer );
     checkTransferMustOverwrite( transfer );
@@ -151,18 +168,19 @@ void TransferManager::cancelTransferRequest( const std::string& remoteId,
         return;
     }
 
-    std::lock_guard<std::mutex> opLock( *op->mutex );
-    if ( op->outcoming )
     {
-        op->status = OpStatus::CANCELLED_PERMISSION_BY_RECEIVER;
-    }
-    else
-    {
-        op->status = OpStatus::CANCELLED_PERMISSION_BY_SENDER;
+        std::lock_guard<std::mutex> opLock( *op->mutex );
+        if ( op->outcoming )
+        {
+            op->status = OpStatus::CANCELLED_PERMISSION_BY_RECEIVER;
+        }
+        else
+        {
+            op->status = OpStatus::CANCELLED_PERMISSION_BY_SENDER;
+        }
     }
 
-    sendStatusUpdateNotification( remoteId, op );
-    // TODO: finish transfer
+    doFinishTransfer( remoteId, op->id );
 }
 
 void TransferManager::resumeTransfer( const std::string& remoteId,
@@ -229,6 +247,13 @@ void TransferManager::pauseTransfer( const std::string& remoteId,
     }
 }
 
+void TransferManager::finishTransfer( const std::string& remoteId,
+    int transferId )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+    doFinishTransfer( remoteId, transferId );
+}
+
 void TransferManager::failAll( const std::string& remoteId )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
@@ -239,16 +264,18 @@ void TransferManager::failAll( const std::string& remoteId )
     {
         for ( auto& op : m_transfers[remoteId] )
         {
-            std::lock_guard<std::mutex> lock( *op->mutex );
-            if ( op->status != OpStatus::FAILED )
             {
-                someFailed = true;
-                senderName = wxString::FromUTF8( op->senderNameUtf8 ).ToStdWstring();
+                std::lock_guard<std::mutex> lock( *op->mutex );
+                if ( op->status != OpStatus::FAILED )
+                {
+                    someFailed = true;
+                    senderName = wxString::FromUTF8( op->senderNameUtf8 ).ToStdWstring();
+                }
+
+                op->status = OpStatus::FAILED;
             }
 
-            op->status = OpStatus::FAILED;
-
-            sendStatusUpdateNotification( remoteId, op );
+            doFinishTransfer( remoteId, op->id );
         }
     }
 
@@ -457,16 +484,19 @@ void TransferManager::processDeclineTransfer( const std::string& remoteId,
         }
     }
 
-    std::lock_guard<std::mutex> lck( *op->mutex );
-    if ( op->outcoming )
     {
-        op->status = OpStatus::CANCELLED_PERMISSION_BY_SENDER;
+        std::lock_guard<std::mutex> lck( *op->mutex );
+        if ( op->outcoming )
+        {
+            op->status = OpStatus::CANCELLED_PERMISSION_BY_SENDER;
+        }
+        else
+        {
+            op->status = OpStatus::CANCELLED_PERMISSION_BY_RECEIVER;
+        }
     }
-    else
-    {
-        op->status = OpStatus::CANCELLED_PERMISSION_BY_RECEIVER;
-    }
-    sendStatusUpdateNotification( remoteId, op );
+
+    doFinishTransfer( remoteId, op->id );
 }
 
 OpInfo TransferManager::convertOpToOpInfo( const TransferOpPtr op,
@@ -489,6 +519,112 @@ void TransferManager::sendStatusUpdateNotification( const std::string& remoteId,
 {
     m_srv->notifyObservers( [this, &remoteId, &op]( IServiceObserver* observer )
         { observer->onUpdateTransfer( remoteId, *op ); } );
+}
+
+void TransferManager::doFinishTransfer( const std::string& remoteId,
+    int transferId )
+{
+    TransferOpPtr op = getTransferInfo( remoteId, transferId );
+
+    if ( !op )
+    {
+        return;
+    }
+
+    db::Transfer record;
+    {
+        std::lock_guard<std::mutex> lock( *op->mutex );
+
+        record.elements = op->intern.elements;
+        record.fileCount = op->intern.fileCount;
+        record.folderCount = op->intern.dirCount;
+        record.outgoing = op->outcoming;
+        if ( op->totalCount == 1 )
+        {
+            record.singleElementName
+                = wxString::FromUTF8( op->nameIfSingleUtf8 ).ToStdWstring();
+        }
+        else if ( op->topDirBasenamesUtf8.size() == 1 )
+        {
+            record.singleElementName = wxString::FromUTF8(
+                op->topDirBasenamesUtf8[0] )
+                                           .ToStdWstring();
+        }
+        record.status = getOpStatus( op );
+        record.targetId = wxString( remoteId ).ToStdWstring();
+        record.totalSizeBytes = op->totalSize;
+        record.transferTimestamp = op->meta.localTimestamp;
+        record.transferType = getOpType( op );
+    }
+
+    m_dbMgr->addTransfer( record );
+
+    std::vector<TransferOpPtr>& transferArr = m_transfers[remoteId];
+    for ( size_t i = 0; i < transferArr.size(); i++ )
+    {
+        if ( transferArr[i] == op )
+        {
+            transferArr.erase( transferArr.begin() + i );
+            break;
+        }
+    }
+
+    m_srv->notifyObservers(
+        [this, &remoteId, &transferId]( srv::IServiceObserver* observer )
+        { observer->onRemoveTransfer( remoteId, transferId ); } );
+}
+
+db::TransferStatus TransferManager::getOpStatus( const TransferOpPtr op )
+{
+    if ( op->status == OpStatus::CANCELLED_PERMISSION_BY_RECEIVER
+        || op->status == OpStatus::CANCELLED_PERMISSION_BY_SENDER
+        || op->status == OpStatus::STOPPED_BY_RECEIVER
+        || op->status == OpStatus::STOPPED_BY_SENDER )
+    {
+        return db::TransferStatus::CANCELLED;
+    }
+    else if ( op->status == OpStatus::FAILED
+        || op->status == OpStatus::FAILED_UNRECOVERABLE
+        || op->status == OpStatus::FILE_NOT_FOUND
+        || op->status == OpStatus::INVALID_OP )
+    {
+        return db::TransferStatus::FAILED;
+    }
+
+    return db::TransferStatus::SUCCEEDED;
+}
+
+db::TransferType TransferManager::getOpType( const TransferOpPtr op )
+{
+    if ( op->intern.fileCount == 0 && op->intern.dirCount == 0 )
+    {
+        return db::TransferType::SINGLE_FILE;
+    }
+
+    if ( op->intern.fileCount == 0 )
+    {
+        if ( op->intern.dirCount == 1 )
+        {
+            return db::TransferType::SINGLE_DIRECTORY;
+        }
+        if ( op->intern.dirCount > 1 )
+        {
+            return db::TransferType::MULTIPLE_DIRECTORIES;
+        }
+    }
+    if ( op->intern.dirCount == 0 )
+    {
+        if ( op->intern.fileCount == 1 )
+        {
+            return db::TransferType::SINGLE_FILE;
+        }
+        if ( op->intern.fileCount > 1 )
+        {
+            return db::TransferType::MULTIPLE_FILES;
+        }
+    }
+
+    return db::TransferType::MIXED;
 }
 
 };

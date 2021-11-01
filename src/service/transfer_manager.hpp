@@ -1,4 +1,5 @@
 #pragma once
+#include "database_manager.hpp"
 #include "observable_service.hpp"
 #include "remote_manager.hpp"
 #include "transfer_types.hpp"
@@ -30,6 +31,9 @@ public:
 
     void setRemoteManager( std::shared_ptr<RemoteManager> ptr );
     RemoteManager* getRemoteManager();
+
+    void setDatabaseManager( std::shared_ptr<DatabaseManager> ptr );
+    DatabaseManager* getDatabaseManager();
 
     void setCompressionLevel( int level );
     int getCompressionLevel();
@@ -95,6 +99,7 @@ private:
 
     std::atomic_bool m_running;
     std::shared_ptr<RemoteManager> m_remoteMgr;
+    std::shared_ptr<DatabaseManager> m_dbMgr;
 
     ObservableService* m_srv;
     int m_lastId;
@@ -122,6 +127,9 @@ private:
         bool compressionEnabled ) const;
     void sendStatusUpdateNotification( const std::string& remoteId, 
         const TransferOpPtr op );
+    void doFinishTransfer( const std::string& remoteId, int transferId );
+    db::TransferStatus getOpStatus( const TransferOpPtr op );
+    db::TransferType getOpType( const TransferOpPtr op );
 };
 
 };

@@ -266,6 +266,7 @@ void WinpinatorService::serviceMain()
     m_transferMgr->setRemoteManager( m_remoteMgr );
     m_transferMgr->setCompressionLevel( 
         m_settings.useCompression ? m_settings.zlibCompressionLevel : 0 );
+    m_transferMgr->setDatabaseManager( m_db );
 
     m_remoteMgr->setTransferManager( m_transferMgr.get() );
 

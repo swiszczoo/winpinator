@@ -1,4 +1,6 @@
 #pragma once
+#include "database_types.hpp"
+
 #include <atomic>
 #include <chrono>
 #include <mutex>
@@ -41,7 +43,7 @@ struct EventLock
     bool value;
 };
 
-struct TransferOp
+struct TransferOpPub
 {
     int id;
     bool outcoming;
@@ -68,16 +70,21 @@ struct TransferOp
         long long sentBytes;
     } meta;
 
+    bool useCompression;
+};
+
+struct TransferOp : public TransferOpPub
+{
     struct
     {
         std::chrono::steady_clock::time_point lastProgressUpdate;
         std::shared_ptr<EventLock> pauseLock;
 
-        std::vector<std::wstring> relativePaths;
-        std::vector<std::wstring> absolutePaths;
-    } intern;
+        std::vector<db::TransferElement> elements;
 
-    bool useCompression;
+        int fileCount;
+        int dirCount;
+    } intern;
 };
 
 

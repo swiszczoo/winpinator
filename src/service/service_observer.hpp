@@ -32,9 +32,10 @@ public:
     virtual void onHostCountChanged( size_t newCount );
 
     virtual void onAddTransfer( std::string remoteId,
-        srv::TransferOp transfer );
+        srv::TransferOpPub transfer );
     virtual void onUpdateTransfer( std::string remoteId,
-        srv::TransferOp transfer );
+        srv::TransferOpPub transfer );
+    virtual void onRemoveTransfer( std::string remoteId, int transferId );
 
     virtual void onOpenTransferUI( wxString remoteId );
 

@@ -66,17 +66,22 @@ void IServiceObserver::onHostCountChanged( size_t newCount )
 }
 
 void IServiceObserver::onAddTransfer( std::string remoteId, 
-    srv::TransferOp transfer )
+    srv::TransferOpPub transfer )
 {
 }
 
 void IServiceObserver::onUpdateTransfer( std::string remoteId, 
-    srv::TransferOp transfer )
+    srv::TransferOpPub transfer )
+{
+}
+
+void IServiceObserver::onRemoveTransfer( std::string remoteId, int transferId )
 {
 }
 
 void IServiceObserver::onOpenTransferUI( wxString remoteId )
 {
 }
+
 
 };

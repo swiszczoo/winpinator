@@ -49,6 +49,21 @@ void TransferManager::StartTransferReactor::OnDone( const grpc::Status& s )
     wxLogDebug( "StartTransferReactor: Transfer completed, code=%d, msg=%s",
         (int)s.error_code(), s.error_message() );
 
+    {
+        std::unique_lock<std::mutex> lock( *m_transfer->mutex );
+
+        if ( m_transfer->status == OpStatus::TRANSFERRING
+            || m_transfer->status == OpStatus::PAUSED )
+        {
+            // Wait for one second (in case a StopTransfer rpc arrives)
+
+            lock.unlock();
+            std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+        }
+    }
+
+    m_mgr->finishTransfer( m_remoteId, m_transfer->id );
+
     StartTransferReactor* pointer = m_selfPtr.get();
     m_selfPtr = nullptr;
 
@@ -100,9 +115,9 @@ wxString TransferManager::StartTransferReactor::getAbsolutePath(
 void TransferManager::StartTransferReactor::updatePaths()
 {
     std::wstring lastPath = L"";
-    if ( !m_transfer->intern.relativePaths.empty() )
+    if ( !m_transfer->intern.elements.empty() )
     {
-        lastPath = m_transfer->intern.relativePaths.back();
+        lastPath = m_transfer->intern.elements.back().relativePath;
     }
 
     std::wstring currentPath;
@@ -110,12 +125,42 @@ void TransferManager::StartTransferReactor::updatePaths()
 
     if ( lastPath != currentPath )
     {
+        wxString absolutePath = getAbsolutePath( currentPath );
         wxLogDebug( "StartTransferReactor: Appending new path (%s, absolute: %s)",
-            currentPath, getAbsolutePath( currentPath ) );
+            currentPath, absolutePath );
 
-        m_transfer->intern.relativePaths.push_back( currentPath );
-        m_transfer->intern.absolutePaths.push_back(
-            getAbsolutePath( currentPath ).ToStdWstring() );
+        db::TransferElement element;
+        element.absolutePath = absolutePath.ToStdWstring();
+        element.relativePath = currentPath;
+
+        if ( m_chunk.file_type() == (int)FileType::REGULAR_FILE )
+        {
+            element.elementType = db::TransferElementType::FILE;
+        }
+        else if ( m_chunk.file_type() == (int)FileType::DIRECTORY )
+        {
+            element.elementType = db::TransferElementType::FOLDER;
+        }
+
+        wxFileName fname( element.absolutePath );
+        element.elementName = fname.GetFullName().ToStdWstring();
+
+        m_transfer->intern.elements.push_back( element );
+
+        if ( currentPath.find( '/' ) == std::string::npos )
+        {
+            // We want to count top level elements only
+
+            if ( m_chunk.file_type() == (int)FileType::REGULAR_FILE )
+            {
+                m_transfer->intern.fileCount++;
+            }
+
+            if ( m_chunk.file_type() == (int)FileType::DIRECTORY )
+            {
+                m_transfer->intern.dirCount++;
+            }
+        }
     }
 }
 
@@ -138,8 +183,12 @@ void TransferManager::StartTransferReactor::updateProgress( long long chunkBytes
     {
         std::lock_guard<std::mutex> transferLock( *m_transfer->mutex );
 
-        m_mgr->sendStatusUpdateNotification( m_remoteId, m_transfer );
-        m_transfer->intern.lastProgressUpdate = currentTime;
+        if ( m_transfer->status == OpStatus::TRANSFERRING
+            || m_transfer->status == OpStatus::PAUSED )
+        {
+            m_mgr->sendStatusUpdateNotification( m_remoteId, m_transfer );
+            m_transfer->intern.lastProgressUpdate = currentTime;
+        }
     }
 }
 

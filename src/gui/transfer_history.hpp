@@ -58,6 +58,7 @@ private:
     static const std::vector<wxString> TIME_SPECS;
 
     wxStaticText* m_emptyLabel;
+    wxBoxSizer* m_mainSizer;
 
     TimeGroup<HistoryPendingElement> m_pendingGroup;
     std::vector<TimeGroup<HistoryFinishedElement>> m_timeGroups;
@@ -75,11 +76,11 @@ private:
     void reloadStdBitmaps();
     void loadSingleBitmap( int resId, wxBitmap* dest, int dip );
 
-    void addPendingTransfer( const srv::TransferOp& transfer );
-    void updatePendingTransfer( const srv::TransferOp& transfer );
+    void addPendingTransfer( const srv::TransferOpPub& transfer );
+    void updatePendingTransfer( const srv::TransferOpPub& transfer );
     void deletePendingTransfer( int transferId );
     void loadAllTransfers();
-    HistoryPendingData convertOpToData( const srv::TransferOp& transfer );
+    HistoryPendingData convertOpToData( const srv::TransferOpPub& transfer );
 
     void updateTimeGroups();
 
@@ -93,9 +94,11 @@ private:
     // Observer methods
     virtual void onStateChanged() override;
     virtual void onAddTransfer( std::string remoteId, 
-        srv::TransferOp transfer ) override;
+        srv::TransferOpPub transfer ) override;
     virtual void onUpdateTransfer( std::string remoteId,
-        srv::TransferOp transfer ) override;
+        srv::TransferOpPub transfer ) override;
+    virtual void onRemoveTransfer( std::string remoteId,
+        int transferId ) override;
 
     virtual void saveScrollPosition() override;
     virtual void restoreScrollPosition() override;

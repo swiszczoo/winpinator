@@ -31,6 +31,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
     const wxString& targetId )
     : wxScrolledWindow( parent, wxID_ANY )
     , m_emptyLabel( nullptr )
+    , m_mainSizer( nullptr )
     , m_stdBitmaps()
     , m_targetId( targetId )
 {
@@ -40,6 +41,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
     m_stdBitmaps.separatorPen = wxPen( wxColour( 220, 220, 220 ), 1 );
 
     wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
+    m_mainSizer = sizer;
 
     m_emptyLabel = new wxStaticText( this, wxID_ANY, _( "There is no transfer "
                                                         "history for this device..." ) );
@@ -89,7 +91,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
     }
 
     SetSizer( sizer );
-    sizer->SetSizeHints( this );
+    sizer->FitInside( this );
     SetDropTarget( new DropTargetImpl( this ) );
 
     auto srv = Globals::get()->getWinpinatorServiceInstance();
@@ -202,7 +204,7 @@ void ScrolledTransferHistory::loadSingleBitmap(
 }
 
 void ScrolledTransferHistory::addPendingTransfer(
-    const srv::TransferOp& transfer )
+    const srv::TransferOpPub& transfer )
 {
     auto srv = Globals::get()->getWinpinatorServiceInstance();
     auto info = srv->getRemoteManager()->getRemoteInfo( m_targetId.ToStdString() );
@@ -234,11 +236,11 @@ void ScrolledTransferHistory::addPendingTransfer(
     registerHistoryItem( element );
 
     updateTimeGroups();
-    Layout();
+    m_mainSizer->FitInside( this );
 }
 
 void ScrolledTransferHistory::updatePendingTransfer(
-    const srv::TransferOp& transfer )
+    const srv::TransferOpPub& transfer )
 {
     HistoryPendingData newData = convertOpToData( transfer );
 
@@ -263,7 +265,24 @@ void ScrolledTransferHistory::updatePendingTransfer(
 
 void ScrolledTransferHistory::deletePendingTransfer( int transferId )
 {
+    for ( size_t i = 0; i < m_pendingGroup.currentIds.size(); i++ )
+    {
+        if ( transferId == m_pendingGroup.currentIds[i] )
+        {
+            unregisterHistoryItem( m_pendingGroup.elements[i] );
+
+            m_pendingGroup.sizer->Remove( i );
+            m_pendingGroup.elements[i]->Destroy();
+
+            m_pendingGroup.elements.erase( 
+                m_pendingGroup.elements.begin() + i );
+            m_pendingGroup.currentIds.erase(
+                m_pendingGroup.currentIds.begin() + i );
+        }
+    }
+
     updateTimeGroups();
+    m_mainSizer->FitInside( this );
 }
 
 void ScrolledTransferHistory::loadAllTransfers()
@@ -288,7 +307,7 @@ void ScrolledTransferHistory::loadAllTransfers()
 }
 
 HistoryPendingData ScrolledTransferHistory::convertOpToData(
-    const srv::TransferOp& transfer )
+    const srv::TransferOpPub& transfer )
 {
     HistoryPendingData out;
 
@@ -572,7 +591,7 @@ void ScrolledTransferHistory::onThreadEvent( wxThreadEvent& event )
     case ThreadEventType::UPDATE:
     {
         bool processed = false;
-        srv::TransferOp op = event.GetPayload<srv::TransferOp>();
+        srv::TransferOpPub op = event.GetPayload<srv::TransferOpPub>();
 
         for ( int i = 0; i < m_pendingGroup.currentIds.size(); i++ )
         {
@@ -588,6 +607,13 @@ void ScrolledTransferHistory::onThreadEvent( wxThreadEvent& event )
         {
             addPendingTransfer( op );
         }
+        break;
+    }
+    case ThreadEventType::REMOVE:
+    {
+        int opId = event.GetPayload<int>();
+        deletePendingTransfer( opId );
+
         break;
     }
     }
@@ -610,7 +636,7 @@ void ScrolledTransferHistory::onStateChanged()
 }
 
 void ScrolledTransferHistory::onAddTransfer( std::string remoteId,
-    srv::TransferOp transfer )
+    srv::TransferOpPub transfer )
 {
     if ( remoteId == m_targetId )
     {
@@ -622,13 +648,25 @@ void ScrolledTransferHistory::onAddTransfer( std::string remoteId,
 }
 
 void ScrolledTransferHistory::onUpdateTransfer( std::string remoteId,
-    srv::TransferOp transfer )
+    srv::TransferOpPub transfer )
 {
     if ( remoteId == m_targetId )
     {
         wxThreadEvent evnt;
         evnt.SetInt( (int)ThreadEventType::UPDATE );
         evnt.SetPayload( transfer );
+        wxQueueEvent( this, evnt.Clone() );
+    }
+}
+
+void ScrolledTransferHistory::onRemoveTransfer( std::string remoteId,
+    int transferId )
+{
+    if ( remoteId == m_targetId )
+    {
+        wxThreadEvent evnt;
+        evnt.SetInt( (int)ThreadEventType::REMOVE );
+        evnt.SetPayload( transferId );
         wxQueueEvent( this, evnt.Clone() );
     }
 }
