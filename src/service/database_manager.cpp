@@ -3,8 +3,10 @@
 #include <algorithm>
 
 #define UPD_EXEC( command ) results |= sqlite3_exec( m_db, command, NULL, NULL, NULL )
-#define FIX_ENUM( val, unk ) DatabaseManager::fixEnum( (int&)(val), (int)(unk) )
-#define FIX_RESULTS( res ) if ( res == SQLITE_DONE ) res = SQLITE_OK
+#define FIX_ENUM( val, unk ) DatabaseManager::fixEnum( (int&)( val ), (int)( unk ) )
+#define FIX_RESULTS( res )    \
+    if ( res == SQLITE_DONE ) \
+    res = SQLITE_OK
 
 namespace srv
 {
@@ -283,7 +285,7 @@ bool DatabaseManager::clearAllTransfers()
     int results = 0;
 
     beginTransaction();
-    results |= sqlite3_exec( m_db, 
+    results |= sqlite3_exec( m_db,
         "DELETE FROM transfers;", NULL, NULL, NULL );
     FIX_RESULTS( results );
     results |= sqlite3_exec( m_db,
@@ -291,6 +293,29 @@ bool DatabaseManager::clearAllTransfers()
     FIX_RESULTS( results );
     return endTransaction( results );
 }
+
+/* bool DatabaseManager::clearAllTransfersForRemote( int remoteId )
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    if ( !m_dbOpen )
+    {
+        return false;
+    }
+
+    std::string conditions = " WHERE "
+
+    int results = 0;
+
+    beginTransaction();
+    results |= sqlite3_exec( m_db,
+        "DELETE FROM transfers;", NULL, NULL, NULL );
+    FIX_RESULTS( results );
+    results |= sqlite3_exec( m_db,
+        "DELETE FROM transfer_paths;", NULL, NULL, NULL );
+    FIX_RESULTS( results );
+    return endTransaction( results );
+}*/
 
 bool DatabaseManager::deleteTransfer( int id )
 {
@@ -340,7 +365,7 @@ std::vector<db::Transfer> DatabaseManager::queryTransfers( bool queryPaths,
 
     if ( conditions.empty() )
     {
-        sqlite3_prepare_v2( m_db, 
+        sqlite3_prepare_v2( m_db,
             "SELECT * FROM transfers WHERE target_id=? "
             "ORDER BY transfer_timestamp DESC;",
             -1, &queryStmt, NULL );
@@ -426,7 +451,7 @@ void DatabaseManager::queryTransferPaths( db::Transfer& record )
     sqlite3_finalize( pathStmt );
 }
 
-db::Transfer DatabaseManager::getTransfer( int id, 
+db::Transfer DatabaseManager::getTransfer( int id,
     const std::wstring targetId, bool queryPaths )
 {
     std::string condition = "id=" + std::to_string( id );

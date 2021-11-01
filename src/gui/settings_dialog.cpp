@@ -41,12 +41,14 @@ SettingsDialog::SettingsDialog( wxWindow* parent )
     createConnectionPage();
 
     loadSettings();
+    updateState();
 
     SetSizer( sizer );
     CenterOnParent();
 
     // Events
     Bind( wxEVT_BUTTON, &SettingsDialog::onSaveSettings, this, wxID_OK );
+    m_autorun->Bind( wxEVT_CHECKBOX, &SettingsDialog::onUpdateState, this );
 }
 
 void SettingsDialog::createGeneralPage()
@@ -91,11 +93,17 @@ void SettingsDialog::createGeneralPage()
         _( "Start with main window open" ) );
     sizer->Add( m_openWindowOnStart, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 3 ) );
+    sizer->AddSpacer( FromDIP( 5 ) );
 
     m_autorun = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Start automatically (on system startup)" ) );
     sizer->Add( m_autorun, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
+    sizer->AddSpacer( FromDIP( 3 ) );
+
+    m_autorunHidden = new wxCheckBox( m_panelGeneral, wxID_ANY,
+        _( "Do not show main window on system startup" ) );
+    sizer->Add( m_autorunHidden, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     sizer->AddSpacer( FromDIP( 15 ) );
 
@@ -273,6 +281,7 @@ void SettingsDialog::loadSettings()
 
     m_openWindowOnStart->SetValue( settings.openWindowOnStart );
     m_autorun->SetValue( settings.autorun );
+    m_autorunHidden->SetValue( settings.autorunHidden );
     m_useCompression->SetValue( settings.useCompression );
     m_zlibCompressionLevel->SetValue( settings.zlibCompressionLevel );
     m_outputDir->SetPath( settings.outputPath );
@@ -294,6 +303,7 @@ void SettingsDialog::saveSettings()
         m_localeName->GetSelection() ).icuCode;
     settings.openWindowOnStart = m_openWindowOnStart->IsChecked();
     settings.autorun = m_autorun->IsChecked();
+    settings.autorunHidden = m_autorunHidden->IsChecked();
     settings.useCompression = m_useCompression->IsChecked();
     settings.zlibCompressionLevel = m_zlibCompressionLevel->GetValue();
     settings.outputPath = m_outputDir->GetPath();
@@ -365,6 +375,16 @@ void SettingsDialog::onSaveSettings( wxCommandEvent& event )
 {
     saveSettings();
     event.Skip();
+}
+
+void SettingsDialog::onUpdateState( wxCommandEvent& event )
+{
+    updateState();
+}
+
+void SettingsDialog::updateState()
+{
+    m_autorunHidden->Enable( m_autorun->IsChecked() );
 }
 
 std::unique_ptr<wxBitmap> SettingsDialog::loadScaledFlag(

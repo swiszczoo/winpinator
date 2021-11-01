@@ -4,6 +4,7 @@
 #include "../globals.hpp"
 #include "utils.hpp"
 
+#include <wx/tooltip.h>
 #include <wx/translation.h>
 
 namespace gui
@@ -57,7 +58,12 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
 
     m_directoryBtn = new ToolButton( this, wxID_ANY, _( "Send a folder..." ) );
     m_directoryBtn->SetWindowStyle( wxBU_EXACTFIT );
-    buttonSizer->Add( m_directoryBtn, 0, wxEXPAND );
+    buttonSizer->Add( m_directoryBtn, 0, wxEXPAND | wxRIGHT, FromDIP( 4 ) );
+
+    m_historyBtn = new ToolButton( this, wxID_ANY, wxEmptyString );
+    m_historyBtn->SetWindowStyle( wxBU_EXACTFIT );
+    m_historyBtn->SetToolTip( new wxToolTip( _( "Clear history" ) ) );
+    buttonSizer->Add( m_historyBtn, 0, wxEXPAND );
 
     mainSizer->Add( buttonSizer, 0, wxTOP | wxEXPAND, FromDIP( 8 ) );
 
@@ -96,6 +102,7 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
     m_backBtn->SetBitmapMargins( FromDIP( 1 ), FromDIP( 1 ) );
     m_fileBtn->SetBitmapMargins( FromDIP( 1 ), FromDIP( 1 ) );
     m_directoryBtn->SetBitmapMargins( FromDIP( 1 ), FromDIP( 1 ) );
+    m_historyBtn->SetBitmapMargins( FromDIP( 1 ), FromDIP( 1 ) );
 
     SetSizer( margSizer );
 
@@ -104,6 +111,7 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
     // Events 
     Bind( wxEVT_DPI_CHANGED, &TransferListPage::onDpiChanged, this );
     m_backBtn->Bind( wxEVT_BUTTON, &TransferListPage::onBackClicked, this );
+    m_historyBtn->Bind( wxEVT_BUTTON, &TransferListPage::onClearHistoryClicked, this );
     Bind( wxEVT_THREAD, &TransferListPage::onUpdateStatus, this );
 }
 
@@ -125,6 +133,8 @@ void TransferListPage::loadIcons()
         &m_fileBmp, m_fileBtn );
     loadSingleIcon( Utils::makeIntResource( IDB_SEND_DIR ), 
         &m_dirBmp, m_directoryBtn );
+    loadSingleIcon( Utils::makeIntResource( IDB_REMOVE_HISTORY ),
+        &m_historyBmp, m_historyBtn );
 }
 
 void TransferListPage::loadSingleIcon( const wxString& res, 
@@ -158,6 +168,21 @@ void TransferListPage::onUpdateStatus( wxThreadEvent& event )
 {
     srv::RemoteInfoPtr info = event.GetPayload<srv::RemoteInfoPtr>();
     updateForStatus( info->state );
+}
+
+void TransferListPage::onClearHistoryClicked( wxCommandEvent& event )
+{
+    wxMessageDialog dialog( this, 
+        _( "This operation cannot be undone!" ), _( "Clear history" ) );
+    dialog.SetTitle( 
+        _( "Are you sure you want to clear entire history for this device?" ) );
+    dialog.SetMessageDialogStyle( wxID_YES | wxID_NO );
+
+    if ( dialog.ShowModal() == wxID_YES )
+    {
+        auto serv = Globals::get()->getWinpinatorServiceInstance();
+        // serv->getDb()->clearAllTransfersForRemote();
+    }
 }
 
 void TransferListPage::onStateChanged()

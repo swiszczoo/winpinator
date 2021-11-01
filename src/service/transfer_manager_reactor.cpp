@@ -57,7 +57,11 @@ void TransferManager::StartTransferReactor::OnDone( const grpc::Status& s )
         {
             // Wait for one second (in case a StopTransfer rpc arrives)
 
+            m_transfer->meta.sentBytes = m_transfer->totalSize + 1;
             lock.unlock();
+
+            updateProgress( -1 );
+
             std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
         }
     }
@@ -179,7 +183,7 @@ void TransferManager::StartTransferReactor::updateProgress( long long chunkBytes
         currentTime - m_transfer->intern.lastProgressUpdate )
                                   .count();
 
-    if ( millisElapsed > TransferManager::PROGRESS_FREQ_MILLIS )
+    if ( millisElapsed > TransferManager::PROGRESS_FREQ_MILLIS || chunkBytes == -1 )
     {
         std::lock_guard<std::mutex> transferLock( *m_transfer->mutex );
 

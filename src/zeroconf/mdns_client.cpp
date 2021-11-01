@@ -569,9 +569,7 @@ int MdnsClient::sendMdnsQuery( const char* service, int record )
         }
     }
 
-    // This is a simple implementation that loops for 5 seconds or as long as we get replies
     int res;
-    //printf( "Reading mDNS query replies\n" );
     do
     {
         int nfds = 0;

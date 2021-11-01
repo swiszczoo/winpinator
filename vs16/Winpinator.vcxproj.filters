@@ -565,5 +565,8 @@
     <Image Include="..\res\transfer_failed.png">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="..\res\remove_history.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

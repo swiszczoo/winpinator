@@ -35,6 +35,7 @@ private:
     wxBitmapComboBox* m_localeName;
     wxCheckBox* m_openWindowOnStart;
     wxCheckBox* m_autorun;
+    wxCheckBox* m_autorunHidden;
     wxCheckBox* m_useCompression;
     wxSlider* m_zlibCompressionLevel;
     wxDirPickerCtrl* m_outputDir;
@@ -65,6 +66,8 @@ private:
     void fillInterfaces();
 
     void onSaveSettings( wxCommandEvent& event );
+    void onUpdateState( wxCommandEvent& event );
+    void updateState();
     std::unique_ptr<wxBitmap> loadScaledFlag( const wxString& path, int height );
 };
 

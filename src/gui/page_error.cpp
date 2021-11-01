@@ -158,6 +158,12 @@ void ErrorPage::updateLabel()
             "your computer, e.g. started by another user? "
             "You can always try to change ports in the settings." ) );
         break;
+    case srv::ServiceError::CANT_CREATE_OUTPUT_DIR:
+        m_description->SetLabel( _(
+            "Output directory you provided in the settings does not exist. "
+            "Winpinator failed to create one."
+            ) );
+        break;
     default:
         assert( false );
         m_description->SetLabel( _( "Missing description" ) );

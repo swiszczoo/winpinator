@@ -27,6 +27,7 @@ private:
     ToolButton* m_backBtn;
     ToolButton* m_fileBtn;
     ToolButton* m_directoryBtn;
+    ToolButton* m_historyBtn;
     wxPanel* m_opPanel;
     ScrolledTransferHistory* m_opList;
     StatusText* m_statusLabel;
@@ -34,6 +35,7 @@ private:
     wxBitmap m_backBmp;
     wxBitmap m_fileBmp;
     wxBitmap m_dirBmp;
+    wxBitmap m_historyBmp;
 
     void loadIcons();
     void loadSingleIcon( const wxString& res, wxBitmap* loc, ToolButton* btn );
@@ -41,6 +43,7 @@ private:
     void onDpiChanged( wxDPIChangedEvent& event );
     void onBackClicked( wxCommandEvent& event );
     void onUpdateStatus( wxThreadEvent& event );
+    void onClearHistoryClicked( wxCommandEvent& event );
 
     void onStateChanged() override;
     void onEditHost( srv::RemoteInfoPtr newInfo ) override;

@@ -9,6 +9,7 @@ SettingsModel::SettingsModel()
     : localeName( "en_US" )
     , openWindowOnStart( true )
     , autorun( false )
+    , autorunHidden( true )
     , useCompression( true )
     , zlibCompressionLevel( 5 )
     , outputPath( wxEmptyString )
@@ -37,6 +38,8 @@ void SettingsModel::loadFrom( wxConfigBase* config )
         "General/OpenWindowAtStart", getDefaults()->openWindowOnStart );
     autorun = config->ReadBool(
         "General/Autorun", getDefaults()->autorun );
+    autorunHidden = config->ReadBool(
+        "General/AutorunHidden", getDefaults()->autorunHidden );
 
     useCompression = config->ReadBool(
         "Transfer/UseCompression", getDefaults()->useCompression );
@@ -71,6 +74,7 @@ void SettingsModel::saveTo( wxConfigBase* config )
     config->Write( "General/LocaleName", localeName );
     config->Write( "General/OpenWindowAtStart", openWindowOnStart );
     config->Write( "General/Autorun", autorun );
+    config->Write( "General/AutorunHidden", autorunHidden );
 
     config->Write( "Transfer/UseCompression", useCompression );
     config->Write( "Transfer/ZlibCompressionLevel", zlibCompressionLevel );

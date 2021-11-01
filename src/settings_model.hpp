@@ -17,6 +17,7 @@ public:
     wxString localeName;
     bool openWindowOnStart;
     bool autorun;
+    bool autorunHidden;
 
     bool useCompression;
     int zlibCompressionLevel;

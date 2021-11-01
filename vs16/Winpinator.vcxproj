@@ -424,6 +424,7 @@
     <Image Include="..\res\icon256.png" />
     <Image Include="..\res\info.png" />
     <Image Include="..\res\refresh.png" />
+    <Image Include="..\res\remove_history.png" />
     <Image Include="..\res\send_directory.png" />
     <Image Include="..\res\send_file.png" />
     <Image Include="..\res\spinner16.png" />

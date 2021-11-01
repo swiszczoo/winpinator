@@ -256,6 +256,24 @@ void WinpinatorService::serviceMain()
     // Reset event queue
     m_events.Clear();
 
+    // Ensure that output dir exists
+
+    wxFileName outputFileName = wxFileName::DirName( m_settings.outputPath );
+    if ( !outputFileName.IsAbsolute() )
+    {
+        m_error = ServiceError::CANT_CREATE_OUTPUT_DIR;
+        return;
+    }
+
+    if ( !outputFileName.DirExists() )
+    {
+        if ( !outputFileName.Mkdir() )
+        {
+            m_error = ServiceError::CANT_CREATE_OUTPUT_DIR;
+            return;
+        }
+    }
+
     // Initialize remote manager
     m_remoteMgr = std::make_shared<RemoteManager>( this );
     m_remoteMgr->setServiceType( WinpinatorService::SERVICE_TYPE );
@@ -264,7 +282,7 @@ void WinpinatorService::serviceMain()
     m_transferMgr = std::make_shared<TransferManager>( this );
     m_transferMgr->setOutputPath( m_settings.outputPath.ToStdWstring() );
     m_transferMgr->setRemoteManager( m_remoteMgr );
-    m_transferMgr->setCompressionLevel( 
+    m_transferMgr->setCompressionLevel(
         m_settings.useCompression ? m_settings.zlibCompressionLevel : 0 );
     m_transferMgr->setDatabaseManager( m_db );
 
@@ -388,7 +406,7 @@ void WinpinatorService::serviceMain()
     zcService.setTxtRecord( "type", "real" );
     zcService.setTxtRecord( "os", Utils::getOSVersionString() );
     zcService.setTxtRecord( "api-version", "2" );
-    zcService.setTxtRecord( "auth-port", 
+    zcService.setTxtRecord( "auth-port",
         std::to_string( m_settings.registrationPort ) );
 
     auto secondIpPair = zcService.registerService();
@@ -466,8 +484,9 @@ void WinpinatorService::serviceMain()
                 auto handler = ev.eventData.toastData->instantiateListener();
 
                 if ( WinToastLib::WinToast::instance()->showToast(
-                    ev.eventData.toastData->buildTemplate(),
-                    handler ) == -1 )
+                         ev.eventData.toastData->buildTemplate(),
+                         handler )
+                    == -1 )
                 {
                     delete handler;
                 }

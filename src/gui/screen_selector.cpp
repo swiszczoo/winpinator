@@ -133,6 +133,7 @@ void ScreenSelector::onChangePage( wxThreadEvent& event )
 {
     if ( (SelectorPage)event.GetInt() == m_currentPage )
     {
+        int integer = event.GetInt();
         changePage( (SelectorPage)event.GetInt() );
     }
 }
@@ -264,6 +265,7 @@ void ScreenSelector::setupTransferListPage( const wxString& targetId )
     bannerEvent.setSharedPointer( infoObj );
     wxPostEvent( this, bannerEvent );
 
+    m_currentPage = SelectorPage::TRANSFER_LIST;
     changePage( SelectorPage::TRANSFER_LIST );
 }
 
