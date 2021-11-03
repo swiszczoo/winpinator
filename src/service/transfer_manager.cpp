@@ -305,7 +305,7 @@ void TransferManager::finishTransfer( const std::string& remoteId,
 }
 
 void TransferManager::requestStopTransfer( const std::string& remoteId,
-    int transferId )
+    int transferId, bool error )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
 
@@ -332,7 +332,7 @@ void TransferManager::requestStopTransfer( const std::string& remoteId,
     StopInfo request;
     OpInfo* opInfo = new OpInfo( convertOpToOpInfo( op, m_compressionLevel > 0 ) );
     request.set_allocated_info( opInfo );
-    request.set_error( false );
+    request.set_error( error );
 
     VoidType response;
 
@@ -346,7 +346,11 @@ void TransferManager::requestStopTransfer( const std::string& remoteId,
 
         {
             std::lock_guard<std::mutex> opLock( *op->mutex );
-            if ( op->outcoming )
+            if ( error )
+            {
+                op->status = OpStatus::FAILED;
+            }
+            else if ( op->outcoming )
             {
                 op->status = OpStatus::STOPPED_BY_SENDER;
             }
@@ -442,11 +446,17 @@ void TransferManager::checkTransferDiskSpace( TransferOp& op )
 
 void TransferManager::checkTransferMustOverwrite( TransferOp& op )
 {
+    wxLogNull logNull;
     bool mustOverwrite = false;
 
     for ( std::string elementUtf8 : op.topDirBasenamesUtf8 )
     {
         wxString element = wxString::FromUTF8( elementUtf8 );
+
+        if ( element.Contains( ":" ) )
+        {
+            continue;
+        }
 
         wxFileName fname( m_outputPath, element );
 
@@ -564,6 +574,7 @@ void TransferManager::processStartTransfer( const std::string& remoteId,
         reactor->setTransferPtr( op );
         reactor->setRemoteId( remoteId );
         reactor->setManager( this );
+        reactor->setCanOverwrite( op->meta.mustOverwrite );
 
         wxLogDebug( "TransferManager: starting transfer!" );
 
@@ -684,11 +695,31 @@ void TransferManager::doFinishTransfer( const std::string& remoteId,
                 op->topDirBasenamesUtf8[0] )
                                            .ToStdWstring();
         }
+
         record.status = getOpStatus( op );
+        record.transferType = getOpType( op );
+
+        // Correct file/folder count and type 
+        // in case of unfinished incoming transfer
+        if ( !record.outgoing && ( record.status != db::TransferStatus::SUCCEEDED ))
+        {
+            record.transferType = db::TransferType::UNFINISHED_INCOMING;
+
+            if ( op->mimeIfSingleUtf8 == "inode/directory" )
+            {
+                record.folderCount = op->topDirBasenamesUtf8.size();
+                record.fileCount = 0;
+            }
+            else
+            {
+                record.folderCount = 0;
+                record.fileCount = op->topDirBasenamesUtf8.size();
+            }
+        }
+
         record.targetId = wxString( remoteId ).ToStdWstring();
         record.totalSizeBytes = op->totalSize;
         record.transferTimestamp = op->meta.localTimestamp;
-        record.transferType = getOpType( op );
     }
 
     m_dbMgr->addTransfer( record );

@@ -1,9 +1,17 @@
 #include "history_element_finished.hpp"
 
+#include "../globals.hpp"
 #include "utils.hpp"
+
+#include <wx/filename.h>
+
+#include <algorithm>
+#include <set>
 
 namespace gui
 {
+
+wxDEFINE_EVENT( EVT_REMOVE, wxCommandEvent );
 
 HistoryFinishedElement::HistoryFinishedElement( wxWindow* parent,
     HistoryStdBitmaps* bitmaps )
@@ -21,7 +29,17 @@ HistoryFinishedElement::HistoryFinishedElement( wxWindow* parent,
     // Events
 
     Bind( wxEVT_PAINT, &HistoryFinishedElement::onPaint, this );
+    Bind( wxEVT_LEFT_DCLICK, &HistoryFinishedElement::onDoubleClicked, this );
     Bind( wxEVT_CONTEXT_MENU, &HistoryFinishedElement::onContextMenu, this );
+
+    Bind( wxEVT_MENU, &HistoryFinishedElement::onOpenClicked,
+        this, (int)MenuID::ID_OPEN );
+    Bind( wxEVT_MENU, &HistoryFinishedElement::onShowInExplorerClicked,
+        this, (int)MenuID::ID_EXPLORER );
+    Bind( wxEVT_MENU, &HistoryFinishedElement::onShowListClicked,
+        this, (int)MenuID::ID_PATHS );
+    Bind( wxEVT_MENU, &HistoryFinishedElement::onRemoveClicked,
+        this, (int)MenuID::ID_REMOVE );
 }
 
 void HistoryFinishedElement::setData( const TransferData& newData )
@@ -31,7 +49,7 @@ void HistoryFinishedElement::setData( const TransferData& newData )
     setIcons( newData.folderCount,
         newData.fileCount, newData.singleElementName );
     setOutcoming( newData.outgoing );
-    setFinished( true );
+    setFinished( newData.outgoing || newData.transferType != srv::db::TransferType::UNFINISHED_INCOMING );
 }
 
 const TransferData& HistoryFinishedElement::getData() const
@@ -122,7 +140,7 @@ void HistoryFinishedElement::onPaint( wxPaintEvent& event )
             contentOffsetX + colWidth - FromDIP( 4 ) - typeX );
 
         Utils::drawTextEllipse( dc, Utils::fileSizeToString( m_data.totalSizeBytes ),
-            wxPoint( sizeX, offsetY + lineHeight ), 
+            wxPoint( sizeX, offsetY + lineHeight ),
             contentOffsetX + colWidth - FromDIP( 4 ) - sizeX );
     }
 
@@ -145,13 +163,18 @@ void HistoryFinishedElement::onPaint( wxPaintEvent& event )
 
         dc.SetTextForeground( GetForegroundColour() );
 
-        Utils::drawTextEllipse( dc, 
+        Utils::drawTextEllipse( dc,
             // TRANSLATORS: date format string
             Utils::formatDate( m_data.transferTimestamp,
                 _( "%Y-%m-%d %I:%M %p" ).ToStdString() ),
             wxPoint( col2Offset, offsetY + lineHeight ),
             LABEL_X - FromDIP( 4 ) - col2Offset );
     }
+}
+
+void HistoryFinishedElement::onDoubleClicked( wxMouseEvent& event )
+{
+    openElement();
 }
 
 void HistoryFinishedElement::onContextMenu( wxContextMenuEvent& event )
@@ -170,6 +193,138 @@ void HistoryFinishedElement::onContextMenu( wxContextMenuEvent& event )
     menu.Enable( (int)MenuID::ID_OPEN, openAvailable );
 
     PopupMenu( &menu );
+}
+
+void HistoryFinishedElement::onOpenClicked( wxCommandEvent& event )
+{
+    openElement();
+}
+
+void HistoryFinishedElement::onShowInExplorerClicked( wxCommandEvent& event )
+{
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+    auto transfer = serv->getDb()->getTransfer( m_data.id, m_data.targetId,
+        true );
+
+    std::vector<wxFileName> existingElements;
+    std::vector<wxArrayString> existingDirs;
+
+    wxString volume;
+    wxArrayString longestCommon;
+    std::set<wxString> elementsInCommon;
+
+    int minDirs = INT_MAX;
+
+    for ( const auto& element : transfer.elements )
+    {
+        if ( wxDirExists( element.absolutePath ) )
+        {
+            wxFileName fname = wxFileName::DirName( element.absolutePath );
+
+            if ( volume == wxEmptyString )
+            {
+                volume = fname.GetVolume();
+            }
+
+            if ( fname.GetVolume() == volume )
+            {
+                existingElements.push_back( fname );
+                existingDirs.push_back( fname.GetDirs() );
+                minDirs = std::min( minDirs, (int)fname.GetDirCount() - 1 );
+            }
+        }
+        else if ( wxFileExists( element.absolutePath ) )
+        {
+            wxFileName fname( element.absolutePath );
+
+            if ( volume == wxEmptyString )
+            {
+                volume = fname.GetVolume();
+            }
+
+            if ( fname.GetVolume() == volume )
+            {
+                existingElements.push_back( fname );
+                existingDirs.push_back( fname.GetDirs() );
+                minDirs = std::min( minDirs, (int)fname.GetDirCount() );
+            }
+        }
+    }
+
+    if ( minDirs == INT_MAX )
+    {
+        return;
+    }
+
+    for ( int i = 0; i < minDirs; i++ )
+    {
+        bool ok = true;
+        wxString iterName = wxEmptyString;
+
+        for ( int j = 0; j < existingDirs.size(); j++ )
+        {
+            if ( iterName.empty() )
+            {
+                iterName = existingDirs[j][i];
+            }
+
+            if ( existingDirs[j][i] != iterName )
+            {
+                ok = false;
+                break;
+            }
+        }
+
+        if ( ok )
+        {
+            longestCommon.Add( iterName );
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    for ( auto& element : existingElements )
+    {
+        if ( element.GetDirCount() > longestCommon.GetCount() )
+        {
+            elementsInCommon.insert( element.GetDirs()[longestCommon.GetCount()] );
+        }
+        else
+        {
+            elementsInCommon.insert( element.GetFullName() );
+        }
+    }
+
+    wxString longestCommonJoined = wxEmptyString;
+    for ( const auto& segment : longestCommon )
+    {
+        longestCommonJoined += '/';
+        longestCommonJoined += segment;
+    }
+
+    wxFileName common( volume, longestCommonJoined, "", "" );
+    std::vector<wxString> commonElements;
+    for ( auto& element : elementsInCommon )
+    {
+        commonElements.push_back( element );
+    }
+
+    Utils::openExplorerWithSelectedFiles( common.GetFullPath(), commonElements );
+}
+
+void HistoryFinishedElement::onShowListClicked( wxCommandEvent& event )
+{
+}
+
+void HistoryFinishedElement::onRemoveClicked( wxCommandEvent& event )
+{
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+    serv->getDb()->deleteTransfer( m_data.id );
+
+    wxCommandEvent evnt( EVT_REMOVE );
+    wxPostEvent( this, evnt );
 }
 
 wxString HistoryFinishedElement::determineStatusString()
@@ -217,6 +372,59 @@ const wxBitmap& HistoryFinishedElement::setupStatusDrawing( wxDC* dc )
     dc->SetBrush( m_brush );
 
     return *toReturn;
+}
+
+void HistoryFinishedElement::openElement()
+{
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+    auto transfer = serv->getDb()->getTransfer( m_data.id, m_data.targetId,
+        true );
+
+    bool succeed = false;
+
+    if ( transfer.fileCount == 0 && transfer.folderCount == 1 )
+    {
+
+        for ( const auto& element : transfer.elements )
+        {
+            if ( element.elementType == srv::db::TransferElementType::FOLDER )
+            {
+                wxFileName dirName = wxFileName::DirName( element.absolutePath );
+
+                if ( dirName.DirExists() )
+                {
+                    Utils::openDirectoryInExplorer( dirName.GetFullPath() );
+                    succeed = true;
+                }
+
+                break;
+            }
+        }
+    }
+    else if ( transfer.fileCount == 1 && transfer.folderCount == 0 )
+    {
+        if ( transfer.elements.size() == 1 )
+        {
+            auto element = transfer.elements[0];
+
+            wxFileName elementName( element.absolutePath );
+
+            if ( elementName.FileExists() )
+            {
+                wxString fullPath = elementName.GetFullPath();
+                ShellExecuteW( NULL, L"open",
+                    fullPath.wc_str(), NULL, NULL, SW_SHOWNORMAL );
+                succeed = true;
+            }
+        }
+    }
+
+    if ( !succeed )
+    {
+        wxMessageBox(
+            _( "Selected element does no longer exist on the hard drive." ),
+            _( "Can't open element" ), wxICON_EXCLAMATION );
+    }
 }
 
 };

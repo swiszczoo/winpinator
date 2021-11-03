@@ -198,14 +198,7 @@ void WinpinatorFrame::onSettingsClicked( wxCommandEvent& event )
 void WinpinatorFrame::onOpenFolderSelected()
 {
     const SettingsModel& settings = GetApp().m_settings;
-
-    const wchar_t* command[] = {
-        L"explorer",
-        settings.outputPath.wc_str(),
-        NULL
-    };
-
-    wxExecute( command, wxEXEC_ASYNC, NULL );
+    Utils::openDirectoryInExplorer( settings.outputPath );
 }
 
 void WinpinatorFrame::onPrefsSelected()

@@ -510,7 +510,7 @@ void WinpinatorService::serviceMain()
         {
             m_transferMgr->requestStopTransfer(
                 ev.eventData.transferData->remoteId,
-                ev.eventData.transferData->transferId );
+                ev.eventData.transferData->transferId, false );
         }
     }
 

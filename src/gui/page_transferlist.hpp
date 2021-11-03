@@ -44,6 +44,7 @@ private:
     void onBackClicked( wxCommandEvent& event );
     void onUpdateStatus( wxThreadEvent& event );
     void onClearHistoryClicked( wxCommandEvent& event );
+    void onUpdateEmptyState( wxCommandEvent& event );
 
     void onStateChanged() override;
     void onEditHost( srv::RemoteInfoPtr newInfo ) override;

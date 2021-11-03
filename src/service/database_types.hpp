@@ -40,6 +40,7 @@ enum class TransferType
     SINGLE_DIRECTORY,
     MULTIPLE_DIRECTORIES,
     MIXED,
+    UNFINISHED_INCOMING,
     UNKNOWN
 };
 

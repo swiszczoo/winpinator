@@ -38,6 +38,11 @@ void TransferManager::StartTransferReactor::setManager( TransferManager* mgr )
     m_mgr = mgr;
 }
 
+void TransferManager::StartTransferReactor::setCanOverwrite( bool canOverwrite )
+{
+    m_canOverwrite = canOverwrite;
+}
+
 void TransferManager::StartTransferReactor::start()
 {
     StartRead( &m_chunk );
@@ -66,6 +71,7 @@ void TransferManager::StartTransferReactor::OnDone( const grpc::Status& s )
         }
     }
 
+    m_filePtr.Close();
     m_mgr->finishTransfer( m_remoteId, m_transfer->id );
 
     StartTransferReactor* pointer = m_selfPtr.get();
@@ -84,15 +90,18 @@ void TransferManager::StartTransferReactor::OnReadDone( bool ok )
 
         updatePaths();
 
-        long long chunkSize = m_chunk.chunk().size();
+        std::string original = m_chunk.chunk();
+        long long chunkSize = original.size();
+        std::string decompressed;
 
         if ( m_useCompression )
         {
-            std::string decompressed = m_compressor.decompress( m_chunk.chunk() );
+            decompressed = m_compressor.decompress( original );
             chunkSize = decompressed.size();
         }
 
         updateProgress( chunkSize );
+        processData( m_useCompression ? decompressed : original );
 
         // Wait if op is paused
         std::unique_lock<std::mutex> lck( m_transfer->intern.pauseLock->mutex );
@@ -109,15 +118,26 @@ void TransferManager::StartTransferReactor::OnReadDone( bool ok )
 wxString TransferManager::StartTransferReactor::getAbsolutePath(
     wxString relativePath )
 {
+    wxLogNull null;
+
     std::wstring outputPath = m_mgr->getOutputPath();
     wxFileName fname( relativePath );
     fname.Normalize( wxPATH_NORM_DOTS | wxPATH_NORM_ABSOLUTE, outputPath );
+
+    if ( !fname.IsOk() )
+    {
+        return wxEmptyString;
+    }
+
+    // TODO: ensure we're not escaping output directory with ..
 
     return fname.GetFullPath();
 }
 
 void TransferManager::StartTransferReactor::updatePaths()
 {
+    wxLogNull logNull;
+
     std::wstring lastPath = L"";
     if ( !m_transfer->intern.elements.empty() )
     {
@@ -135,39 +155,48 @@ void TransferManager::StartTransferReactor::updatePaths()
     else if ( lastPath != currentPath )
     {
         wxString absolutePath = getAbsolutePath( currentPath );
-        wxLogDebug( "StartTransferReactor: Appending new path (%s, absolute: %s)",
-            currentPath, absolutePath );
 
-        db::TransferElement element;
-        element.absolutePath = absolutePath.ToStdWstring();
-        element.relativePath = currentPath;
-
-        if ( m_chunk.file_type() == (int)FileType::REGULAR_FILE )
+        if ( absolutePath.empty() )
         {
-            element.elementType = db::TransferElementType::FILE;
+            wxLogDebug( "StartTransferReactor: Ignoring invalid path 2! (%s)",
+                currentPath );
         }
-        else if ( m_chunk.file_type() == (int)FileType::DIRECTORY )
+        else
         {
-            element.elementType = db::TransferElementType::FOLDER;
-        }
+            wxLogDebug( "StartTransferReactor: Appending new path (%s, absolute: %s)",
+                currentPath, absolutePath );
 
-        wxFileName fname( element.absolutePath );
-        element.elementName = fname.GetFullName().ToStdWstring();
-
-        m_transfer->intern.elements.push_back( element );
-
-        if ( currentPath.find( '/' ) == std::string::npos )
-        {
-            // We want to count top level elements only
+            db::TransferElement element;
+            element.absolutePath = absolutePath.ToStdWstring();
+            element.relativePath = currentPath;
 
             if ( m_chunk.file_type() == (int)FileType::REGULAR_FILE )
             {
-                m_transfer->intern.fileCount++;
+                element.elementType = db::TransferElementType::FILE;
+            }
+            else if ( m_chunk.file_type() == (int)FileType::DIRECTORY )
+            {
+                element.elementType = db::TransferElementType::FOLDER;
             }
 
-            if ( m_chunk.file_type() == (int)FileType::DIRECTORY )
+            wxFileName fname( element.absolutePath );
+            element.elementName = fname.GetFullName().ToStdWstring();
+
+            m_transfer->intern.elements.push_back( element );
+
+            if ( currentPath.find( '/' ) == std::string::npos )
             {
-                m_transfer->intern.dirCount++;
+                // We want to count top level elements only
+
+                if ( m_chunk.file_type() == (int)FileType::REGULAR_FILE )
+                {
+                    m_transfer->intern.fileCount++;
+                }
+
+                if ( m_chunk.file_type() == (int)FileType::DIRECTORY )
+                {
+                    m_transfer->intern.dirCount++;
+                }
             }
         }
     }
@@ -199,6 +228,59 @@ void TransferManager::StartTransferReactor::updateProgress( long long chunkBytes
             m_transfer->intern.lastProgressUpdate = currentTime;
         }
     }
+}
+
+void TransferManager::StartTransferReactor::processData( const std::string& chunk )
+{
+    std::string relativePath = m_chunk.relative_path();
+    wxString absolutePath = getAbsolutePath( wxString::FromUTF8( relativePath ) );
+
+    if ( absolutePath.empty() )
+    {
+        return;
+    }
+
+    wxLogNull logNull;
+
+    if ( m_chunk.file_type() == (int)FileType::REGULAR_FILE )
+    {
+        if ( relativePath != m_filePtrPath )
+        {
+            m_filePtr.Close();
+            m_filePtrPath = relativePath;
+
+            if ( !m_filePtr.Create( absolutePath, m_canOverwrite, wxS_DEFAULT ) )
+            {
+                wxLogDebug( "StartTransferReactor: TRANSFER FAILED! Can't create file %s", absolutePath );
+                failOp();
+                return;
+            }
+        }
+
+        m_filePtr.Write( chunk.data(), chunk.size() );
+    }
+    else if ( m_chunk.file_type() == (int)FileType::DIRECTORY )
+    {
+        if ( !wxDirExists( absolutePath ) )
+        {
+            if ( wxFileExists( absolutePath ) )
+            {
+                wxRemoveFile( absolutePath );
+            }
+
+            if ( !wxMkdir( absolutePath ) )
+            {
+                wxLogDebug( "StartTransferReactor: TRANSFER FAILED! Can't create directory %s", absolutePath );
+                failOp();
+                return;
+            }
+        }
+    }
+}
+
+void TransferManager::StartTransferReactor::failOp()
+{
+    m_mgr->requestStopTransfer( m_remoteId, m_transfer->id, true );
 }
 
 };

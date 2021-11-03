@@ -53,6 +53,7 @@ DatabaseManager::~DatabaseManager()
 
     if ( m_db )
     {
+        sqlite3_exec( m_db, "VACUUM;", NULL, NULL, NULL );
         sqlite3_close( m_db );
     }
 }
@@ -307,15 +308,6 @@ bool DatabaseManager::clearAllTransfersForRemote( std::string remoteId )
 
     beginTransaction();
 
-    sqlite3_stmt* transferStmt;
-    sqlite3_prepare_v2( m_db,
-        "DELETE FROM transfers WHERE target_id=?",
-        -1, &transferStmt, NULL );
-    sqlite3_bind_text( transferStmt, 1, remoteId.c_str(), -1, SQLITE_STATIC );
-    results |= sqlite3_step( transferStmt );
-    sqlite3_finalize( transferStmt );
-    FIX_RESULTS( results );
-
     sqlite3_stmt* pathsStmt;
     sqlite3_prepare_v2( m_db,
         "DELETE FROM transfer_paths WHERE ROWID IN ( "
@@ -329,6 +321,15 @@ bool DatabaseManager::clearAllTransfersForRemote( std::string remoteId )
     sqlite3_bind_text( pathsStmt, 1, remoteId.c_str(), -1, SQLITE_STATIC );
     results |= sqlite3_step( pathsStmt );
     sqlite3_finalize( pathsStmt );
+    FIX_RESULTS( results );
+
+    sqlite3_stmt* transferStmt;
+    sqlite3_prepare_v2( m_db,
+        "DELETE FROM transfers WHERE target_id=?",
+        -1, &transferStmt, NULL );
+    sqlite3_bind_text( transferStmt, 1, remoteId.c_str(), -1, SQLITE_STATIC );
+    results |= sqlite3_step( transferStmt );
+    sqlite3_finalize( transferStmt );
     FIX_RESULTS( results );
 
     return endTransaction( results );

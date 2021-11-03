@@ -11,6 +11,8 @@ namespace gui
 
 typedef srv::db::Transfer TransferData;
 
+wxDECLARE_EVENT( EVT_REMOVE, wxCommandEvent );
+
 class HistoryFinishedElement : public HistoryIconItem
 {
 public:
@@ -38,10 +40,18 @@ private:
     wxBrush m_brush;
 
     void onPaint( wxPaintEvent& event );
+    void onDoubleClicked( wxMouseEvent& event );
     void onContextMenu( wxContextMenuEvent& event );
+
+    void onOpenClicked( wxCommandEvent& event );
+    void onShowInExplorerClicked( wxCommandEvent& event );
+    void onShowListClicked( wxCommandEvent& event );
+    void onRemoveClicked( wxCommandEvent& event );
 
     wxString determineStatusString();
     const wxBitmap& setupStatusDrawing( wxDC* dc );
+
+    void openElement();
 };
 
 };

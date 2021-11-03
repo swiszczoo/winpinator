@@ -5,6 +5,7 @@
 #include "transfer_types.hpp"
 #include "zlib_deflate.hpp"
 
+#include <wx/file.h>
 #include <wx/wx.h>
 
 #include <atomic>
@@ -51,7 +52,8 @@ public:
     void pauseTransfer( const std::string& remoteId, int transferId );
     void stopTransfer( const std::string& remoteId, int transferId, bool error );
     void finishTransfer( const std::string& remoteId, int transferId );
-    void requestStopTransfer( const std::string& remoteId, int transferId );
+    void requestStopTransfer( const std::string& remoteId, 
+        int transferId, bool error );
     void failAll( const std::string& remoteId );
 
     std::mutex& getMutex();
@@ -71,6 +73,7 @@ private:
         void setTransferPtr( TransferOpPtr transferPtr );
         void setRemoteId( const std::string& remoteId );
         void setManager( TransferManager* mgr );
+        void setCanOverwrite( bool canOverwrite );
 
         void start();
 
@@ -91,10 +94,16 @@ private:
         FileChunk m_chunk;
         ZlibDeflate m_compressor;
         bool m_useCompression;
+        bool m_canOverwrite;
+        
+        std::string m_filePtrPath;
+        wxFile m_filePtr;
 
         wxString getAbsolutePath( wxString relativePath );
         void updatePaths();
         void updateProgress( long long chunkBytes );
+        void processData( const std::string& dataChunk );
+        void failOp();
     };
 
     static const long long PROGRESS_FREQ_MILLIS;

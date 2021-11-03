@@ -111,8 +111,11 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
     // Events 
     Bind( wxEVT_DPI_CHANGED, &TransferListPage::onDpiChanged, this );
     m_backBtn->Bind( wxEVT_BUTTON, &TransferListPage::onBackClicked, this );
-    m_historyBtn->Bind( wxEVT_BUTTON, &TransferListPage::onClearHistoryClicked, this );
+    m_historyBtn->Bind( wxEVT_BUTTON, 
+        &TransferListPage::onClearHistoryClicked, this );
     Bind( wxEVT_THREAD, &TransferListPage::onUpdateStatus, this );
+    m_opList->Bind( EVT_UPDATE_EMPTY_STATE, 
+        &TransferListPage::onUpdateEmptyState, this );
 }
 
 wxString TransferListPage::getTargetId() const
@@ -186,6 +189,11 @@ void TransferListPage::onClearHistoryClicked( wxCommandEvent& event )
         m_opList->updateTimeGroups();
         m_opList->updateLayout();
     }
+}
+
+void TransferListPage::onUpdateEmptyState( wxCommandEvent& event )
+{
+    m_historyBtn->Enable( event.GetInt() > 0 );
 }
 
 void TransferListPage::onStateChanged()

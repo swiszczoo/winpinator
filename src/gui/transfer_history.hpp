@@ -18,6 +18,8 @@
 namespace gui
 {
 
+wxDECLARE_EVENT( EVT_UPDATE_EMPTY_STATE, wxCommandEvent );
+
 class ScrolledTransferHistory : 
     public wxScrolledWindow, srv::IServiceObserver, public ScrollableRestorable
 {
@@ -91,6 +93,7 @@ private:
     void onMouseMotion( wxMouseEvent& event );
     void onDpiChanged( wxDPIChangedEvent& event );
     void onThreadEvent( wxThreadEvent& event );
+    void onHistoryItemRemoved( wxCommandEvent& event );
 
     // Observer methods
     virtual void onStateChanged() override;

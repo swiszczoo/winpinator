@@ -7,6 +7,8 @@
 #include <wx/msw/uxtheme.h>
 #endif
 
+#include <wx/filename.h>
+
 #include <chrono>
 #include <iomanip>
 #include <sstream>
@@ -215,6 +217,45 @@ wxString Utils::formatDate( uint64_t timestamp, std::string format )
     std::string output = ss.str();
 
     return output;
+}
+
+void Utils::openDirectoryInExplorer( const wxString& directory )
+{
+    const wchar_t* command[] = {
+        L"explorer",
+        directory.wc_str(),
+        NULL
+    };
+
+    wxExecute( command, wxEXEC_ASYNC, NULL );
+}
+
+bool Utils::openExplorerWithSelectedFiles(
+    const wxString& parentDirectory, const std::vector<wxString>& children )
+{
+    ITEMIDLIST* dir = ILCreateFromPathW( parentDirectory.wc_str() );
+    std::vector<ITEMIDLIST*> items;
+
+    for ( const wxString& file : children )
+    {
+        wxFileName filename( parentDirectory, file );
+
+        if ( filename.Exists() )
+        {
+            items.push_back( ILCreateFromPathW( filename.GetFullPath().wc_str() ) );
+        }
+    }
+
+    HRESULT res = SHOpenFolderAndSelectItems( dir, items.size(), 
+        (const ITEMIDLIST**)items.data(), 0 );
+
+    ILFree( dir );
+    for ( ITEMIDLIST* item : items )
+    {
+        ILFree( item );
+    }
+
+    return res == S_OK;
 }
 
 };

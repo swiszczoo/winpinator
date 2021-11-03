@@ -111,6 +111,6 @@ TEST_F( UnixPermissionsTest, expectElfHeaderDetectingWorks )
     data = '\x7f' + (std::string)"ELF";
     EXPECT_TRUE( UnixPermissions::checkElfHeader( data.data(), data.size() ) );
 
-    data = '\x7f' + ( std::string ) "ELFsdfgkjhsdfhhfasduihuiasdhuiahsdfuifd";
+    data = '\x7f' + (std::string)"ELFsdfgkjhsdfhhfasduihuiasdhuiahsdfuifd";
     EXPECT_TRUE( UnixPermissions::checkElfHeader( data.data(), data.size() ) );
 }

@@ -14,6 +14,8 @@
 namespace gui
 {
 
+wxDEFINE_EVENT( EVT_UPDATE_EMPTY_STATE, wxCommandEvent );
+
 const std::vector<wxString> ScrolledTransferHistory::TIME_SPECS = {
     wxTRANSLATE( "Soon in the future" ),
     wxTRANSLATE( "Today" ),
@@ -124,6 +126,7 @@ ScrolledTransferHistory::ScrolledTransferHistory( wxWindow* parent,
     Bind( wxEVT_MOTION, &ScrolledTransferHistory::onMouseMotion, this );
     Bind( wxEVT_DPI_CHANGED, &ScrolledTransferHistory::onDpiChanged, this );
     Bind( wxEVT_THREAD, &ScrolledTransferHistory::onThreadEvent, this );
+    Bind( EVT_REMOVE, &ScrolledTransferHistory::onHistoryItemRemoved, this );
 }
 
 void ScrolledTransferHistory::updateLayout()
@@ -390,6 +393,7 @@ void ScrolledTransferHistory::updateTimeGroups()
 
     std::time_t tim = time( NULL );
     bool anyElement = false;
+    bool anyHistoryElement = false;
 
     for ( int i = 0; i < m_timeGroups.size(); i++ )
     {
@@ -528,6 +532,7 @@ void ScrolledTransferHistory::updateTimeGroups()
             group.header->SetLabel( fmt );
 
             anyElement = true;
+            anyHistoryElement = true;
         }
     }
 
@@ -561,6 +566,10 @@ void ScrolledTransferHistory::updateTimeGroups()
         {
             m_emptyLabel->Hide();
         }
+
+        wxCommandEvent evnt( EVT_UPDATE_EMPTY_STATE );
+        evnt.SetInt( anyHistoryElement ? 1 : 0 );
+        wxPostEvent( this, evnt );
     }
     else
     {
@@ -568,6 +577,10 @@ void ScrolledTransferHistory::updateTimeGroups()
         {
             m_emptyLabel->Show();
         }
+
+        wxCommandEvent evnt( EVT_UPDATE_EMPTY_STATE );
+        evnt.SetInt( 0 );
+        wxPostEvent( this, evnt );
     }
 }
 
@@ -641,6 +654,12 @@ void ScrolledTransferHistory::onThreadEvent( wxThreadEvent& event )
         break;
     }
     }
+}
+
+void ScrolledTransferHistory::onHistoryItemRemoved( wxCommandEvent& event )
+{
+    updateTimeGroups();
+    m_mainSizer->FitInside( this );
 }
 
 void ScrolledTransferHistory::saveScrollPosition()

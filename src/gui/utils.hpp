@@ -37,6 +37,10 @@ public:
     static wxString fileSizeToString( long long bytes );
     static wxString formatDate( uint64_t timestamp, std::string format );
 
+    static void openDirectoryInExplorer( const wxString& directory );
+    static bool openExplorerWithSelectedFiles(
+        const wxString& parentDirectory, const std::vector<wxString>& children );
+
 private:
     // We need a friend to create a unique_ptr
     friend std::unique_ptr<Utils> std::make_unique<Utils>();
