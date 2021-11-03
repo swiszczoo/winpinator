@@ -26,6 +26,9 @@ public:
     void setOverwriteNeeded( bool required );
     bool isOverwriteNeeded() const;
 
+    void setShowActions( bool showActions );
+    bool isShowingActions() const;
+
     virtual WinToastLib::WinToastTemplate buildTemplate() override;
     virtual WinToastLib::IWinToastHandler* instantiateListener() override;
 
@@ -60,6 +63,7 @@ private:
     bool m_isSingleFolder;
     int m_elementCount;
     bool m_overwriteNeeded;
+    bool m_showActions;
 };
 
 };

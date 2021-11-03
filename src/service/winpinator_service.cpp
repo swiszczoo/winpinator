@@ -274,6 +274,9 @@ void WinpinatorService::serviceMain()
         }
     }
 
+    // Update group auth code
+    AuthManager::get()->updateGroupCode( m_settings.groupCode.ToStdWstring() );
+
     // Initialize remote manager
     m_remoteMgr = std::make_shared<RemoteManager>( this );
     m_remoteMgr->setServiceType( WinpinatorService::SERVICE_TYPE );
@@ -285,6 +288,8 @@ void WinpinatorService::serviceMain()
     m_transferMgr->setCompressionLevel(
         m_settings.useCompression ? m_settings.zlibCompressionLevel : 0 );
     m_transferMgr->setDatabaseManager( m_db );
+    m_transferMgr->setMustAllowIncoming( m_settings.askReceiveFiles );
+    m_transferMgr->setMustAllowOverwrite( m_settings.askOverwriteFiles );
 
     m_remoteMgr->setTransferManager( m_transferMgr.get() );
 

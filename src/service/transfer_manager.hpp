@@ -38,6 +38,12 @@ public:
 
     void setCompressionLevel( int level );
     int getCompressionLevel();
+    
+    void setMustAllowIncoming( bool must );
+    bool getMustAllowIncoming();
+
+    void setMustAllowOverwrite( bool must );
+    bool getMustAllowOverwrite();
 
     void stop();
 
@@ -117,6 +123,9 @@ private:
     std::mutex m_mtx;
     std::wstring m_outputPath;
     int m_compressionLevel;
+    bool m_mustAllowIncoming;
+    bool m_mustAllowOverwrite;
+
     TransferOp m_empty;
 
     std::map<std::string, std::vector<TransferOpPtr>> m_transfers;
@@ -125,7 +134,8 @@ private:
     void checkTransferMustOverwrite( TransferOp& op );
     void setTransferTimestamp( TransferOp& op );
     void setUpPauseLock( TransferOp& op );
-    void sendNotifications( const std::string& remoteId, TransferOp& op );
+    void sendNotifications( const std::string& remoteId, TransferOp& op,
+        bool actionRequired );
 
     TransferOpPtr getTransferInfo( const std::string& remoteId, int transferId );
     TransferOpPtr getTransferByTimestamp(
@@ -141,7 +151,10 @@ private:
     void sendFailureNotification( const std::string& remoteId, 
         const std::wstring& senderName );
 
+    void doReplyAllowTransfer( const std::string& remoteId,
+        int transferId, bool allow );
     void doFinishTransfer( const std::string& remoteId, int transferId );
+
     db::TransferStatus getOpStatus( const TransferOpPtr op );
     db::TransferType getOpType( const TransferOpPtr op );
 };

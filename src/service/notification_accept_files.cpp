@@ -18,6 +18,7 @@ AcceptFilesNotification::AcceptFilesNotification(
     , m_isSingleFolder( false )
     , m_elementCount( 0 )
     , m_overwriteNeeded( false )
+    , m_showActions( true )
 {
 }
 
@@ -71,6 +72,16 @@ bool AcceptFilesNotification::isOverwriteNeeded() const
     return m_overwriteNeeded;
 }
 
+void AcceptFilesNotification::setShowActions( bool show )
+{
+    m_showActions = show;
+}
+
+bool AcceptFilesNotification::isShowingActions() const
+{
+    return m_showActions;
+}
+
 WinToastLib::WinToastTemplate AcceptFilesNotification::buildTemplate()
 {
     using namespace WinToastLib;
@@ -116,15 +127,18 @@ WinToastLib::WinToastTemplate AcceptFilesNotification::buildTemplate()
     }
 
     templ.setTextField( secondLine.ToStdWstring(), WinToastTemplate::SecondLine );
-    if ( m_overwriteNeeded )
+    if ( m_showActions )
     {
-        templ.addAction( _( "Overwrite" ).ToStdWstring() );
-        templ.addAction( _( "Cancel" ).ToStdWstring() );
-    }
-    else
-    {
-        templ.addAction( _( "Accept" ).ToStdWstring() );
-        templ.addAction( _( "Decline" ).ToStdWstring() );
+        if ( m_overwriteNeeded )
+        {
+            templ.addAction( _( "Overwrite" ).ToStdWstring() );
+            templ.addAction( _( "Cancel" ).ToStdWstring() );
+        }
+        else
+        {
+            templ.addAction( _( "Accept" ).ToStdWstring() );
+            templ.addAction( _( "Decline" ).ToStdWstring() );
+        }
     }
     templ.setImagePath( iconName.GetFullPath().ToStdWstring() );
 

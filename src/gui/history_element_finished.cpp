@@ -253,6 +253,10 @@ void HistoryFinishedElement::onShowInExplorerClicked( wxCommandEvent& event )
 
     if ( minDirs == INT_MAX )
     {
+        wxMessageBox(
+            _( "Files and directories from this transfer "
+               "no longer exist on the hard drive." ),
+            _( "Can't show element" ), wxICON_EXCLAMATION );
         return;
     }
 
@@ -422,7 +426,7 @@ void HistoryFinishedElement::openElement()
     if ( !succeed )
     {
         wxMessageBox(
-            _( "Selected element does no longer exist on the hard drive." ),
+            _( "Selected element no longer exists on the hard drive." ),
             _( "Can't open element" ), wxICON_EXCLAMATION );
     }
 }

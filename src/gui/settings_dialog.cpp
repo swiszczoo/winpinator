@@ -93,7 +93,7 @@ void SettingsDialog::createGeneralPage()
         _( "Start with main window open" ) );
     sizer->Add( m_openWindowOnStart, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 5 ) );
+    sizer->AddSpacer( FromDIP( 10 ) );
 
     m_autorun = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Start automatically (on system startup)" ) );
@@ -137,7 +137,7 @@ void SettingsDialog::createGeneralPage()
     m_outputDir = new wxDirPickerCtrl( m_panelGeneral, wxID_ANY, wxEmptyString );
     sizer->Add( m_outputDir, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 5 ) );
+    sizer->AddSpacer( FromDIP( 8 ) );
 
     m_askReceiveFiles = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Require approval before accepting files" ) );

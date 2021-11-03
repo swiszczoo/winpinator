@@ -89,6 +89,34 @@ int TransferManager::getCompressionLevel()
     return m_compressionLevel;
 }
 
+void TransferManager::setMustAllowIncoming( bool must )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    m_mustAllowIncoming = must;
+}
+
+bool TransferManager::getMustAllowIncoming()
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    return m_mustAllowIncoming;
+}
+
+void TransferManager::setMustAllowOverwrite( bool must )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    m_mustAllowOverwrite = must;
+}
+
+bool TransferManager::getMustAllowOverwrite()
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    return m_mustAllowOverwrite;
+}
+
 void TransferManager::stop()
 {
     std::lock_guard<std::mutex> guard( m_mtx );
@@ -106,24 +134,48 @@ void TransferManager::registerTransfer( const std::string& remoteId,
         m_lastId++;
     }
 
-    std::lock_guard<std::mutex> lock( *transfer.mutex );
+    bool autostart = false;
 
-    transfer.meta.sentBytes = 0;
-
-    transfer.intern.fileCount = 0;
-    transfer.intern.dirCount = 0;
-
-    checkTransferDiskSpace( transfer );
-    checkTransferMustOverwrite( transfer );
-    setTransferTimestamp( transfer );
-    setUpPauseLock( transfer );
-    sendNotifications( remoteId, transfer );
-
-    if ( firstTry )
     {
-        m_transfers[remoteId].push_back( std::make_shared<TransferOp>( transfer ) );
+        std::lock_guard<std::mutex> lock( *transfer.mutex );
+
+        transfer.meta.sentBytes = 0;
+
+        transfer.intern.fileCount = 0;
+        transfer.intern.dirCount = 0;
+
+        checkTransferDiskSpace( transfer );
+        checkTransferMustOverwrite( transfer );
+        setTransferTimestamp( transfer );
+        setUpPauseLock( transfer );
+
+        if ( !transfer.outcoming )
+        {
+            if ( !m_mustAllowIncoming )
+            {
+                autostart = true;
+            }
+            else if ( !m_mustAllowOverwrite && transfer.meta.mustOverwrite )
+            {
+                autostart = true;
+            }
+        }
+
+        sendNotifications( remoteId, transfer, !autostart );
+
+        if ( firstTry )
+        {
+            m_transfers[remoteId].push_back( 
+                std::make_shared<TransferOp>( transfer ) );
+        }
     }
 
+    if ( autostart )
+    {
+        doReplyAllowTransfer( remoteId, transfer.id, true );
+    }
+
+    std::lock_guard<std::mutex> lock( *transfer.mutex );
     m_srv->notifyObservers(
         [this, &remoteId, &transfer]( srv::IServiceObserver* observer )
         { observer->onAddTransfer( remoteId, transfer ); } );
@@ -134,27 +186,7 @@ void TransferManager::replyAllowTransfer( const std::string& remoteId,
 {
     std::lock_guard<std::mutex> guard( m_mtx );
 
-    TransferOpPtr op = getTransferInfo( remoteId, transferId );
-
-    if ( !op )
-    {
-        return;
-    }
-
-    std::unique_lock<std::mutex> lock( *op->mutex );
-    if ( op->status == OpStatus::WAITING_PERMISSION )
-    {
-        if ( allow && !op->outcoming )
-        {
-            lock.unlock();
-            processStartTransfer( remoteId, op );
-        }
-        else if ( !allow )
-        {
-            lock.unlock();
-            processDeclineTransfer( remoteId, op );
-        }
-    }
+    doReplyAllowTransfer( remoteId, transferId, allow );
 }
 
 void TransferManager::cancelTransferRequest( const std::string& remoteId,
@@ -483,7 +515,7 @@ void TransferManager::setUpPauseLock( TransferOp& op )
 }
 
 void TransferManager::sendNotifications( const std::string& remoteId,
-    TransferOp& op )
+    TransferOp& op, bool actionRequired )
 {
     if ( !op.outcoming )
     {
@@ -493,6 +525,8 @@ void TransferManager::sendNotifications( const std::string& remoteId,
         notif->setElementCount( op.topDirBasenamesUtf8.size() );
         notif->setIsSingleFolder( op.mimeIfSingleUtf8 == "inode/directory" );
         notif->setOverwriteNeeded( op.meta.mustOverwrite );
+        notif->setShowActions( actionRequired );
+
         if ( op.topDirBasenamesUtf8.size() == 1 )
         {
             notif->setSingleElementName(
@@ -664,6 +698,32 @@ void TransferManager::sendFailureNotification( const std::string& remoteId,
     evnt.eventData.toastData = notif;
 
     Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
+}
+
+void TransferManager::doReplyAllowTransfer( const std::string& remoteId,
+    int transferId, bool allow )
+{
+    TransferOpPtr op = getTransferInfo( remoteId, transferId );
+
+    if ( !op )
+    {
+        return;
+    }
+
+    std::unique_lock<std::mutex> lock( *op->mutex );
+    if ( op->status == OpStatus::WAITING_PERMISSION )
+    {
+        if ( allow && !op->outcoming )
+        {
+            lock.unlock();
+            processStartTransfer( remoteId, op );
+        }
+        else if ( !allow )
+        {
+            lock.unlock();
+            processDeclineTransfer( remoteId, op );
+        }
+    }
 }
 
 void TransferManager::doFinishTransfer( const std::string& remoteId,

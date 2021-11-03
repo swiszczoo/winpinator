@@ -129,9 +129,15 @@ wxString TransferManager::StartTransferReactor::getAbsolutePath(
         return wxEmptyString;
     }
 
-    // TODO: ensure we're not escaping output directory with ..
+    wxString fullPath = fname.GetFullPath();
 
-    return fname.GetFullPath();
+    if ( !fullPath.Contains( outputPath ) )
+    {
+        // We've been probably tricked to save outside the output path
+        return wxEmptyString;
+    }
+
+    return fullPath;
 }
 
 void TransferManager::StartTransferReactor::updatePaths()
