@@ -283,6 +283,9 @@
     <ClInclude Include="..\src\service\notification_transfer_failed.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\file_list_dialog.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -473,6 +476,9 @@
     </ClCompile>
     <ClCompile Include="..\src\service\notification_transfer_failed.cpp">
       <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\file_list_dialog.cpp">
+      <Filter>Sources\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

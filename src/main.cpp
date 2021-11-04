@@ -39,8 +39,6 @@ WinpinatorApp::WinpinatorApp()
     m_config = std::unique_ptr<wxConfigBase>( wxConfigBase::Create() );
     m_settings.loadFrom( m_config.get() );
 
-    m_locale.AddCatalog( "locales" );
-
     bool langInitialized = false;
     const wxLanguageInfo* langInfo = wxLocale::FindLanguageInfo(
         m_settings.localeName );
@@ -59,6 +57,19 @@ WinpinatorApp::WinpinatorApp()
         // Fall back to English (United States)
         m_locale.Init( wxLANGUAGE_ENGLISH_US );
     }
+
+    // HACK: for some reason, wx tries to look for locales relatively to
+    // current working directory
+    wxString dummy = wxGetCwd();
+
+    wxFileName exeFileName( wxStandardPaths::Get().GetExecutablePath() );
+    exeFileName.SetFullName( "" );
+    exeFileName.SetCwd();
+
+    m_locale.AddCatalogLookupPathPrefix( "locales" );
+    m_locale.AddCatalog( "winpinator" );
+
+    wxSetWorkingDirectory( dummy );
 
     // Events
 

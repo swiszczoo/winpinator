@@ -141,7 +141,7 @@
       <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)"</Command>
+      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)" "$(ProjectDir)..\src"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -165,7 +165,7 @@
       <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)"</Command>
+      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)" "$(ProjectDir)..\src"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|Win32'">
@@ -191,7 +191,7 @@
       <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)"</Command>
+      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)" "$(ProjectDir)..\src"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -210,7 +210,7 @@
       <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)"</Command>
+      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)" "$(ProjectDir)..\src"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -234,7 +234,7 @@
       <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)"</Command>
+      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)" "$(ProjectDir)..\src"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|x64'">
@@ -260,7 +260,7 @@
       <AdditionalDependencies>WSock32.Lib;Iphlpapi.lib;ws2_32.lib;sensapi.lib;Secur32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)"</Command>
+      <Command>$(ProjectDir)..\build\post_compile.bat "$(ProjectDir)..\res\to_copy" "$(OutDir)" "$(ProjectDir)..\src"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -274,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\globals.hpp" />
+    <ClInclude Include="..\src\gui\file_list_dialog.hpp" />
     <ClInclude Include="..\src\gui\history_element_finished.hpp" />
     <ClInclude Include="..\src\gui\history_item_icon.hpp" />
     <ClInclude Include="..\src\gui\history_element_pending.hpp" />
@@ -349,6 +350,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\globals.cpp" />
+    <ClCompile Include="..\src\gui\file_list_dialog.cpp" />
     <ClCompile Include="..\src\gui\history_element_finished.cpp" />
     <ClCompile Include="..\src\gui\history_item_icon.cpp" />
     <ClCompile Include="..\src\gui\history_element_pending.cpp" />

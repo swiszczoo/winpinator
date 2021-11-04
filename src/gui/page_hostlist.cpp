@@ -16,11 +16,11 @@ namespace gui
 wxDEFINE_EVENT( EVT_NO_HOSTS_IN_TIME, wxCommandEvent );
 wxDEFINE_EVENT( EVT_TARGET_SELECTED, wxCommandEvent );
 
-const wxString HostListPage::DETAILS = _(
+const wxString HostListPage::DETAILS = wxTRANSLATE(
     "Below is a list of currently available computers. "
     "Select the one you want to transfer your files to." );
 
-const wxString HostListPage::DETAILS_WRAPPED = _(
+const wxString HostListPage::DETAILS_WRAPPED = wxTRANSLATE(
     "Below is a list of currently available computers.\n"
     "Select the one you want to transfer your files to." );
 
@@ -52,7 +52,7 @@ HostListPage::HostListPage( wxWindow* parent )
     m_header->SetForegroundColour( Utils::get()->getHeaderColor() );
     headingSizerV->Add( m_header, 0, wxEXPAND | wxTOP, FromDIP( 25 ) );
 
-    m_details = new wxStaticText( this, wxID_ANY, HostListPage::DETAILS,
+    m_details = new wxStaticText( this, wxID_ANY, wxGetTranslation( DETAILS ),
         wxDefaultPosition, wxDefaultSize, wxST_ELLIPSIZE_END );
     headingSizerV->Add( m_details, 0, wxEXPAND | wxTOP | wxBOTTOM, FromDIP( 4 ) );
 
@@ -157,15 +157,15 @@ void HostListPage::onDpiChanged( wxDPIChangedEvent& event )
 
 void HostListPage::onLabelResized( wxSizeEvent& event )
 {
-    int textWidth = m_details->GetTextExtent( HostListPage::DETAILS ).x;
+    int textWidth = m_details->GetTextExtent( wxGetTranslation( DETAILS ) ).x;
 
     if ( textWidth > m_details->GetSize().x )
     {
-        m_details->SetLabel( HostListPage::DETAILS_WRAPPED );
+        m_details->SetLabel( wxGetTranslation( DETAILS_WRAPPED ) );
     }
     else
     {
-        m_details->SetLabel( HostListPage::DETAILS );
+        m_details->SetLabel( wxGetTranslation( DETAILS ) );
     }
 
     event.Skip();

@@ -8,8 +8,8 @@
 namespace gui
 {
 
-const wxString NoHostsPage::TEXT = _( "There are no other computers"
-    " found on your network..." );
+const wxString NoHostsPage::TEXT = wxTRANSLATE( "There are no other computers"
+                                                " found on your network..." );
 
 NoHostsPage::NoHostsPage( wxWindow* parent )
     : wxPanel( parent, wxID_ANY )
@@ -26,7 +26,7 @@ NoHostsPage::NoHostsPage( wxWindow* parent )
     loadIcon();
     mainSizer->Add( m_icon, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 8 );
 
-    m_label = new wxStaticText( this, wxID_ANY, NoHostsPage::TEXT );
+    m_label = new wxStaticText( this, wxID_ANY, wxGetTranslation( TEXT ) );
     wxFont labelFnt = m_label->GetFont();
     labelFnt.MakeLarger();
     labelFnt.MakeLarger();

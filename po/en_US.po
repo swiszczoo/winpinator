@@ -1,0 +1,821 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-04 00:39+0100\n"
+"PO-Revision-Date: 2021-11-04 00:44+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\tray_icon.cpp:34
+msgid "Winpinator (Error!)"
+msgstr "Winpinator (Error!)"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\tray_icon.cpp:42
+msgid "Winpinator (Waiting...)"
+msgstr "Winpinator (Waiting...)"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\tray_icon.cpp:50
+msgid "Winpinator (Running)"
+msgstr "Winpinator (Running)"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\tray_icon.cpp:77
+msgid "&Restore window"
+msgstr "&Restore window"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\tray_icon.cpp:78
+msgid "Restore main app window"
+msgstr "Restore main app window"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\tray_icon.cpp:80
+msgid "&Open save folder"
+msgstr "&Open save folder"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\tray_icon.cpp:81
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:112
+msgid "Open the incoming files folder in Explorer"
+msgstr "Open the incoming files folder in Explorer"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\tray_icon.cpp:82
+msgid "E&xit"
+msgstr "E&xit"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\tray_icon.cpp:83
+msgid "Exit Winpinator and stop background service"
+msgstr "Exit Winpinator and stop background service"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:116
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:373
+msgid "Type:"
+msgstr "Type:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:117
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:374
+msgid "Total size:"
+msgstr "Total size:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:153
+msgid "Date and time:"
+msgstr "Date and time:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:169
+msgid "%Y-%m-%d %I:%M %p"
+msgstr "%Y-%m-%d %I:%M %p"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:184
+msgid "&Open "
+msgstr "&Open "
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:185
+msgid "Show in &Explorer..."
+msgstr "Show in &Explorer..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:186
+msgid "Show &list of transferred files..."
+msgstr "Show &list of transferred files..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:188
+msgid "&Remove from history"
+msgstr "&Remove from history"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:257
+msgid ""
+"Files and directories from this transfer no longer exist on the hard drive."
+msgstr ""
+"Files and directories from this transfer no longer exist on the hard drive."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:259
+msgid "Can't show element"
+msgstr "Can't show element"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:339
+msgid "Completed"
+msgstr "Completed"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:341
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:343
+msgid "Error occurred"
+msgstr "Error occurred"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:345
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\utils.cpp:144
+msgid "Unknown"
+msgstr "Unknown"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:429
+msgid "Selected element no longer exists on the hard drive."
+msgstr "Selected element no longer exists on the hard drive."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_finished.cpp:430
+msgid "Can't open element"
+msgstr "Can't open element"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:57
+msgid "Over&write"
+msgstr "Over&write"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:60
+msgid "&Cancel"
+msgstr "&Cancel"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:63
+msgid "&Accept"
+msgstr "&Accept"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:66
+msgid "&Decline"
+msgstr "&Decline"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:72
+msgid "&Stop"
+msgstr "&Stop"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:176
+msgid "calculating remaining time"
+msgstr "calculating remaining time"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:180
+msgid "a few seconds remaining"
+msgstr "a few seconds remaining"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:214
+msgid "many days remaining"
+msgstr "many days remaining"
+
+#. TRANSLATORS: this is a format string for transfer speed,
+#. the %s part will be replaced with appropriate file size equivalent,
+#. e.g. 25,4MB or 32,6KB
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:220
+#, c-format
+msgid "%s/s"
+msgstr "%s/s"
+
+#. TRANSLATORS: the subsequent %s placeholders stand for:
+#. current sent bytes, transfer total size, transfer speed, remaining time
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:226
+#, c-format
+msgid "%s of %s ἢ %s ἢ %s"
+msgstr "%s of %s ἢ %s ἢ %s"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:250
+msgid "999.9MB of 999.9MB ἢ 999.9MB/s ἢ a few seconds remaining"
+msgstr "999.9MB of 999.9MB ἢ 999.9MB/s ἢ a few seconds remaining"
+
+#. TRANSLATORS: %s stands for full name of the peer
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:281
+#, c-format
+msgid "%s is sending you files:"
+msgstr "%s is sending you files:"
+
+#. TRANSLATORS: %s stands for full name of the peer
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:292
+#, c-format
+msgid "Awaiting approval from %s..."
+msgstr "Awaiting approval from %s..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:300
+msgid "This request will overwrite one or more files!"
+msgstr "This request will overwrite one or more files!"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:310
+msgid "R&esume"
+msgstr "R&esume"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:322
+msgid "&Pause"
+msgstr "&Pause"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:334
+msgid "Not enough disk space! Files cannot be received!"
+msgstr "Not enough disk space! Files cannot be received!"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:149
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:258
+msgid "Empty"
+msgstr "Empty"
+
+#. TRANSLATORS: format string, e.g. <2 folders> and <5 files>
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:188
+#, c-format
+msgid "%s and %s"
+msgstr "%s and %s"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:266
+msgid "File"
+msgstr "File"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:270
+msgid "Multiple files"
+msgstr "Multiple files"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:277
+msgid "Folder"
+msgstr "Folder"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:281
+msgid "Multiple folders"
+msgstr "Multiple folders"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:286
+msgid "Mixed elements"
+msgstr "Mixed elements"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\host_listbox.cpp:159
+msgid "Hostname:"
+msgstr "Hostname:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\host_listbox.cpp:160
+msgid "IP Address:"
+msgstr "IP Address:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\host_listbox.cpp:184
+msgid "OS:"
+msgstr "OS:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\host_listbox.cpp:185
+msgid "Connection:"
+msgstr "Connection:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:13
+msgid "A fatal error occurred while trying to start the service!"
+msgstr "A fatal error occurred while trying to start the service!"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:53
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_nohosts.cpp:36
+msgid "Try again"
+msgstr "Try again"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:59
+msgid "Open settings"
+msgstr "Open settings"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:130
+msgid "No error."
+msgstr "No error."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:133
+msgid "Unknown error!"
+msgstr "Unknown error!"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:137
+msgid ""
+"Can't create mDNS server! Maybe another running app is holding exclusive "
+"access to appropriate port?"
+msgstr ""
+"Can't create mDNS server! Maybe another running app is holding exclusive "
+"access to appropriate port?"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:142
+msgid ""
+"Can't create registration service (for compatibility mode). Maybe there's "
+"another instance of Winpinator running on your computer, e.g. started by "
+"another user? You can always try to change ports in the settings."
+msgstr ""
+"Can't create registration service (for compatibility mode). Maybe there's "
+"another instance of Winpinator running on your computer, e.g. started by "
+"another user? You can always try to change ports in the settings."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:149
+msgid ""
+"Can't create registration service. Maybe there's another instance of "
+"Winpinator running on your computer, e.g. started by another user? You can "
+"always try to change ports in the settings."
+msgstr ""
+"Can't create registration service. Maybe there's another instance of "
+"Winpinator running on your computer, e.g. started by another user? You can "
+"always try to change ports in the settings."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:156
+msgid ""
+"Can't create main service. Maybe there's another instance of Winpinator "
+"running on your computer, e.g. started by another user? You can always try "
+"to change ports in the settings."
+msgstr ""
+"Can't create main service. Maybe there's another instance of Winpinator "
+"running on your computer, e.g. started by another user? You can always try "
+"to change ports in the settings."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:163
+msgid ""
+"Output directory you provided in the settings does not exist. Winpinator "
+"failed to create one."
+msgstr ""
+"Output directory you provided in the settings does not exist. Winpinator "
+"failed to create one."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_error.cpp:169
+msgid "Missing description"
+msgstr "Missing description"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_hostlist.cpp:20
+msgid ""
+"Below is a list of currently available computers. Select the one you want to "
+"transfer your files to."
+msgstr ""
+"Below is a list of currently available computers. Select the one you want to "
+"transfer your files to."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_hostlist.cpp:24
+msgid ""
+"Below is a list of currently available computers.\n"
+"Select the one you want to transfer your files to."
+msgstr ""
+"Below is a list of currently available computers.\n"
+"Select the one you want to transfer your files to."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_hostlist.cpp:50
+msgid "Select where to send your files"
+msgstr "Select where to send your files"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_hostlist.cpp:62
+msgid "Refresh list"
+msgstr "Refresh list"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_hostlist.cpp:78
+msgid "Searching for computers on your network..."
+msgstr "Searching for computers on your network..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_hostlist.cpp:83
+msgid "&Next >"
+msgstr "&Next >"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_hostlist.cpp:346
+msgid "Data unavailable"
+msgstr "Data unavailable"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_hostlist.cpp:355
+msgid "Loading..."
+msgstr "Loading..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_nohosts.cpp:11
+msgid "There are no other computers found on your network..."
+msgstr "There are no other computers found on your network..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_offline.cpp:10
+msgid "It seems you're offline! Check your LAN connection..."
+msgstr "It seems you're offline! Check your LAN connection..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_starting.cpp:22
+msgid "Starting Winpinator..."
+msgstr "Starting Winpinator..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_transferlist.cpp:37
+msgid "Select files or directories to start transfer"
+msgstr "Select files or directories to start transfer"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_transferlist.cpp:43
+msgid ""
+"Drop elements you want to send into the box below or click one of the "
+"buttons."
+msgstr ""
+"Drop elements you want to send into the box below or click one of the "
+"buttons."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_transferlist.cpp:49
+msgid "Go back"
+msgstr "Go back"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_transferlist.cpp:55
+msgid "Send file(s)..."
+msgstr "Send file(s)..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_transferlist.cpp:59
+msgid "Send a folder..."
+msgstr "Send a folder..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_transferlist.cpp:65
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_transferlist.cpp:179
+msgid "Clear history"
+msgstr "Clear history"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_transferlist.cpp:179
+msgid "Are you sure you want to clear entire history for this device?"
+msgstr "Are you sure you want to clear entire history for this device?"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\page_transferlist.cpp:181
+msgid "This operation cannot be undone!"
+msgstr "This operation cannot be undone!"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\permission_picker.cpp:32
+msgid "Read"
+msgstr "Read"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\permission_picker.cpp:34
+msgid "Write"
+msgstr "Write"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\permission_picker.cpp:37
+msgid "List"
+msgstr "List"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\permission_picker.cpp:37
+msgid "Execute"
+msgstr "Execute"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\permission_picker.cpp:40
+msgid "Owner"
+msgstr "Owner"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\permission_picker.cpp:46
+msgid "Group"
+msgstr "Group"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\permission_picker.cpp:52
+msgid "Others"
+msgstr "Others"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:12
+msgid "Preferences"
+msgstr "Preferences"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:28
+msgid "General"
+msgstr "General"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:29
+msgid "Unix permissions"
+msgstr "Unix permissions"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:30
+msgid "Connection"
+msgstr "Connection"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:66
+msgid "Interface"
+msgstr "Interface"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:73
+msgid "Language (requires restart to take effect):"
+msgstr "Language (requires restart to take effect):"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:85
+msgid "Desktop"
+msgstr "Desktop"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:93
+msgid "Start with main window open"
+msgstr "Start with main window open"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:99
+msgid "Start automatically (on system startup)"
+msgstr "Start automatically (on system startup)"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:105
+msgid "Do not show main window on system startup"
+msgstr "Do not show main window on system startup"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:110
+msgid "File transfers"
+msgstr "File transfers"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:118
+msgid "Use compression (if available)"
+msgstr "Use compression (if available)"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:124
+msgid "Compression level:"
+msgstr "Compression level:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:132
+msgid "Location for received files:"
+msgstr "Location for received files:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:143
+msgid "Require approval before accepting files"
+msgstr "Require approval before accepting files"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:149
+msgid "Require approval when files would be overwritten"
+msgstr "Require approval when files would be overwritten"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:163
+msgid "File permissions:"
+msgstr "File permissions:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:170
+msgid "Executable permissions:"
+msgstr "Executable permissions:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:177
+msgid "Folder permissions:"
+msgstr "Folder permissions:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:198
+msgid "Identification"
+msgstr "Identification"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:205
+msgid "Group code:"
+msgstr "Group code:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:216
+msgid "Network"
+msgstr "Network"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:224
+msgid "Network interface to use:"
+msgstr "Network interface to use:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:239
+msgid "Incoming port for transfers:"
+msgstr "Incoming port for transfers:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:248
+msgid "Incoming port for registration:"
+msgstr "Incoming port for registration:"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\settings_dialog.cpp:342
+msgid "Automatic"
+msgstr "Automatic"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:20
+msgid "Soon in the future"
+msgstr "Soon in the future"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:21
+msgid "Today"
+msgstr "Today"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:22
+msgid "Yesterday"
+msgstr "Yesterday"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:23
+msgid "Earlier this week"
+msgstr "Earlier this week"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:24
+msgid "Last week"
+msgstr "Last week"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:25
+msgid "Earlier this month"
+msgstr "Earlier this month"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:26
+msgid "Last month"
+msgstr "Last month"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:27
+msgid "Earlier this year"
+msgstr "Earlier this year"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:28
+msgid "Last year"
+msgstr "Last year"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:29
+msgid "A long time ago"
+msgstr "A long time ago"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:48
+msgid "There is no transfer history for this device..."
+msgstr "There is no transfer history for this device..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\transfer_history.cpp:60
+msgid "In progress"
+msgstr "In progress"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\utils.cpp:131
+msgid "Offline"
+msgstr "Offline"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\utils.cpp:133
+msgid "Registration in progress..."
+msgstr "Registration in progress..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\utils.cpp:135
+msgid "Connecting..."
+msgstr "Connecting..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\utils.cpp:137
+msgid "Host unreachable"
+msgstr "Host unreachable"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\utils.cpp:139
+msgid "Establishing duplex connection..."
+msgstr "Establishing duplex connection..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\utils.cpp:141
+msgid "Ready"
+msgstr "Ready"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_banner.cpp:159
+msgid "Share your files across the LAN"
+msgstr "Share your files across the LAN"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:19
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:245
+msgid "Winpinator"
+msgstr "Winpinator"
+
+#. TRANSLATORS: format string
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:63
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:282
+#, c-format
+msgid "IP: %s"
+msgstr "IP: %s"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:67
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:266
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:277
+msgid "Offline!"
+msgstr "Offline!"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:111
+msgid "&Open save folder...\tCtrl+O"
+msgstr "&Open save folder...\tCtrl+O"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:113
+msgid "&Preferences..."
+msgstr "&Preferences..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:114
+msgid "Adjust app preferences"
+msgstr "Adjust app preferences"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:116
+msgid "E&xit\tAlt+F4"
+msgstr "E&xit\tAlt+F4"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:117
+msgid "Close this window but let Winpinator run in background"
+msgstr "Close this window but let Winpinator run in background"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:119
+msgid "Exit and &stop the service\tCtrl+Alt+F4"
+msgstr "Exit and &stop the service\tCtrl+Alt+F4"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:120
+msgid "Exit Winpinator and stop being visible to other computers"
+msgstr "Exit Winpinator and stop being visible to other computers"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:122
+msgid "&File"
+msgstr "&File"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:125
+msgid "&Help topics...\tF1"
+msgstr "&Help topics...\tF1"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:126
+msgid "Show help and documentation of Winpinator"
+msgstr "Show help and documentation of Winpinator"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:127
+msgid "&What's new?..."
+msgstr "&What's new?..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:128
+msgid "Show release notes"
+msgstr "Show release notes"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:129
+msgid "&About Winpinator..."
+msgstr "&About Winpinator..."
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:130
+msgid "Show credits dialog"
+msgstr "Show credits dialog"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:132
+msgid "&Help"
+msgstr "&Help"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:247
+msgid ""
+"Winpinator is an unofficial port of an excellent file transfer tool "
+"Warpinator for Windows"
+msgstr ""
+"Winpinator is an unofficial port of an excellent file transfer tool "
+"Warpinator for Windows"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\winpinator_frame.cpp:249
+msgid "©2021 Łukasz Świszcz"
+msgstr "©2021 Łukasz Świszcz"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:91
+msgid "Incoming files"
+msgstr "Incoming files"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:100
+#, c-format
+msgid "%s is sending you a folder \"%s\""
+msgstr "%s is sending you a folder \"%s\""
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:110
+#, c-format
+msgid "%s is sending you %s"
+msgstr "%s is sending you %s"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:116
+#, c-format
+msgid "%s is sending you a file \"%s\""
+msgstr "%s is sending you a file \"%s\""
+
+#. TRANSLATORS: this string is appended to notification message
+#. if overwrite is needed, e.g.
+#. "A is sending you 5 files. Accepting this transfer..."
+#. The initial dot is necessary.
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:126
+msgid ". Accepting this transfer will overwrite some files!"
+msgstr ". Accepting this transfer will overwrite some files!"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:134
+msgid "Overwrite"
+msgstr "Overwrite"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:135
+msgid "Cancel"
+msgstr "Cancel"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:139
+msgid "Accept"
+msgstr "Accept"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:140
+msgid "Decline"
+msgstr "Decline"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_transfer_failed.cpp:33
+msgid "Transfer failure"
+msgstr "Transfer failure"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_transfer_failed.cpp:37
+#, c-format
+msgid "Some transfers between you and %s have failed unexpectedly!"
+msgstr "Some transfers between you and %s have failed unexpectedly!"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\service_utils.cpp:95
+msgid "Unknown OS"
+msgstr "Unknown OS"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:185
+#, c-format
+#| msgid "a few seconds remaining"
+msgid "%d sec remaining"
+msgid_plural "%d secs remaining"
+msgstr[0] "%d sec remaining"
+msgstr[1] "%d secs remaining"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:193
+#, c-format
+#| msgid "many days remaining"
+msgid "%d min remaining"
+msgid_plural "%d mins remaining"
+msgstr[0] "%d min remaining"
+msgstr[1] "%d mins remaining"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:201
+#, c-format
+#| msgid "many days remaining"
+msgid "%d hour remaining"
+msgid_plural "%d hours remaining"
+msgstr[0] "%d hour remaining"
+msgstr[1] "%d hours remaining"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_element_pending.cpp:209
+#, c-format
+#| msgid "many days remaining"
+msgid "%d day remaining"
+msgid_plural "%d days remaining"
+msgstr[0] "%d day remaining"
+msgstr[1] "%d days remaining"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:165
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\service\notification_accept_files.cpp:107
+#, c-format
+#| msgid "Mixed elements"
+msgid "%d element"
+msgid_plural "%d elements"
+msgstr[0] "%d element"
+msgstr[1] "%d elements"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:169
+#, c-format
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "%d file"
+msgstr[1] "%d files"
+
+#: C:\Users\lukas\Desktop\Projekty\Winpinator\src\gui\history_item_icon.cpp:172
+#, c-format
+#| msgid "Folder"
+msgid "%d folder"
+msgid_plural "%d folders"
+msgstr[0] "%d folder"
+msgstr[1] "%d folders"

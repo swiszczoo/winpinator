@@ -7,8 +7,8 @@
 namespace gui
 {
 
-wxString OfflinePage::TEXT = _( "It seems you're offline! Check your"
-    " LAN connection..." );
+wxString OfflinePage::TEXT = wxTRANSLATE( "It seems you're offline! Check your"
+                                          " LAN connection..." );
 
 OfflinePage::OfflinePage( wxWindow* parent )
     : wxPanel( parent, wxID_ANY )
@@ -24,7 +24,7 @@ OfflinePage::OfflinePage( wxWindow* parent )
     loadIcon();
     mainSizer->Add( m_icon, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 8 );
 
-    m_label = new wxStaticText( this, wxID_ANY, OfflinePage::TEXT, 
+    m_label = new wxStaticText( this, wxID_ANY, wxGetTranslation( TEXT ), 
         wxDefaultPosition, wxDefaultSize, wxELLIPSIZE_END );
     wxFont labelFont = m_label->GetFont();
     labelFont.MakeLarger();

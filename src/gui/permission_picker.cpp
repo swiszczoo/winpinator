@@ -20,14 +20,14 @@ PermissionPicker::PermissionPicker( wxWindow* parent, bool directory )
     m_labelCtrl->SetFont( font );
 
     wxGridSizer* grid = new wxGridSizer( 4, 4, FromDIP( wxSize( 0, 0 ) ) );
-
+    
     for ( int i = 0; i < 9; i++ )
     {
         m_checkboxes[i] = new wxCheckBox( this, wxID_ANY, wxEmptyString );
     }
 
     wxStaticText* label;
-    label = new wxStaticText( this, wxID_ANY, _( "" ) );
+    label = new wxStaticText( this, wxID_ANY, wxEmptyString );
     grid->Add( label, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL );
     label = new wxStaticText( this, wxID_ANY, _( "Read" ) );
     grid->Add( label, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL );

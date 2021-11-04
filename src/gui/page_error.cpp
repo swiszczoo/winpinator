@@ -10,8 +10,8 @@ namespace gui
 
 wxDEFINE_EVENT( EVT_OPEN_SETTINGS, wxCommandEvent );
 
-const wxString ErrorPage::TEXT = _( "A fatal error occurred while trying "
-                                        "to start the service!" );
+const wxString ErrorPage::TEXT = wxTRANSLATE( "A fatal error occurred while trying "
+                                              "to start the service!" );
 
 ErrorPage::ErrorPage( wxWindow* parent )
     : wxPanel( parent, wxID_ANY )
@@ -30,7 +30,7 @@ ErrorPage::ErrorPage( wxWindow* parent )
     loadIcon();
     mainSizer->Add( m_icon, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 8 );
 
-    m_label = new wxStaticText( this, wxID_ANY, ErrorPage::TEXT );
+    m_label = new wxStaticText( this, wxID_ANY, wxGetTranslation( TEXT ) );
     wxFont labelFnt = m_label->GetFont();
     labelFnt.MakeLarger();
     labelFnt.MakeLarger();
