@@ -1,6 +1,7 @@
 #pragma once
 #include "history_item_icon.hpp"
 #include "history_std_bitmaps.hpp"
+#include "pointer_event.hpp"
 
 #include "../service/database_types.hpp"
 
@@ -12,6 +13,8 @@ namespace gui
 typedef srv::db::Transfer TransferData;
 
 wxDECLARE_EVENT( EVT_REMOVE, wxCommandEvent );
+wxDECLARE_EVENT( EVT_OPEN_DIALOG, PointerEvent );
+wxDECLARE_EVENT( EVT_CLOSE_DIALOG, PointerEvent );
 
 class HistoryFinishedElement : public HistoryIconItem
 {
@@ -28,7 +31,7 @@ private:
 
     enum class MenuID
     {
-        ID_OPEN,
+        ID_OPEN = 1,
         ID_EXPLORER,
         ID_PATHS,
         ID_REMOVE

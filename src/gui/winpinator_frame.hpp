@@ -1,5 +1,6 @@
 #pragma once
 #include "../service/service_observer.hpp"
+#include "file_list_dialog.hpp"
 #include "screen_selector.hpp"
 #include "settings_dialog.hpp"
 #include "winpinator_banner.hpp"
@@ -31,6 +32,7 @@ private:
     WinpinatorBanner* m_banner;
     ScreenSelector* m_selector;
     SettingsDialog* m_settingsDlg;
+    std::shared_ptr<FileListDialog> m_fileListDlg;
 
     void setupMenuBar();
     void setupAccelTable();
@@ -49,6 +51,9 @@ private:
     void onAboutSelected();
 
     void onUpdateBannerTarget( PointerEvent& event );
+
+    void onDialogOpened( PointerEvent& event );
+    void onDialogClosed( PointerEvent& event );
 
     virtual void onStateChanged();
     virtual void onIpAddressChanged( std::string newIp );

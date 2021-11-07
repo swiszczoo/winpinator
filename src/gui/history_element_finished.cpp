@@ -1,6 +1,7 @@
 #include "history_element_finished.hpp"
 
 #include "../globals.hpp"
+#include "file_list_dialog.hpp"
 #include "utils.hpp"
 
 #include <wx/filename.h>
@@ -12,6 +13,8 @@ namespace gui
 {
 
 wxDEFINE_EVENT( EVT_REMOVE, wxCommandEvent );
+wxDEFINE_EVENT( EVT_OPEN_DIALOG, PointerEvent );
+wxDEFINE_EVENT( EVT_CLOSE_DIALOG, PointerEvent );
 
 HistoryFinishedElement::HistoryFinishedElement( wxWindow* parent,
     HistoryStdBitmaps* bitmaps )
@@ -320,6 +323,18 @@ void HistoryFinishedElement::onShowInExplorerClicked( wxCommandEvent& event )
 
 void HistoryFinishedElement::onShowListClicked( wxCommandEvent& event )
 {
+    auto dialog = std::make_shared<FileListDialog>( this );
+    dialog->setTransferData( m_data.id, m_data.targetId );
+
+    PointerEvent evt( EVT_OPEN_DIALOG );
+    evt.setSharedPointer( dialog );
+    wxPostEvent( this, evt );
+
+    dialog->ShowModal();
+
+    PointerEvent evt2( EVT_CLOSE_DIALOG );
+    evt2.setSharedPointer( dialog );
+    wxPostEvent( this, evt2 );
 }
 
 void HistoryFinishedElement::onRemoveClicked( wxCommandEvent& event )
@@ -421,6 +436,10 @@ void HistoryFinishedElement::openElement()
                 succeed = true;
             }
         }
+    }
+    else
+    {
+        succeed = true; // To disable message box
     }
 
     if ( !succeed )

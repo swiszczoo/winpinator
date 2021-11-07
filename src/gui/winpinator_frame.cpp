@@ -3,6 +3,7 @@
 #include "../../win32/resource.h"
 #include "../globals.hpp"
 #include "../main_base.hpp"
+#include "history_element_finished.hpp"
 #include "utils.hpp"
 
 #include <wx/aboutdlg.h>
@@ -22,6 +23,8 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     , m_helpMenu( nullptr )
     , m_statusBar( nullptr )
     , m_banner( nullptr )
+    , m_settingsDlg( nullptr )
+    , m_fileListDlg( nullptr )
 {
     SetSize( FromDIP( 800 ), FromDIP( 620 ) );
     SetMinSize( FromDIP( wxSize( 610, 400 ) ) );
@@ -79,6 +82,8 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
         &WinpinatorFrame::onUpdateBannerTarget, this );
     m_selector->Bind( EVT_OPEN_SETTINGS,
         &WinpinatorFrame::onSettingsClicked, this );
+    Bind( EVT_OPEN_DIALOG, &WinpinatorFrame::onDialogOpened, this );
+    Bind( EVT_CLOSE_DIALOG, &WinpinatorFrame::onDialogClosed, this );
 }
 
 bool WinpinatorFrame::showTransferScreen( const wxString& remoteId )
@@ -92,6 +97,11 @@ void WinpinatorFrame::killAllDialogs()
     if ( m_settingsDlg )
     {
         m_settingsDlg->EndModal( wxID_CANCEL );
+    }
+
+    if ( m_fileListDlg )
+    {
+        m_fileListDlg->EndModal( wxID_CANCEL );
     }
 }
 
@@ -254,6 +264,19 @@ void WinpinatorFrame::onAboutSelected()
 void WinpinatorFrame::onUpdateBannerTarget( PointerEvent& event )
 {
     m_banner->setTargetInfo( event.getSharedPointer<srv::RemoteInfo>() );
+}
+
+void WinpinatorFrame::onDialogOpened( PointerEvent& event )
+{
+    m_fileListDlg = event.getSharedPointer<FileListDialog>();
+}
+
+void WinpinatorFrame::onDialogClosed( PointerEvent& event )
+{
+    if ( m_fileListDlg == event.getSharedPointer<FileListDialog>() )
+    {
+        m_fileListDlg = nullptr;
+    }
 }
 
 void WinpinatorFrame::onStateChanged()
