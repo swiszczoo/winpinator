@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-08 00:09+0100\n"
-"PO-Revision-Date: 2021-11-08 00:09+0100\n"
+"POT-Creation-Date: 2021-11-08 00:14+0100\n"
+"PO-Revision-Date: 2021-11-08 00:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -19,102 +19,128 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
 "|| n%100>14) ? 1 : 2);\n"
 
-#: .\gui\history_element_finished.cpp:116 .\gui\history_element_pending.cpp:373
-#: .\gui\history_element_finished.cpp:117
-#: .\gui\history_element_finished.cpp:119
+#: .\gui\file_list_dialog.cpp:14
+msgid ""
+"The list below contains all files that were registered as being sent/"
+"received within the transfer you've selected. The list might be incomplete "
+"if the transfer has been interrupted or failed in a different way."
+msgstr ""
+"Poniższa lista zawiera wszystkie pliki, które zostały zarejestrowane jako "
+"wysłane/odebrane w trakcie zaznaczonego transferu. Lista może być "
+"niekompletna, jeśli transfer został przerwany lub nie powiódł się z innego "
+"powodu."
+
+#: .\gui\file_list_dialog.cpp:20
+msgid "List of transferred files"
+msgstr "Lista przesłanych plików"
+
+#: .\gui\file_list_dialog.cpp:29
+msgid "Close"
+msgstr "Zamknij"
+
+#: .\gui\file_list_dialog.cpp:97
+msgid "File name"
+msgstr "Nazwa pliku"
+
+#: .\gui\file_list_dialog.cpp:102
+msgid "File type"
+msgstr "Typ pliku"
+
+#: .\gui\file_list_dialog.cpp:107
+msgid "Relative path"
+msgstr "Ścieżka względna"
+
+#: .\gui\file_list_dialog.cpp:112
+msgid "Absolute path"
+msgstr "Ścieżka bezwzględna"
+
+#: .\gui\file_list_dialog.cpp:147 .\gui\history_item_icon.cpp:277
+msgid "Folder"
+msgstr "Folder"
+
+#: .\gui\file_list_dialog.cpp:155 .\gui\file_list_dialog.cpp:164
+#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:266
+msgid "File"
+msgstr "Plik"
+
+#: .\gui\file_list_dialog.cpp:204
+msgid "Copy file name..."
+msgstr "Kopiuj nazwę pliku..."
+
+#: .\gui\file_list_dialog.cpp:205
+msgid "Copy file type..."
+msgstr "Kopiuj typ pliku..."
+
+#: .\gui\file_list_dialog.cpp:206
+msgid "Copy relative path..."
+msgstr "Kopiuj ścieżkę względną..."
+
+#: .\gui\file_list_dialog.cpp:207
+msgid "Copy absolute path..."
+msgstr "Kopiuj ścieżkę bezwzględną..."
+
+#: .\gui\history_element_finished.cpp:119 .\gui\history_element_pending.cpp:373
 msgid "Type:"
 msgstr "Typ:"
 
-#: .\gui\history_element_finished.cpp:117 .\gui\history_element_pending.cpp:374
-#: .\gui\history_element_finished.cpp:118
-#: .\gui\history_element_finished.cpp:120
+#: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:374
 msgid "Total size:"
 msgstr "Rozmiar:"
 
-#: .\gui\history_element_finished.cpp:153
-#: .\gui\history_element_finished.cpp:154
 #: .\gui\history_element_finished.cpp:156
 msgid "Date and time:"
 msgstr "Data i czas:"
 
-#: .\gui\history_element_finished.cpp:169
-#: .\gui\history_element_finished.cpp:170
 #: .\gui\history_element_finished.cpp:172
 msgid "%Y-%m-%d %I:%M %p"
 msgstr "%d.%m.%Y %H:%M"
 
-#: .\gui\history_element_finished.cpp:184
-#: .\gui\history_element_finished.cpp:185
 #: .\gui\history_element_finished.cpp:187
 msgid "&Open "
 msgstr "&Otwórz "
 
-#: .\gui\history_element_finished.cpp:185
-#: .\gui\history_element_finished.cpp:186
 #: .\gui\history_element_finished.cpp:188
 msgid "Show in &Explorer..."
 msgstr "Pokaż w &Eksploratorze..."
 
-#: .\gui\history_element_finished.cpp:186
-#: .\gui\history_element_finished.cpp:187
 #: .\gui\history_element_finished.cpp:189
 msgid "Show &list of transferred files..."
 msgstr "Pokaż &listę przesłanych plików..."
 
-#: .\gui\history_element_finished.cpp:188
-#: .\gui\history_element_finished.cpp:189
 #: .\gui\history_element_finished.cpp:191
 msgid "&Remove from history"
 msgstr "&Usuń z historii"
 
-#: .\gui\history_element_finished.cpp:257
-#: .\gui\history_element_finished.cpp:258
 #: .\gui\history_element_finished.cpp:260
 msgid ""
 "Files and directories from this transfer no longer exist on the hard drive."
 msgstr ""
 "Pliki i foldery pochodzące z tego transferu nie znajdują się już na dysku."
 
-#: .\gui\history_element_finished.cpp:259
-#: .\gui\history_element_finished.cpp:260
 #: .\gui\history_element_finished.cpp:262
 msgid "Can't show element"
 msgstr "Nie można wyświetlić elementu"
 
-#: .\gui\history_element_finished.cpp:339
-#: .\gui\history_element_finished.cpp:343
 #: .\gui\history_element_finished.cpp:354
 msgid "Completed"
 msgstr "Ukończony"
 
-#: .\gui\history_element_finished.cpp:341
-#: .\gui\history_element_finished.cpp:345
 #: .\gui\history_element_finished.cpp:356
 msgid "Cancelled"
 msgstr "Anulowany"
 
-#: .\gui\history_element_finished.cpp:343
-#: .\gui\history_element_finished.cpp:347
 #: .\gui\history_element_finished.cpp:358
 msgid "Error occurred"
 msgstr "Wystąpił błąd"
 
-#: .\gui\history_element_finished.cpp:345 .\gui\utils.cpp:144
-#: .\gui\history_element_finished.cpp:349
-#: .\gui\history_element_finished.cpp:360
+#: .\gui\history_element_finished.cpp:360 .\gui\utils.cpp:144
 msgid "Unknown"
 msgstr "Nieznany"
 
-#: .\gui\history_element_finished.cpp:429
-#: .\gui\history_element_finished.cpp:433
-#: .\gui\history_element_finished.cpp:444
 #: .\gui\history_element_finished.cpp:448
 msgid "Selected element no longer exists on the hard drive."
 msgstr "Wybrany element nie znajduje się już na dysku."
 
-#: .\gui\history_element_finished.cpp:430
-#: .\gui\history_element_finished.cpp:434
-#: .\gui\history_element_finished.cpp:445
 #: .\gui\history_element_finished.cpp:449
 msgid "Can't open element"
 msgstr "Nie można otworzyć elementu"
@@ -264,26 +290,9 @@ msgstr[2] "%d folderów"
 msgid "%s and %s"
 msgstr "%s i %s"
 
-#: .\gui\history_item_icon.cpp:266 .\gui\file_list_dialog.cpp:142
-#: .\gui\file_list_dialog.cpp:148 .\gui\file_list_dialog.cpp:140
-#: .\gui\file_list_dialog.cpp:149 .\gui\file_list_dialog.cpp:155
-#: .\gui\file_list_dialog.cpp:151 .\gui\file_list_dialog.cpp:157
-#: .\gui\file_list_dialog.cpp:153 .\gui\file_list_dialog.cpp:162
-#: .\gui\file_list_dialog.cpp:168 .\gui\file_list_dialog.cpp:154
-#: .\gui\file_list_dialog.cpp:163 .\gui\file_list_dialog.cpp:169
-#: .\gui\file_list_dialog.cpp:164 .\gui\file_list_dialog.cpp:170
-msgid "File"
-msgstr "Plik"
-
 #: .\gui\history_item_icon.cpp:270
 msgid "Multiple files"
 msgstr "Wiele plików"
-
-#: .\gui\history_item_icon.cpp:277 .\gui\file_list_dialog.cpp:132
-#: .\gui\file_list_dialog.cpp:134 .\gui\file_list_dialog.cpp:145
-#: .\gui\file_list_dialog.cpp:146 .\gui\file_list_dialog.cpp:147
-msgid "Folder"
-msgstr "Folder"
 
 #: .\gui\history_item_icon.cpp:281
 msgid "Multiple folders"
@@ -677,110 +686,86 @@ msgstr "Gotowy"
 msgid "Share your files across the LAN"
 msgstr "Wysyłaj i odbieraj pliki w swojej sieci"
 
-#: .\gui\winpinator_frame.cpp:19 .\gui\winpinator_frame.cpp:245
-#: .\gui\winpinator_frame.cpp:20 .\gui\winpinator_frame.cpp:250
-#: .\gui\winpinator_frame.cpp:255
+#: .\gui\winpinator_frame.cpp:20 .\gui\winpinator_frame.cpp:255
 msgid "Winpinator"
 msgstr "Winpinator"
 
 #. TRANSLATORS: format string
-#: .\gui\winpinator_frame.cpp:63 .\gui\winpinator_frame.cpp:282
-#: .\gui\winpinator_frame.cpp:64 .\gui\winpinator_frame.cpp:287
 #: .\gui\winpinator_frame.cpp:66 .\gui\winpinator_frame.cpp:305
 #, c-format
 msgid "IP: %s"
 msgstr "Adres IP: %s"
 
-#: .\gui\winpinator_frame.cpp:67 .\gui\winpinator_frame.cpp:266
-#: .\gui\winpinator_frame.cpp:277 .\gui\winpinator_frame.cpp:68
-#: .\gui\winpinator_frame.cpp:271 .\gui\winpinator_frame.cpp:282
 #: .\gui\winpinator_frame.cpp:70 .\gui\winpinator_frame.cpp:289
 #: .\gui\winpinator_frame.cpp:300
 msgid "Offline!"
 msgstr "Offline!"
 
-#: .\gui\winpinator_frame.cpp:111 .\gui\winpinator_frame.cpp:116
 #: .\gui\winpinator_frame.cpp:121
 msgid "&Open save folder...\tCtrl+O"
 msgstr "&Otwórz folder zapisywania...\tCtrl+O"
 
-#: .\gui\winpinator_frame.cpp:112 .\tray_icon.cpp:81
-#: .\gui\winpinator_frame.cpp:117 .\gui\winpinator_frame.cpp:122
+#: .\gui\winpinator_frame.cpp:122 .\tray_icon.cpp:81
 msgid "Open the incoming files folder in Explorer"
 msgstr "Otwórz folder dla plików przychodzących w Eksploratorze Windows"
 
-#: .\gui\winpinator_frame.cpp:113 .\gui\winpinator_frame.cpp:118
 #: .\gui\winpinator_frame.cpp:123
 msgid "&Preferences..."
 msgstr "&Preferencje..."
 
-#: .\gui\winpinator_frame.cpp:114 .\gui\winpinator_frame.cpp:119
 #: .\gui\winpinator_frame.cpp:124
 msgid "Adjust app preferences"
 msgstr "Dostosuj ustawienia aplikacji"
 
-#: .\gui\winpinator_frame.cpp:116 .\gui\winpinator_frame.cpp:121
 #: .\gui\winpinator_frame.cpp:126
 msgid "E&xit\tAlt+F4"
 msgstr "&Wyjdź\tAlt+F4"
 
-#: .\gui\winpinator_frame.cpp:117 .\gui\winpinator_frame.cpp:122
 #: .\gui\winpinator_frame.cpp:127
 msgid "Close this window but let Winpinator run in background"
 msgstr "Zamknij to okno, ale pozostaw Winpinatora uruchomionego w tle"
 
-#: .\gui\winpinator_frame.cpp:119 .\gui\winpinator_frame.cpp:124
 #: .\gui\winpinator_frame.cpp:129
 msgid "Exit and &stop the service\tCtrl+Alt+F4"
 msgstr "Wyjdź i zatrzymaj usługę\tCtrl+Alt+F4"
 
-#: .\gui\winpinator_frame.cpp:120 .\gui\winpinator_frame.cpp:125
 #: .\gui\winpinator_frame.cpp:130
 msgid "Exit Winpinator and stop being visible to other computers"
 msgstr ""
 "Wyjdź z Winpinatora i przestań być dostępny dla innych komputerów w sieci"
 
-#: .\gui\winpinator_frame.cpp:122 .\gui\winpinator_frame.cpp:127
 #: .\gui\winpinator_frame.cpp:132
 msgid "&File"
 msgstr "&Plik"
 
-#: .\gui\winpinator_frame.cpp:125 .\gui\winpinator_frame.cpp:130
 #: .\gui\winpinator_frame.cpp:135
 msgid "&Help topics...\tF1"
 msgstr "&Tematy pomocy...\tF1"
 
-#: .\gui\winpinator_frame.cpp:126 .\gui\winpinator_frame.cpp:131
 #: .\gui\winpinator_frame.cpp:136
 msgid "Show help and documentation of Winpinator"
 msgstr "Pokaż pomoc i dokumentację Winpinatora"
 
-#: .\gui\winpinator_frame.cpp:127 .\gui\winpinator_frame.cpp:132
 #: .\gui\winpinator_frame.cpp:137
 msgid "&What's new?..."
 msgstr "&Co nowego?..."
 
-#: .\gui\winpinator_frame.cpp:128 .\gui\winpinator_frame.cpp:133
 #: .\gui\winpinator_frame.cpp:138
 msgid "Show release notes"
 msgstr "Pokaż dzienniki zmian"
 
-#: .\gui\winpinator_frame.cpp:129 .\gui\winpinator_frame.cpp:134
 #: .\gui\winpinator_frame.cpp:139
 msgid "&About Winpinator..."
 msgstr "&O programie Winpinator..."
 
-#: .\gui\winpinator_frame.cpp:130 .\gui\winpinator_frame.cpp:135
 #: .\gui\winpinator_frame.cpp:140
 msgid "Show credits dialog"
 msgstr "Pokaż okno o autorach"
 
-#: .\gui\winpinator_frame.cpp:132 .\gui\winpinator_frame.cpp:137
 #: .\gui\winpinator_frame.cpp:142
 msgid "&Help"
 msgstr "&Pomoc"
 
-#: .\gui\winpinator_frame.cpp:247 .\gui\winpinator_frame.cpp:252
 #: .\gui\winpinator_frame.cpp:257
 msgid ""
 "Winpinator is an unofficial port of an excellent file transfer tool "
@@ -789,7 +774,6 @@ msgstr ""
 "Winpinator to nieoficjalny port Warpinatora, świetnego narzędzia do "
 "przesyłania plików, dla systemu Windows"
 
-#: .\gui\winpinator_frame.cpp:249 .\gui\winpinator_frame.cpp:254
 #: .\gui\winpinator_frame.cpp:259
 msgid "©2021 Łukasz Świszcz"
 msgstr "©2021 Łukasz Świszcz"
@@ -883,75 +867,3 @@ msgstr "&Wyjdź"
 #: .\tray_icon.cpp:83
 msgid "Exit Winpinator and stop background service"
 msgstr "Wyjdź z Winpinatora i zatrzymaj usługę w tle"
-
-#: .\gui\file_list_dialog.cpp:7 .\gui\file_list_dialog.cpp:13
-#: .\gui\file_list_dialog.cpp:15 .\gui\file_list_dialog.cpp:17
-#: .\gui\file_list_dialog.cpp:19 .\gui\file_list_dialog.cpp:20
-msgid "List of transferred files"
-msgstr "Lista przesłanych plików"
-
-#: .\gui\file_list_dialog.cpp:7 .\gui\file_list_dialog.cpp:9
-#: .\gui\file_list_dialog.cpp:11 .\gui\file_list_dialog.cpp:13
-#: .\gui\file_list_dialog.cpp:14
-msgid ""
-"The list below contains all files that were registered as being sent/"
-"received within the transfer you've selected. The list might be incomplete "
-"if the transfer has been interrupted or failed in a different way."
-msgstr ""
-"Poniższa lista zawiera wszystkie pliki, które zostały zarejestrowane jako "
-"wysłane/odebrane w trakcie zaznaczonego transferu. Lista może być "
-"niekompletna, jeśli transfer został przerwany lub nie powiódł się z innego "
-"powodu."
-
-#: .\gui\file_list_dialog.cpp:65 .\gui\file_list_dialog.cpp:69
-#: .\gui\file_list_dialog.cpp:70 .\gui\file_list_dialog.cpp:80
-#: .\gui\file_list_dialog.cpp:82 .\gui\file_list_dialog.cpp:84
-#: .\gui\file_list_dialog.cpp:95 .\gui\file_list_dialog.cpp:96
-#: .\gui\file_list_dialog.cpp:97
-msgid "File name"
-msgstr "Nazwa pliku"
-
-#: .\gui\file_list_dialog.cpp:75 .\gui\file_list_dialog.cpp:85
-#: .\gui\file_list_dialog.cpp:87 .\gui\file_list_dialog.cpp:89
-#: .\gui\file_list_dialog.cpp:100 .\gui\file_list_dialog.cpp:101
-#: .\gui\file_list_dialog.cpp:102
-msgid "File type"
-msgstr "Typ pliku"
-
-#: .\gui\file_list_dialog.cpp:80 .\gui\file_list_dialog.cpp:90
-#: .\gui\file_list_dialog.cpp:92 .\gui\file_list_dialog.cpp:94
-#: .\gui\file_list_dialog.cpp:105 .\gui\file_list_dialog.cpp:106
-#: .\gui\file_list_dialog.cpp:107
-msgid "Relative path"
-msgstr "Ścieżka względna"
-
-#: .\gui\file_list_dialog.cpp:85 .\gui\file_list_dialog.cpp:95
-#: .\gui\file_list_dialog.cpp:97 .\gui\file_list_dialog.cpp:99
-#: .\gui\file_list_dialog.cpp:110 .\gui\file_list_dialog.cpp:111
-#: .\gui\file_list_dialog.cpp:112
-msgid "Absolute path"
-msgstr "Ścieżka bezwzględna"
-
-#: .\gui\file_list_dialog.cpp:180 .\gui\file_list_dialog.cpp:202
-#: .\gui\file_list_dialog.cpp:203 .\gui\file_list_dialog.cpp:204
-msgid "Copy file name..."
-msgstr "Kopiuj nazwę pliku..."
-
-#: .\gui\file_list_dialog.cpp:181 .\gui\file_list_dialog.cpp:203
-#: .\gui\file_list_dialog.cpp:204 .\gui\file_list_dialog.cpp:205
-msgid "Copy file type..."
-msgstr "Kopiuj typ pliku..."
-
-#: .\gui\file_list_dialog.cpp:182 .\gui\file_list_dialog.cpp:204
-#: .\gui\file_list_dialog.cpp:205 .\gui\file_list_dialog.cpp:206
-msgid "Copy relative path..."
-msgstr "Kopiuj ścieżkę względną..."
-
-#: .\gui\file_list_dialog.cpp:183 .\gui\file_list_dialog.cpp:205
-#: .\gui\file_list_dialog.cpp:206 .\gui\file_list_dialog.cpp:207
-msgid "Copy absolute path..."
-msgstr "Kopiuj ścieżkę bezwzględną..."
-
-#: .\gui\file_list_dialog.cpp:29
-msgid "Close"
-msgstr "Zamknij"
