@@ -30,7 +30,7 @@ if not exist "../res/to_copy/locales/NUL" mkdir "../res/to_copy/locales"
 for /f %%f in ('dir /b *.mo') do (
 	set output=%%f
 	set output=!output:.mo=!
-	if not exist "../res/to_copy/locales/!output!/" mkdir "../res/to_copy/locales/!!output!!"
+	if not exist "../res/to_copy/locales/!output!/NUL" mkdir "../res/to_copy/locales/!!output!!"
 	echo Processing !output!...
 	copy /Y %%f "../res/to_copy/locales/!output!/winpinator.mo"
 )

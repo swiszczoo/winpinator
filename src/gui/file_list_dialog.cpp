@@ -7,6 +7,8 @@
 #include <wx/mimetype.h>
 #include <wx/msw/uxtheme.h>
 
+#include <stack>
+
 namespace gui
 {
 
@@ -24,7 +26,7 @@ FileListDialog::FileListDialog( wxWindow* parent )
     , m_targetId( L"" )
     , m_label( nullptr )
     , m_fileList( nullptr )
-    , m_selectedId( 0 )
+    , m_selectedItem( 0 )
 {
     wxTRANSLATE( "Close" );
 
@@ -36,9 +38,7 @@ FileListDialog::FileListDialog( wxWindow* parent )
 
     sizer->AddSpacer( FromDIP( 10 ) );
 
-    m_fileList = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, 
-        wxDefaultSize, 
-        wxLC_REPORT | wxLC_HRULES | wxLC_VRULES | wxLC_SINGLE_SEL );
+    m_fileList = new wxTreeListCtrl( this, wxID_ANY );
     SetWindowTheme( m_fileList->GetHWND(), L"Explorer", NULL );
     setupColumns();
     sizer->Add( m_fileList, 1, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
@@ -61,7 +61,7 @@ FileListDialog::FileListDialog( wxWindow* parent )
     // Events
     Bind( wxEVT_INIT_DIALOG, &FileListDialog::onDialogInit, this );
     Bind( wxEVT_SIZE, &FileListDialog::onDialogResized, this );
-    m_fileList->Bind( wxEVT_LIST_ITEM_RIGHT_CLICK, 
+    m_fileList->Bind( wxEVT_TREELIST_ITEM_CONTEXT_MENU, 
         &FileListDialog::onListRightClicked, this );
 
     Bind( wxEVT_MENU, &FileListDialog::onCopyNameClicked, 
@@ -91,27 +91,14 @@ void FileListDialog::updateLabelWrapping()
 
 void FileListDialog::setupColumns()
 {
-    wxListItem col;
-
-    col.SetColumn( 0 );
-    col.SetText( _( "File name" ) );
-    col.SetWidth( FromDIP( 100 ) );
-    m_fileList->InsertColumn( 0, col );
-
-    col.SetColumn( 1 );
-    col.SetText( _( "File type" ) );
-    col.SetWidth( FromDIP( 150 ) );
-    m_fileList->InsertColumn( 1, col );
-
-    col.SetColumn( 2 );
-    col.SetText( _( "Relative path" ) );
-    col.SetWidth( FromDIP( 225 ) );
-    m_fileList->InsertColumn( 2, col );
-
-    col.SetColumn( 3 );
-    col.SetText( _( "Absolute path" ) );
-    col.SetWidth( FromDIP( 400 ) );
-    m_fileList->InsertColumn( 3, col );
+    m_fileList->AppendColumn( _( "File name" ), FromDIP( 150 ), 
+        wxALIGN_LEFT, wxCOL_RESIZABLE | wxCOL_SORTABLE );
+    m_fileList->AppendColumn( _( "File type" ), FromDIP( 130 ),
+        wxALIGN_LEFT, wxCOL_RESIZABLE | wxCOL_SORTABLE );
+    m_fileList->AppendColumn( _( "Relative path" ), FromDIP( 225 ),
+        wxALIGN_LEFT, wxCOL_RESIZABLE | wxCOL_SORTABLE );
+    m_fileList->AppendColumn( _( "Absolute path" ), FromDIP( 400 ),
+        wxALIGN_LEFT, wxCOL_RESIZABLE | wxCOL_SORTABLE );
 }
 
 void FileListDialog::loadPaths()
@@ -120,23 +107,61 @@ void FileListDialog::loadPaths()
     const auto& thisTransfer = serv->getDb()->getTransfer( 
         m_transferId, m_targetId, true );
 
-    int i = 0;
+    struct FolderInfo
+    {
+        wxTreeListItem item;
+        wxString relativePath;
+    };
+
+    std::stack<FolderInfo> folderLevels;
+    folderLevels.push( { m_fileList->GetRootItem(), wxEmptyString } );
+
     for ( const auto& path : thisTransfer.elements )
     {
-        wxListItem fileName;
-        fileName.SetId( i );
-        fileName.SetColumn( 0 );
-        fileName.SetText( path.elementName );
-        m_fileList->InsertItem( fileName );
+        while ( !folderLevels.empty() )
+        {
+            const FolderInfo& lastFolder = folderLevels.top();
+            if ( wxString( path.relativePath ).Contains( lastFolder.relativePath ) )
+            {
+                break;
+            }
+            else
+            {
+                folderLevels.pop();
+            }
+        }
 
-        wxString elementType = getElementType( path );
-        m_fileList->SetItem( i, 1, elementType );
+        wxTreeListItem currentItem;
+        if ( path.elementType == srv::db::TransferElementType::FOLDER )
+        {
+            const FolderInfo& lastFolder = folderLevels.top();
+            currentItem = m_fileList->AppendItem( 
+                lastFolder.item, path.elementName );
 
-        m_fileList->SetItem( i, 2, path.relativePath );
-        m_fileList->SetItem( i, 3, path.absolutePath );
+            FolderInfo newInfo;
+            newInfo.item = currentItem;
+            newInfo.relativePath = path.relativePath;
 
-        i++;
+            if ( !newInfo.relativePath.EndsWith( "/" ) )
+            {
+                newInfo.relativePath.Append( "/" );
+            }
+
+            folderLevels.push( newInfo );
+        }
+        else
+        {
+            const FolderInfo& lastFolder = folderLevels.top();
+            currentItem = m_fileList->AppendItem( 
+                lastFolder.item, path.elementName );
+        }
+
+        m_fileList->SetItemText( currentItem, 1, getElementType( path ) );
+        m_fileList->SetItemText( currentItem, 2, path.relativePath );
+        m_fileList->SetItemText( currentItem, 3, path.absolutePath );
     }
+
+    m_fileList->Expand( m_fileList->GetRootItem() );
 }
 
 wxString FileListDialog::getElementType( 
@@ -196,10 +221,10 @@ void FileListDialog::onDialogResized( wxSizeEvent& event )
     updateLabelWrapping();
 }
 
-void FileListDialog::onListRightClicked( wxListEvent& event ) 
+void FileListDialog::onListRightClicked( wxTreeListEvent& event ) 
 {
     wxMenu menu;
-    m_selectedId = event.GetIndex();
+    m_selectedItem = event.GetItem();
 
     menu.Append( (int)MenuID::COPY_NAME, _( "Copy file name..." ) );
     menu.Append( (int)MenuID::COPY_TYPE, _( "Copy file type..." ) );
@@ -211,22 +236,22 @@ void FileListDialog::onListRightClicked( wxListEvent& event )
 
 void FileListDialog::onCopyNameClicked( wxCommandEvent& event )
 {
-    copyStringToClipboard( m_fileList->GetItemText( m_selectedId, 0 ) );
+    copyStringToClipboard( m_fileList->GetItemText( m_selectedItem, 0 ) );
 }
 
 void FileListDialog::onCopyTypeClicked( wxCommandEvent& event )
 {
-    copyStringToClipboard( m_fileList->GetItemText( m_selectedId, 1 ) );
+    copyStringToClipboard( m_fileList->GetItemText( m_selectedItem, 1 ) );
 }
 
 void FileListDialog::onCopyRelativeClicked( wxCommandEvent& event )
 {
-    copyStringToClipboard( m_fileList->GetItemText( m_selectedId, 2 ) );
+    copyStringToClipboard( m_fileList->GetItemText( m_selectedItem, 2 ) );
 }
 
 void FileListDialog::onCopyAbsoluteClicked( wxCommandEvent& event )
 {
-    copyStringToClipboard( m_fileList->GetItemText( m_selectedId, 3 ) );
+    copyStringToClipboard( m_fileList->GetItemText( m_selectedItem, 3 ) );
 }
 
 };

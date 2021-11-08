@@ -1,7 +1,7 @@
 #pragma once
 #include "../service/database_types.hpp"
 
-#include <wx/listctrl.h>
+#include <wx/treelist.h>
 #include <wx/wx.h>
 
 namespace gui
@@ -29,9 +29,9 @@ private:
     std::wstring m_targetId;
 
     wxStaticText* m_label;
-    wxListCtrl* m_fileList;
+    wxTreeListCtrl* m_fileList;
 
-    int m_selectedId;
+    wxTreeListItem m_selectedItem;
 
     void updateLabelWrapping();
     void setupColumns();
@@ -41,7 +41,7 @@ private:
 
     void onDialogInit( wxInitDialogEvent& event );
     void onDialogResized( wxSizeEvent& event );
-    void onListRightClicked( wxListEvent& event );
+    void onListRightClicked( wxTreeListEvent& event );
 
     void onCopyNameClicked( wxCommandEvent& event );
     void onCopyTypeClicked( wxCommandEvent& event );
