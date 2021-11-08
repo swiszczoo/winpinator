@@ -160,8 +160,6 @@ void FileListDialog::loadPaths()
         m_fileList->SetItemText( currentItem, 2, path.relativePath );
         m_fileList->SetItemText( currentItem, 3, path.absolutePath );
     }
-
-    m_fileList->Expand( m_fileList->GetRootItem() );
 }
 
 wxString FileListDialog::getElementType( 

@@ -7,13 +7,6 @@ REM 2. Directory where the executable is located
 REM 3. Directory of source code
 REM
 
-REM -------- xgettext --------
-echo Run xgettext...
-cd "%3"
-powershell "Get-ChildItem -Recurse *.?pp | Resolve-Path -Relative" > "../po/filelist.txt"
-xgettext -C -k_ -kwxTRANSLATE -kwxPLURAL:1,2 -f "%3/../po/filelist.txt" --add-comments=TRANSLATORS --no-wrap -o "%3/../po/winpinator.pot"
-del "../po/filelist.txt"
-
 REM -------- compile translations --------
 echo Compiling translations...
 cd "%3/../po"

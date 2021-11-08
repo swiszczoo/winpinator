@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-08 13:41+0100\n"
+"POT-Creation-Date: 2021-11-08 14:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,28 +46,28 @@ msgstr ""
 msgid "Absolute path"
 msgstr ""
 
-#: .\gui\file_list_dialog.cpp:172 .\gui\history_item_icon.cpp:277
+#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:277
 msgid "Folder"
 msgstr ""
 
-#: .\gui\file_list_dialog.cpp:180 .\gui\file_list_dialog.cpp:189
-#: .\gui\file_list_dialog.cpp:195 .\gui\history_item_icon.cpp:266
+#: .\gui\file_list_dialog.cpp:178 .\gui\file_list_dialog.cpp:187
+#: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:266
 msgid "File"
 msgstr ""
 
-#: .\gui\file_list_dialog.cpp:229
+#: .\gui\file_list_dialog.cpp:227
 msgid "Copy file name..."
 msgstr ""
 
-#: .\gui\file_list_dialog.cpp:230
+#: .\gui\file_list_dialog.cpp:228
 msgid "Copy file type..."
 msgstr ""
 
-#: .\gui\file_list_dialog.cpp:231
+#: .\gui\file_list_dialog.cpp:229
 msgid "Copy relative path..."
 msgstr ""
 
-#: .\gui\file_list_dialog.cpp:232
+#: .\gui\file_list_dialog.cpp:230
 msgid "Copy absolute path..."
 msgstr ""
 
