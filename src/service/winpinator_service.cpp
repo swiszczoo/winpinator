@@ -6,6 +6,7 @@
 #include "../thread_name.hpp"
 #include "account_picture_extractor.hpp"
 #include "auth_manager.hpp"
+#include "file_crawler.hpp"
 #include "icon_extractor.hpp"
 #include "memory_manager.hpp"
 #include "registration_v1_impl.hpp"

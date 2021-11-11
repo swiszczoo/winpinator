@@ -309,6 +309,7 @@
     <ClInclude Include="..\src\service\database_types.hpp" />
     <ClInclude Include="..\src\service\database_utils.hpp" />
     <ClInclude Include="..\src\service\event.hpp" />
+    <ClInclude Include="..\src\service\file_crawler.hpp" />
     <ClInclude Include="..\src\service\icon_extractor.hpp" />
     <ClInclude Include="..\src\service\memory_manager.hpp" />
     <ClInclude Include="..\src\service\notification.hpp" />
@@ -386,6 +387,7 @@
     <ClCompile Include="..\src\service\auth_manager.cpp" />
     <ClCompile Include="..\src\service\database_manager.cpp" />
     <ClCompile Include="..\src\service\database_utils.cpp" />
+    <ClCompile Include="..\src\service\file_crawler.cpp" />
     <ClCompile Include="..\src\service\icon_extractor.cpp" />
     <ClCompile Include="..\src\service\memory_manager.cpp" />
     <ClCompile Include="..\src\service\notification.cpp" />
