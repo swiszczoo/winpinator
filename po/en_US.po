@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-08 00:14+0100\n"
-"PO-Revision-Date: 2021-11-08 00:14+0100\n"
+"POT-Creation-Date: 2021-11-17 02:25+0100\n"
+"PO-Revision-Date: 2021-11-17 02:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\gui\file_list_dialog.cpp:14
+#: .\gui\file_list_dialog.cpp:16
 msgid ""
 "The list below contains all files that were registered as being sent/"
 "received within the transfer you've selected. The list might be incomplete "
@@ -28,60 +28,60 @@ msgstr ""
 "received within the transfer you've selected. The list might be incomplete "
 "if the transfer has been interrupted or failed in a different way."
 
-#: .\gui\file_list_dialog.cpp:20
+#: .\gui\file_list_dialog.cpp:22
 msgid "List of transferred files"
 msgstr "List of transferred files"
 
-#: .\gui\file_list_dialog.cpp:29
+#: .\gui\file_list_dialog.cpp:31
 msgid "Close"
 msgstr "Close"
 
-#: .\gui\file_list_dialog.cpp:97
+#: .\gui\file_list_dialog.cpp:94
 msgid "File name"
 msgstr "File name"
 
-#: .\gui\file_list_dialog.cpp:102
+#: .\gui\file_list_dialog.cpp:96
 msgid "File type"
 msgstr "File type"
 
-#: .\gui\file_list_dialog.cpp:107
+#: .\gui\file_list_dialog.cpp:98
 msgid "Relative path"
 msgstr "Relative path"
 
-#: .\gui\file_list_dialog.cpp:112
+#: .\gui\file_list_dialog.cpp:100
 msgid "Absolute path"
 msgstr "Absolute path"
 
-#: .\gui\file_list_dialog.cpp:147 .\gui\history_item_icon.cpp:277
+#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:277
 msgid "Folder"
 msgstr "Folder"
 
-#: .\gui\file_list_dialog.cpp:155 .\gui\file_list_dialog.cpp:164
-#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:266
+#: .\gui\file_list_dialog.cpp:178 .\gui\file_list_dialog.cpp:187
+#: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:266
 msgid "File"
 msgstr "File"
 
-#: .\gui\file_list_dialog.cpp:204
+#: .\gui\file_list_dialog.cpp:227
 msgid "Copy file name..."
 msgstr "Copy file name..."
 
-#: .\gui\file_list_dialog.cpp:205
+#: .\gui\file_list_dialog.cpp:228
 msgid "Copy file type..."
 msgstr "Copy file type..."
 
-#: .\gui\file_list_dialog.cpp:206
+#: .\gui\file_list_dialog.cpp:229
 msgid "Copy relative path..."
 msgstr "Copy relative path..."
 
-#: .\gui\file_list_dialog.cpp:207
+#: .\gui\file_list_dialog.cpp:230
 msgid "Copy absolute path..."
 msgstr "Copy absolute path..."
 
-#: .\gui\history_element_finished.cpp:119 .\gui\history_element_pending.cpp:373
+#: .\gui\history_element_finished.cpp:119 .\gui\history_element_pending.cpp:383
 msgid "Type:"
 msgstr "Type:"
 
-#: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:374
+#: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:384
 msgid "Total size:"
 msgstr "Total size:"
 
@@ -235,18 +235,23 @@ msgid "Awaiting approval from %s..."
 msgstr "Awaiting approval from %s..."
 
 #: .\gui\history_element_pending.cpp:300
+#| msgid "Send file(s)..."
+msgid "Scanning for files..."
+msgstr "Scanning for files..."
+
+#: .\gui\history_element_pending.cpp:310
 msgid "This request will overwrite one or more files!"
 msgstr "This request will overwrite one or more files!"
 
-#: .\gui\history_element_pending.cpp:310
+#: .\gui\history_element_pending.cpp:320
 msgid "R&esume"
 msgstr "R&esume"
 
-#: .\gui\history_element_pending.cpp:322
+#: .\gui\history_element_pending.cpp:332
 msgid "&Pause"
 msgstr "&Pause"
 
-#: .\gui\history_element_pending.cpp:334
+#: .\gui\history_element_pending.cpp:344
 msgid "Not enough disk space! Files cannot be received!"
 msgstr "Not enough disk space! Files cannot be received!"
 
@@ -455,15 +460,28 @@ msgstr "Send file(s)..."
 msgid "Send a folder..."
 msgstr "Send a folder..."
 
-#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:179
+#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:237
 msgid "Clear history"
 msgstr "Clear history"
 
-#: .\gui\page_transferlist.cpp:179
+#: .\gui\page_transferlist.cpp:182
+msgid "Select files to send..."
+msgstr "Select files to send..."
+
+#. TRANSLATORS: wildcard format: type1|filter1;type2|filter2;...
+#: .\gui\page_transferlist.cpp:184
+msgid "All files (*.*)|*.*"
+msgstr "All files (*.*)|*.*"
+
+#: .\gui\page_transferlist.cpp:210
+msgid "Select directories to send..."
+msgstr "Select directories to send..."
+
+#: .\gui\page_transferlist.cpp:237
 msgid "Are you sure you want to clear entire history for this device?"
 msgstr "Are you sure you want to clear entire history for this device?"
 
-#: .\gui\page_transferlist.cpp:181
+#: .\gui\page_transferlist.cpp:239
 msgid "This operation cannot be undone!"
 msgstr "This operation cannot be undone!"
 
@@ -818,7 +836,7 @@ msgstr "Transfer failure"
 msgid "Some transfers between you and %s have failed unexpectedly!"
 msgstr "Some transfers between you and %s have failed unexpectedly!"
 
-#: .\service\service_utils.cpp:95
+#: .\service\service_utils.cpp:97
 msgid "Unknown OS"
 msgstr "Unknown OS"
 

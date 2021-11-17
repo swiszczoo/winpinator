@@ -284,7 +284,7 @@ void WinpinatorService::serviceMain()
     m_remoteMgr->setServiceType( WinpinatorService::SERVICE_TYPE );
 
     // Initialize file crawler
-    m_crawler = std::make_shared<FileCrawler>( this );
+    m_crawler = std::make_shared<FileCrawler>();
     m_crawler->setSendHiddenFiles( false );
 
     // Initialize transfer manager
