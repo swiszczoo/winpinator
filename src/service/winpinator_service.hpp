@@ -5,6 +5,7 @@
 #include "../zeroconf/mdns_types.hpp"
 #include "database_manager.hpp"
 #include "event.hpp"
+#include "file_crawler.hpp"
 #include "remote_manager.hpp"
 #include "service_errors.hpp"
 #include "transfer_manager.hpp"
@@ -67,6 +68,7 @@ private:
     std::shared_ptr<RemoteManager> m_remoteMgr;
     std::shared_ptr<TransferManager> m_transferMgr;
     std::shared_ptr<DatabaseManager> m_db;
+    std::shared_ptr<FileCrawler> m_crawler;
 
     SettingsModel m_settings;
 

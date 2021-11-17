@@ -102,14 +102,21 @@ void FileCrawler::crawlJobMain( std::vector<std::wstring> paths )
 
         std::sort( paths.begin(), paths.end() );
 
-        auto pathVec = std::make_shared<std::vector<std::wstring>>();
+        std::set<std::wstring> pathSet;
         wxFileName location = wxFileName::DirName( root );
         wxFileName relativeLoc;
 
         for ( auto& path : paths )
         {
             findAndUnwindElement( wxFileName( path ),
-                location, relativeLoc, pathVec.get(), sendHidden );
+                location, relativeLoc, &pathSet, sendHidden );
+        }
+
+        auto pathVec = std::make_shared<std::vector<std::wstring>>();
+        pathVec->reserve( pathSet.size() );
+        for ( auto& path : pathSet )
+        {
+            pathVec->push_back( path );
         }
     }
     catch ( std::exception& e )
@@ -194,14 +201,19 @@ wxFileName FileCrawler::pathToFileName( const wxString& path )
 
 void FileCrawler::findAndUnwindElement( wxFileName elementLoc,
     wxFileName& currentLocation, wxFileName& relativeLoc,
-    std::vector<std::wstring>* paths, bool sendHidden )
+    std::set<std::wstring>* paths, bool sendHidden )
 {
+    wxLogDebug( "FileCrawler: cur: %s rel: %s", 
+        currentLocation.GetFullPath(), relativeLoc.GetFullPath() );
+
     int lastOk = -1;
     for ( int i = 0; i < currentLocation.GetDirCount(); i++ )
     {
         if ( elementLoc.GetDirCount() > i
             && elementLoc.GetDirs()[i] == currentLocation.GetDirs()[i] )
         {
+            wxLogDebug( "FileCrawler: folder ok %s", 
+                currentLocation.GetDirs()[i] );
             lastOk = i;
         }
         else
@@ -223,18 +235,21 @@ void FileCrawler::findAndUnwindElement( wxFileName elementLoc,
         currentLocation.AppendDir( dir );
         relativeLoc.AppendDir( dir );
 
-        paths->push_back( relativeLoc.GetFullPath().RemoveLast().ToStdWstring() );
+        paths->insert( relativeLoc.GetFullPath().RemoveLast().ToStdWstring() );
     }
 
+    currentLocation.AppendDir( elementLoc.GetFullName() );
     relativeLoc.AppendDir( elementLoc.GetFullName() );
 
     performFilesystemDFS( elementLoc, relativeLoc, paths, sendHidden );
 }
 
 void FileCrawler::performFilesystemDFS( wxFileName location, 
-    wxFileName relativeLoc, std::vector<std::wstring>* paths, 
+    wxFileName relativeLoc, std::set<std::wstring>* paths, 
     bool sendHidden, int recursionLevel )
 {
+    wxLogNull logNull;
+
     if ( recursionLevel > MAX_RECURSION_DEPTH )
     {
         throw std::runtime_error( "max recursion depth exceeded!" );
@@ -242,7 +257,7 @@ void FileCrawler::performFilesystemDFS( wxFileName location,
 
     if ( location.DirExists() )
     {
-        paths->push_back( 
+        paths->insert( 
             relativeLoc.GetFullPath().RemoveLast().ToStdWstring() );
 
         int flags = wxDIR_FILES | wxDIR_DIRS | ( sendHidden ? wxDIR_HIDDEN : 0 );
@@ -264,7 +279,7 @@ void FileCrawler::performFilesystemDFS( wxFileName location,
     }
     else if ( wxFileExists( location.GetFullPath().RemoveLast() ) )
     {
-        paths->push_back(
+        paths->insert(
             relativeLoc.GetFullPath().RemoveLast().ToStdWstring() );
     }
 }

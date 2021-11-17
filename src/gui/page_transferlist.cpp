@@ -111,6 +111,10 @@ TransferListPage::TransferListPage( wxWindow* parent, const wxString& targetId )
     // Events 
     Bind( wxEVT_DPI_CHANGED, &TransferListPage::onDpiChanged, this );
     m_backBtn->Bind( wxEVT_BUTTON, &TransferListPage::onBackClicked, this );
+    m_fileBtn->Bind( 
+        wxEVT_BUTTON, &TransferListPage::onSendFileClicked, this );
+    m_directoryBtn->Bind( 
+        wxEVT_BUTTON, &TransferListPage::onSendFolderClicked, this );
     m_historyBtn->Bind( wxEVT_BUTTON, 
         &TransferListPage::onClearHistoryClicked, this );
     Bind( wxEVT_THREAD, &TransferListPage::onUpdateStatus, this );
@@ -171,6 +175,60 @@ void TransferListPage::onUpdateStatus( wxThreadEvent& event )
 {
     srv::RemoteInfoPtr info = event.GetPayload<srv::RemoteInfoPtr>();
     updateForStatus( info->state );
+}
+
+void TransferListPage::onSendFileClicked( wxCommandEvent& event )
+{
+    wxFileDialog dlg( this, _( "Select files to send..." ),
+        // TRANSLATORS: wildcard format: type1|filter1;type2|filter2;...
+        wxEmptyString, wxEmptyString, _( "All files (*.*)|*.*" ),
+        wxFD_OPEN | wxFD_FILE_MUST_EXIST | wxFD_MULTIPLE );
+
+    if ( dlg.ShowModal() == wxID_OK )
+    {
+        wxArrayString paths;
+        dlg.GetPaths( paths );
+
+        srv::Event evnt;
+        evnt.type = srv::EventType::REQUEST_OUTCOMING_TRANSFER;
+        evnt.eventData.outcomingTransferData 
+            = std::make_shared<srv::OutcomingTransferData>();
+        evnt.eventData.outcomingTransferData->remoteId = m_target.ToStdString();
+        
+        for ( const auto& path : paths )
+        {
+            evnt.eventData.outcomingTransferData->droppedPaths.push_back( 
+                path.ToStdWstring() );
+        }
+
+        Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
+    }
+}
+
+void TransferListPage::onSendFolderClicked( wxCommandEvent& event )
+{
+    wxDirDialog dlg( this, _( "Select directories to send..." ),
+        wxEmptyString, wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST );
+
+    if ( dlg.ShowModal() == wxID_OK )
+    {
+        wxArrayString paths;
+        dlg.GetPaths( paths );
+
+        srv::Event evnt;
+        evnt.type = srv::EventType::REQUEST_OUTCOMING_TRANSFER;
+        evnt.eventData.outcomingTransferData
+            = std::make_shared<srv::OutcomingTransferData>();
+        evnt.eventData.outcomingTransferData->remoteId = m_target.ToStdString();
+
+        for ( const auto& path : paths )
+        {
+            evnt.eventData.outcomingTransferData->droppedPaths.push_back(
+                path.ToStdWstring() );
+        }
+
+        Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
+    }
 }
 
 void TransferListPage::onClearHistoryClicked( wxCommandEvent& event )

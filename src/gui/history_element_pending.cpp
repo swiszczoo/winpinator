@@ -296,6 +296,16 @@ void HistoryPendingElement::setupForState( HistoryPendingState state )
         m_infoCancel->Enable();
         break;
 
+    case HistoryPendingState::CALCULATING:
+        m_infoLabel = _( "Scanning for files..." );
+
+        m_infoProgress->Show();
+        m_infoProgress->Pulse();
+        m_infoProgress->Enable();
+
+        m_infoCancel->Show();
+        break;
+
     case HistoryPendingState::OVERWRITE_NEEDED:
         m_infoLabel = _( "This request will overwrite one or more files!" );
 

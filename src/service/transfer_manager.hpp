@@ -1,5 +1,6 @@
 #pragma once
 #include "database_manager.hpp"
+#include "file_crawler.hpp"
 #include "observable_service.hpp"
 #include "remote_manager.hpp"
 #include "transfer_types.hpp"
@@ -35,6 +36,9 @@ public:
 
     void setDatabaseManager( std::shared_ptr<DatabaseManager> ptr );
     DatabaseManager* getDatabaseManager();
+    
+    void setCrawlerPtr( std::shared_ptr<FileCrawler> ptr );
+    FileCrawler* getFileCrawler();
 
     void setCompressionLevel( int level );
     int getCompressionLevel();
@@ -61,6 +65,9 @@ public:
     void requestStopTransfer( const std::string& remoteId, 
         int transferId, bool error );
     void failAll( const std::string& remoteId );
+
+    int createOutcomingTransfer( const std::string& remoteId, 
+        const std::vector<std::wstring>& rootPaths );
 
     std::mutex& getMutex();
 
@@ -113,10 +120,13 @@ private:
     };
 
     static const long long PROGRESS_FREQ_MILLIS;
+    static const std::string DEFAULT_MIME_TYPE;
+    static const std::string DIRECTORY_MIME_TYPE;
 
     std::atomic_bool m_running;
     std::shared_ptr<RemoteManager> m_remoteMgr;
     std::shared_ptr<DatabaseManager> m_dbMgr;
+    std::shared_ptr<FileCrawler> m_crawler;
 
     ObservableService* m_srv;
     int m_lastId;

@@ -43,6 +43,8 @@ private:
     void onDpiChanged( wxDPIChangedEvent& event );
     void onBackClicked( wxCommandEvent& event );
     void onUpdateStatus( wxThreadEvent& event );
+    void onSendFileClicked( wxCommandEvent& event );
+    void onSendFolderClicked( wxCommandEvent& event );
     void onClearHistoryClicked( wxCommandEvent& event );
     void onUpdateEmptyState( wxCommandEvent& event );
 

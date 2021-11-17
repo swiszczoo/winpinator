@@ -4,6 +4,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <set>
 #include <thread>
 #include <vector>
 
@@ -36,9 +37,9 @@ private:
     wxFileName pathToFileName( const wxString& path );
     void findAndUnwindElement( wxFileName elementLoc, 
         wxFileName& currentLocation, wxFileName& relativeLoc, 
-        std::vector<std::wstring>* paths, bool sendHidden );
+        std::set<std::wstring>* paths, bool sendHidden );
     void performFilesystemDFS( wxFileName location, wxFileName relativeLoc,
-        std::vector<std::wstring>* paths, bool sendHidden, 
+        std::set<std::wstring>* paths, bool sendHidden, 
         int recursionLevel = 0 );
 };
 

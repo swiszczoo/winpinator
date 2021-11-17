@@ -349,6 +349,10 @@ HistoryPendingData ScrolledTransferHistory::convertOpToData(
 
     if ( transfer.outcoming )
     {
+        if ( transfer.status == srv::OpStatus::CALCULATING )
+        {
+            out.opState = HistoryPendingState::CALCULATING;
+        }
         if ( transfer.status == srv::OpStatus::WAITING_PERMISSION )
         {
             out.opState = HistoryPendingState::AWAIT_PEER_APPROVAL;
@@ -725,6 +729,27 @@ ScrolledTransferHistory::DropTargetImpl::DropTargetImpl(
 bool ScrolledTransferHistory::DropTargetImpl::OnDropFiles( wxCoord x,
     wxCoord y, const wxArrayString& filenames )
 {
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    srv::Event evnt;
+    evnt.type = srv::EventType::REQUEST_OUTCOMING_TRANSFER;
+    evnt.eventData.outcomingTransferData 
+        = std::make_shared<srv::OutcomingTransferData>();
+    evnt.eventData.outcomingTransferData->remoteId 
+        = m_instance->m_targetId.ToStdString();
+
+    for ( auto& path : filenames )
+    {
+        if ( ( wxFileExists( path ) || wxDirExists( path ) ) 
+            && wxIsAbsolutePath( path ) )
+        {
+            evnt.eventData.outcomingTransferData->droppedPaths.push_back( 
+                path.ToStdWstring() );
+        }
+    }
+
+    serv->postEvent( evnt );
+
     return true;
 }
 

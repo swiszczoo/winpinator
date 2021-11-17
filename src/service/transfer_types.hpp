@@ -84,6 +84,8 @@ struct TransferOp : public TransferOpPub
 
         int fileCount;
         int dirCount;
+
+        int crawlJobId;
     } intern;
 };
 

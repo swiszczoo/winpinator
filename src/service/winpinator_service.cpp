@@ -45,6 +45,7 @@ WinpinatorService::WinpinatorService()
     , m_remoteMgr( nullptr )
     , m_transferMgr( nullptr )
     , m_db( nullptr )
+    , m_crawler( nullptr )
 {
     DWORD netFlag = NETWORK_ALIVE_LAN;
     bool result = IsNetworkAlive( &netFlag );
@@ -282,6 +283,10 @@ void WinpinatorService::serviceMain()
     m_remoteMgr = std::make_shared<RemoteManager>( this );
     m_remoteMgr->setServiceType( WinpinatorService::SERVICE_TYPE );
 
+    // Initialize file crawler
+    m_crawler = std::make_shared<FileCrawler>( this );
+    m_crawler->setSendHiddenFiles( false );
+
     // Initialize transfer manager
     m_transferMgr = std::make_shared<TransferManager>( this );
     m_transferMgr->setOutputPath( m_settings.outputPath.ToStdWstring() );
@@ -289,6 +294,7 @@ void WinpinatorService::serviceMain()
     m_transferMgr->setCompressionLevel(
         m_settings.useCompression ? m_settings.zlibCompressionLevel : 0 );
     m_transferMgr->setDatabaseManager( m_db );
+    m_transferMgr->setCrawlerPtr( m_crawler );
     m_transferMgr->setMustAllowIncoming( m_settings.askReceiveFiles );
     m_transferMgr->setMustAllowOverwrite( m_settings.askOverwriteFiles );
 
@@ -517,6 +523,12 @@ void WinpinatorService::serviceMain()
             m_transferMgr->requestStopTransfer(
                 ev.eventData.transferData->remoteId,
                 ev.eventData.transferData->transferId, false );
+        }
+        else if ( ev.type == EventType::REQUEST_OUTCOMING_TRANSFER )
+        {
+            m_transferMgr->createOutcomingTransfer(
+                ev.eventData.outcomingTransferData->remoteId,
+                ev.eventData.outcomingTransferData->droppedPaths );
         }
     }
 

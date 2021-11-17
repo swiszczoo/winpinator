@@ -1,6 +1,7 @@
 #include "remote_handler.hpp"
 
 #include "auth_manager.hpp"
+#include "memory_manager.hpp"
 #include "service_utils.hpp"
 
 #include <grpcpp/grpcpp.h>
@@ -475,12 +476,17 @@ void RemoteHandler::updateRemoteMachineAvatar()
             }
 
             // Release ref to instance
+            void* ptr = m_inst.get();
             m_inst = nullptr;
+
+            MemoryManager::getInstance()->scheduleFreePointer( ptr );
         }
 
         void setInstance( std::shared_ptr<Reader> inst )
         {
             m_inst = inst;
+
+            MemoryManager::getInstance()->registerPointer( inst );
         }
 
     private:

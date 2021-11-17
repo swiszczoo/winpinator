@@ -7,6 +7,7 @@
 #include "service_utils.hpp"
 
 #include <wx/filename.h>
+#include <wx/mimetype.h>
 
 #include <memory>
 
@@ -14,6 +15,8 @@ namespace srv
 {
 
 const long long TransferManager::PROGRESS_FREQ_MILLIS = 250;
+const std::string TransferManager::DEFAULT_MIME_TYPE = "application/octet-stream";
+const std::string TransferManager::DIRECTORY_MIME_TYPE = "inode/directory";
 
 TransferManager::TransferManager( ObservableService* service )
     : m_running( ATOMIC_VAR_INIT( true ) )
@@ -73,6 +76,16 @@ DatabaseManager* TransferManager::getDatabaseManager()
     std::lock_guard<std::mutex> guard( m_mtx );
 
     return m_dbMgr.get();
+}
+
+void TransferManager::setCrawlerPtr( std::shared_ptr<FileCrawler> ptr )
+{
+    m_crawler = ptr;
+}
+
+FileCrawler* TransferManager::getFileCrawler()
+{
+    return m_crawler.get();
 }
 
 void TransferManager::setCompressionLevel( int level )
@@ -427,6 +440,78 @@ void TransferManager::failAll( const std::string& remoteId )
     }
 }
 
+int TransferManager::createOutcomingTransfer( const std::string& remoteId,
+    const std::vector<std::wstring>& rootPaths )
+{
+    int folders = 0;
+    int files = 0;
+    std::wstring oneFileName;
+
+    for ( auto path : rootPaths )
+    {
+        if ( wxDirExists( path ) )
+        {
+            folders++;
+            oneFileName = path;
+        }
+        else if ( wxFileExists( path ) )
+        {
+            files++;
+            oneFileName = path;
+        }
+    }
+
+    TransferOp op;
+    op.outcoming = true;
+    op.status = OpStatus::CALCULATING;
+    op.startTime = Utils::getMonotonicTime();
+    op.mimeIfSingleUtf8 = DEFAULT_MIME_TYPE;
+    op.senderNameUtf8;
+    op.receiverUtf8 = AuthManager::get()->getIdent();
+    op.receiverNameUtf8 = "";
+    op.useCompression = m_compressionLevel > 0;
+
+    if ( files == 0 && folders == 1 )
+    {
+        op.mimeIfSingleUtf8 = DIRECTORY_MIME_TYPE;
+
+        wxFileName dirName( oneFileName );
+        op.nameIfSingleUtf8 = dirName.GetFullName().ToUTF8();
+    }
+    else if ( files == 1 && folders == 0 )
+    {
+        wxFileName fname( oneFileName );
+        wxFileType* ftype = wxTheMimeTypesManager->GetFileTypeFromExtension( 
+            fname.GetExt() );
+
+        op.nameIfSingleUtf8 = fname.GetFullName().ToUTF8();
+
+        if ( ftype )
+        {
+            wxString mime;
+            if ( ftype->GetMimeType( &mime ) )
+            {
+                op.mimeIfSingleUtf8 = mime.ToUTF8();
+            }
+
+            delete ftype;
+        }
+    }
+    else
+    {
+        op.nameIfSingleUtf8 = wxString::Format( 
+            "%d elements", (int)( folders + files ) ).ToUTF8();
+    }
+
+    op.totalSize = -1;
+    op.totalCount = -1;
+
+    registerTransfer( remoteId, op, true );
+    op.intern.crawlJobId = m_crawler->startCrawlJob( rootPaths );
+
+    return op.id;
+}
+
 std::mutex& TransferManager::getMutex()
 {
     return m_mtx;
@@ -468,12 +553,19 @@ TransferOpPub TransferManager::getOp( const std::string& remoteId,
 
 void TransferManager::checkTransferDiskSpace( TransferOp& op )
 {
-    wxDiskspaceSize_t totalSpace;
-    wxDiskspaceSize_t freeSpace;
+    if ( op.outcoming )
+    {
+        op.meta.notEnoughSpace = false;
+    }
+    else
+    {
+        wxDiskspaceSize_t totalSpace;
+        wxDiskspaceSize_t freeSpace;
 
-    wxGetDiskSpace( m_outputPath, &totalSpace, &freeSpace );
+        wxGetDiskSpace( m_outputPath, &totalSpace, &freeSpace );
 
-    op.meta.notEnoughSpace = freeSpace < op.totalSize;
+        op.meta.notEnoughSpace = freeSpace < op.totalSize;
+    }
 }
 
 void TransferManager::checkTransferMustOverwrite( TransferOp& op )

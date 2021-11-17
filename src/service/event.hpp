@@ -25,13 +25,22 @@ enum class EventType
     SHOW_TOAST_NOTIFICATION,
     ACCEPT_TRANSFER_CLICKED,
     DECLINE_TRANSFER_CLICKED,
-    STOP_TRANSFER
+    STOP_TRANSFER,
+    REQUEST_OUTCOMING_TRANSFER,
+    OUTCOMING_CRAWLER_SUCCEEDED,
+    OUTCOMING_CRAWLER_FAILED
 };
 
 struct TransferData
 {
     std::string remoteId;
     int transferId;
+};
+
+struct OutcomingTransferData
+{
+    std::string remoteId;
+    std::vector<std::wstring> droppedPaths;
 };
 
 struct Event
@@ -44,6 +53,8 @@ struct Event
         std::shared_ptr<std::string> removedData;
         std::shared_ptr<ToastNotification> toastData;
         std::shared_ptr<TransferData> transferData;
+        std::shared_ptr<OutcomingTransferData> outcomingTransferData;
+        std::shared_ptr<std::vector<std::wstring>> crawlerOutputData;
     } eventData;
 };
 

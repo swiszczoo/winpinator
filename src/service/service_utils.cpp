@@ -3,6 +3,8 @@
 #include <wx/platinfo.h>
 #include <wx/translation.h>
 
+#include <chrono>
+
 #include <Windows.h>
 
 #define SECURITY_WIN32
@@ -131,6 +133,12 @@ std::string Utils::getOSVersionString()
 
 
     return "Windows NT";
+}
+
+int64_t Utils::getMonotonicTime()
+{
+    auto stamp = std::chrono::steady_clock::now();
+    return stamp.time_since_epoch().count();
 }
 
 wxString Utils::makeIntResource( int resource )

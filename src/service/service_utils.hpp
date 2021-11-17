@@ -18,6 +18,7 @@ public:
     static std::wstring getUserShortName();
     static std::string generateUUID();
     static std::string getOSVersionString();
+    static int64_t getMonotonicTime();
 
     static wxString makeIntResource( int resource );
 };
