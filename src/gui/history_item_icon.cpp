@@ -119,7 +119,7 @@ void HistoryIconItem::setFinished( bool finished )
 
 const wxBitmap& HistoryIconItem::determineBitmapToDraw() const
 {
-    if ( m_folderCount == 0 )
+    if ( m_folderCount == 0 || ( m_outcoming && m_folderCount == -1 ) )
     {
         if ( m_fileCount > 1 )
         {
@@ -157,7 +157,17 @@ wxString HistoryIconItem::determineHeaderString() const
         return m_singleElementName;
     }
 
-    if ( !m_outcoming && !m_finished && m_folderCount == 0 )
+    bool determined = m_finished;
+    if ( !m_outcoming && m_folderCount == 0 )
+    {
+        determined = false;
+    }
+    else if ( m_outcoming && m_folderCount == -1 )
+    {
+        determined = false;
+    }
+
+    if ( !determined )
     {
         int elementCount = m_fileCount;
 
@@ -253,6 +263,12 @@ void HistoryIconItem::onDpiChanged( wxDPIChangedEvent& event )
 
 void HistoryIconItem::setupElementType()
 {
+    if ( m_outcoming && m_folderCount == -1 )
+    {
+        m_elementType = _( "Calculating" );
+        return;
+    }
+
     if ( m_folderCount == 0 && m_fileCount == 0 )
     {
         m_elementType = _( "Empty" );

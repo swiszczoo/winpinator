@@ -188,6 +188,11 @@ wxString Utils::fileSizeToString( long long bytes )
 {
     wxString out;
 
+    if ( bytes < 0LL )
+    {
+        return _( "Calculating..." );
+    }
+
     if ( bytes > 1024 * 1024 * 1024 )
     {
         out.Printf( "%.1lf GB", bytes / 1024.0 / 1024.0 / 1024.0 );

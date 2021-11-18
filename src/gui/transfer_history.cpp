@@ -556,7 +556,7 @@ void ScrolledTransferHistory::updateTimeGroups()
             m_pendingGroup.panel->Show();
         }
 
-        wxString fmt = wxString::Format( "In progress (%d)",
+        wxString fmt = wxString::Format( _( "In progress (%d)" ),
             (int)m_pendingGroup.elements.size() );
 
         m_pendingGroup.header->SetLabel( fmt );

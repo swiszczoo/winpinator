@@ -43,6 +43,17 @@ struct OutcomingTransferData
     std::vector<std::wstring> droppedPaths;
 };
 
+struct CrawlerOutputData
+{
+    int jobId;
+    std::wstring rootDir;
+    std::shared_ptr<std::vector<std::wstring>> paths;
+    std::vector<std::string> topDirBasenamesUtf8;
+    long long totalSize;
+    int folderCount;
+    int fileCount;
+};
+
 struct Event
 {
     EventType type;
@@ -54,7 +65,8 @@ struct Event
         std::shared_ptr<ToastNotification> toastData;
         std::shared_ptr<TransferData> transferData;
         std::shared_ptr<OutcomingTransferData> outcomingTransferData;
-        std::shared_ptr<std::vector<std::wstring>> crawlerOutputData;
+        int crawlerFailJobId;
+        std::shared_ptr<CrawlerOutputData> crawlerOutputData;
     } eventData;
 };
 

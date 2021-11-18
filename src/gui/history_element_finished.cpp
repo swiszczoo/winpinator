@@ -52,7 +52,8 @@ void HistoryFinishedElement::setData( const TransferData& newData )
     setIcons( newData.folderCount,
         newData.fileCount, newData.singleElementName );
     setOutcoming( newData.outgoing );
-    setFinished( newData.outgoing || newData.transferType != srv::db::TransferType::UNFINISHED_INCOMING );
+    setFinished( newData.outgoing
+        || newData.transferType != srv::db::TransferType::UNFINISHED_INCOMING );
 }
 
 const TransferData& HistoryFinishedElement::getData() const

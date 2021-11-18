@@ -31,16 +31,17 @@ private:
     int m_lastJobId;
     bool m_sendHidden;
 
-    void crawlJobMain( std::vector<std::wstring> paths );
+    void crawlJobMain( std::vector<std::wstring> paths, int jobId );
 
     std::wstring findRoot( const std::vector<std::wstring>& paths );
     wxFileName pathToFileName( const wxString& path );
     void findAndUnwindElement( wxFileName elementLoc, 
         wxFileName& currentLocation, wxFileName& relativeLoc, 
-        std::set<std::wstring>* paths, bool sendHidden );
+        std::set<std::wstring>* paths, bool sendHidden,
+        long long& totalSize );
     void performFilesystemDFS( wxFileName location, wxFileName relativeLoc,
-        std::set<std::wstring>* paths, bool sendHidden, 
-        int recursionLevel = 0 );
+        std::set<std::wstring>* paths, bool sendHidden,
+        long long& totalSize, int recursionLevel = 0 );
 };
 
 };

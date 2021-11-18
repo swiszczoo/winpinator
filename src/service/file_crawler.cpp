@@ -4,6 +4,8 @@
 #include <wx/filename.h>
 #include <wx/wx.h>
 
+#include "../globals.hpp"
+
 #include <algorithm>
 #include <functional>
 
@@ -59,7 +61,7 @@ int FileCrawler::startCrawlJob( const std::vector<std::wstring>& paths )
 
     m_lastJobId++;
     m_jobs[m_lastJobId] = std::thread( std::bind(
-        &FileCrawler::crawlJobMain, this, paths ) );
+        &FileCrawler::crawlJobMain, this, paths, m_lastJobId ) );
 
     return m_lastJobId;
 }
@@ -82,7 +84,7 @@ void FileCrawler::releaseCrawlJob( int jobId )
     }
 }
 
-void FileCrawler::crawlJobMain( std::vector<std::wstring> paths )
+void FileCrawler::crawlJobMain( std::vector<std::wstring> paths, int jobId )
 {
     setThreadName( "Crawl job" );
 
@@ -105,11 +107,12 @@ void FileCrawler::crawlJobMain( std::vector<std::wstring> paths )
         std::set<std::wstring> pathSet;
         wxFileName location = wxFileName::DirName( root );
         wxFileName relativeLoc;
+        long long totalSize = 0;
 
         for ( auto& path : paths )
         {
             findAndUnwindElement( wxFileName( path ),
-                location, relativeLoc, &pathSet, sendHidden );
+                location, relativeLoc, &pathSet, sendHidden, totalSize );
         }
 
         auto pathVec = std::make_shared<std::vector<std::wstring>>();
@@ -118,19 +121,65 @@ void FileCrawler::crawlJobMain( std::vector<std::wstring> paths )
         {
             pathVec->push_back( path );
         }
+
+        srv::Event successEvent;
+        successEvent.type = srv::EventType::OUTCOMING_CRAWLER_SUCCEEDED;
+        successEvent.eventData.crawlerOutputData 
+            = std::make_shared<srv::CrawlerOutputData>();
+        successEvent.eventData.crawlerOutputData->jobId = jobId; 
+        successEvent.eventData.crawlerOutputData->rootDir = root;
+        successEvent.eventData.crawlerOutputData->paths = pathVec;
+        successEvent.eventData.crawlerOutputData->totalSize = totalSize;
+
+        // Analyze top dir basenames
+        std::set<wxString> topDirSet;
+        for ( const auto& path : *pathVec )
+        {
+            wxString pathString( path );
+            topDirSet.insert( pathString.BeforeFirst( L'\\' ) );
+        }
+
+        int folderCount = 0;
+        int fileCount = 0;
+        for ( const auto& path : topDirSet )
+        {
+            successEvent.eventData.crawlerOutputData
+                ->topDirBasenamesUtf8.push_back( std::string( path.ToUTF8() ) );
+
+            wxFileName pathName = wxFileName::DirName( root );
+            pathName.SetFullName( path );
+
+            if ( wxFileExists( pathName.GetFullPath() ) )
+            {
+                fileCount++;
+            }
+            else if ( wxDirExists( pathName.GetFullPath() ) )
+            {
+                folderCount++;
+            }
+        }
+
+        successEvent.eventData.crawlerOutputData->fileCount = fileCount;
+        successEvent.eventData.crawlerOutputData->folderCount = folderCount;
+        
+        Globals::get()->getWinpinatorServiceInstance()->postEvent( successEvent );
     }
     catch ( std::exception& e )
     {
         wxLogDebug( "FileCrawler: failed! reason: %s", e.what() );
 
-        // Handle failed crawl job
+        srv::Event failEvent;
+        failEvent.type = srv::EventType::OUTCOMING_CRAWLER_FAILED;
+        failEvent.eventData.crawlerFailJobId = jobId;
+
+        Globals::get()->getWinpinatorServiceInstance()->postEvent( failEvent );
     }
 }
 
 std::wstring FileCrawler::findRoot( const std::vector<std::wstring>& paths )
 {
     wxString firstPath = paths[0];
-    wxFileName firstName = pathToFileName( firstPath );
+    wxFileName firstName( firstPath );
 
     wxString volume = firstName.GetVolume();
     wxArrayString segments = firstName.GetDirs();
@@ -141,7 +190,7 @@ std::wstring FileCrawler::findRoot( const std::vector<std::wstring>& paths )
 
     for ( int i = 0; i < paths.size(); i++ )
     {
-        wxFileName fname = pathToFileName( paths[i] );
+        wxFileName fname( paths[i] );
         fileNameCache.push_back( fname );
 
         if ( fname.GetVolume() != volume )
@@ -201,7 +250,8 @@ wxFileName FileCrawler::pathToFileName( const wxString& path )
 
 void FileCrawler::findAndUnwindElement( wxFileName elementLoc,
     wxFileName& currentLocation, wxFileName& relativeLoc,
-    std::set<std::wstring>* paths, bool sendHidden )
+    std::set<std::wstring>* paths, bool sendHidden,
+    long long& totalSize )
 {
     wxLogDebug( "FileCrawler: cur: %s rel: %s", 
         currentLocation.GetFullPath(), relativeLoc.GetFullPath() );
@@ -241,14 +291,20 @@ void FileCrawler::findAndUnwindElement( wxFileName elementLoc,
     currentLocation.AppendDir( elementLoc.GetFullName() );
     relativeLoc.AppendDir( elementLoc.GetFullName() );
 
-    performFilesystemDFS( elementLoc, relativeLoc, paths, sendHidden );
+    performFilesystemDFS( wxFileName::DirName( elementLoc.GetFullPath() ), 
+        relativeLoc, paths, sendHidden, totalSize );
 }
 
 void FileCrawler::performFilesystemDFS( wxFileName location, 
     wxFileName relativeLoc, std::set<std::wstring>* paths, 
-    bool sendHidden, int recursionLevel )
+    bool sendHidden, long long& totalSize, int recursionLevel )
 {
+#ifndef _DEBUG
     wxLogNull logNull;
+#endif
+
+    wxLogDebug( "FileCrawler: DFS | loc %s, rel %s",
+        location.GetFullPath(), relativeLoc.GetFullPath() );
 
     if ( recursionLevel > MAX_RECURSION_DEPTH )
     {
@@ -263,18 +319,27 @@ void FileCrawler::performFilesystemDFS( wxFileName location,
         int flags = wxDIR_FILES | wxDIR_DIRS | ( sendHidden ? wxDIR_HIDDEN : 0 );
 
         wxArrayString files;
-        wxDir::GetAllFiles( location.GetFullPath(), &files, wxEmptyString, flags );
+        wxDir dir( location.GetFullPath() );
+        wxString currPath;
+
+        for ( bool cont = dir.GetFirst( &currPath, wxEmptyString, flags ); 
+            cont; cont = dir.GetNext( &currPath ) )
+        {
+            files.Add( currPath );
+        }
+        //wxDir::GetAllFiles( location.GetFullPath(), &files, wxEmptyString, flags );
 
         for ( auto string : files )
         {
-            wxFileName newLocation = wxFileName::DirName( string );
-            wxFileName newRelativeLoc = relativeLoc;
+            wxFileName newLocation = location;
+            newLocation.AppendDir( string );
 
+            wxFileName newRelativeLoc = relativeLoc;
             newRelativeLoc.AppendDir( 
                 newLocation.GetDirs()[newLocation.GetDirCount() - 1] );
 
             performFilesystemDFS( newLocation, newRelativeLoc, 
-                paths, sendHidden, recursionLevel + 1 );
+                paths, sendHidden, totalSize, recursionLevel + 1 );
         }
     }
     else if ( wxFileExists( location.GetFullPath().RemoveLast() ) )

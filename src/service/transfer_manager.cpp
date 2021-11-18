@@ -504,7 +504,15 @@ int TransferManager::createOutcomingTransfer( const std::string& remoteId,
     }
 
     op.totalSize = -1;
-    op.totalCount = -1;
+    op.totalCount = rootPaths.size();
+
+    // Setup topDirBaseNames (temporarily)
+    for ( const std::wstring& path : rootPaths )
+    {
+        wxFileName fname( path );
+        op.topDirBasenamesUtf8.push_back( 
+            std::string( fname.GetFullName().ToUTF8() ) );
+    }
 
     registerTransfer( remoteId, op, true );
     op.intern.crawlJobId = m_crawler->startCrawlJob( rootPaths );
