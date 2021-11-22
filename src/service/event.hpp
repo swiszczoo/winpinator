@@ -1,7 +1,6 @@
 #pragma once
 #include "../settings_model.hpp"
 #include "../zeroconf/mdns_types.hpp"
-#include "notification.hpp"
 
 #include <wintoast/wintoastlib.h>
 
@@ -53,6 +52,8 @@ struct CrawlerOutputData
     int folderCount;
     int fileCount;
 };
+
+class ToastNotification;
 
 struct Event
 {

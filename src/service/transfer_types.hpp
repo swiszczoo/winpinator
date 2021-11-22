@@ -3,6 +3,7 @@
 
 #include <atomic>
 #include <chrono>
+#include <memory>
 #include <mutex>
 #include <string>
 #include <vector>
@@ -81,6 +82,10 @@ struct TransferOp : public TransferOpPub
         std::shared_ptr<EventLock> pauseLock;
 
         std::vector<db::TransferElement> elements;
+
+        std::string remoteId;
+        std::wstring rootDir;
+        std::shared_ptr<std::vector<std::wstring>> relativePaths;
 
         int fileCount;
         int dirCount;

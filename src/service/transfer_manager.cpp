@@ -135,10 +135,11 @@ void TransferManager::stop()
     std::lock_guard<std::mutex> guard( m_mtx );
 }
 
-void TransferManager::registerTransfer( const std::string& remoteId,
+TransferOpPtr TransferManager::registerTransfer( const std::string& remoteId,
     TransferOp& transfer, bool firstTry )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
+    TransferOpPtr opPtr = nullptr;
 
     if ( firstTry )
     {
@@ -156,6 +157,7 @@ void TransferManager::registerTransfer( const std::string& remoteId,
 
         transfer.intern.fileCount = 0;
         transfer.intern.dirCount = 0;
+        transfer.intern.remoteId = remoteId;
 
         checkTransferDiskSpace( transfer );
         checkTransferMustOverwrite( transfer );
@@ -179,7 +181,7 @@ void TransferManager::registerTransfer( const std::string& remoteId,
         if ( firstTry )
         {
             m_transfers[remoteId].push_back( 
-                std::make_shared<TransferOp>( transfer ) );
+                opPtr = std::make_shared<TransferOp>( transfer ) );
         }
     }
 
@@ -192,6 +194,8 @@ void TransferManager::registerTransfer( const std::string& remoteId,
     m_srv->notifyObservers(
         [this, &remoteId, &transfer]( srv::IServiceObserver* observer )
         { observer->onAddTransfer( remoteId, transfer ); } );
+
+    return opPtr;
 }
 
 void TransferManager::replyAllowTransfer( const std::string& remoteId,
@@ -417,20 +421,25 @@ void TransferManager::failAll( const std::string& remoteId )
     std::wstring senderName;
     if ( m_transfers.find( remoteId ) != m_transfers.end() )
     {
-        for ( auto& op : m_transfers[remoteId] )
+        while ( !m_transfers[remoteId].empty() )
         {
+            TransferOpPtr op = *m_transfers[remoteId].begin();
+            failOp( op );
+
+            if ( senderName.empty() )
             {
-                std::lock_guard<std::mutex> lock( *op->mutex );
-                if ( op->status != OpStatus::FAILED )
+                if ( op->outcoming )
                 {
-                    someFailed = true;
-                    senderName = wxString::FromUTF8( op->senderNameUtf8 ).ToStdWstring();
+                    RemoteInfoPtr info = m_remoteMgr->getRemoteInfo( remoteId );
+                    senderName = info->fullName;
                 }
-
-                op->status = OpStatus::FAILED;
+                else
+                {
+                    senderName = wxString::FromUTF8( 
+                        op->senderNameUtf8 )
+                                    .ToStdWstring();
+                }
             }
-
-            doFinishTransfer( remoteId, op->id );
         }
     }
 
@@ -514,10 +523,37 @@ int TransferManager::createOutcomingTransfer( const std::string& remoteId,
             std::string( fname.GetFullName().ToUTF8() ) );
     }
 
-    registerTransfer( remoteId, op, true );
-    op.intern.crawlJobId = m_crawler->startCrawlJob( rootPaths );
+    TransferOpPtr opPtr = registerTransfer( remoteId, op, true );
+    opPtr->intern.crawlJobId = m_crawler->startCrawlJob( rootPaths );
+    m_crawlJobs[opPtr->intern.crawlJobId] = opPtr;
 
     return op.id;
+}
+
+void TransferManager::notifyCrawlerSucceeded( const CrawlerOutputData& data )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+    m_crawler->releaseCrawlJob( data.jobId );
+
+    if ( m_crawlJobs.find( data.jobId ) != m_crawlJobs.end() )
+    {
+        TransferOpPtr op = m_crawlJobs[data.jobId];
+        doSendRequestAfterCrawling( op, data );
+        m_crawlJobs.erase( data.jobId );
+    }
+}
+
+void TransferManager::notifyCrawlerFailed( int jobId )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+    m_crawler->releaseCrawlJob( jobId );
+    
+    if ( m_crawlJobs.find( jobId ) != m_crawlJobs.end() )
+    {
+        TransferOpPtr failedOp = m_crawlJobs[jobId];
+        failOp( failedOp );
+        m_crawlJobs.erase( jobId );
+    }
 }
 
 std::mutex& TransferManager::getMutex()
@@ -897,6 +933,86 @@ void TransferManager::doFinishTransfer( const std::string& remoteId,
     m_srv->notifyObservers(
         [this, &remoteId, &transferId]( srv::IServiceObserver* observer )
         { observer->onRemoveTransfer( remoteId, transferId ); } );
+}
+
+void TransferManager::doSendRequestAfterCrawling( TransferOpPtr op,
+    const CrawlerOutputData& data )
+{
+    OpInfo* info;
+    std::string senderName, receiverName, receiver, nameIfSingle, mimeIfSingle;
+
+    {
+        // Update op using data from crawler
+        std::lock_guard<std::mutex> guard( *op->mutex );
+        op->topDirBasenamesUtf8 = data.topDirBasenamesUtf8;
+        op->totalSize = data.totalSize;
+        op->totalCount = data.paths->size();
+        op->intern.fileCount = data.fileCount;
+        op->intern.dirCount = data.folderCount;
+        op->intern.rootDir = data.rootDir;
+        op->intern.relativePaths = data.paths;
+        op->status = OpStatus::WAITING_PERMISSION;
+
+        senderName = op->senderNameUtf8;
+        receiverName = op->receiverNameUtf8;
+        receiver = op->receiverUtf8;
+        nameIfSingle = op->nameIfSingleUtf8;
+        mimeIfSingle = op->mimeIfSingleUtf8;
+
+        sendStatusUpdateNotification( op->intern.remoteId, op );
+    }
+
+    info = new OpInfo( convertOpToOpInfo( op, m_compressionLevel > 0 ) );
+
+    RemoteInfoPtr remote = m_remoteMgr->getRemoteInfo( op->intern.remoteId );
+
+    std::lock_guard<std::mutex> guard( remote->mutex );
+
+    auto ctx = std::make_shared<grpc::ClientContext>();
+    auto request = std::make_shared<TransferOpRequest>();
+    request->set_allocated_info( info );
+    request->set_sender_name( senderName );
+    request->set_receiver_name( receiverName );
+    request->set_receiver( receiver );
+    request->set_size( data.totalSize );
+    request->set_count( data.paths->size() );
+    request->set_name_if_single( nameIfSingle );
+    request->set_mime_if_single( mimeIfSingle );
+    for ( auto& topDir : data.topDirBasenamesUtf8 )
+    {
+        request->add_top_dir_basenames( topDir );
+    }
+
+    auto response = std::make_shared<VoidType>();
+
+    auto timePoint = std::chrono::system_clock::now()
+        + std::chrono::seconds( 5 );
+    ctx->set_deadline( timePoint );
+    
+    remote->stub->experimental_async()->ProcessTransferOpRequest(
+        ctx.get(), request.get(), response.get(),
+        [this, ctx, request, response]( grpc::Status status ) {
+
+        } 
+    );
+}
+
+bool TransferManager::failOp( TransferOpPtr op )
+{
+    bool failed = false;
+
+    {
+        std::lock_guard<std::mutex> lock( *op->mutex );
+        if ( op->status != OpStatus::FAILED )
+        {
+            failed = true;
+        }
+
+        op->status = OpStatus::FAILED;
+    }
+
+    doFinishTransfer( op->intern.remoteId, op->id );
+    return failed;
 }
 
 db::TransferStatus TransferManager::getOpStatus( const TransferOpPtr op )

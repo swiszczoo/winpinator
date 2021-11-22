@@ -25,6 +25,7 @@ public:
 
 private:
     static const int MAX_RECURSION_DEPTH;
+    static const long long BLOCK_SIZE;
 
     std::map<int, std::thread> m_jobs;
     std::mutex m_mtx;

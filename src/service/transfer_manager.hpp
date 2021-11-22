@@ -1,5 +1,6 @@
 #pragma once
 #include "database_manager.hpp"
+#include "event.hpp"
 #include "file_crawler.hpp"
 #include "observable_service.hpp"
 #include "remote_manager.hpp"
@@ -51,7 +52,7 @@ public:
 
     void stop();
 
-    void registerTransfer( const std::string& remoteId, 
+    TransferOpPtr registerTransfer( const std::string& remoteId, 
         TransferOp& transfer, bool firstTry );
 
     void replyAllowTransfer( const std::string& remoteId,
@@ -68,6 +69,8 @@ public:
 
     int createOutcomingTransfer( const std::string& remoteId, 
         const std::vector<std::wstring>& rootPaths );
+    void notifyCrawlerSucceeded( const CrawlerOutputData& data );
+    void notifyCrawlerFailed( int requestId );
 
     std::mutex& getMutex();
 
@@ -127,6 +130,7 @@ private:
     std::shared_ptr<RemoteManager> m_remoteMgr;
     std::shared_ptr<DatabaseManager> m_dbMgr;
     std::shared_ptr<FileCrawler> m_crawler;
+    std::map<int, TransferOpPtr> m_crawlJobs;
 
     ObservableService* m_srv;
     int m_lastId;
@@ -164,6 +168,9 @@ private:
     void doReplyAllowTransfer( const std::string& remoteId,
         int transferId, bool allow );
     void doFinishTransfer( const std::string& remoteId, int transferId );
+    void doSendRequestAfterCrawling( TransferOpPtr op, 
+        const CrawlerOutputData& data );
+    bool failOp( TransferOpPtr op );
 
     db::TransferStatus getOpStatus( const TransferOpPtr op );
     db::TransferType getOpType( const TransferOpPtr op );

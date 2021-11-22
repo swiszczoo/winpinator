@@ -9,6 +9,7 @@
 #include "file_crawler.hpp"
 #include "icon_extractor.hpp"
 #include "memory_manager.hpp"
+#include "notification.hpp"
 #include "registration_v1_impl.hpp"
 #include "registration_v2_impl.hpp"
 #include "service_utils.hpp"
@@ -529,6 +530,15 @@ void WinpinatorService::serviceMain()
             m_transferMgr->createOutcomingTransfer(
                 ev.eventData.outcomingTransferData->remoteId,
                 ev.eventData.outcomingTransferData->droppedPaths );
+        }
+        else if ( ev.type == EventType::OUTCOMING_CRAWLER_SUCCEEDED )
+        {
+            m_transferMgr->notifyCrawlerSucceeded(
+                *ev.eventData.crawlerOutputData );
+        }
+        else if ( ev.type == EventType::OUTCOMING_CRAWLER_FAILED )
+        {
+            m_transferMgr->notifyCrawlerFailed( ev.eventData.crawlerFailJobId );
         }
     }
 

@@ -15,6 +15,7 @@ namespace srv
 {
 
 const int FileCrawler::MAX_RECURSION_DEPTH = 256;
+const long long FileCrawler::BLOCK_SIZE = 4096LL;
 
 FileCrawler::FileCrawler()
     : m_lastJobId( 0 )
@@ -316,6 +317,8 @@ void FileCrawler::performFilesystemDFS( wxFileName location,
         paths->insert( 
             relativeLoc.GetFullPath().RemoveLast().ToStdWstring() );
 
+        totalSize += BLOCK_SIZE;
+
         int flags = wxDIR_FILES | wxDIR_DIRS | ( sendHidden ? wxDIR_HIDDEN : 0 );
 
         wxArrayString files;
@@ -327,7 +330,6 @@ void FileCrawler::performFilesystemDFS( wxFileName location,
         {
             files.Add( currPath );
         }
-        //wxDir::GetAllFiles( location.GetFullPath(), &files, wxEmptyString, flags );
 
         for ( auto string : files )
         {
@@ -346,6 +348,10 @@ void FileCrawler::performFilesystemDFS( wxFileName location,
     {
         paths->insert(
             relativeLoc.GetFullPath().RemoveLast().ToStdWstring() );
+
+        wxFileName fname( location.GetFullPath().RemoveLast() );
+        totalSize += ceil( 
+            (long double)fname.GetSize().GetValue() / BLOCK_SIZE ) * BLOCK_SIZE;
     }
 }
 
