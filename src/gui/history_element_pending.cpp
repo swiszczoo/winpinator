@@ -505,6 +505,10 @@ void HistoryPendingElement::onCancelClicked( wxCommandEvent& event )
     {
         onDeclineClicked( event );
     }
+    else if ( m_data.opState == HistoryPendingState::AWAIT_PEER_APPROVAL )
+    {
+        onDeclineClicked( event );
+    }
 }
 
 int HistoryPendingElement::calculateRemainingSeconds() const

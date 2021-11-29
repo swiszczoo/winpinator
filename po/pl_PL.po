@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:25+0100\n"
-"PO-Revision-Date: 2021-11-17 02:28+0100\n"
+"POT-Creation-Date: 2021-11-29 01:29+0100\n"
+"PO-Revision-Date: 2021-11-29 01:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -54,12 +54,12 @@ msgstr "Ścieżka względna"
 msgid "Absolute path"
 msgstr "Ścieżka bezwzględna"
 
-#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:277
+#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:293
 msgid "Folder"
 msgstr "Folder"
 
 #: .\gui\file_list_dialog.cpp:178 .\gui\file_list_dialog.cpp:187
-#: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:266
+#: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:282
 msgid "File"
 msgstr "Plik"
 
@@ -79,69 +79,69 @@ msgstr "Kopiuj ścieżkę względną..."
 msgid "Copy absolute path..."
 msgstr "Kopiuj ścieżkę bezwzględną..."
 
-#: .\gui\history_element_finished.cpp:119 .\gui\history_element_pending.cpp:383
+#: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:383
 msgid "Type:"
 msgstr "Typ:"
 
-#: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:384
+#: .\gui\history_element_finished.cpp:121 .\gui\history_element_pending.cpp:384
 msgid "Total size:"
 msgstr "Rozmiar:"
 
-#: .\gui\history_element_finished.cpp:156
+#: .\gui\history_element_finished.cpp:157
 msgid "Date and time:"
 msgstr "Data i czas:"
 
-#: .\gui\history_element_finished.cpp:172
+#: .\gui\history_element_finished.cpp:173
 msgid "%Y-%m-%d %I:%M %p"
 msgstr "%d.%m.%Y %H:%M"
 
-#: .\gui\history_element_finished.cpp:187
+#: .\gui\history_element_finished.cpp:188
 msgid "&Open "
 msgstr "&Otwórz "
 
-#: .\gui\history_element_finished.cpp:188
+#: .\gui\history_element_finished.cpp:189
 msgid "Show in &Explorer..."
 msgstr "Pokaż w &Eksploratorze..."
 
-#: .\gui\history_element_finished.cpp:189
+#: .\gui\history_element_finished.cpp:190
 msgid "Show &list of transferred files..."
 msgstr "Pokaż &listę przesłanych plików..."
 
-#: .\gui\history_element_finished.cpp:191
+#: .\gui\history_element_finished.cpp:192
 msgid "&Remove from history"
 msgstr "&Usuń z historii"
 
-#: .\gui\history_element_finished.cpp:260
+#: .\gui\history_element_finished.cpp:261
 msgid ""
 "Files and directories from this transfer no longer exist on the hard drive."
 msgstr ""
 "Pliki i foldery pochodzące z tego transferu nie znajdują się już na dysku."
 
-#: .\gui\history_element_finished.cpp:262
+#: .\gui\history_element_finished.cpp:263
 msgid "Can't show element"
 msgstr "Nie można wyświetlić elementu"
 
-#: .\gui\history_element_finished.cpp:354
+#: .\gui\history_element_finished.cpp:355
 msgid "Completed"
 msgstr "Ukończony"
 
-#: .\gui\history_element_finished.cpp:356
+#: .\gui\history_element_finished.cpp:357
 msgid "Cancelled"
 msgstr "Anulowany"
 
-#: .\gui\history_element_finished.cpp:358
+#: .\gui\history_element_finished.cpp:359
 msgid "Error occurred"
 msgstr "Wystąpił błąd"
 
-#: .\gui\history_element_finished.cpp:360 .\gui\utils.cpp:144
+#: .\gui\history_element_finished.cpp:361 .\gui\utils.cpp:144
 msgid "Unknown"
 msgstr "Nieznany"
 
-#: .\gui\history_element_finished.cpp:448
+#: .\gui\history_element_finished.cpp:449
 msgid "Selected element no longer exists on the hard drive."
 msgstr "Wybrany element nie znajduje się już na dysku."
 
-#: .\gui\history_element_finished.cpp:449
+#: .\gui\history_element_finished.cpp:450
 msgid "Can't open element"
 msgstr "Nie można otworzyć elementu"
 
@@ -260,11 +260,11 @@ msgstr "&Pauza"
 msgid "Not enough disk space! Files cannot be received!"
 msgstr "Brakuje miejsca na dysku! Nie można odebrać plików!"
 
-#: .\gui\history_item_icon.cpp:149 .\gui\history_item_icon.cpp:258
+#: .\gui\history_item_icon.cpp:149 .\gui\history_item_icon.cpp:274
 msgid "Empty"
 msgstr "Pusty"
 
-#: .\gui\history_item_icon.cpp:165 .\service\notification_accept_files.cpp:107
+#: .\gui\history_item_icon.cpp:175 .\service\notification_accept_files.cpp:107
 #, c-format
 msgid "%d element"
 msgid_plural "%d elements"
@@ -272,7 +272,7 @@ msgstr[0] "%d element"
 msgstr[1] "%d elementy"
 msgstr[2] "%d elementów"
 
-#: .\gui\history_item_icon.cpp:169
+#: .\gui\history_item_icon.cpp:179
 #, c-format
 msgid "%d file"
 msgid_plural "%d files"
@@ -280,7 +280,7 @@ msgstr[0] "%d plik"
 msgstr[1] "%d pliki"
 msgstr[2] "%d plików"
 
-#: .\gui\history_item_icon.cpp:172
+#: .\gui\history_item_icon.cpp:182
 #, c-format
 msgid "%d folder"
 msgid_plural "%d folders"
@@ -289,20 +289,24 @@ msgstr[1] "%d foldery"
 msgstr[2] "%d folderów"
 
 #. TRANSLATORS: format string, e.g. <2 folders> and <5 files>
-#: .\gui\history_item_icon.cpp:188
+#: .\gui\history_item_icon.cpp:198
 #, c-format
 msgid "%s and %s"
 msgstr "%s i %s"
 
-#: .\gui\history_item_icon.cpp:270
+#: .\gui\history_item_icon.cpp:268
+msgid "Calculating"
+msgstr ""
+
+#: .\gui\history_item_icon.cpp:286
 msgid "Multiple files"
 msgstr "Wiele plików"
 
-#: .\gui\history_item_icon.cpp:281
+#: .\gui\history_item_icon.cpp:297
 msgid "Multiple folders"
 msgstr "Wiele folderów"
 
-#: .\gui\history_item_icon.cpp:286
+#: .\gui\history_item_icon.cpp:302
 msgid "Mixed elements"
 msgstr "Różne elementy"
 
@@ -675,6 +679,11 @@ msgstr "Brak historii transferów dla tego urządzenia..."
 msgid "In progress"
 msgstr "W trakcie trwania"
 
+#: .\gui\transfer_history.cpp:559
+#, c-format
+msgid "In progress (%d)"
+msgstr "W trakcie trwania (%d)"
+
 #: .\gui\utils.cpp:131
 msgid "Offline"
 msgstr "Offline"
@@ -698,6 +707,10 @@ msgstr "Zestawianie połączenia dwukierunkowego..."
 #: .\gui\utils.cpp:141
 msgid "Ready"
 msgstr "Gotowy"
+
+#: .\gui\utils.cpp:193
+msgid "Calculating..."
+msgstr "Obliczanie..."
 
 #: .\gui\winpinator_banner.cpp:159
 msgid "Share your files across the LAN"

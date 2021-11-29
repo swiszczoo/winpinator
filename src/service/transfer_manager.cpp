@@ -475,7 +475,7 @@ int TransferManager::createOutcomingTransfer( const std::string& remoteId,
     op.status = OpStatus::CALCULATING;
     op.startTime = Utils::getMonotonicTime();
     op.mimeIfSingleUtf8 = DEFAULT_MIME_TYPE;
-    op.senderNameUtf8;
+    op.senderNameUtf8 = wxString( Utils::getUserFullName() ).ToUTF8();
     op.receiverUtf8 = AuthManager::get()->getIdent();
     op.receiverNameUtf8 = "";
     op.useCompression = m_compressionLevel > 0;

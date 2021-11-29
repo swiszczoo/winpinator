@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 02:25+0100\n"
+"POT-Creation-Date: 2021-11-29 01:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,12 +46,12 @@ msgstr ""
 msgid "Absolute path"
 msgstr ""
 
-#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:277
+#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:293
 msgid "Folder"
 msgstr ""
 
 #: .\gui\file_list_dialog.cpp:178 .\gui\file_list_dialog.cpp:187
-#: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:266
+#: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:282
 msgid "File"
 msgstr ""
 
@@ -71,67 +71,67 @@ msgstr ""
 msgid "Copy absolute path..."
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:119 .\gui\history_element_pending.cpp:383
+#: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:383
 msgid "Type:"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:384
+#: .\gui\history_element_finished.cpp:121 .\gui\history_element_pending.cpp:384
 msgid "Total size:"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:156
+#: .\gui\history_element_finished.cpp:157
 msgid "Date and time:"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:172
+#: .\gui\history_element_finished.cpp:173
 msgid "%Y-%m-%d %I:%M %p"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:187
+#: .\gui\history_element_finished.cpp:188
 msgid "&Open "
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:188
+#: .\gui\history_element_finished.cpp:189
 msgid "Show in &Explorer..."
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:189
+#: .\gui\history_element_finished.cpp:190
 msgid "Show &list of transferred files..."
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:191
+#: .\gui\history_element_finished.cpp:192
 msgid "&Remove from history"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:260
+#: .\gui\history_element_finished.cpp:261
 msgid "Files and directories from this transfer no longer exist on the hard drive."
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:262
+#: .\gui\history_element_finished.cpp:263
 msgid "Can't show element"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:354
+#: .\gui\history_element_finished.cpp:355
 msgid "Completed"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:356
+#: .\gui\history_element_finished.cpp:357
 msgid "Cancelled"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:358
+#: .\gui\history_element_finished.cpp:359
 msgid "Error occurred"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:360 .\gui\utils.cpp:144
+#: .\gui\history_element_finished.cpp:361 .\gui\utils.cpp:144
 msgid "Unknown"
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:448
+#: .\gui\history_element_finished.cpp:449
 msgid "Selected element no longer exists on the hard drive."
 msgstr ""
 
-#: .\gui\history_element_finished.cpp:449
+#: .\gui\history_element_finished.cpp:450
 msgid "Can't open element"
 msgstr ""
 
@@ -246,25 +246,25 @@ msgstr ""
 msgid "Not enough disk space! Files cannot be received!"
 msgstr ""
 
-#: .\gui\history_item_icon.cpp:149 .\gui\history_item_icon.cpp:258
+#: .\gui\history_item_icon.cpp:149 .\gui\history_item_icon.cpp:274
 msgid "Empty"
 msgstr ""
 
-#: .\gui\history_item_icon.cpp:165 .\service\notification_accept_files.cpp:107
+#: .\gui\history_item_icon.cpp:175 .\service\notification_accept_files.cpp:107
 #, c-format
 msgid "%d element"
 msgid_plural "%d elements"
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\gui\history_item_icon.cpp:169
+#: .\gui\history_item_icon.cpp:179
 #, c-format
 msgid "%d file"
 msgid_plural "%d files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\gui\history_item_icon.cpp:172
+#: .\gui\history_item_icon.cpp:182
 #, c-format
 msgid "%d folder"
 msgid_plural "%d folders"
@@ -272,20 +272,24 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: format string, e.g. <2 folders> and <5 files>
-#: .\gui\history_item_icon.cpp:188
+#: .\gui\history_item_icon.cpp:198
 #, c-format
 msgid "%s and %s"
 msgstr ""
 
-#: .\gui\history_item_icon.cpp:270
-msgid "Multiple files"
-msgstr ""
-
-#: .\gui\history_item_icon.cpp:281
-msgid "Multiple folders"
+#: .\gui\history_item_icon.cpp:268
+msgid "Calculating"
 msgstr ""
 
 #: .\gui\history_item_icon.cpp:286
+msgid "Multiple files"
+msgstr ""
+
+#: .\gui\history_item_icon.cpp:297
+msgid "Multiple folders"
+msgstr ""
+
+#: .\gui\history_item_icon.cpp:302
 msgid "Mixed elements"
 msgstr ""
 
@@ -620,6 +624,11 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
+#: .\gui\transfer_history.cpp:559
+#, c-format
+msgid "In progress (%d)"
+msgstr ""
+
 #: .\gui\utils.cpp:131
 msgid "Offline"
 msgstr ""
@@ -642,6 +651,10 @@ msgstr ""
 
 #: .\gui\utils.cpp:141
 msgid "Ready"
+msgstr ""
+
+#: .\gui\utils.cpp:193
+msgid "Calculating..."
 msgstr ""
 
 #: .\gui\winpinator_banner.cpp:159
