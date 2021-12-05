@@ -65,6 +65,10 @@ public:
     void finishTransfer( const std::string& remoteId, int transferId );
     void requestStopTransfer( const std::string& remoteId, 
         int transferId, bool error );
+
+    /* Blocking function, call on background thread only! */
+    bool handleOutcomingTransfer( const std::string& remoteId, 
+        int transferId, grpc::ServerWriter<FileChunk>* writer, bool compress );
     void failAll( const std::string& remoteId );
 
     int createOutcomingTransfer( const std::string& remoteId, 

@@ -413,6 +413,25 @@ void TransferManager::requestStopTransfer( const std::string& remoteId,
     }
 }
 
+bool TransferManager::handleOutcomingTransfer( const std::string& remoteId, 
+    int transferId, grpc::ServerWriter<FileChunk>* writer, bool compress )
+{
+    TransferOpPtr op;
+    {
+        std::lock_guard<std::mutex> guard( m_mtx );
+        op = getTransferInfo( remoteId, transferId );
+    }
+
+    {
+        std::lock_guard<std::mutex> lck( *op->mutex );
+        op->status = OpStatus::TRANSFERRING;
+
+        sendStatusUpdateNotification( remoteId, op );
+    }
+
+    return false;
+}
+
 void TransferManager::failAll( const std::string& remoteId )
 {
     std::lock_guard<std::mutex> guard( m_mtx );

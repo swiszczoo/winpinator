@@ -220,7 +220,23 @@ Status WarpServiceImpl::StartTransfer( grpc::ServerContext* context,
     wxLogDebug( "Server RPC: StartTransfer from '%s'",
         request->readable_name() );
 
-    return Status::CANCELLED;
+    const std::string& id = request->ident();
+    TransferOpPub op = m_transferMgr->getOp( id, request->timestamp() );
+
+    if ( !m_remoteMgr->isHostAvailable( id ) || op.id == -1 )
+    {
+        wxLogDebug( "Received start transfer request for unknown op" );
+        return Status( grpc::StatusCode::PERMISSION_DENIED,
+            "Invalid sender ident" );
+    }
+
+    bool result = m_transferMgr->handleOutcomingTransfer( 
+        id, op.id, writer, request->use_compression() );
+
+    if ( result ) {
+        return Status::OK;
+    }
+    return Status( grpc::StatusCode::CANCELLED, "Internal error occured" );
 }
 
 Status WarpServiceImpl::CancelTransferOpRequest( grpc::ServerContext* context,
