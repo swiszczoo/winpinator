@@ -188,6 +188,7 @@ void TransferManager::StartTransferReactor::updatePaths()
             wxFileName fname( element.absolutePath );
             element.elementName = fname.GetFullName().ToStdWstring();
 
+            std::lock_guard<std::mutex> guard( *m_transfer->mutex );
             m_transfer->intern.elements.push_back( element );
 
             if ( currentPath.find( '/' ) == std::string::npos )

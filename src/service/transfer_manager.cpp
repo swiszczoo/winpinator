@@ -2,6 +2,7 @@
 
 #include "../globals.hpp"
 #include "auth_manager.hpp"
+#include "file_sender.hpp"
 #include "notification_accept_files.hpp"
 #include "notification_transfer_failed.hpp"
 #include "service_utils.hpp"
@@ -422,6 +423,11 @@ bool TransferManager::handleOutcomingTransfer( const std::string& remoteId,
         op = getTransferInfo( remoteId, transferId );
     }
 
+    if (!op)
+    {
+        return false;
+    }
+
     {
         std::lock_guard<std::mutex> lck( *op->mutex );
         op->status = OpStatus::TRANSFERRING;
@@ -429,7 +435,9 @@ bool TransferManager::handleOutcomingTransfer( const std::string& remoteId,
         sendStatusUpdateNotification( remoteId, op );
     }
 
-    return false;
+    FileSender sender( op, writer );
+    sender.setCompressionLevel( compress ? m_compressionLevel : 0 );
+    return sender.transferFiles();
 }
 
 void TransferManager::failAll( const std::string& remoteId )
