@@ -50,6 +50,11 @@ public:
     void setMustAllowOverwrite( bool must );
     bool getMustAllowOverwrite();
 
+    void setUnixPermissionMasks( int file, int executable, int directory );
+    int getUnixFilePermissionMask();
+    int getUnixExecutablePermissionMask();
+    int getUnixDirectoryPermissionMask();
+
     void stop();
 
     TransferOpPtr registerTransfer( const std::string& remoteId, 
@@ -143,6 +148,10 @@ private:
     int m_compressionLevel;
     bool m_mustAllowIncoming;
     bool m_mustAllowOverwrite;
+
+    int m_filePerms;
+    int m_execPerms;
+    int m_dirPerms;
 
     TransferOp m_empty;
 

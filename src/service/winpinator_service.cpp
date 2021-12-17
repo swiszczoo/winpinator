@@ -298,6 +298,10 @@ void WinpinatorService::serviceMain()
     m_transferMgr->setCrawlerPtr( m_crawler );
     m_transferMgr->setMustAllowIncoming( m_settings.askReceiveFiles );
     m_transferMgr->setMustAllowOverwrite( m_settings.askOverwriteFiles );
+    m_transferMgr->setUnixPermissionMasks( 
+        m_settings.filesDefaultPermissions,
+        m_settings.executablesDefaultPermissions, 
+        m_settings.foldersDefaultPermissions );
 
     m_remoteMgr->setTransferManager( m_transferMgr.get() );
 

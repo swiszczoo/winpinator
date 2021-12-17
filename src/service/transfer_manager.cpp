@@ -24,7 +24,13 @@ TransferManager::TransferManager( ObservableService* service )
     , m_remoteMgr( nullptr )
     , m_srv( service )
     , m_lastId( 0 )
+    , m_outputPath( L"" )
     , m_compressionLevel( 0 )
+    , m_mustAllowIncoming( true )
+    , m_mustAllowOverwrite( true )
+    , m_filePerms( 0 )
+    , m_execPerms( 0 )
+    , m_dirPerms( 0 )
     , m_empty()
 {
 }
@@ -131,6 +137,37 @@ bool TransferManager::getMustAllowOverwrite()
     return m_mustAllowOverwrite;
 }
 
+void TransferManager::setUnixPermissionMasks( int file,
+    int executable, int directory )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    m_filePerms = file;
+    m_execPerms = executable;
+    m_dirPerms = directory;
+}
+
+int TransferManager::getUnixFilePermissionMask()
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    return m_filePerms;
+}
+
+int TransferManager::getUnixExecutablePermissionMask()
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    return m_execPerms;
+}
+
+int TransferManager::getUnixDirectoryPermissionMask()
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    return m_dirPerms;
+}
+
 void TransferManager::stop()
 {
     std::lock_guard<std::mutex> guard( m_mtx );
@@ -181,7 +218,7 @@ TransferOpPtr TransferManager::registerTransfer( const std::string& remoteId,
 
         if ( firstTry )
         {
-            m_transfers[remoteId].push_back( 
+            m_transfers[remoteId].push_back(
                 opPtr = std::make_shared<TransferOp>( transfer ) );
         }
     }
@@ -302,7 +339,7 @@ void TransferManager::pauseTransfer( const std::string& remoteId,
     }
 }
 
-void TransferManager::stopTransfer( const std::string& remoteId, 
+void TransferManager::stopTransfer( const std::string& remoteId,
     int transferId, bool error )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
@@ -414,7 +451,7 @@ void TransferManager::requestStopTransfer( const std::string& remoteId,
     }
 }
 
-bool TransferManager::handleOutcomingTransfer( const std::string& remoteId, 
+bool TransferManager::handleOutcomingTransfer( const std::string& remoteId,
     int transferId, grpc::ServerWriter<FileChunk>* writer, bool compress )
 {
     TransferOpPtr op;
@@ -423,7 +460,7 @@ bool TransferManager::handleOutcomingTransfer( const std::string& remoteId,
         op = getTransferInfo( remoteId, transferId );
     }
 
-    if (!op)
+    if ( !op )
     {
         return false;
     }
@@ -436,8 +473,16 @@ bool TransferManager::handleOutcomingTransfer( const std::string& remoteId,
     }
 
     FileSender sender( op, writer );
-    sender.setCompressionLevel( compress ? m_compressionLevel : 0 );
-    return sender.transferFiles();
+
+    {
+        std::lock_guard<std::mutex> guard( m_mtx );
+        sender.setCompressionLevel( compress ? m_compressionLevel : 0 );
+        sender.setUnixPermissionMasks( m_filePerms, m_execPerms, m_dirPerms );
+    }
+
+    return sender.transferFiles( [&]() { 
+        sendStatusUpdateNotification( remoteId, op );
+    } );
 }
 
 void TransferManager::failAll( const std::string& remoteId )
@@ -462,9 +507,9 @@ void TransferManager::failAll( const std::string& remoteId )
                 }
                 else
                 {
-                    senderName = wxString::FromUTF8( 
+                    senderName = wxString::FromUTF8(
                         op->senderNameUtf8 )
-                                    .ToStdWstring();
+                                     .ToStdWstring();
                 }
             }
         }
@@ -517,7 +562,7 @@ int TransferManager::createOutcomingTransfer( const std::string& remoteId,
     else if ( files == 1 && folders == 0 )
     {
         wxFileName fname( oneFileName );
-        wxFileType* ftype = wxTheMimeTypesManager->GetFileTypeFromExtension( 
+        wxFileType* ftype = wxTheMimeTypesManager->GetFileTypeFromExtension(
             fname.GetExt() );
 
         op.nameIfSingleUtf8 = fname.GetFullName().ToUTF8();
@@ -535,8 +580,9 @@ int TransferManager::createOutcomingTransfer( const std::string& remoteId,
     }
     else
     {
-        op.nameIfSingleUtf8 = wxString::Format( 
-            "%d elements", (int)( folders + files ) ).ToUTF8();
+        op.nameIfSingleUtf8 = wxString::Format(
+            "%d elements", (int)( folders + files ) )
+                                  .ToUTF8();
     }
 
     op.totalSize = -1;
@@ -546,7 +592,7 @@ int TransferManager::createOutcomingTransfer( const std::string& remoteId,
     for ( const std::wstring& path : rootPaths )
     {
         wxFileName fname( path );
-        op.topDirBasenamesUtf8.push_back( 
+        op.topDirBasenamesUtf8.push_back(
             std::string( fname.GetFullName().ToUTF8() ) );
     }
 
@@ -574,7 +620,7 @@ void TransferManager::notifyCrawlerFailed( int jobId )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
     m_crawler->releaseCrawlJob( jobId );
-    
+
     if ( m_crawlJobs.find( jobId ) != m_crawlJobs.end() )
     {
         TransferOpPtr failedOp = m_crawlJobs[jobId];
@@ -601,7 +647,7 @@ std::vector<TransferOpPtr> TransferManager::getTransfersForRemote(
     return {};
 }
 
-TransferOpPub TransferManager::getOp( const std::string& remoteId, 
+TransferOpPub TransferManager::getOp( const std::string& remoteId,
     time_t timestamp )
 {
     std::lock_guard<std::mutex> guard( m_mtx );
@@ -922,9 +968,9 @@ void TransferManager::doFinishTransfer( const std::string& remoteId,
         record.status = getOpStatus( op );
         record.transferType = getOpType( op );
 
-        // Correct file/folder count and type 
+        // Correct file/folder count and type
         // in case of unfinished incoming transfer
-        if ( !record.outgoing && ( record.status != db::TransferStatus::SUCCEEDED ))
+        if ( !record.outgoing && ( record.status != db::TransferStatus::SUCCEEDED ) )
         {
             record.transferType = db::TransferType::UNFINISHED_INCOMING;
 
@@ -1015,13 +1061,19 @@ void TransferManager::doSendRequestAfterCrawling( TransferOpPtr op,
     auto timePoint = std::chrono::system_clock::now()
         + std::chrono::seconds( 5 );
     ctx->set_deadline( timePoint );
-    
-    remote->stub->experimental_async()->ProcessTransferOpRequest(
-        ctx.get(), request.get(), response.get(),
-        [this, ctx, request, response]( grpc::Status status ) {
 
-        } 
-    );
+    if ( remote->stub )
+    {
+        remote->stub->experimental_async()->ProcessTransferOpRequest(
+            ctx.get(), request.get(), response.get(),
+            [this, ctx, request, response]( grpc::Status status ) {
+
+            } );
+    }
+    else
+    {
+        failOp( op );
+    }
 }
 
 bool TransferManager::failOp( TransferOpPtr op )

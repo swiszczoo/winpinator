@@ -282,7 +282,7 @@ void ScrolledTransferHistory::deletePendingTransfer( int transferId )
             m_pendingGroup.sizer->Remove( i );
             m_pendingGroup.elements[i]->Destroy();
 
-            m_pendingGroup.elements.erase( 
+            m_pendingGroup.elements.erase(
                 m_pendingGroup.elements.begin() + i );
             m_pendingGroup.currentIds.erase(
                 m_pendingGroup.currentIds.begin() + i );
@@ -560,6 +560,11 @@ void ScrolledTransferHistory::updateTimeGroups()
             (int)m_pendingGroup.elements.size() );
 
         m_pendingGroup.header->SetLabel( fmt );
+        for ( int i = 0; i < m_pendingGroup.elements.size(); i++ )
+        {
+            m_pendingGroup.elements[i]->setIsLast( 
+                i + 1 == m_pendingGroup.elements.size() );
+        }
 
         anyElement = true;
     }
@@ -733,17 +738,17 @@ bool ScrolledTransferHistory::DropTargetImpl::OnDropFiles( wxCoord x,
 
     srv::Event evnt;
     evnt.type = srv::EventType::REQUEST_OUTCOMING_TRANSFER;
-    evnt.eventData.outcomingTransferData 
+    evnt.eventData.outcomingTransferData
         = std::make_shared<srv::OutcomingTransferData>();
-    evnt.eventData.outcomingTransferData->remoteId 
+    evnt.eventData.outcomingTransferData->remoteId
         = m_instance->m_targetId.ToStdString();
 
     for ( auto& path : filenames )
     {
-        if ( ( wxFileExists( path ) || wxDirExists( path ) ) 
+        if ( ( wxFileExists( path ) || wxDirExists( path ) )
             && wxIsAbsolutePath( path ) )
         {
-            evnt.eventData.outcomingTransferData->droppedPaths.push_back( 
+            evnt.eventData.outcomingTransferData->droppedPaths.push_back(
                 path.ToStdWstring() );
         }
     }
