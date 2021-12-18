@@ -1,5 +1,7 @@
 #include "file_sender.hpp"
 
+#include "database_types.hpp"
+
 #include <wx/filename.h>
 #include <wx/log.h>
 
@@ -170,6 +172,26 @@ bool FileSender::sendSingleFile( const std::wstring& root,
         }
     } while ( readCount > 0 );
 
+    db::TransferElement record;
+    record.elementType = db::TransferElementType::FILE;
+    record.relativePath = relativePathStr.ToStdWstring();
+    if ( root[root.size() - 1] == '\\' )
+    {
+        record.absolutePath = root + relativePath;
+    }
+    else
+    {
+        record.absolutePath = root + '\\' + relativePath;
+    }
+
+    wxFileName fname( record.absolutePath );
+    record.elementName = fname.GetFullName().ToStdWstring();
+
+    {
+        std::lock_guard<std::mutex> transferLock( *m_transfer->mutex );
+        m_transfer->intern.elements.push_back( record );
+    }
+
     return true;
 }
 
@@ -190,6 +212,26 @@ bool FileSender::sendSingleDirectory( const std::wstring& root,
     dirChunk.set_file_mode( m_dirPerms.convertToDecimal() );
 
     waitIfPaused();
+
+    db::TransferElement record;
+    record.elementType = db::TransferElementType::FOLDER;
+    record.relativePath = relativePathStr.ToStdWstring();
+    if ( root[root.size() - 1] == '\\' )
+    {
+        record.absolutePath = root + relativePath;
+    }
+    else
+    {
+        record.absolutePath = root + '\\' + relativePath;
+    }
+
+    wxFileName fname( record.absolutePath );
+    record.elementName = fname.GetFullName().ToStdWstring();
+
+    {
+        std::lock_guard<std::mutex> transferLock( *m_transfer->mutex );
+        m_transfer->intern.elements.push_back( record );
+    }
 
     m_writer->Write( dirChunk );
     return true;

@@ -480,9 +480,25 @@ bool TransferManager::handleOutcomingTransfer( const std::string& remoteId,
         sender.setUnixPermissionMasks( m_filePerms, m_execPerms, m_dirPerms );
     }
 
-    return sender.transferFiles( [&]() { 
-        sendStatusUpdateNotification( remoteId, op );
-    } );
+    bool result = sender.transferFiles( [&]()
+        { sendStatusUpdateNotification( remoteId, op ); } );
+
+    {
+        std::lock_guard<std::mutex> guard( *op->mutex );
+        if ( result )
+        {
+            op->status = OpStatus::FINISHED;
+        }
+        else if ( op->status == OpStatus::TRANSFERRING 
+            || op->status == OpStatus::PAUSED )
+        {
+            op->status = OpStatus::FAILED_UNRECOVERABLE;
+        }
+    }
+
+    doFinishTransfer( remoteId, op->id );
+
+    return result;
 }
 
 void TransferManager::failAll( const std::string& remoteId )
