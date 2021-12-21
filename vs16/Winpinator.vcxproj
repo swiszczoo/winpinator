@@ -274,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\globals.hpp" />
+    <ClInclude Include="..\src\gui\autorun_setter.hpp" />
     <ClInclude Include="..\src\gui\file_list_dialog.hpp" />
     <ClInclude Include="..\src\gui\history_element_finished.hpp" />
     <ClInclude Include="..\src\gui\history_item_icon.hpp" />
@@ -352,6 +353,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\globals.cpp" />
+    <ClCompile Include="..\src\gui\autorun_setter.cpp" />
     <ClCompile Include="..\src\gui\file_list_dialog.cpp" />
     <ClCompile Include="..\src\gui\history_element_finished.cpp" />
     <ClCompile Include="..\src\gui\history_item_icon.cpp" />

@@ -292,6 +292,9 @@
     <ClInclude Include="..\src\service\file_sender.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\autorun_setter.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -491,6 +494,9 @@
     </ClCompile>
     <ClCompile Include="..\src\service\file_sender.cpp">
       <Filter>Sources\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\autorun_setter.cpp">
+      <Filter>Sources\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -82,6 +82,19 @@ WinpinatorApp::WinpinatorApp()
 
 bool WinpinatorApp::OnInit()
 {
+    bool isAutorunStartup = false;
+
+    if ( argc == 2 ) {
+        if ( argv[1] == "/autorun" ) { 
+            isAutorunStartup = true;
+
+            if ( !m_settings.autorun )
+            {
+                return false;
+            }
+        }
+    }
+
     wxInitAllImageHandlers();
     wxSocketBase::Initialize();
 
@@ -144,11 +157,20 @@ bool WinpinatorApp::OnInit()
     }
 
     // Show main window
-    if ( m_settings.openWindowOnStart )
-    {
-        showMainFrame();
+    if ( isAutorunStartup ) {
+        if ( !m_settings.autorunHidden )
+        {
+            showMainFrame();
+        }
     }
-
+    else
+    {
+        if ( m_settings.openWindowOnStart )
+        {
+            showMainFrame();
+        }
+    }
+    
     return true;
 }
 

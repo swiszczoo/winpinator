@@ -55,6 +55,8 @@ private:
     wxSpinCtrl* m_transferPort;
     wxSpinCtrl* m_registrationPort;
 
+    wxString m_autorunCommand;
+
     void createGeneralPage();
     void createPermissionsPage();
     void createConnectionPage();

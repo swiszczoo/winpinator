@@ -1,8 +1,10 @@
 #include "settings_dialog.hpp"
 
 #include "../main_base.hpp"
+#include "autorun_setter.hpp"
 #include "utils.hpp"
 
+#include <wx/stdpaths.h>
 #include <wx/translation.h>
 
 namespace gui
@@ -11,6 +13,7 @@ namespace gui
 SettingsDialog::SettingsDialog( wxWindow* parent )
     : wxDialog( parent, wxID_ANY, _( "Preferences" ) )
     , m_notebook( nullptr )
+    , m_autorunCommand( wxEmptyString )
 {
     SetMinSize( FromDIP( wxSize( 400, 560 ) ) );
     SetSize( FromDIP( wxSize( 400, 560 ) ) );
@@ -45,6 +48,9 @@ SettingsDialog::SettingsDialog( wxWindow* parent )
 
     SetSizer( sizer );
     CenterOnParent();
+
+    m_autorunCommand.Printf( "\"%s\" /autorun",
+        wxStandardPaths::Get().GetExecutablePath() );
 
     // Events
     Bind( wxEVT_BUTTON, &SettingsDialog::onSaveSettings, this, wxID_OK );
@@ -120,7 +126,7 @@ void SettingsDialog::createGeneralPage()
 
     sizer->AddSpacer( FromDIP( 5 ) );
 
-    label = new wxStaticText( m_panelGeneral, wxID_ANY, 
+    label = new wxStaticText( m_panelGeneral, wxID_ANY,
         _( "Compression level:" ) );
     sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
@@ -178,7 +184,6 @@ void SettingsDialog::createPermissionsPage()
     sizer->Add( m_folderDefaultPerms, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     sizer->AddSpacer( FromDIP( 10 ) );
-    
 
     m_panelPermissions->SetSizer( sizer );
 }
@@ -194,7 +199,7 @@ void SettingsDialog::createConnectionPage()
     sizer->AddSpacer( FromDIP( 10 ) );
 
     wxStaticText* label;
-    label = new wxStaticText( m_panelConnection, wxID_ANY, 
+    label = new wxStaticText( m_panelConnection, wxID_ANY,
         _( "Identification" ) );
     label->SetFont( font );
     label->SetForegroundColour( Utils::get()->getHeaderColor() );
@@ -220,7 +225,7 @@ void SettingsDialog::createConnectionPage()
 
     sizer->AddSpacer( FromDIP( 5 ) );
 
-    label = new wxStaticText( m_panelConnection, wxID_ANY, 
+    label = new wxStaticText( m_panelConnection, wxID_ANY,
         _( "Network interface to use:" ) );
     sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
@@ -299,8 +304,9 @@ void SettingsDialog::saveSettings()
 {
     SettingsModel& settings = GetApp().m_settings;
 
-    settings.localeName = m_langAdapter.getLanguageInfoByIndex( 
-        m_localeName->GetSelection() ).icuCode;
+    settings.localeName = m_langAdapter.getLanguageInfoByIndex(
+                                           m_localeName->GetSelection() )
+                              .icuCode;
     settings.openWindowOnStart = m_openWindowOnStart->IsChecked();
     settings.autorun = m_autorun->IsChecked();
     settings.autorunHidden = m_autorunHidden->IsChecked();
@@ -319,6 +325,21 @@ void SettingsDialog::saveSettings()
         settings.networkInterface = "";
     settings.transferPort = m_transferPort->GetValue();
     settings.registrationPort = m_registrationPort->GetValue();
+
+    // Write autorun options to registry
+    AutorunSetter setter( GetApp().GetAppName(), m_autorunCommand );
+
+    if ( settings.autorun != setter.isAutorunEnabled() )
+    {
+        if ( settings.autorun )
+        {
+            setter.enableAutorun();
+        }
+        else
+        {
+            setter.disableAutorun();
+        }
+    }
 }
 
 void SettingsDialog::fillLocales()
@@ -341,7 +362,7 @@ void SettingsDialog::fillInterfaces()
 
     m_networkInterface->AppendString( _( "Automatic" ) );
     m_networkInterface->SetSelection( 0 );
-    
+
     bool selected = settings.networkInterface.empty();
 
     for ( auto& interf : m_interfaces )
