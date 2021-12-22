@@ -15,8 +15,8 @@ SettingsDialog::SettingsDialog( wxWindow* parent )
     , m_notebook( nullptr )
     , m_autorunCommand( wxEmptyString )
 {
-    SetMinSize( FromDIP( wxSize( 400, 560 ) ) );
-    SetSize( FromDIP( wxSize( 400, 560 ) ) );
+    SetMinSize( FromDIP( wxSize( 450, 560 ) ) );
+    SetSize( FromDIP( wxSize( 450, 560 ) ) );
 
     wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
     sizer->AddSpacer( FromDIP( 10 ) );
@@ -66,94 +66,99 @@ void SettingsDialog::createGeneralPage()
 
     sizer->AddSpacer( FromDIP( 10 ) );
 
+    wxStaticBoxSizer* interfac = new wxStaticBoxSizer( 
+        wxVERTICAL, m_panelGeneral, _( "Interface" ) );
+
+    interfac->AddSpacer( FromDIP( 5 ) );
+
     wxStaticText* label;
 
-    label = new wxStaticText( m_panelGeneral, wxID_ANY,
-        _( "Interface" ) );
-    label->SetFont( font );
-    label->SetForegroundColour( Utils::get()->getHeaderColor() );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
-
-    sizer->AddSpacer( FromDIP( 5 ) );
-
     label = new wxStaticText( m_panelGeneral, wxID_ANY, _( "Language (requires restart to take effect):" ) );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    interfac->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 3 ) );
+    interfac->AddSpacer( FromDIP( 3 ) );
 
     m_localeName = new wxBitmapComboBox( m_panelGeneral, wxID_ANY, wxEmptyString,
         wxDefaultPosition, wxDefaultSize, 0, nullptr, wxCB_READONLY );
     fillLocales();
-    sizer->Add( m_localeName, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    interfac->Add( m_localeName, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 15 ) );
+    interfac->AddSpacer( FromDIP( 10 ) );
 
-    label = new wxStaticText( m_panelGeneral, wxID_ANY, _( "Desktop" ) );
-    label->SetFont( font );
-    label->SetForegroundColour( Utils::get()->getHeaderColor() );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    sizer->Add( interfac, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     sizer->AddSpacer( FromDIP( 5 ) );
+
+    wxStaticBoxSizer* desktop = new wxStaticBoxSizer( 
+        wxVERTICAL, m_panelGeneral, _( "Desktop" ) );
+
+    desktop->AddSpacer( FromDIP( 5 ) );
 
     m_openWindowOnStart = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Start with main window open" ) );
-    sizer->Add( m_openWindowOnStart, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    desktop->Add( m_openWindowOnStart, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 10 ) );
+    desktop->AddSpacer( FromDIP( 10 ) );
 
     m_autorun = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Start automatically (on system startup)" ) );
-    sizer->Add( m_autorun, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    desktop->Add( m_autorun, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 3 ) );
+    desktop->AddSpacer( FromDIP( 3 ) );
 
     m_autorunHidden = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Do not show main window on system startup" ) );
-    sizer->Add( m_autorunHidden, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    desktop->Add( m_autorunHidden, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    
+    desktop->AddSpacer( FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 15 ) );
-
-    label = new wxStaticText( m_panelGeneral, wxID_ANY, _( "File transfers" ) );
-    label->SetFont( font );
-    label->SetForegroundColour( Utils::get()->getHeaderColor() );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    sizer->Add( desktop, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     sizer->AddSpacer( FromDIP( 5 ) );
+
+    wxStaticBoxSizer* transfers = new wxStaticBoxSizer(
+        wxVERTICAL, m_panelGeneral, _( "File transfers" ) );
+
+    transfers->AddSpacer( FromDIP( 5 ) );
 
     m_useCompression = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Use compression (if available)" ) );
-    sizer->Add( m_useCompression, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    transfers->Add( m_useCompression, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 5 ) );
+    transfers->AddSpacer( FromDIP( 5 ) );
 
     label = new wxStaticText( m_panelGeneral, wxID_ANY,
         _( "Compression level:" ) );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    transfers->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     m_zlibCompressionLevel = new wxSlider( m_panelGeneral, wxID_ANY, 5,
         1, 9, wxDefaultPosition, wxDefaultSize,
         wxSL_HORIZONTAL | wxSL_AUTOTICKS | wxSL_LABELS );
-    sizer->Add( m_zlibCompressionLevel, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    transfers->Add( m_zlibCompressionLevel, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     label = new wxStaticText( m_panelGeneral, wxID_ANY, _( "Location for received files:" ) );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    transfers->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 3 ) );
+    transfers->AddSpacer( FromDIP( 3 ) );
 
     m_outputDir = new wxDirPickerCtrl( m_panelGeneral, wxID_ANY, wxEmptyString );
-    sizer->Add( m_outputDir, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    transfers->Add( m_outputDir, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 8 ) );
+    transfers->AddSpacer( FromDIP( 8 ) );
 
     m_askReceiveFiles = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Require approval before accepting files" ) );
-    sizer->Add( m_askReceiveFiles, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    transfers->Add( m_askReceiveFiles, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 3 ) );
+    transfers->AddSpacer( FromDIP( 3 ) );
 
     m_askOverwriteFiles = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Require approval when files would be overwritten" ) );
-    sizer->Add( m_askOverwriteFiles, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    transfers->Add( m_askOverwriteFiles, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
+    transfers->AddSpacer( FromDIP( 10 ) );
+
+    sizer->Add( transfers, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     m_panelGeneral->SetSizer( sizer );
 }
@@ -198,44 +203,43 @@ void SettingsDialog::createConnectionPage()
 
     sizer->AddSpacer( FromDIP( 10 ) );
 
-    wxStaticText* label;
-    label = new wxStaticText( m_panelConnection, wxID_ANY,
-        _( "Identification" ) );
-    label->SetFont( font );
-    label->SetForegroundColour( Utils::get()->getHeaderColor() );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    wxStaticBoxSizer* ident = new wxStaticBoxSizer( 
+        wxVERTICAL, m_panelConnection, _( "Identification" ) );
 
-    sizer->AddSpacer( FromDIP( 5 ) );
+    wxStaticText* label;
+
+    ident->AddSpacer( FromDIP( 5 ) );
 
     label = new wxStaticText( m_panelConnection, wxID_ANY, _( "Group code:" ) );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    ident->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 3 ) );
+    ident->AddSpacer( FromDIP( 3 ) );
 
     m_groupCode = new wxTextCtrl( m_panelConnection, wxID_ANY );
-    sizer->Add( m_groupCode, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    ident->Add( m_groupCode, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 15 ) );
+    ident->AddSpacer( FromDIP( 10 ) );
 
-    label = new wxStaticText( m_panelConnection, wxID_ANY,
-        _( "Network" ) );
-    label->SetFont( font );
-    label->SetForegroundColour( Utils::get()->getHeaderColor() );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    sizer->Add( ident, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     sizer->AddSpacer( FromDIP( 5 ) );
+
+    wxStaticBoxSizer* network = new wxStaticBoxSizer(
+        wxVERTICAL, m_panelConnection, _( "Network" ) );
+
+    network->AddSpacer( FromDIP( 5 ) );
 
     label = new wxStaticText( m_panelConnection, wxID_ANY,
         _( "Network interface to use:" ) );
-    sizer->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    network->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 3 ) );
+    network->AddSpacer( FromDIP( 3 ) );
 
     m_networkInterface = new wxChoice( m_panelConnection, wxID_ANY );
     fillInterfaces();
-    sizer->Add( m_networkInterface, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    network->Add( m_networkInterface, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
-    sizer->AddSpacer( FromDIP( 8 ) );
+    network->AddSpacer( FromDIP( 8 ) );
 
     wxBoxSizer* transferSizer = new wxBoxSizer( wxHORIZONTAL );
     wxBoxSizer* registrationSizer = new wxBoxSizer( wxHORIZONTAL );
@@ -258,9 +262,12 @@ void SettingsDialog::createConnectionPage()
     m_registrationPort->SetMax( 65535 );
     registrationSizer->Add( m_registrationPort, 0, wxEXPAND );
 
-    sizer->Add( transferSizer, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
-    sizer->AddSpacer( FromDIP( 3 ) );
-    sizer->Add( registrationSizer, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    network->Add( transferSizer, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    network->AddSpacer( FromDIP( 3 ) );
+    network->Add( registrationSizer, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+    network->AddSpacer( FromDIP( 10 ) );
+
+    sizer->Add( network, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     m_panelConnection->SetSizer( sizer );
 }

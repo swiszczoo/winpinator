@@ -578,8 +578,13 @@ int TransferManager::createOutcomingTransfer( const std::string& remoteId,
     else if ( files == 1 && folders == 0 )
     {
         wxFileName fname( oneFileName );
-        wxFileType* ftype = wxTheMimeTypesManager->GetFileTypeFromExtension(
-            fname.GetExt() );
+        wxFileType* ftype = nullptr;
+        
+        if ( !fname.GetExt().IsEmpty() )
+        {
+            ftype = wxTheMimeTypesManager->GetFileTypeFromExtension(
+                fname.GetExt() );
+        }
 
         op.nameIfSingleUtf8 = fname.GetFullName().ToUTF8();
 

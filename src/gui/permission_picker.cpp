@@ -33,8 +33,7 @@ PermissionPicker::PermissionPicker( wxWindow* parent, bool directory )
     grid->Add( label, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL );
     label = new wxStaticText( this, wxID_ANY, _( "Write" ) );
     grid->Add( label, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL );
-    label = new wxStaticText( this, wxID_ANY,
-        directory ? _( "List" ) : _( "Execute" ) );
+    label = new wxStaticText( this, wxID_ANY, _( "Execute" ) );
     grid->Add( label, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL );
 
     label = new wxStaticText( this, wxID_ANY, _( "Owner" ) );
