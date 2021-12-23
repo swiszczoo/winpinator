@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-29 01:29+0100\n"
+"POT-Creation-Date: 2021-12-23 04:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -452,127 +452,123 @@ msgstr ""
 msgid "Write"
 msgstr ""
 
-#: .\gui\permission_picker.cpp:37
-msgid "List"
-msgstr ""
-
-#: .\gui\permission_picker.cpp:37
+#: .\gui\permission_picker.cpp:36
 msgid "Execute"
 msgstr ""
 
-#: .\gui\permission_picker.cpp:40
+#: .\gui\permission_picker.cpp:39
 msgid "Owner"
 msgstr ""
 
-#: .\gui\permission_picker.cpp:46
+#: .\gui\permission_picker.cpp:45
 msgid "Group"
 msgstr ""
 
-#: .\gui\permission_picker.cpp:52
+#: .\gui\permission_picker.cpp:51
 msgid "Others"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:12
+#: .\gui\settings_dialog.cpp:14
 msgid "Preferences"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:28
+#: .\gui\settings_dialog.cpp:31
 msgid "General"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:29
+#: .\gui\settings_dialog.cpp:32
 msgid "Unix permissions"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:30
+#: .\gui\settings_dialog.cpp:33
 msgid "Connection"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:66
+#: .\gui\settings_dialog.cpp:70
 msgid "Interface"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:73
+#: .\gui\settings_dialog.cpp:76
 msgid "Language (requires restart to take effect):"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:85
+#: .\gui\settings_dialog.cpp:93
 msgid "Desktop"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:93
+#: .\gui\settings_dialog.cpp:98
 msgid "Start with main window open"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:99
+#: .\gui\settings_dialog.cpp:104
 msgid "Start automatically (on system startup)"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:105
+#: .\gui\settings_dialog.cpp:110
 msgid "Do not show main window on system startup"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:110
+#: .\gui\settings_dialog.cpp:120
 msgid "File transfers"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:118
+#: .\gui\settings_dialog.cpp:125
 msgid "Use compression (if available)"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:124
+#: .\gui\settings_dialog.cpp:131
 msgid "Compression level:"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:132
+#: .\gui\settings_dialog.cpp:139
 msgid "Location for received files:"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:143
+#: .\gui\settings_dialog.cpp:150
 msgid "Require approval before accepting files"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:149
+#: .\gui\settings_dialog.cpp:156
 msgid "Require approval when files would be overwritten"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:163
+#: .\gui\settings_dialog.cpp:174
 msgid "File permissions:"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:170
+#: .\gui\settings_dialog.cpp:181
 msgid "Executable permissions:"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:177
+#: .\gui\settings_dialog.cpp:188
 msgid "Folder permissions:"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:198
+#: .\gui\settings_dialog.cpp:207
 msgid "Identification"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:205
+#: .\gui\settings_dialog.cpp:213
 msgid "Group code:"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:216
+#: .\gui\settings_dialog.cpp:228
 msgid "Network"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:224
+#: .\gui\settings_dialog.cpp:233
 msgid "Network interface to use:"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:239
+#: .\gui\settings_dialog.cpp:248
 msgid "Incoming port for transfers:"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:248
+#: .\gui\settings_dialog.cpp:257
 msgid "Incoming port for registration:"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:342
+#: .\gui\settings_dialog.cpp:370
 msgid "Automatic"
 msgstr ""
 
@@ -798,6 +794,15 @@ msgstr ""
 #: .\service\notification_transfer_failed.cpp:37
 #, c-format
 msgid "Some transfers between you and %s have failed unexpectedly!"
+msgstr ""
+
+#: .\service\notification_transfer_succeeded.cpp:19
+msgid "Transfer success"
+msgstr ""
+
+#: .\service\notification_transfer_succeeded.cpp:23
+#, c-format
+msgid "Transfer between you and %s has finished successfully!"
 msgstr ""
 
 #: .\service\service_utils.cpp:97

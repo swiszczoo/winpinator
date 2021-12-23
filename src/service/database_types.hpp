@@ -61,6 +61,15 @@ struct Transfer
     std::vector<TransferElement> elements;
 };
 
+struct TargetInfo
+{
+    std::wstring targetId;
+    std::wstring fullName;
+    std::wstring hostname;
+    std::wstring ip;
+    std::wstring os;
+};
+
 };
 
 };

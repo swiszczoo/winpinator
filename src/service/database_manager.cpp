@@ -11,7 +11,7 @@
 namespace srv
 {
 
-const int DatabaseManager::TARGET_DB_VER = 1;
+const int DatabaseManager::TARGET_DB_VER = 3;
 
 DatabaseManager::DatabaseManager( const wxString& dbPath )
     : m_db( nullptr )
@@ -68,7 +68,9 @@ bool DatabaseManager::isDatabaseAvailable()
 void DatabaseManager::setupUpdateFunctionVector()
 {
     m_updFunctions = {
-        std::bind( &DatabaseManager::updateFromVer0ToVer1, this ) // 0 -> 1
+        std::bind( &DatabaseManager::updateFromVer0ToVer1, this ), // 0 -> 1
+        std::bind( &DatabaseManager::updateFromVer1ToVer2, this ), // 1 -> 2
+        std::bind( &DatabaseManager::updateFromVer2ToVer3, this ) // 2 -> 3
     };
 }
 
@@ -193,6 +195,37 @@ bool DatabaseManager::updateFromVer0ToVer1()
               "FROM transfers LEFT OUTER JOIN transfer_paths "
               "ON transfer_paths.transfer_id = transfers.id " );
     UPD_EXEC( "INSERT INTO meta VALUES ( 'db_version', 1 );" );
+
+    return results == SQLITE_OK;
+}
+
+bool DatabaseManager::updateFromVer1ToVer2()
+{
+    int results = 0;
+
+    UPD_EXEC( "CREATE TABLE IF NOT EXISTS targets("
+              "  target_id TEXT PRIMARY KEY, "
+              "  last_full_name TEXT, "
+              "  last_hostname TEXT, "
+              "  last_ip TEXT, "
+              "  last_os TEXT, "
+              "  favourite INTEGER DEFAULT 0"
+              ");");
+    UPD_EXEC( "UPDATE meta SET value=2 WHERE key='db_version';" );
+
+    return results == SQLITE_OK;
+}
+
+bool DatabaseManager::updateFromVer2ToVer3()
+{
+    int results = 0;
+
+    UPD_EXEC( "CREATE VIEW target_view AS "
+              "SELECT targets.*, COUNT(transfers.target_id) AS transfer_count "
+              "FROM targets "
+              "LEFT OUTER JOIN transfers ON targets.target_id = transfers.target_id "
+              "GROUP BY targets.target_id;" );
+    UPD_EXEC( "UPDATE meta SET value=3 WHERE key='db_version';" );
 
     return results == SQLITE_OK;
 }
@@ -484,6 +517,37 @@ db::Transfer DatabaseManager::getTransfer( int id,
     }
 
     return result[0];
+}
+
+bool DatabaseManager::updateTarget( const db::TargetInfo& target )
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    if ( !m_dbOpen )
+    {
+        return {};
+    }
+
+    int results = 0;
+
+    beginTransaction();
+
+    sqlite3_stmt* targStmt;
+    sqlite3_prepare_v2( m_db, 
+        "INSERT OR REPLACE INTO targets( target_id, last_full_name, "
+        "last_hostname, last_ip, last_os ) "
+        "VALUES( ?, ?, ?, ?, ? )", -1, &targStmt, NULL );
+
+    sqlite3_bind_text16( targStmt, 1, target.targetId.c_str(), -1, SQLITE_STATIC );
+    sqlite3_bind_text16( targStmt, 2, target.fullName.c_str(), -1, SQLITE_STATIC );
+    sqlite3_bind_text16( targStmt, 3, target.hostname.c_str(), -1, SQLITE_STATIC );
+    sqlite3_bind_text16( targStmt, 4, target.ip.c_str(), -1, SQLITE_STATIC );
+    sqlite3_bind_text16( targStmt, 5, target.os.c_str(), -1, SQLITE_STATIC );
+
+    results |= sqlite3_step( targStmt );
+    FIX_RESULTS( results );
+
+    return endTransaction( results );
 }
 
 };

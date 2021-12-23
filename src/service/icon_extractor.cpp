@@ -25,6 +25,7 @@ void IconExtractor::extractIcons()
     extractSingleIcon( iconDir, "transfer_ff.png", IDB_TRANSFER_FILE_FILE );
     extractSingleIcon( iconDir, "transfer_fx.png", IDB_TRANSFER_FILE_X );
     extractSingleIcon( iconDir, "transfer_fail.png", IDB_TRANSFER_FAILED );
+    extractSingleIcon( iconDir, "transfer_ok.png", IDB_TRANSFER_SUCCEEDED );
 }
 
 void IconExtractor::extractSingleIcon( const wxString& iconDir,

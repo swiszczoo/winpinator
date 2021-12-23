@@ -5,6 +5,7 @@
 #include "file_sender.hpp"
 #include "notification_accept_files.hpp"
 #include "notification_transfer_failed.hpp"
+#include "notification_transfer_succeeded.hpp"
 #include "service_utils.hpp"
 
 #include <wx/filename.h>
@@ -558,14 +559,23 @@ int TransferManager::createOutcomingTransfer( const std::string& remoteId,
         }
     }
 
+    auto remoteInfo = m_remoteMgr->getRemoteInfo( remoteId );
+
     TransferOp op;
     op.outcoming = true;
     op.status = OpStatus::CALCULATING;
     op.startTime = Utils::getMonotonicTime();
     op.mimeIfSingleUtf8 = DEFAULT_MIME_TYPE;
     op.senderNameUtf8 = wxString( Utils::getUserFullName() ).ToUTF8();
-    op.receiverUtf8 = AuthManager::get()->getIdent();
-    op.receiverNameUtf8 = "";
+    op.receiverUtf8 = remoteId;
+    if ( remoteInfo )
+    {
+        op.receiverNameUtf8 = wxString( remoteInfo->fullName ).ToUTF8();
+    }
+    else
+    {
+        op.receiverNameUtf8 = "";
+    }
     op.useCompression = m_compressionLevel > 0;
 
     if ( files == 0 && folders == 1 )
@@ -930,6 +940,19 @@ void TransferManager::sendFailureNotification( const std::string& remoteId,
     Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
 }
 
+void TransferManager::sendSuccessNotification( const std::string& remoteId,
+    const std::wstring& senderName )
+{
+    auto notif = std::make_shared<TransferSucceededNotification>( remoteId );
+    notif->setSenderFullName( senderName );
+
+    Event evnt;
+    evnt.type = EventType::SHOW_TOAST_NOTIFICATION;
+    evnt.eventData.toastData = notif;
+
+    Globals::get()->getWinpinatorServiceInstance()->postEvent( evnt );
+}
+
 void TransferManager::doReplyAllowTransfer( const std::string& remoteId,
     int transferId, bool allow )
 {
@@ -964,6 +987,20 @@ void TransferManager::doFinishTransfer( const std::string& remoteId,
     if ( !op )
     {
         return;
+    }
+
+    auto remoteInfo = m_remoteMgr->getRemoteInfo( remoteId );
+
+    if ( remoteInfo )
+    {
+        db::TargetInfo target;
+        target.targetId = wxString( remoteId ).ToStdWstring();
+        target.fullName = remoteInfo->fullName;
+        target.hostname = wxString( remoteInfo->hostname ).ToStdWstring();
+        target.ip = wxString( remoteInfo->ips.ipv4 );
+        target.os = wxString( remoteInfo->os ).ToStdWstring();
+
+        m_dbMgr->updateTarget( target );
     }
 
     db::Transfer record;
@@ -1021,6 +1058,20 @@ void TransferManager::doFinishTransfer( const std::string& remoteId,
         {
             transferArr.erase( transferArr.begin() + i );
             break;
+        }
+    }
+
+    if ( record.status == db::TransferStatus::SUCCEEDED )
+    {
+        if ( op->outcoming )
+        {
+            sendSuccessNotification( remoteId,
+                wxString::FromUTF8( op->receiverNameUtf8 ).ToStdWstring() );
+        }
+        else 
+        {
+            sendSuccessNotification( remoteId,
+                wxString::FromUTF8( op->senderNameUtf8 ).ToStdWstring() );
         }
     }
 
@@ -1094,6 +1145,9 @@ void TransferManager::doSendRequestAfterCrawling( TransferOpPtr op,
     else
     {
         failOp( op );
+
+        sendFailureNotification( op->intern.remoteId, 
+            wxString::FromUTF8( receiverName ).ToStdWstring() );
     }
 }
 

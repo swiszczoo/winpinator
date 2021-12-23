@@ -295,6 +295,9 @@
     <ClInclude Include="..\src\gui\autorun_setter.hpp">
       <Filter>Headers\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\service\notification_transfer_succeeded.hpp">
+      <Filter>Headers\service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -498,6 +501,9 @@
     <ClCompile Include="..\src\gui\autorun_setter.cpp">
       <Filter>Sources\gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\service\notification_transfer_succeeded.cpp">
+      <Filter>Sources\service</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\win32\manifest.manifest">
@@ -590,6 +596,9 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\res\remove_history.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\transfer_succeeded.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

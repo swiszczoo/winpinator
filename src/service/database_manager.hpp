@@ -30,6 +30,8 @@ public:
     db::Transfer getTransfer( int id, 
         const std::wstring targetId, bool queryPaths );
 
+    bool updateTarget( const db::TargetInfo& target );
+
 private:
     static const int TARGET_DB_VER;
 
@@ -52,6 +54,8 @@ private:
     void performUpdate( int currentLevel );
 
     bool updateFromVer0ToVer1();
+    bool updateFromVer1ToVer2();
+    bool updateFromVer2ToVer3();
 };
 
 };

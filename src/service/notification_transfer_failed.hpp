@@ -9,13 +9,17 @@ namespace srv
 class TransferFailedNotification : public ToastNotification
 {
 public:
-    explicit TransferFailedNotification( std::string remoteId );
+    explicit TransferFailedNotification( const std::string& remoteId );
 
     void setSenderFullName( std::wstring name );
     std::wstring getSenderFullName() const;
 
     virtual WinToastLib::WinToastTemplate buildTemplate() override;
     virtual WinToastLib::IWinToastHandler* instantiateListener() override;
+
+protected:
+    std::string m_remoteId;
+    std::wstring m_senderFullName;
 
 private:
     class Handler : public WinToastLib::IWinToastHandler
@@ -32,8 +36,6 @@ private:
         virtual void toastDismissed( WinToastDismissalReason state ) const override;
         virtual void toastFailed() const override;
     };
-    std::string m_remoteId;
-    std::wstring m_senderFullName;
 };
 
 };

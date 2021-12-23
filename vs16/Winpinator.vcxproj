@@ -317,6 +317,7 @@
     <ClInclude Include="..\src\service\notification.hpp" />
     <ClInclude Include="..\src\service\notification_accept_files.hpp" />
     <ClInclude Include="..\src\service\notification_transfer_failed.hpp" />
+    <ClInclude Include="..\src\service\notification_transfer_succeeded.hpp" />
     <ClInclude Include="..\src\service\observable_service.hpp" />
     <ClInclude Include="..\src\service\registration_v1_impl.hpp" />
     <ClInclude Include="..\src\service\registration_v2_impl.hpp" />
@@ -397,6 +398,7 @@
     <ClCompile Include="..\src\service\notification.cpp" />
     <ClCompile Include="..\src\service\notification_accept_files.cpp" />
     <ClCompile Include="..\src\service\notification_transfer_failed.cpp" />
+    <ClCompile Include="..\src\service\notification_transfer_succeeded.cpp" />
     <ClCompile Include="..\src\service\observable_service.cpp" />
     <ClCompile Include="..\src\service\registration_v1_impl.cpp" />
     <ClCompile Include="..\src\service\registration_v2_impl.cpp" />
@@ -448,6 +450,7 @@
     <Image Include="..\res\transfer_status_cancelled.png" />
     <Image Include="..\res\transfer_status_error.png" />
     <Image Include="..\res\transfer_status_success.png" />
+    <Image Include="..\res\transfer_succeeded.png" />
     <Image Include="..\res\tray_err.ico" />
     <Image Include="..\res\tray_ok.ico" />
     <Image Include="..\res\tray_wait.ico" />

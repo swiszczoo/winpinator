@@ -7,7 +7,7 @@
 namespace srv
 {
 
-TransferFailedNotification::TransferFailedNotification( std::string remoteId )
+TransferFailedNotification::TransferFailedNotification( const std::string& remoteId )
     : ToastNotification()
     , m_remoteId( remoteId )
     , m_senderFullName( L"" )

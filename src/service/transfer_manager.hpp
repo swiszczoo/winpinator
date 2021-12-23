@@ -177,6 +177,8 @@ private:
         const TransferOpPtr op );
     void sendFailureNotification( const std::string& remoteId, 
         const std::wstring& senderName );
+    void sendSuccessNotification( const std::string& remoteId,
+        const std::wstring& senderName );
 
     void doReplyAllowTransfer( const std::string& remoteId,
         int transferId, bool allow );
