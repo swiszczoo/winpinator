@@ -31,6 +31,9 @@ public:
         const std::wstring targetId, bool queryPaths );
 
     bool updateTarget( const db::TargetInfo& target );
+    std::vector<db::TargetInfoData> queryTargets();
+    bool removeTarget( const std::wstring& targetId );
+    bool removeAllTargets();
 
 private:
     static const int TARGET_DB_VER;

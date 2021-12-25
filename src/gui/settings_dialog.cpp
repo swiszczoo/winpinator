@@ -1,11 +1,14 @@
 #include "settings_dialog.hpp"
 
+#include "../globals.hpp"
 #include "../main_base.hpp"
 #include "autorun_setter.hpp"
 #include "utils.hpp"
 
 #include <wx/stdpaths.h>
 #include <wx/translation.h>
+
+#include <wx/msw/uxtheme.h>
 
 namespace gui
 {
@@ -26,10 +29,12 @@ SettingsDialog::SettingsDialog( wxWindow* parent )
 
     m_panelGeneral = new wxPanel( m_notebook );
     m_panelPermissions = new wxPanel( m_notebook );
+    m_panelHistory = new wxPanel( m_notebook );
     m_panelConnection = new wxPanel( m_notebook );
 
     m_notebook->AddPage( m_panelGeneral, _( "General" ) );
     m_notebook->AddPage( m_panelPermissions, _( "Unix permissions" ) );
+    m_notebook->AddPage( m_panelHistory, _( "History" ) );
     m_notebook->AddPage( m_panelConnection, _( "Connection" ) );
 
     sizer->AddSpacer( FromDIP( 10 ) );
@@ -41,6 +46,7 @@ SettingsDialog::SettingsDialog( wxWindow* parent )
 
     createGeneralPage();
     createPermissionsPage();
+    createHistoryPage();
     createConnectionPage();
 
     loadSettings();
@@ -55,6 +61,12 @@ SettingsDialog::SettingsDialog( wxWindow* parent )
     // Events
     Bind( wxEVT_BUTTON, &SettingsDialog::onSaveSettings, this, wxID_OK );
     m_autorun->Bind( wxEVT_CHECKBOX, &SettingsDialog::onUpdateState, this );
+    m_historyList->Bind( wxEVT_LIST_ITEM_SELECTED,
+        &SettingsDialog::onHistorySelectionChanged, this );
+    m_historyList->Bind( wxEVT_LIST_ITEM_DESELECTED,
+        &SettingsDialog::onHistorySelectionChanged, this );
+    m_historyRemove->Bind( wxEVT_BUTTON, &SettingsDialog::onHistoryRemove, this );
+    m_historyClear->Bind( wxEVT_BUTTON, &SettingsDialog::onHistoryClear, this );
 }
 
 void SettingsDialog::createGeneralPage()
@@ -66,7 +78,7 @@ void SettingsDialog::createGeneralPage()
 
     sizer->AddSpacer( FromDIP( 10 ) );
 
-    wxStaticBoxSizer* interfac = new wxStaticBoxSizer( 
+    wxStaticBoxSizer* interfac = new wxStaticBoxSizer(
         wxVERTICAL, m_panelGeneral, _( "Interface" ) );
 
     interfac->AddSpacer( FromDIP( 5 ) );
@@ -89,7 +101,7 @@ void SettingsDialog::createGeneralPage()
 
     sizer->AddSpacer( FromDIP( 5 ) );
 
-    wxStaticBoxSizer* desktop = new wxStaticBoxSizer( 
+    wxStaticBoxSizer* desktop = new wxStaticBoxSizer(
         wxVERTICAL, m_panelGeneral, _( "Desktop" ) );
 
     desktop->AddSpacer( FromDIP( 5 ) );
@@ -109,7 +121,7 @@ void SettingsDialog::createGeneralPage()
     m_autorunHidden = new wxCheckBox( m_panelGeneral, wxID_ANY,
         _( "Do not show main window on system startup" ) );
     desktop->Add( m_autorunHidden, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
-    
+
     desktop->AddSpacer( FromDIP( 10 ) );
 
     sizer->Add( desktop, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
@@ -193,6 +205,59 @@ void SettingsDialog::createPermissionsPage()
     m_panelPermissions->SetSizer( sizer );
 }
 
+void SettingsDialog::createHistoryPage()
+{
+    wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
+
+    sizer->AddSpacer( FromDIP( 10 ) );
+
+    wxStaticBoxSizer* history = new wxStaticBoxSizer(
+        wxVERTICAL, m_panelHistory, _( "Transfer history" ) );
+
+    history->AddSpacer( FromDIP( 5 ) );
+
+    wxStaticText* label = new wxStaticText( m_panelHistory, wxID_ANY,
+        _( "Warning! Every action you perform on this page is irreversible!" ) );
+    history->Add( label, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
+    history->AddSpacer( FromDIP( 10 ) );
+
+    m_historyList = new wxListCtrl( m_panelHistory, wxID_ANY, wxDefaultPosition,
+        wxDefaultSize, wxLC_REPORT | wxLC_SINGLE_SEL | wxLC_HRULES | wxLC_VRULES );
+    m_historyList->SetMinSize( FromDIP( wxSize( 0, 170 ) ) );
+    SetWindowTheme( m_historyList->GetHWND(), L"Explorer", NULL );
+
+    m_historyList->AppendColumn( _( "Hostname" ), wxLIST_FORMAT_LEFT, 100 );
+    m_historyList->AppendColumn( _( "Full name" ), wxLIST_FORMAT_LEFT, 120 );
+    m_historyList->AppendColumn( _( "IP address" ), wxLIST_FORMAT_LEFT, 100 );
+    m_historyList->AppendColumn( _( "OS" ), wxLIST_FORMAT_LEFT, 70 );
+    m_historyList->AppendColumn( _( "Transfers registered" ), wxLIST_FORMAT_LEFT, 100 );
+
+    fillHistoryList();
+
+    history->Add( m_historyList, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
+    history->AddSpacer( FromDIP( 15 ) );
+
+    wxGridSizer* btnSizer = new wxGridSizer( 1, 2, FromDIP( wxSize( 5, 5 ) ) );
+    m_historyRemove = new wxButton( m_panelHistory, wxID_ANY,
+        _( "Remove selected" ) );
+    m_historyClear = new wxButton( m_panelHistory, wxID_ANY,
+        _( "Clear all history" ) );
+    btnSizer->Add( m_historyRemove, 1, wxEXPAND );
+    btnSizer->Add( m_historyClear, 1, wxEXPAND );
+
+    history->Add( btnSizer, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
+    history->AddSpacer( FromDIP( 10 ) );
+
+    sizer->Add( history, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
+    m_panelHistory->SetSizer( sizer );
+
+    updateHistoryButtons();
+}
+
 void SettingsDialog::createConnectionPage()
 {
     wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
@@ -203,7 +268,7 @@ void SettingsDialog::createConnectionPage()
 
     sizer->AddSpacer( FromDIP( 10 ) );
 
-    wxStaticBoxSizer* ident = new wxStaticBoxSizer( 
+    wxStaticBoxSizer* ident = new wxStaticBoxSizer(
         wxVERTICAL, m_panelConnection, _( "Identification" ) );
 
     wxStaticText* label;
@@ -270,6 +335,41 @@ void SettingsDialog::createConnectionPage()
     sizer->Add( network, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     m_panelConnection->SetSizer( sizer );
+}
+
+void SettingsDialog::fillHistoryList()
+{
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+    m_historyData = serv->getDb()->queryTargets();
+
+    m_historyList->DeleteAllItems();
+
+    int i = 0;
+    for ( const auto& record : m_historyData )
+    {
+        m_historyList->InsertItem( i, record.hostname );
+        m_historyList->SetItem( i, 1, record.fullName );
+        m_historyList->SetItem( i, 2, record.ip );
+        m_historyList->SetItem( i, 3, record.os );
+        m_historyList->SetItem( i, 4,
+            wxString::Format( "%lld", record.transferCount ) );
+
+        i++;
+    }
+}
+
+void SettingsDialog::updateHistoryButtons()
+{
+    if ( m_historyList->GetSelectedItemCount() > 0 )
+    {
+        m_historyRemove->Enable();
+    }
+    else
+    {
+        m_historyRemove->Disable();
+    }
+    
+    m_historyClear->Enable( m_historyList->GetItemCount() > 0 );
 }
 
 void SettingsDialog::loadSettings()
@@ -410,6 +510,43 @@ void SettingsDialog::onUpdateState( wxCommandEvent& event )
     updateState();
 }
 
+void SettingsDialog::onHistorySelectionChanged( wxListEvent& event )
+{
+    updateHistoryButtons();
+}
+
+void SettingsDialog::onHistoryRemove( wxCommandEvent& event )
+{
+    int selmark = m_historyList->GetNextItem( 
+        -1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED );
+
+    if ( selmark >= 0 )
+    {
+        auto serv = Globals::get()->getWinpinatorServiceInstance();
+        serv->getDb()->removeTarget( m_historyData[selmark].targetId );
+
+        fillHistoryList();
+    }
+}
+
+void SettingsDialog::onHistoryClear( wxCommandEvent& event )
+{
+    wxMessageDialog dialog( this,
+        _( "Are you sure you want to clear all history?" ),
+        _( "Clear history" ) );
+    dialog.SetExtendedMessage(
+        _( "This operation cannot be undone!" ) );
+    dialog.SetMessageDialogStyle( wxYES_NO );
+
+    if ( dialog.ShowModal() == wxID_YES )
+    {
+        auto serv = Globals::get()->getWinpinatorServiceInstance();
+        serv->getDb()->removeAllTargets();
+        
+        fillHistoryList();
+    }
+}
+
 void SettingsDialog::updateState()
 {
     m_autorunHidden->Enable( m_autorun->IsChecked() );
@@ -430,5 +567,4 @@ std::unique_ptr<wxBitmap> SettingsDialog::loadScaledFlag(
         img.Scale( newWidth, newHeight, wxIMAGE_QUALITY_BICUBIC ) );
     return bitmap;
 }
-
 };

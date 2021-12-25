@@ -547,6 +547,112 @@ bool DatabaseManager::updateTarget( const db::TargetInfo& target )
     results |= sqlite3_step( targStmt );
     FIX_RESULTS( results );
 
+    sqlite3_finalize( targStmt );
+
+    return endTransaction( results );
+}
+
+std::vector<db::TargetInfoData> DatabaseManager::queryTargets()
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    std::vector<db::TargetInfoData> result;
+
+    sqlite3_stmt* targetStmt;
+    sqlite3_prepare_v2( m_db, "SELECT * FROM target_view ORDER BY target_id;", 
+        -1, &targetStmt, NULL );
+
+    while ( sqlite3_step( targetStmt ) != SQLITE_DONE ) 
+    {
+        db::TargetInfoData record;
+        record.targetId = (const wchar_t*)sqlite3_column_text16( targetStmt, 0 );
+        record.fullName = (const wchar_t*)sqlite3_column_text16( targetStmt, 1 );
+        record.hostname = (const wchar_t*)sqlite3_column_text16( targetStmt, 2 );
+        record.ip = (const wchar_t*)sqlite3_column_text16( targetStmt, 3 );
+        record.os = (const wchar_t*)sqlite3_column_text16( targetStmt, 4 );
+        record.transferCount = sqlite3_column_int64( targetStmt, 6 );
+
+        result.push_back( record );
+    }
+
+    sqlite3_finalize( targetStmt );
+
+    return result;
+}
+
+bool DatabaseManager::removeTarget( const std::wstring& targetId )
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    int results = 0;
+
+    beginTransaction();
+
+    sqlite3_stmt* targetStmt;
+    sqlite3_prepare_v2( m_db, "DELETE FROM targets WHERE target_id=?;", 
+        -1, &targetStmt, NULL );
+    sqlite3_bind_text16( targetStmt, 1, targetId.c_str(), -1, SQLITE_STATIC );
+
+    results |= sqlite3_step( targetStmt );
+    sqlite3_finalize( targetStmt );
+    FIX_RESULTS( results );
+
+    sqlite3_stmt* pathsStmt;
+    sqlite3_prepare_v2( m_db,
+        "DELETE FROM transfer_paths WHERE ROWID IN ( "
+        "  SELECT transfer_paths.ROWID FROM transfers "
+        "  INNER JOIN transfer_paths ON ( "
+        "    transfers.id = transfer_paths.transfer_id "
+        "  ) "
+        "  WHERE transfers.target_id = ?"
+        ");",
+        -1, &pathsStmt, NULL );
+    sqlite3_bind_text16( pathsStmt, 1, targetId.c_str(), -1, SQLITE_STATIC );
+    results |= sqlite3_step( pathsStmt );
+    sqlite3_finalize( pathsStmt );
+    FIX_RESULTS( results );
+
+    sqlite3_stmt* transferStmt;
+    sqlite3_prepare_v2( m_db,
+        "DELETE FROM transfers WHERE target_id=?",
+        -1, &transferStmt, NULL );
+    sqlite3_bind_text16( transferStmt, 1, targetId.c_str(), -1, SQLITE_STATIC );
+    results |= sqlite3_step( transferStmt );
+    sqlite3_finalize( transferStmt );
+    FIX_RESULTS( results );
+
+    return endTransaction( results );
+}
+
+bool DatabaseManager::removeAllTargets()
+{
+    std::lock_guard<std::mutex> guard( m_mutex );
+
+    int results = 0;
+
+    beginTransaction();
+
+    sqlite3_stmt* targetStmt;
+    sqlite3_prepare_v2( m_db, "DELETE FROM targets;",
+        -1, &targetStmt, NULL );
+    results |= sqlite3_step( targetStmt );
+    sqlite3_finalize( targetStmt );
+    FIX_RESULTS( results );
+
+    sqlite3_stmt* pathsStmt;
+    sqlite3_prepare_v2( m_db, "DELETE FROM transfer_paths;",
+        -1, &pathsStmt, NULL );
+    results |= sqlite3_step( pathsStmt );
+    sqlite3_finalize( pathsStmt );
+    FIX_RESULTS( results );
+
+    sqlite3_stmt* transferStmt;
+    sqlite3_prepare_v2( m_db, "DELETE FROM transfers;",
+        -1, &transferStmt, NULL );
+    results |= sqlite3_step( transferStmt );
+    sqlite3_finalize( transferStmt );
+    FIX_RESULTS( results );
+
     return endTransaction( results );
 }
 

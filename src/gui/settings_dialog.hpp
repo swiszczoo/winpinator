@@ -2,14 +2,17 @@
 #include "language_adapter.hpp"
 #include "network_interface_adapter.hpp"
 #include "permission_picker.hpp"
+#include "../service/database_types.hpp"
 
 #include <wx/bmpcbox.h>
 #include <wx/filepicker.h>
+#include <wx/listctrl.h>
 #include <wx/notebook.h>
 #include <wx/spinctrl.h>
 #include <wx/wx.h>
 
 #include <memory>
+#include <vector>
 
 namespace gui
 {
@@ -28,6 +31,7 @@ private:
 
     wxPanel* m_panelGeneral;
     wxPanel* m_panelPermissions;
+    wxPanel* m_panelHistory;
     wxPanel* m_panelConnection;
 
     // General
@@ -48,6 +52,13 @@ private:
     PermissionPicker* m_executableDefaultPerms;
     PermissionPicker* m_folderDefaultPerms;
 
+    // History
+
+    std::vector<srv::db::TargetInfoData> m_historyData;
+    wxListCtrl* m_historyList;
+    wxButton* m_historyRemove;
+    wxButton* m_historyClear;
+
     // Connection
 
     wxTextCtrl* m_groupCode;
@@ -59,7 +70,11 @@ private:
 
     void createGeneralPage();
     void createPermissionsPage();
+    void createHistoryPage();
     void createConnectionPage();
+
+    void fillHistoryList();
+    void updateHistoryButtons();
 
     void loadSettings();
     void saveSettings();
@@ -69,6 +84,10 @@ private:
 
     void onSaveSettings( wxCommandEvent& event );
     void onUpdateState( wxCommandEvent& event );
+    void onHistorySelectionChanged( wxListEvent& event );
+    void onHistoryRemove( wxCommandEvent& event );
+    void onHistoryClear( wxCommandEvent& event );
+
     void updateState();
     std::unique_ptr<wxBitmap> loadScaledFlag( const wxString& path, int height );
 };

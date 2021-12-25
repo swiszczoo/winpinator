@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-23 04:47+0100\n"
-"PO-Revision-Date: 2021-12-23 04:48+0100\n"
+"POT-Creation-Date: 2021-12-25 03:41+0100\n"
+"PO-Revision-Date: 2021-12-25 03:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -463,7 +463,8 @@ msgstr "Send file(s)..."
 msgid "Send a folder..."
 msgstr "Send a folder..."
 
-#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:237
+#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:238
+#: .\gui\settings_dialog.cpp:536
 msgid "Clear history"
 msgstr "Clear history"
 
@@ -484,7 +485,7 @@ msgstr "Select directories to send..."
 msgid "Are you sure you want to clear entire history for this device?"
 msgstr "Are you sure you want to clear entire history for this device?"
 
-#: .\gui\page_transferlist.cpp:239
+#: .\gui\page_transferlist.cpp:240 .\gui\settings_dialog.cpp:538
 msgid "This operation cannot be undone!"
 msgstr "This operation cannot be undone!"
 
@@ -512,109 +513,162 @@ msgstr "Group"
 msgid "Others"
 msgstr "Others"
 
-#: .\gui\settings_dialog.cpp:14
+#: .\gui\settings_dialog.cpp:17
 msgid "Preferences"
 msgstr "Preferences"
 
-#: .\gui\settings_dialog.cpp:31
+#: .\gui\settings_dialog.cpp:35
 msgid "General"
 msgstr "General"
 
-#: .\gui\settings_dialog.cpp:32
+#: .\gui\settings_dialog.cpp:36
 msgid "Unix permissions"
 msgstr "Unix permissions"
 
-#: .\gui\settings_dialog.cpp:33
+#: .\gui\settings_dialog.cpp:37
+#| msgid "Clear history"
+msgid "History"
+msgstr "History"
+
+#: .\gui\settings_dialog.cpp:38
 msgid "Connection"
 msgstr "Connection"
 
-#: .\gui\settings_dialog.cpp:70
+#: .\gui\settings_dialog.cpp:82
 msgid "Interface"
 msgstr "Interface"
 
-#: .\gui\settings_dialog.cpp:76
+#: .\gui\settings_dialog.cpp:88
 msgid "Language (requires restart to take effect):"
 msgstr "Language (requires restart to take effect):"
 
-#: .\gui\settings_dialog.cpp:93
+#: .\gui\settings_dialog.cpp:105
 msgid "Desktop"
 msgstr "Desktop"
 
-#: .\gui\settings_dialog.cpp:98
+#: .\gui\settings_dialog.cpp:110
 msgid "Start with main window open"
 msgstr "Start with main window open"
 
-#: .\gui\settings_dialog.cpp:104
+#: .\gui\settings_dialog.cpp:116
 msgid "Start automatically (on system startup)"
 msgstr "Start automatically (on system startup)"
 
-#: .\gui\settings_dialog.cpp:110
+#: .\gui\settings_dialog.cpp:122
 msgid "Do not show main window on system startup"
 msgstr "Do not show main window on system startup"
 
-#: .\gui\settings_dialog.cpp:120
+#: .\gui\settings_dialog.cpp:132
 msgid "File transfers"
 msgstr "File transfers"
 
-#: .\gui\settings_dialog.cpp:125
+#: .\gui\settings_dialog.cpp:137
 msgid "Use compression (if available)"
 msgstr "Use compression (if available)"
 
-#: .\gui\settings_dialog.cpp:131
+#: .\gui\settings_dialog.cpp:143
 msgid "Compression level:"
 msgstr "Compression level:"
 
-#: .\gui\settings_dialog.cpp:139
+#: .\gui\settings_dialog.cpp:151
 msgid "Location for received files:"
 msgstr "Location for received files:"
 
-#: .\gui\settings_dialog.cpp:150
+#: .\gui\settings_dialog.cpp:162
 msgid "Require approval before accepting files"
 msgstr "Require approval before accepting files"
 
-#: .\gui\settings_dialog.cpp:156
+#: .\gui\settings_dialog.cpp:168
 msgid "Require approval when files would be overwritten"
 msgstr "Require approval when files would be overwritten"
 
-#: .\gui\settings_dialog.cpp:174
+#: .\gui\settings_dialog.cpp:186
 msgid "File permissions:"
 msgstr "File permissions:"
 
-#: .\gui\settings_dialog.cpp:181
+#: .\gui\settings_dialog.cpp:193
 msgid "Executable permissions:"
 msgstr "Executable permissions:"
 
-#: .\gui\settings_dialog.cpp:188
+#: .\gui\settings_dialog.cpp:200
 msgid "Folder permissions:"
 msgstr "Folder permissions:"
 
-#: .\gui\settings_dialog.cpp:207
+#: .\gui\settings_dialog.cpp:215
+#| msgid "Clear history"
+msgid "Transfer history"
+msgstr "Transfer history"
+
+#: .\gui\settings_dialog.cpp:220
+msgid "Warning! Every action you perform on this page is irreversible!"
+msgstr "Warning! Every action you perform on this page is irreversible!"
+
+#: .\gui\settings_dialog.cpp:230
+#| msgid "Hostname:"
+msgid "Hostname"
+msgstr "Hostname"
+
+#: .\gui\settings_dialog.cpp:231
+#| msgid "File name"
+msgid "Full name"
+msgstr "Full name"
+
+#: .\gui\settings_dialog.cpp:232
+#| msgid "IP Address:"
+msgid "IP address"
+msgstr "IP address"
+
+#: .\gui\settings_dialog.cpp:233
+#| msgid "OS:"
+msgid "OS"
+msgstr "OS"
+
+#: .\gui\settings_dialog.cpp:234
+#| msgid "Transfer failure"
+msgid "Transfers registered"
+msgstr "Transfers registered"
+
+#: .\gui\settings_dialog.cpp:244
+msgid "Remove selected"
+msgstr "Remove selected"
+
+#: .\gui\settings_dialog.cpp:246
+#| msgid "Clear history"
+msgid "Clear all history"
+msgstr "Clear all history"
+
+#: .\gui\settings_dialog.cpp:272
 msgid "Identification"
 msgstr "Identification"
 
-#: .\gui\settings_dialog.cpp:213
+#: .\gui\settings_dialog.cpp:278
 msgid "Group code:"
 msgstr "Group code:"
 
-#: .\gui\settings_dialog.cpp:228
+#: .\gui\settings_dialog.cpp:293
 msgid "Network"
 msgstr "Network"
 
-#: .\gui\settings_dialog.cpp:233
+#: .\gui\settings_dialog.cpp:298
 msgid "Network interface to use:"
 msgstr "Network interface to use:"
 
-#: .\gui\settings_dialog.cpp:248
+#: .\gui\settings_dialog.cpp:313
 msgid "Incoming port for transfers:"
 msgstr "Incoming port for transfers:"
 
-#: .\gui\settings_dialog.cpp:257
+#: .\gui\settings_dialog.cpp:322
 msgid "Incoming port for registration:"
 msgstr "Incoming port for registration:"
 
-#: .\gui\settings_dialog.cpp:370
+#: .\gui\settings_dialog.cpp:470
 msgid "Automatic"
 msgstr "Automatic"
+
+#: .\gui\settings_dialog.cpp:535
+#| msgid "Are you sure you want to clear entire history for this device?"
+msgid "Are you sure you want to clear all history?"
+msgstr "Are you sure you want to clear all history?"
 
 #: .\gui\transfer_history.cpp:20
 msgid "Soon in the future"
@@ -845,13 +899,11 @@ msgid "Some transfers between you and %s have failed unexpectedly!"
 msgstr "Some transfers between you and %s have failed unexpectedly!"
 
 #: .\service\notification_transfer_succeeded.cpp:19
-#| msgid "Transfer failure"
 msgid "Transfer success"
 msgstr "Transfer success"
 
 #: .\service\notification_transfer_succeeded.cpp:23
 #, c-format
-#| msgid "Some transfers between you and %s have failed unexpectedly!"
 msgid "Transfer between you and %s has finished successfully!"
 msgstr "Transfer between you and %s has finished successfully!"
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-23 04:47+0100\n"
-"PO-Revision-Date: 2021-12-23 04:49+0100\n"
+"POT-Creation-Date: 2021-12-25 03:41+0100\n"
+"PO-Revision-Date: 2021-12-25 03:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -296,7 +296,7 @@ msgstr "%s i %s"
 
 #: .\gui\history_item_icon.cpp:268
 msgid "Calculating"
-msgstr ""
+msgstr "Obliczanie"
 
 #: .\gui\history_item_icon.cpp:286
 msgid "Multiple files"
@@ -473,7 +473,8 @@ msgstr "Wyślij plik(i)..."
 msgid "Send a folder..."
 msgstr "Wyślij folder..."
 
-#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:237
+#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:238
+#: .\gui\settings_dialog.cpp:536
 msgid "Clear history"
 msgstr "Wyczyść historię"
 
@@ -495,7 +496,7 @@ msgid "Are you sure you want to clear entire history for this device?"
 msgstr ""
 "Czy jesteś pewien, że chcesz wyczyścić całą historię dla tego urządzenia?"
 
-#: .\gui\page_transferlist.cpp:239
+#: .\gui\page_transferlist.cpp:240 .\gui\settings_dialog.cpp:538
 msgid "This operation cannot be undone!"
 msgstr "Tej operacji nie można cofnąć!"
 
@@ -523,109 +524,153 @@ msgstr "Grupa"
 msgid "Others"
 msgstr "Inni"
 
-#: .\gui\settings_dialog.cpp:14
+#: .\gui\settings_dialog.cpp:17
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: .\gui\settings_dialog.cpp:31
+#: .\gui\settings_dialog.cpp:35
 msgid "General"
 msgstr "Ogólne"
 
-#: .\gui\settings_dialog.cpp:32
+#: .\gui\settings_dialog.cpp:36
 msgid "Unix permissions"
 msgstr "Uprawnienia Unix"
 
-#: .\gui\settings_dialog.cpp:33
+#: .\gui\settings_dialog.cpp:37
+msgid "History"
+msgstr "Historia"
+
+#: .\gui\settings_dialog.cpp:38
 msgid "Connection"
 msgstr "Połączenie"
 
-#: .\gui\settings_dialog.cpp:70
+#: .\gui\settings_dialog.cpp:82
 msgid "Interface"
 msgstr "Interfejs"
 
-#: .\gui\settings_dialog.cpp:76
+#: .\gui\settings_dialog.cpp:88
 msgid "Language (requires restart to take effect):"
 msgstr "Język (wymaga restartu, aby zastosować):"
 
-#: .\gui\settings_dialog.cpp:93
+#: .\gui\settings_dialog.cpp:105
 msgid "Desktop"
 msgstr "Pulpit"
 
-#: .\gui\settings_dialog.cpp:98
+#: .\gui\settings_dialog.cpp:110
 msgid "Start with main window open"
 msgstr "Startuj z otwartym głównym oknem"
 
-#: .\gui\settings_dialog.cpp:104
+#: .\gui\settings_dialog.cpp:116
 msgid "Start automatically (on system startup)"
 msgstr "Uruchom automatycznie (przy starcie systemu)"
 
-#: .\gui\settings_dialog.cpp:110
+#: .\gui\settings_dialog.cpp:122
 msgid "Do not show main window on system startup"
 msgstr "Ukryj główne okno przy starcie systemu"
 
-#: .\gui\settings_dialog.cpp:120
+#: .\gui\settings_dialog.cpp:132
 msgid "File transfers"
 msgstr "Przesyłanie plików"
 
-#: .\gui\settings_dialog.cpp:125
+#: .\gui\settings_dialog.cpp:137
 msgid "Use compression (if available)"
 msgstr "Używaj kompresji (jeśli jest dostępna)"
 
-#: .\gui\settings_dialog.cpp:131
+#: .\gui\settings_dialog.cpp:143
 msgid "Compression level:"
 msgstr "Poziom kompresji:"
 
-#: .\gui\settings_dialog.cpp:139
+#: .\gui\settings_dialog.cpp:151
 msgid "Location for received files:"
 msgstr "Folder na odebrane pliki:"
 
-#: .\gui\settings_dialog.cpp:150
+#: .\gui\settings_dialog.cpp:162
 msgid "Require approval before accepting files"
 msgstr "Pytaj o potwierdzenie przed przyjęciem plików"
 
-#: .\gui\settings_dialog.cpp:156
+#: .\gui\settings_dialog.cpp:168
 msgid "Require approval when files would be overwritten"
 msgstr "Pytaj o potwierdzenie, jeśli pliki mają zostać nadpisane"
 
-#: .\gui\settings_dialog.cpp:174
+#: .\gui\settings_dialog.cpp:186
 msgid "File permissions:"
 msgstr "Uprawnienia plików:"
 
-#: .\gui\settings_dialog.cpp:181
+#: .\gui\settings_dialog.cpp:193
 msgid "Executable permissions:"
 msgstr "Uprawnienia plików wykonywalnych:"
 
-#: .\gui\settings_dialog.cpp:188
+#: .\gui\settings_dialog.cpp:200
 msgid "Folder permissions:"
 msgstr "Uprawnienia folderów:"
 
-#: .\gui\settings_dialog.cpp:207
+#: .\gui\settings_dialog.cpp:215
+msgid "Transfer history"
+msgstr "Historia transferów"
+
+#: .\gui\settings_dialog.cpp:220
+msgid "Warning! Every action you perform on this page is irreversible!"
+msgstr "Uwaga! Akcje podejmowane na tej stronie są nieodwracalne!"
+
+#: .\gui\settings_dialog.cpp:230
+msgid "Hostname"
+msgstr "Nazwa hosta"
+
+#: .\gui\settings_dialog.cpp:231
+msgid "Full name"
+msgstr "Imię i nazwisko"
+
+#: .\gui\settings_dialog.cpp:232
+msgid "IP address"
+msgstr "Adres IP"
+
+#: .\gui\settings_dialog.cpp:233
+msgid "OS"
+msgstr "System"
+
+#: .\gui\settings_dialog.cpp:234
+msgid "Transfers registered"
+msgstr "Liczba transferów"
+
+#: .\gui\settings_dialog.cpp:244
+msgid "Remove selected"
+msgstr "Usuń zaznaczone"
+
+#: .\gui\settings_dialog.cpp:246
+msgid "Clear all history"
+msgstr "Wyczyść historię"
+
+#: .\gui\settings_dialog.cpp:272
 msgid "Identification"
 msgstr "Identyfikacja"
 
-#: .\gui\settings_dialog.cpp:213
+#: .\gui\settings_dialog.cpp:278
 msgid "Group code:"
 msgstr "Kod grupy:"
 
-#: .\gui\settings_dialog.cpp:228
+#: .\gui\settings_dialog.cpp:293
 msgid "Network"
 msgstr "Sieć"
 
-#: .\gui\settings_dialog.cpp:233
+#: .\gui\settings_dialog.cpp:298
 msgid "Network interface to use:"
 msgstr "Używany interfejs sieciowy:"
 
-#: .\gui\settings_dialog.cpp:248
+#: .\gui\settings_dialog.cpp:313
 msgid "Incoming port for transfers:"
 msgstr "Port przychodzący dla przesyłania:"
 
-#: .\gui\settings_dialog.cpp:257
+#: .\gui\settings_dialog.cpp:322
 msgid "Incoming port for registration:"
 msgstr "Port przychodzący dla rejestracji:"
 
-#: .\gui\settings_dialog.cpp:370
+#: .\gui\settings_dialog.cpp:470
 msgid "Automatic"
 msgstr "Automatycznie"
+
+#: .\gui\settings_dialog.cpp:535
+msgid "Are you sure you want to clear all history?"
+msgstr "Czy jesteś pewien, że chcesz wyczyścić całą historię?"
 
 #: .\gui\transfer_history.cpp:20
 msgid "Soon in the future"

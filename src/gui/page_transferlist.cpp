@@ -234,7 +234,8 @@ void TransferListPage::onSendFolderClicked( wxCommandEvent& event )
 void TransferListPage::onClearHistoryClicked( wxCommandEvent& event )
 {
     wxMessageDialog dialog( this, 
-        _( "Are you sure you want to clear entire history for this device?" ), _( "Clear history" ) );
+        _( "Are you sure you want to clear entire history for this device?" ), 
+        _( "Clear history" ) );
     dialog.SetExtendedMessage(
         _( "This operation cannot be undone!" ) );
     dialog.SetMessageDialogStyle( wxYES_NO );

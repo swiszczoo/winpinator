@@ -70,6 +70,11 @@ struct TargetInfo
     std::wstring os;
 };
 
+struct TargetInfoData : public TargetInfo
+{
+    long long transferCount;
+};
+
 };
 
 };
