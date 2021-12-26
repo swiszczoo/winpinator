@@ -24,6 +24,7 @@ public:
     wxString outputPath;
     bool askReceiveFiles;
     bool askOverwriteFiles;
+    bool preserveZoneInfo;
 
     int filesDefaultPermissions;
     int executablesDefaultPermissions;
@@ -36,6 +37,6 @@ public:
 
 private:
     static std::unique_ptr<SettingsModel> s_defaultInstance;
-    static SettingsModel* getDefaults();
+    inline static SettingsModel* getDefaults();
 };
 

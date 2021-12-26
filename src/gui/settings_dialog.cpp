@@ -18,8 +18,8 @@ SettingsDialog::SettingsDialog( wxWindow* parent )
     , m_notebook( nullptr )
     , m_autorunCommand( wxEmptyString )
 {
-    SetMinSize( FromDIP( wxSize( 450, 560 ) ) );
-    SetSize( FromDIP( wxSize( 450, 560 ) ) );
+    SetMinSize( FromDIP( wxSize( 450, 590 ) ) );
+    SetSize( FromDIP( wxSize( 450, 590 ) ) );
 
     wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
     sizer->AddSpacer( FromDIP( 10 ) );
@@ -72,9 +72,6 @@ SettingsDialog::SettingsDialog( wxWindow* parent )
 void SettingsDialog::createGeneralPage()
 {
     wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
-    wxFont font = GetFont();
-    font.MakeLarger();
-    font.MakeLarger();
 
     sizer->AddSpacer( FromDIP( 10 ) );
 
@@ -168,6 +165,12 @@ void SettingsDialog::createGeneralPage()
         _( "Require approval when files would be overwritten" ) );
     transfers->Add( m_askOverwriteFiles, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
+    transfers->AddSpacer( FromDIP( 3 ) );
+
+    m_preserveZoneInfo = new wxCheckBox( m_panelGeneral, wxID_ANY,
+        _( "Preserve zone information in incoming files" ) );
+    transfers->Add( m_preserveZoneInfo, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
+
     transfers->AddSpacer( FromDIP( 10 ) );
 
     sizer->Add( transfers, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
@@ -182,21 +185,21 @@ void SettingsDialog::createPermissionsPage()
     sizer->AddSpacer( FromDIP( 10 ) );
 
     m_filesDefaultPerms = new PermissionPicker( m_panelPermissions, false );
-    m_filesDefaultPerms->setLabelWidth( FromDIP( 125 ) );
+    m_filesDefaultPerms->setLabelWidth( FromDIP( 150 ) );
     m_filesDefaultPerms->setLabel( _( "File permissions:" ) );
     sizer->Add( m_filesDefaultPerms, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     sizer->AddSpacer( FromDIP( 10 ) );
 
     m_executableDefaultPerms = new PermissionPicker( m_panelPermissions, false );
-    m_executableDefaultPerms->setLabelWidth( FromDIP( 125 ) );
+    m_executableDefaultPerms->setLabelWidth( FromDIP( 150 ) );
     m_executableDefaultPerms->setLabel( _( "Executable permissions:" ) );
     sizer->Add( m_executableDefaultPerms, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
     sizer->AddSpacer( FromDIP( 10 ) );
 
     m_folderDefaultPerms = new PermissionPicker( m_panelPermissions, true );
-    m_folderDefaultPerms->setLabelWidth( FromDIP( 125 ) );
+    m_folderDefaultPerms->setLabelWidth( FromDIP( 150 ) );
     m_folderDefaultPerms->setLabel( _( "Folder permissions:" ) );
     sizer->Add( m_folderDefaultPerms, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP( 10 ) );
 
@@ -261,10 +264,6 @@ void SettingsDialog::createHistoryPage()
 void SettingsDialog::createConnectionPage()
 {
     wxBoxSizer* sizer = new wxBoxSizer( wxVERTICAL );
-
-    wxFont font = GetFont();
-    font.MakeLarger();
-    font.MakeLarger();
 
     sizer->AddSpacer( FromDIP( 10 ) );
 
@@ -399,6 +398,7 @@ void SettingsDialog::loadSettings()
     m_outputDir->SetPath( settings.outputPath );
     m_askReceiveFiles->SetValue( settings.askReceiveFiles );
     m_askOverwriteFiles->SetValue( settings.askOverwriteFiles );
+    m_preserveZoneInfo->SetValue( settings.preserveZoneInfo );
     m_filesDefaultPerms->setPermissionMask( settings.filesDefaultPermissions );
     m_executableDefaultPerms->setPermissionMask( settings.executablesDefaultPermissions );
     m_folderDefaultPerms->setPermissionMask( settings.foldersDefaultPermissions );
@@ -422,6 +422,7 @@ void SettingsDialog::saveSettings()
     settings.outputPath = m_outputDir->GetPath();
     settings.askReceiveFiles = m_askReceiveFiles->IsChecked();
     settings.askOverwriteFiles = m_askOverwriteFiles->IsChecked();
+    settings.preserveZoneInfo = m_preserveZoneInfo->IsChecked();
     settings.filesDefaultPermissions = m_filesDefaultPerms->getPermissionMask();
     settings.executablesDefaultPermissions = m_executableDefaultPerms->getPermissionMask();
     settings.foldersDefaultPermissions = m_folderDefaultPerms->getPermissionMask();

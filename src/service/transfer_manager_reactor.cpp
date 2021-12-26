@@ -7,6 +7,10 @@
 namespace srv
 {
 
+const std::wstring TransferManager::StartTransferReactor::ZONE_ID_STREAM
+    = L":Zone.Identifier:$DATA";
+const int TransferManager::StartTransferReactor::INTRANET_ZONE = 1;
+
 void TransferManager::StartTransferReactor::setInstance(
     std::shared_ptr<StartTransferReactor> selfPtr )
 {
@@ -262,6 +266,11 @@ void TransferManager::StartTransferReactor::processData( const std::string& chun
                 failOp();
                 return;
             }
+
+            if ( m_mgr->getPreserveZoneInfo() )
+            {
+                writeZoneStream( absolutePath );
+            }
         }
 
         m_filePtr.Write( chunk.data(), chunk.size() );
@@ -288,6 +297,26 @@ void TransferManager::StartTransferReactor::processData( const std::string& chun
 void TransferManager::StartTransferReactor::failOp()
 {
     m_mgr->requestStopTransfer( m_remoteId, m_transfer->id, true );
+}
+
+bool TransferManager::StartTransferReactor::writeZoneStream(
+    const wxString& absolutePath )
+{
+    wxLogNull logNull;
+
+    wxString path = wxString::Format( "%s%s", absolutePath, ZONE_ID_STREAM );
+
+    wxFile zoneFile;
+    if ( zoneFile.Create( path, true, wxS_DEFAULT ) )
+    {
+        wxString content = wxString::Format( 
+            "[ZoneTransfer]\nZoneId=%d\n", (int)INTRANET_ZONE );
+        zoneFile.Write( content, wxConvLocal );
+
+        return true;
+    }
+
+    return false;
 }
 
 };

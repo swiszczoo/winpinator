@@ -138,6 +138,20 @@ bool TransferManager::getMustAllowOverwrite()
     return m_mustAllowOverwrite;
 }
 
+void TransferManager::setPreserveZoneInfo( bool preserve )
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    m_preserveZoneInfo = preserve;
+}
+
+bool TransferManager::getPreserveZoneInfo()
+{
+    std::lock_guard<std::mutex> guard( m_mtx );
+
+    return m_preserveZoneInfo;
+}
+
 void TransferManager::setUnixPermissionMasks( int file,
     int executable, int directory )
 {

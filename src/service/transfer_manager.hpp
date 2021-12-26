@@ -50,6 +50,9 @@ public:
     void setMustAllowOverwrite( bool must );
     bool getMustAllowOverwrite();
 
+    void setPreserveZoneInfo( bool preserve );
+    bool getPreserveZoneInfo();
+
     void setUnixPermissionMasks( int file, int executable, int directory );
     int getUnixFilePermissionMask();
     int getUnixExecutablePermissionMask();
@@ -105,6 +108,9 @@ private:
         void OnDone( const grpc::Status& s ) override;
         void OnReadDone( bool ok ) override;
     private:
+        static const std::wstring ZONE_ID_STREAM;
+        static const int INTRANET_ZONE;
+
         std::shared_ptr<StartTransferReactor> m_selfPtr;
 
         // gRPC ref holders - they will be released after this reader object
@@ -129,6 +135,7 @@ private:
         void updateProgress( long long chunkBytes );
         void processData( const std::string& dataChunk );
         void failOp();
+        bool writeZoneStream( const wxString& absolutePath );
     };
 
     static const long long PROGRESS_FREQ_MILLIS;
@@ -148,6 +155,7 @@ private:
     int m_compressionLevel;
     bool m_mustAllowIncoming;
     bool m_mustAllowOverwrite;
+    bool m_preserveZoneInfo;
 
     int m_filePerms;
     int m_execPerms;

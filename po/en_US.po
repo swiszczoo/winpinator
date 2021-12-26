@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-25 03:41+0100\n"
-"PO-Revision-Date: 2021-12-25 03:41+0100\n"
+"POT-Creation-Date: 2021-12-26 02:30+0100\n"
+"PO-Revision-Date: 2021-12-26 02:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -464,7 +464,7 @@ msgid "Send a folder..."
 msgstr "Send a folder..."
 
 #: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:238
-#: .\gui\settings_dialog.cpp:536
+#: .\gui\settings_dialog.cpp:537
 msgid "Clear history"
 msgstr "Clear history"
 
@@ -485,7 +485,7 @@ msgstr "Select directories to send..."
 msgid "Are you sure you want to clear entire history for this device?"
 msgstr "Are you sure you want to clear entire history for this device?"
 
-#: .\gui\page_transferlist.cpp:240 .\gui\settings_dialog.cpp:538
+#: .\gui\page_transferlist.cpp:240 .\gui\settings_dialog.cpp:539
 msgid "This operation cannot be undone!"
 msgstr "This operation cannot be undone!"
 
@@ -526,7 +526,6 @@ msgid "Unix permissions"
 msgstr "Unix permissions"
 
 #: .\gui\settings_dialog.cpp:37
-#| msgid "Clear history"
 msgid "History"
 msgstr "History"
 
@@ -534,139 +533,135 @@ msgstr "History"
 msgid "Connection"
 msgstr "Connection"
 
-#: .\gui\settings_dialog.cpp:82
+#: .\gui\settings_dialog.cpp:79
 msgid "Interface"
 msgstr "Interface"
 
-#: .\gui\settings_dialog.cpp:88
+#: .\gui\settings_dialog.cpp:85
 msgid "Language (requires restart to take effect):"
 msgstr "Language (requires restart to take effect):"
 
-#: .\gui\settings_dialog.cpp:105
+#: .\gui\settings_dialog.cpp:102
 msgid "Desktop"
 msgstr "Desktop"
 
-#: .\gui\settings_dialog.cpp:110
+#: .\gui\settings_dialog.cpp:107
 msgid "Start with main window open"
 msgstr "Start with main window open"
 
-#: .\gui\settings_dialog.cpp:116
+#: .\gui\settings_dialog.cpp:113
 msgid "Start automatically (on system startup)"
 msgstr "Start automatically (on system startup)"
 
-#: .\gui\settings_dialog.cpp:122
+#: .\gui\settings_dialog.cpp:119
 msgid "Do not show main window on system startup"
 msgstr "Do not show main window on system startup"
 
-#: .\gui\settings_dialog.cpp:132
+#: .\gui\settings_dialog.cpp:129
 msgid "File transfers"
 msgstr "File transfers"
 
-#: .\gui\settings_dialog.cpp:137
+#: .\gui\settings_dialog.cpp:134
 msgid "Use compression (if available)"
 msgstr "Use compression (if available)"
 
-#: .\gui\settings_dialog.cpp:143
+#: .\gui\settings_dialog.cpp:140
 msgid "Compression level:"
 msgstr "Compression level:"
 
-#: .\gui\settings_dialog.cpp:151
+#: .\gui\settings_dialog.cpp:148
 msgid "Location for received files:"
 msgstr "Location for received files:"
 
-#: .\gui\settings_dialog.cpp:162
+#: .\gui\settings_dialog.cpp:159
 msgid "Require approval before accepting files"
 msgstr "Require approval before accepting files"
 
-#: .\gui\settings_dialog.cpp:168
+#: .\gui\settings_dialog.cpp:165
 msgid "Require approval when files would be overwritten"
 msgstr "Require approval when files would be overwritten"
 
-#: .\gui\settings_dialog.cpp:186
+#: .\gui\settings_dialog.cpp:171
+msgid "Preserve zone information in incoming files"
+msgstr "Preserve zone information in incoming files"
+
+#: .\gui\settings_dialog.cpp:189
 msgid "File permissions:"
 msgstr "File permissions:"
 
-#: .\gui\settings_dialog.cpp:193
+#: .\gui\settings_dialog.cpp:196
 msgid "Executable permissions:"
 msgstr "Executable permissions:"
 
-#: .\gui\settings_dialog.cpp:200
+#: .\gui\settings_dialog.cpp:203
 msgid "Folder permissions:"
 msgstr "Folder permissions:"
 
-#: .\gui\settings_dialog.cpp:215
-#| msgid "Clear history"
+#: .\gui\settings_dialog.cpp:218
 msgid "Transfer history"
 msgstr "Transfer history"
 
-#: .\gui\settings_dialog.cpp:220
+#: .\gui\settings_dialog.cpp:223
 msgid "Warning! Every action you perform on this page is irreversible!"
 msgstr "Warning! Every action you perform on this page is irreversible!"
 
-#: .\gui\settings_dialog.cpp:230
-#| msgid "Hostname:"
+#: .\gui\settings_dialog.cpp:233
 msgid "Hostname"
 msgstr "Hostname"
 
-#: .\gui\settings_dialog.cpp:231
-#| msgid "File name"
+#: .\gui\settings_dialog.cpp:234
 msgid "Full name"
 msgstr "Full name"
 
-#: .\gui\settings_dialog.cpp:232
-#| msgid "IP Address:"
+#: .\gui\settings_dialog.cpp:235
 msgid "IP address"
 msgstr "IP address"
 
-#: .\gui\settings_dialog.cpp:233
-#| msgid "OS:"
+#: .\gui\settings_dialog.cpp:236
 msgid "OS"
 msgstr "OS"
 
-#: .\gui\settings_dialog.cpp:234
-#| msgid "Transfer failure"
+#: .\gui\settings_dialog.cpp:237
 msgid "Transfers registered"
 msgstr "Transfers registered"
 
-#: .\gui\settings_dialog.cpp:244
+#: .\gui\settings_dialog.cpp:247
 msgid "Remove selected"
 msgstr "Remove selected"
 
-#: .\gui\settings_dialog.cpp:246
-#| msgid "Clear history"
+#: .\gui\settings_dialog.cpp:249
 msgid "Clear all history"
 msgstr "Clear all history"
 
-#: .\gui\settings_dialog.cpp:272
+#: .\gui\settings_dialog.cpp:271
 msgid "Identification"
 msgstr "Identification"
 
-#: .\gui\settings_dialog.cpp:278
+#: .\gui\settings_dialog.cpp:277
 msgid "Group code:"
 msgstr "Group code:"
 
-#: .\gui\settings_dialog.cpp:293
+#: .\gui\settings_dialog.cpp:292
 msgid "Network"
 msgstr "Network"
 
-#: .\gui\settings_dialog.cpp:298
+#: .\gui\settings_dialog.cpp:297
 msgid "Network interface to use:"
 msgstr "Network interface to use:"
 
-#: .\gui\settings_dialog.cpp:313
+#: .\gui\settings_dialog.cpp:312
 msgid "Incoming port for transfers:"
 msgstr "Incoming port for transfers:"
 
-#: .\gui\settings_dialog.cpp:322
+#: .\gui\settings_dialog.cpp:321
 msgid "Incoming port for registration:"
 msgstr "Incoming port for registration:"
 
-#: .\gui\settings_dialog.cpp:470
+#: .\gui\settings_dialog.cpp:471
 msgid "Automatic"
 msgstr "Automatic"
 
-#: .\gui\settings_dialog.cpp:535
-#| msgid "Are you sure you want to clear entire history for this device?"
+#: .\gui\settings_dialog.cpp:536
 msgid "Are you sure you want to clear all history?"
 msgstr "Are you sure you want to clear all history?"
 

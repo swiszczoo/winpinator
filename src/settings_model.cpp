@@ -15,6 +15,7 @@ SettingsModel::SettingsModel()
     , outputPath( wxEmptyString )
     , askReceiveFiles( true )
     , askOverwriteFiles( true )
+    , preserveZoneInfo( true )
     , filesDefaultPermissions( 664 )
     , foldersDefaultPermissions( 775 )
     , executablesDefaultPermissions( 775 )
@@ -40,6 +41,8 @@ void SettingsModel::loadFrom( wxConfigBase* config )
         "General/Autorun", getDefaults()->autorun );
     autorunHidden = config->ReadBool(
         "General/AutorunHidden", getDefaults()->autorunHidden );
+    preserveZoneInfo = config->ReadBool(
+        "General/PreserveZoneInfo", getDefaults()->preserveZoneInfo );
 
     useCompression = config->ReadBool(
         "Transfer/UseCompression", getDefaults()->useCompression );
@@ -75,6 +78,7 @@ void SettingsModel::saveTo( wxConfigBase* config )
     config->Write( "General/OpenWindowAtStart", openWindowOnStart );
     config->Write( "General/Autorun", autorun );
     config->Write( "General/AutorunHidden", autorunHidden );
+    config->Write( "General/PreserveZoneInfo", preserveZoneInfo );
 
     config->Write( "Transfer/UseCompression", useCompression );
     config->Write( "Transfer/ZlibCompressionLevel", zlibCompressionLevel );
@@ -92,7 +96,7 @@ void SettingsModel::saveTo( wxConfigBase* config )
     config->Write( "Connection/RegistrationPort", registrationPort );
 }
 
-SettingsModel* SettingsModel::getDefaults()
+inline SettingsModel* SettingsModel::getDefaults()
 {
     if ( !SettingsModel::s_defaultInstance )
     {

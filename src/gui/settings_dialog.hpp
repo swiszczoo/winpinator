@@ -45,6 +45,7 @@ private:
     wxDirPickerCtrl* m_outputDir;
     wxCheckBox* m_askReceiveFiles;
     wxCheckBox* m_askOverwriteFiles;
+    wxCheckBox* m_preserveZoneInfo;
 
     // Permissions
 
