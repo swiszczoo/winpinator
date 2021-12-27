@@ -14,7 +14,7 @@
 #include <wx/log.h>
 #include <wx/msw/regconf.h>
 #include <wx/richtext/richtextbuffer.h>
-#include <wx/richtext/richtexthtml.h>
+#include <wx/richtext/richtextxml.h>
 #include <wx/socket.h>
 #include <wx/stdpaths.h>
 #include <wx/wx.h>
@@ -129,7 +129,7 @@ bool WinpinatorApp::OnInit()
 
     wxInitAllImageHandlers();
     wxSocketBase::Initialize();
-    wxRichTextBuffer::AddHandler( new wxRichTextHTMLHandler() );
+    wxRichTextBuffer::AddHandler( new wxRichTextXMLHandler() );
 
     // Make AppData subdirectory
     wxMkDir( wxStandardPaths::Get().GetUserDataDir() );

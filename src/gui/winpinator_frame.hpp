@@ -27,6 +27,8 @@ public:
     void setTransferList( const std::vector<wxString>& paths );
 
 private:
+    static const wxString RELEASE_NOTES_FILENAME;
+
     wxMenuBar* m_menuBar;
     wxMenu* m_fileMenu;
     wxMenu* m_helpMenu;

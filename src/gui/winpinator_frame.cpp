@@ -7,7 +7,7 @@
 #include "history_element_finished.hpp"
 #include "utils.hpp"
 
-#include <wx/aboutdlg.h>
+#include <wx/stdpaths.h>
 
 #define ID_OPENDESTDIR 10000
 #define ID_RELEASENOTES 10001
@@ -16,6 +16,8 @@ namespace gui
 {
 
 wxDEFINE_EVENT( EVT_EXIT_APP_FROM_FRAME, wxCommandEvent );
+
+const wxString WinpinatorFrame::RELEASE_NOTES_FILENAME = "RELEASE NOTES.txt";
 
 WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     : wxFrame( parent, wxID_ANY, _( "Winpinator" ) )
@@ -258,10 +260,16 @@ void WinpinatorFrame::onExitSelected()
 
 void WinpinatorFrame::onHelpSelected()
 {
+    wxMessageBox( _( "Sorry, but Winpinator help is not available yet." ),
+        _( "Help not available" ), wxICON_INFORMATION );
 }
 
 void WinpinatorFrame::onShowReleaseNotesSelected()
 {
+    wxFileName notesName( wxStandardPaths::Get().GetExecutablePath() );
+    notesName.SetFullName( RELEASE_NOTES_FILENAME );
+
+    wxLaunchDefaultApplication( notesName.GetFullPath() );
 }
 
 void WinpinatorFrame::onAboutSelected()
