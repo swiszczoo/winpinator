@@ -298,6 +298,12 @@
     <ClInclude Include="..\src\service\notification_transfer_succeeded.hpp">
       <Filter>Headers\service</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\gui\array_event.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\about_dialog.hpp">
+      <Filter>Headers\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\zeroconf\mdns_service.cpp">
@@ -504,6 +510,12 @@
     <ClCompile Include="..\src\service\notification_transfer_succeeded.cpp">
       <Filter>Sources\service</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\gui\array_event.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gui\about_dialog.cpp">
+      <Filter>Sources\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\win32\manifest.manifest">
@@ -599,6 +611,9 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\res\transfer_succeeded.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\res\about_banner.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

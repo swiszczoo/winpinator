@@ -8,5 +8,6 @@ const wxString SERVICE_NAME = "WINPINATOR";
 
 // Commands
 const wxString COMMAND_OPEN = "OPEN";
+const wxString COMMAND_SEND = "SEND";
 
 };

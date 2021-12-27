@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-26 02:30+0100\n"
-"PO-Revision-Date: 2021-12-26 02:32+0100\n"
+"POT-Creation-Date: 2021-12-27 06:20+0100\n"
+"PO-Revision-Date: 2021-12-27 06:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -18,6 +18,28 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
 "|| n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.0.1\n"
+
+#: .\gui\about_dialog.cpp:16
+msgid "About Winpinator..."
+msgstr "O programie Winpinator..."
+
+#: .\gui\about_dialog.cpp:70
+msgid "About"
+msgstr "O programie"
+
+#: .\gui\about_dialog.cpp:84
+msgid "License"
+msgstr "Licencja"
+
+#: .\gui\about_dialog.cpp:99
+msgid "License file could not be loaded."
+msgstr "Błąd ładowania pliku licencji."
+
+#. TRANSLATORS: version string (e.g. "ver. 1.2.3")
+#: .\gui\about_dialog.cpp:125
+#, c-format
+msgid "ver. %s"
+msgstr "wer. %s"
 
 #: .\gui\file_list_dialog.cpp:16
 msgid ""
@@ -133,7 +155,7 @@ msgstr "Anulowany"
 msgid "Error occurred"
 msgstr "Wystąpił błąd"
 
-#: .\gui\history_element_finished.cpp:361 .\gui\utils.cpp:144
+#: .\gui\history_element_finished.cpp:361 .\gui\utils.cpp:146
 msgid "Unknown"
 msgstr "Nieznany"
 
@@ -318,11 +340,11 @@ msgstr "Nazwa hosta:"
 msgid "IP Address:"
 msgstr "Adres IP:"
 
-#: .\gui\host_listbox.cpp:184
+#: .\gui\host_listbox.cpp:183
 msgid "OS:"
 msgstr "System:"
 
-#: .\gui\host_listbox.cpp:185
+#: .\gui\host_listbox.cpp:184
 msgid "Connection:"
 msgstr "Połączenie:"
 
@@ -473,30 +495,30 @@ msgstr "Wyślij plik(i)..."
 msgid "Send a folder..."
 msgstr "Wyślij folder..."
 
-#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:238
+#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:261
 #: .\gui\settings_dialog.cpp:537
 msgid "Clear history"
 msgstr "Wyczyść historię"
 
-#: .\gui\page_transferlist.cpp:182
+#: .\gui\page_transferlist.cpp:205
 msgid "Select files to send..."
 msgstr "Wybierz pliki do wysłania..."
 
 #. TRANSLATORS: wildcard format: type1|filter1;type2|filter2;...
-#: .\gui\page_transferlist.cpp:184
+#: .\gui\page_transferlist.cpp:207
 msgid "All files (*.*)|*.*"
 msgstr "Wszystkie pliki (*.*)|*.*"
 
-#: .\gui\page_transferlist.cpp:210
+#: .\gui\page_transferlist.cpp:233
 msgid "Select directories to send..."
 msgstr "Wybierz foldery do wysłania..."
 
-#: .\gui\page_transferlist.cpp:237
+#: .\gui\page_transferlist.cpp:260
 msgid "Are you sure you want to clear entire history for this device?"
 msgstr ""
 "Czy jesteś pewien, że chcesz wyczyścić całą historię dla tego urządzenia?"
 
-#: .\gui\page_transferlist.cpp:240 .\gui\settings_dialog.cpp:539
+#: .\gui\page_transferlist.cpp:263 .\gui\settings_dialog.cpp:539
 msgid "This operation cannot be undone!"
 msgstr "Tej operacji nie można cofnąć!"
 
@@ -729,129 +751,125 @@ msgstr "W trakcie trwania"
 msgid "In progress (%d)"
 msgstr "W trakcie trwania (%d)"
 
-#: .\gui\utils.cpp:131
+#: .\gui\utils.cpp:133
 msgid "Offline"
 msgstr "Offline"
 
-#: .\gui\utils.cpp:133
+#: .\gui\utils.cpp:135
 msgid "Registration in progress..."
 msgstr "Rejestracja w toku..."
 
-#: .\gui\utils.cpp:135
+#: .\gui\utils.cpp:137
 msgid "Connecting..."
 msgstr "Łączenie..."
 
-#: .\gui\utils.cpp:137
+#: .\gui\utils.cpp:139
 msgid "Host unreachable"
 msgstr "Host nieosiągalny"
 
-#: .\gui\utils.cpp:139
+#: .\gui\utils.cpp:141
 msgid "Establishing duplex connection..."
 msgstr "Zestawianie połączenia dwukierunkowego..."
 
-#: .\gui\utils.cpp:141
+#: .\gui\utils.cpp:143
 msgid "Ready"
 msgstr "Gotowy"
 
-#: .\gui\utils.cpp:193
+#: .\gui\utils.cpp:195
 msgid "Calculating..."
 msgstr "Obliczanie..."
 
-#: .\gui\winpinator_banner.cpp:159
+#: .\gui\winpinator_banner.cpp:174
 msgid "Share your files across the LAN"
 msgstr "Wysyłaj i odbieraj pliki w swojej sieci"
 
-#: .\gui\winpinator_frame.cpp:20 .\gui\winpinator_frame.cpp:255
+#: .\gui\winpinator_banner.cpp:178
+#, c-format
+msgid "Send %d element..."
+msgid_plural "Send %d elements..."
+msgstr[0] "Wyślij %d element..."
+msgstr[1] "Wyślij %d elementy..."
+msgstr[2] "Wyślij %d elementów..."
+
+#: .\gui\winpinator_frame.cpp:21
 msgid "Winpinator"
 msgstr "Winpinator"
 
 #. TRANSLATORS: format string
-#: .\gui\winpinator_frame.cpp:66 .\gui\winpinator_frame.cpp:305
+#: .\gui\winpinator_frame.cpp:68 .\gui\winpinator_frame.cpp:321
 #, c-format
 msgid "IP: %s"
 msgstr "Adres IP: %s"
 
-#: .\gui\winpinator_frame.cpp:70 .\gui\winpinator_frame.cpp:289
-#: .\gui\winpinator_frame.cpp:300
+#: .\gui\winpinator_frame.cpp:72 .\gui\winpinator_frame.cpp:305
+#: .\gui\winpinator_frame.cpp:316
 msgid "Offline!"
 msgstr "Offline!"
 
-#: .\gui\winpinator_frame.cpp:121
+#: .\gui\winpinator_frame.cpp:137
 msgid "&Open save folder...\tCtrl+O"
 msgstr "&Otwórz folder zapisywania...\tCtrl+O"
 
-#: .\gui\winpinator_frame.cpp:122 .\tray_icon.cpp:81
+#: .\gui\winpinator_frame.cpp:138 .\tray_icon.cpp:81
 msgid "Open the incoming files folder in Explorer"
 msgstr "Otwórz folder dla plików przychodzących w Eksploratorze Windows"
 
-#: .\gui\winpinator_frame.cpp:123
+#: .\gui\winpinator_frame.cpp:139
 msgid "&Preferences..."
 msgstr "&Preferencje..."
 
-#: .\gui\winpinator_frame.cpp:124
+#: .\gui\winpinator_frame.cpp:140
 msgid "Adjust app preferences"
 msgstr "Dostosuj ustawienia aplikacji"
 
-#: .\gui\winpinator_frame.cpp:126
+#: .\gui\winpinator_frame.cpp:142
 msgid "E&xit\tAlt+F4"
 msgstr "&Wyjdź\tAlt+F4"
 
-#: .\gui\winpinator_frame.cpp:127
+#: .\gui\winpinator_frame.cpp:143
 msgid "Close this window but let Winpinator run in background"
 msgstr "Zamknij to okno, ale pozostaw Winpinatora uruchomionego w tle"
 
-#: .\gui\winpinator_frame.cpp:129
+#: .\gui\winpinator_frame.cpp:145
 msgid "Exit and &stop the service\tCtrl+Alt+F4"
 msgstr "Wyjdź i zatrzymaj usługę\tCtrl+Alt+F4"
 
-#: .\gui\winpinator_frame.cpp:130
+#: .\gui\winpinator_frame.cpp:146
 msgid "Exit Winpinator and stop being visible to other computers"
 msgstr ""
 "Wyjdź z Winpinatora i przestań być dostępny dla innych komputerów w sieci"
 
-#: .\gui\winpinator_frame.cpp:132
+#: .\gui\winpinator_frame.cpp:148
 msgid "&File"
 msgstr "&Plik"
 
-#: .\gui\winpinator_frame.cpp:135
+#: .\gui\winpinator_frame.cpp:151
 msgid "&Help topics...\tF1"
 msgstr "&Tematy pomocy...\tF1"
 
-#: .\gui\winpinator_frame.cpp:136
+#: .\gui\winpinator_frame.cpp:152
 msgid "Show help and documentation of Winpinator"
 msgstr "Pokaż pomoc i dokumentację Winpinatora"
 
-#: .\gui\winpinator_frame.cpp:137
+#: .\gui\winpinator_frame.cpp:153
 msgid "&What's new?..."
 msgstr "&Co nowego?..."
 
-#: .\gui\winpinator_frame.cpp:138
+#: .\gui\winpinator_frame.cpp:154
 msgid "Show release notes"
 msgstr "Pokaż dzienniki zmian"
 
-#: .\gui\winpinator_frame.cpp:139
+#: .\gui\winpinator_frame.cpp:155
 msgid "&About Winpinator..."
 msgstr "&O programie Winpinator..."
 
-#: .\gui\winpinator_frame.cpp:140
+#: .\gui\winpinator_frame.cpp:156
 msgid "Show credits dialog"
 msgstr "Pokaż okno o autorach"
 
-#: .\gui\winpinator_frame.cpp:142
+#: .\gui\winpinator_frame.cpp:158
 msgid "&Help"
 msgstr "&Pomoc"
-
-#: .\gui\winpinator_frame.cpp:257
-msgid ""
-"Winpinator is an unofficial port of an excellent file transfer tool "
-"Warpinator for Windows"
-msgstr ""
-"Winpinator to nieoficjalny port Warpinatora, świetnego narzędzia do "
-"przesyłania plików, dla systemu Windows"
-
-#: .\gui\winpinator_frame.cpp:259
-msgid "©2021 Łukasz Świszcz"
-msgstr "©2021 Łukasz Świszcz"
 
 #: .\service\notification_accept_files.cpp:91
 msgid "Incoming files"
@@ -951,6 +969,16 @@ msgstr "&Wyjdź"
 #: .\tray_icon.cpp:83
 msgid "Exit Winpinator and stop background service"
 msgstr "Wyjdź z Winpinatora i zatrzymaj usługę w tle"
+
+#~ msgid ""
+#~ "Winpinator is an unofficial port of an excellent file transfer tool "
+#~ "Warpinator for Windows"
+#~ msgstr ""
+#~ "Winpinator to nieoficjalny port Warpinatora, świetnego narzędzia do "
+#~ "przesyłania plików, dla systemu Windows"
+
+#~ msgid "©2021 Łukasz Świszcz"
+#~ msgstr "©2021 Łukasz Świszcz"
 
 #~ msgid "List"
 #~ msgstr "Listowanie"

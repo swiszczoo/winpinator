@@ -1,4 +1,5 @@
 #pragma once
+#include "gui/array_event.hpp"
 
 #include <wx/wx.h>
 #include <wx/dde.h>
@@ -7,6 +8,7 @@
 #include <memory>
 
 wxDECLARE_EVENT( EVT_OPEN_APP_WINDOW, wxCommandEvent );
+wxDECLARE_EVENT( EVT_SEND_FILES, gui::ArrayEvent );
 
 class WinpinatorDDEServer;
 
@@ -52,4 +54,6 @@ private:
     std::shared_ptr<DDEImpl> m_server;
 
     virtual void processExecute( const void* data, size_t size );
+    void processOpen( const wxString& data );
+    void processSend( const wxString& data );
 };

@@ -112,8 +112,17 @@ void FileCrawler::crawlJobMain( std::vector<std::wstring> paths, int jobId )
 
         for ( auto& path : paths )
         {
-            findAndUnwindElement( wxFileName( path ),
-                location, relativeLoc, &pathSet, sendHidden, totalSize );
+            if ( path[path.size() - 1] == '\\' )
+            {
+                findAndUnwindElement( 
+                    wxFileName( path.substr( 0, path.size() - 1 ) ),
+                    location, relativeLoc, &pathSet, sendHidden, totalSize );
+            }
+            else
+            {
+                findAndUnwindElement( wxFileName( path ),
+                    location, relativeLoc, &pathSet, sendHidden, totalSize );
+            }
         }
 
         auto pathVec = std::make_shared<std::vector<std::wstring>>();

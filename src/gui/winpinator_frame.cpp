@@ -3,6 +3,7 @@
 #include "../../win32/resource.h"
 #include "../globals.hpp"
 #include "../main_base.hpp"
+#include "about_dialog.hpp"
 #include "history_element_finished.hpp"
 #include "utils.hpp"
 
@@ -23,6 +24,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     , m_helpMenu( nullptr )
     , m_statusBar( nullptr )
     , m_banner( nullptr )
+    , m_aboutDlg( nullptr )
     , m_settingsDlg( nullptr )
     , m_fileListDlg( nullptr )
 {
@@ -74,6 +76,8 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
 
     observeService( Globals::get()->getWinpinatorServiceInstance() );
 
+    // onAboutSelected();
+
     // Events
     Bind( wxEVT_MENU, &WinpinatorFrame::onMenuItemSelected, this );
     Bind( wxEVT_THREAD, &WinpinatorFrame::onChangeStatusBarText, this );
@@ -82,6 +86,8 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
         &WinpinatorFrame::onUpdateBannerTarget, this );
     m_selector->Bind( EVT_OPEN_SETTINGS,
         &WinpinatorFrame::onSettingsClicked, this );
+    m_selector->Bind( EVT_UPDATE_BANNER_QSIZE,
+        &WinpinatorFrame::onUpdateBannerQueueSize, this );
     Bind( EVT_OPEN_DIALOG, &WinpinatorFrame::onDialogOpened, this );
     Bind( EVT_CLOSE_DIALOG, &WinpinatorFrame::onDialogClosed, this );
 }
@@ -94,6 +100,11 @@ bool WinpinatorFrame::showTransferScreen( const wxString& remoteId )
 
 void WinpinatorFrame::killAllDialogs()
 {
+    if ( m_aboutDlg )
+    {
+        m_aboutDlg->EndModal( wxID_CANCEL );
+    }
+
     if ( m_settingsDlg )
     {
         m_settingsDlg->EndModal( wxID_CANCEL );
@@ -111,6 +122,11 @@ void WinpinatorFrame::putOnTop()
     SetFocus();
     Raise();
     Show( true );
+}
+
+void WinpinatorFrame::setTransferList( const std::vector<wxString>& list )
+{
+    m_selector->setTransferList( list );
 }
 
 void WinpinatorFrame::setupMenuBar()
@@ -250,20 +266,20 @@ void WinpinatorFrame::onShowReleaseNotesSelected()
 
 void WinpinatorFrame::onAboutSelected()
 {
-    wxAboutDialogInfo info;
-
-    info.SetName( _( "Winpinator" ) );
-    info.SetVersion( "0.1.0" );
-    info.SetDescription( _( "Winpinator is an unofficial port of an excellent "
-                            "file transfer tool Warpinator for Windows" ) );
-    info.SetCopyright( _( "\u00a92021 \u0141ukasz \u015awiszcz" ) );
-
-    wxAboutBox( info, this );
+    m_aboutDlg = new AboutDialog( this );
+    m_aboutDlg->ShowModal();
+    m_aboutDlg->Destroy();
+    m_aboutDlg = nullptr;
 }
 
 void WinpinatorFrame::onUpdateBannerTarget( PointerEvent& event )
 {
     m_banner->setTargetInfo( event.getSharedPointer<srv::RemoteInfo>() );
+}
+
+void WinpinatorFrame::onUpdateBannerQueueSize( wxCommandEvent& event )
+{
+    m_banner->setSendQueueSize( event.GetInt() );
 }
 
 void WinpinatorFrame::onDialogOpened( PointerEvent& event )

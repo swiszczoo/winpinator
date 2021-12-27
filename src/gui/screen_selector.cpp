@@ -7,6 +7,7 @@ namespace gui
 {
 
 wxDEFINE_EVENT( EVT_UPDATE_BANNER_TARGET, PointerEvent );
+wxDEFINE_EVENT( EVT_UPDATE_BANNER_QSIZE, wxCommandEvent );
 
 ScreenSelector::ScreenSelector( wxWindow* parent )
     : srv::IServiceObserver()
@@ -81,6 +82,20 @@ bool ScreenSelector::showTransferScreen( const wxString& remoteId )
     return true;
 }
 
+void ScreenSelector::setTransferList( const std::vector<wxString>& list )
+{
+    m_transferBuffer = list;
+    
+    if ( m_currentPage == SelectorPage::TRANSFER_LIST )
+    {
+        changePage( SelectorPage::HOST_LIST );
+    }
+
+    wxCommandEvent bannerEvt( EVT_UPDATE_BANNER_QSIZE );
+    bannerEvt.SetInt( list.size() );
+    wxPostEvent( this, bannerEvt );
+}
+
 void ScreenSelector::onStateChanged()
 {
     srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
@@ -150,7 +165,13 @@ void ScreenSelector::onTargetSelected( wxCommandEvent& event )
 {
     if ( m_currentPage == SelectorPage::HOST_LIST )
     {
-        setupTransferListPage( event.GetString() );
+        setupTransferListPage( event.GetString(), true );
+
+        m_transferBuffer.clear();
+
+        wxCommandEvent bannerEvt( EVT_UPDATE_BANNER_QSIZE );
+        bannerEvt.SetInt( -1 );
+        wxPostEvent( this, bannerEvt );
     }
 }
 
@@ -250,10 +271,16 @@ void ScreenSelector::removeTransferListPage()
     }
 }
 
-void ScreenSelector::setupTransferListPage( const wxString& targetId )
+void ScreenSelector::setupTransferListPage( 
+    const wxString& targetId, bool useBuffer )
 {
     m_page5 = new TransferListPage( m_book, targetId );
     m_book->AddPage( m_page5, wxEmptyString );
+
+    if ( useBuffer && !m_transferBuffer.empty() )
+    {
+        m_page5->requestFileTransfer( m_transferBuffer );
+    }
 
     setupTransferScreenEvents();
 

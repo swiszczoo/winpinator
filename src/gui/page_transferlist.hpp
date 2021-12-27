@@ -6,6 +6,8 @@
 #include "tool_button.hpp"
 #include "transfer_history.hpp"
 
+#include <vector>
+
 namespace gui
 {
 
@@ -18,6 +20,8 @@ public:
 
     wxString getTargetId() const;
     void scrollToTop();
+
+    void requestFileTransfer( const std::vector<wxString>& list );
 
 private:
     wxString m_target;

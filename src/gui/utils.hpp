@@ -20,6 +20,8 @@ public:
     static const wxColour RED_ACCENT;
     static const wxColour RED_BACKGROUND;
 
+    static const wxString VERSION;
+
     static Utils* get();
     static wxString makeIntResource( int resource );
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "../service/service_observer.hpp"
+#include "about_dialog.hpp"
 #include "file_list_dialog.hpp"
 #include "screen_selector.hpp"
 #include "settings_dialog.hpp"
@@ -23,6 +24,8 @@ public:
     void killAllDialogs();
     void putOnTop();
 
+    void setTransferList( const std::vector<wxString>& paths );
+
 private:
     wxMenuBar* m_menuBar;
     wxMenu* m_fileMenu;
@@ -31,6 +34,8 @@ private:
 
     WinpinatorBanner* m_banner;
     ScreenSelector* m_selector;
+
+    AboutDialog* m_aboutDlg;
     SettingsDialog* m_settingsDlg;
     std::shared_ptr<FileListDialog> m_fileListDlg;
 
@@ -51,6 +56,7 @@ private:
     void onAboutSelected();
 
     void onUpdateBannerTarget( PointerEvent& event );
+    void onUpdateBannerQueueSize( wxCommandEvent& event );
 
     void onDialogOpened( PointerEvent& event );
     void onDialogClosed( PointerEvent& event );

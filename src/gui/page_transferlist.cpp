@@ -132,6 +132,29 @@ void TransferListPage::scrollToTop()
     m_opList->Scroll( 0, 0 );
 }
 
+void TransferListPage::requestFileTransfer( const std::vector<wxString>& list )
+{
+    auto serv = Globals::get()->getWinpinatorServiceInstance();
+
+    srv::Event evnt;
+    evnt.type = srv::EventType::REQUEST_OUTCOMING_TRANSFER;
+    evnt.eventData.outcomingTransferData
+        = std::make_shared<srv::OutcomingTransferData>();
+    evnt.eventData.outcomingTransferData->remoteId = m_target.ToStdString();
+
+    for ( const wxString& path : list )
+    {
+        if ( ( wxFileExists( path ) || wxDirExists( path ) )
+            && wxIsAbsolutePath( path ) )
+        {
+            evnt.eventData.outcomingTransferData->droppedPaths.push_back( 
+                path.ToStdWstring() );
+        }
+    }
+
+    serv->postEvent( evnt );
+}
+
 void TransferListPage::loadIcons()
 {
     loadSingleIcon( Utils::makeIntResource( IDB_BACK ), 

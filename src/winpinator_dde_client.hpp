@@ -13,6 +13,7 @@ public:
     bool isConnected() const;
 
     void execOpen();
+    void execSend( const std::vector<wxString>& paths );
 
 private:
     std::unique_ptr<wxDDEClient> m_client;

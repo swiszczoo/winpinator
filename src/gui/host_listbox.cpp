@@ -161,21 +161,20 @@ void HostListbox::OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const
 
     int hostnameWidth = dc.GetTextExtent( hostnameLabel ).x;
     int ipWidth = dc.GetTextExtent( ipLabel ).x;
-    int maxC1 = std::max( hostnameWidth, ipWidth );
 
     dc.DrawText( hostnameLabel,
-        wxPoint( column1 + maxC1 - hostnameWidth, OFF1 ) );
+        wxPoint( column1, OFF1 ) );
     dc.DrawText( ipLabel,
-        wxPoint( column1 + maxC1 - ipWidth, OFF2 ) );
+        wxPoint( column1, OFF2 ) );
 
     dc.SetTextForeground( BLACK );
 
     Utils::drawTextEllipse( dc, item.hostname,
-        wxPoint( column1 + maxC1 + SPACING, OFF1 ),
-        maxWidth - SPACING - maxC1 );
+        wxPoint( column1 + hostnameWidth + SPACING, OFF1 ),
+        maxWidth - SPACING - hostnameWidth );
     Utils::drawTextEllipse( dc, item.ipAddress,
-        wxPoint( column1 + maxC1 + SPACING, OFF2 ),
-        maxWidth - SPACING - maxC1 );
+        wxPoint( column1 + ipWidth + SPACING, OFF2 ),
+        maxWidth - SPACING - ipWidth );
 
     // Draw second column ( OS + state )
     int column2 = column1 + maxWidth + SPACING;
@@ -186,24 +185,22 @@ void HostListbox::OnDrawItem( wxDC& dc, const wxRect& rect, size_t n ) const
 
     int osWidth = dc.GetTextExtent( osLabel ).x;
     int stateWidth = dc.GetTextExtent( stateLabel ).x;
-    int maxC2 = std::max( osWidth, stateWidth );
 
     dc.DrawText( osLabel,
-        wxPoint( column2 + maxC2 - osWidth, OFF1 ) );
+        wxPoint( column2, OFF1 ) );
     dc.DrawText( stateLabel,
-        wxPoint( column2 + maxC2 - stateWidth, OFF2 ) );
+        wxPoint( column2, OFF2 ) );
 
     wxString stateText = Utils::getStatusString( item.state );
-    
 
     dc.SetTextForeground( BLACK );
 
     Utils::drawTextEllipse( dc, item.os,
-        wxPoint( column2 + maxC2 + SPACING, OFF1 ),
-        maxWidth - SPACING - maxC2 );
+        wxPoint( column2 + osWidth + SPACING, OFF1 ),
+        maxWidth - SPACING - osWidth );
     Utils::drawTextEllipse( dc, stateText,
-        wxPoint( column2 + maxC2 + SPACING, OFF2 ),
-        maxWidth - SPACING - maxC2 );
+        wxPoint( column2 + stateWidth + SPACING, OFF2 ),
+        maxWidth - SPACING - stateWidth );
 }
 
 void HostListbox::OnDrawBackground( wxDC& dc,

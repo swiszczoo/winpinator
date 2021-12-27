@@ -11,10 +11,13 @@
 #include <wx/simplebook.h>
 #include <wx/wx.h>
 
+#include <vector>
+
 namespace gui
 {
 
 wxDECLARE_EVENT( EVT_UPDATE_BANNER_TARGET, PointerEvent );
+wxDECLARE_EVENT( EVT_UPDATE_BANNER_QSIZE, wxCommandEvent );
 
 class ScreenSelector : public wxPanel, srv::IServiceObserver
 {
@@ -22,6 +25,7 @@ public:
     explicit ScreenSelector( wxWindow* parent );
 
     bool showTransferScreen( const wxString& remoteId );
+    void setTransferList( const std::vector<wxString>& paths );
 
     // Service listeners
 
@@ -48,6 +52,8 @@ private:
     ErrorPage* m_page4;
     TransferListPage* m_page5;
 
+    std::vector<wxString> m_transferBuffer;
+
     void onChangePage( wxThreadEvent& event );
     void onNoHostsInTime( wxCommandEvent& event );
     void onTargetSelected( wxCommandEvent& event );
@@ -59,7 +65,7 @@ private:
 
     void changePage( SelectorPage newPage );
     void removeTransferListPage();
-    void setupTransferListPage( const wxString& targetId );
+    void setupTransferListPage( const wxString& targetId, bool useBuffer = false );
 
     void setupTransferScreenEvents();
 };

@@ -22,6 +22,7 @@ WinpinatorBanner::WinpinatorBanner( wxWindow* parent, int height )
     , m_targetDetails( "" )
     , m_targetAvatarImg( wxNullImage )
     , m_targetAvatarBmp( wxNullBitmap )
+    , m_queueSize( -1 )
 {
     SetBackgroundColour( wxColour( 0, 0, 0 ) );
 
@@ -92,6 +93,17 @@ void WinpinatorBanner::setTargetInfo( srv::RemoteInfoPtr targetPtr )
     Refresh();
 }
 
+void WinpinatorBanner::setSendQueueSize( int size )
+{
+    m_queueSize = size;
+    Refresh();
+}
+
+int WinpinatorBanner::getSendQueueSize() const
+{
+    return m_queueSize;
+}
+
 void WinpinatorBanner::onDpiChanged( wxDPIChangedEvent& event )
 {
     loadResources();
@@ -156,7 +168,17 @@ void WinpinatorBanner::drawBasic( wxDC& dc )
     dc.SetTextForeground( *wxWHITE );
     dc.SetFont( *m_headerFont );
 
-    const wxString text = _( "Share your files across the LAN" );
+    wxString text;
+    if ( m_queueSize < 0 )
+    {
+        text =  _( "Share your files across the LAN" );
+    }
+    else
+    {
+        text.Printf( wxPLURAL( "Send %d element...", 
+            "Send %d elements...", m_queueSize ), m_queueSize );
+    }
+
     wxSize textSize = dc.GetTextExtent( "MM" );
 
     int textY = (int)( size.y - textSize.y ) / 2;

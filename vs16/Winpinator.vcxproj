@@ -274,6 +274,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\globals.hpp" />
+    <ClInclude Include="..\src\gui\about_dialog.hpp" />
+    <ClInclude Include="..\src\gui\array_event.hpp" />
     <ClInclude Include="..\src\gui\autorun_setter.hpp" />
     <ClInclude Include="..\src\gui\file_list_dialog.hpp" />
     <ClInclude Include="..\src\gui\history_element_finished.hpp" />
@@ -354,6 +356,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\globals.cpp" />
+    <ClCompile Include="..\src\gui\about_dialog.cpp" />
+    <ClCompile Include="..\src\gui\array_event.cpp" />
     <ClCompile Include="..\src\gui\autorun_setter.cpp" />
     <ClCompile Include="..\src\gui\file_list_dialog.cpp" />
     <ClCompile Include="..\src\gui\history_element_finished.cpp" />
@@ -426,6 +430,7 @@
     <Manifest Include="..\win32\manifest.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\res\about_banner.png" />
     <Image Include="..\res\back.png" />
     <Image Include="..\res\blot.png" />
     <Image Include="..\res\error.png" />

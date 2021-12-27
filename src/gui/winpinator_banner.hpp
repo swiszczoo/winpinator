@@ -14,6 +14,8 @@ public:
     WinpinatorBanner( wxWindow* parent, int height );
 
     void setTargetInfo( srv::RemoteInfoPtr targetPtr );
+    void setSendQueueSize( int size );
+    int getSendQueueSize() const;
 
 private:
     static wxColour s_gradient1;
@@ -29,6 +31,8 @@ private:
     wxString m_targetDetails;
     wxImage m_targetAvatarImg;
     wxBitmap m_targetAvatarBmp;
+
+    int m_queueSize;
 
     void onDpiChanged( wxDPIChangedEvent& event );
     void onDraw( wxPaintEvent& event );

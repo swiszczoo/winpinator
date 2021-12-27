@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <thread>
+#include <vector>
 
 #define NO_DECLARE_APP
 #include "main_base.hpp"
@@ -41,6 +42,9 @@ private:
     void onServiceEvent( wxThreadEvent& event );
     void onExitApp( wxCommandEvent& event );
     void onOpenSaveFolder( wxCommandEvent& event );
+    void onSendFiles( gui::ArrayEvent& event );
+
+    void processSendFiles( const std::vector<wxString>& list );
 
     // Service observer methods:
     virtual void onStateChanged();

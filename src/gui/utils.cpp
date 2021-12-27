@@ -23,6 +23,8 @@ const wxColour Utils::ORANGE_BACKGROUND = wxColour( 255, 217, 179 );
 const wxColour Utils::RED_ACCENT = wxColour( 204, 0, 0 );
 const wxColour Utils::RED_BACKGROUND = wxColour( 255, 190, 190 );
 
+const wxString Utils::VERSION = "0.1.0";
+
 std::unique_ptr<Utils> Utils::s_inst = nullptr;
 
 Utils::Utils()

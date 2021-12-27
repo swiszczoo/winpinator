@@ -13,6 +13,8 @@
 
 #include <wx/log.h>
 #include <wx/msw/regconf.h>
+#include <wx/richtext/richtextbuffer.h>
+#include <wx/richtext/richtexthtml.h>
 #include <wx/socket.h>
 #include <wx/stdpaths.h>
 #include <wx/wx.h>
@@ -78,11 +80,13 @@ WinpinatorApp::WinpinatorApp()
     Bind( EVT_OPEN_SAVE_FOLDER, &WinpinatorApp::onOpenSaveFolder, this );
     Bind( wxEVT_THREAD, &WinpinatorApp::onServiceEvent, this );
     Bind( EVT_EXIT_APP, &WinpinatorApp::onExitApp, this );
+    Bind( EVT_SEND_FILES, &WinpinatorApp::onSendFiles, this );
 }
 
 bool WinpinatorApp::OnInit()
 {
     bool isAutorunStartup = false;
+    std::vector<wxString> filesToSend;
 
     if ( argc == 2 ) {
         if ( argv[1] == "/autorun" ) { 
@@ -95,8 +99,37 @@ bool WinpinatorApp::OnInit()
         }
     }
 
+    if ( !isAutorunStartup )
+    {
+        for ( int i = 1; i < argc; i++ )
+        {
+            if ( wxFileExists( argv[i] ) )
+            {
+                wxFileName fname( argv[i] );
+                fname.Normalize();
+
+                filesToSend.push_back( fname.GetFullPath() );
+            }
+            else if ( wxDirExists( argv[i] ) )
+            {
+                wxFileName fname = wxFileName::DirName( argv[i] );
+                fname.Normalize();
+
+                filesToSend.push_back( fname.GetFullPath() );
+            }
+            else
+            {
+                // One of the paths is bad, ignore other
+
+                filesToSend.clear();
+                break;
+            }
+        }
+    }
+
     wxInitAllImageHandlers();
     wxSocketBase::Initialize();
+    wxRichTextBuffer::AddHandler( new wxRichTextHTMLHandler() );
 
     // Make AppData subdirectory
     wxMkDir( wxStandardPaths::Get().GetUserDataDir() );
@@ -112,6 +145,11 @@ bool WinpinatorApp::OnInit()
         if ( client.isConnected() )
         {
             client.execOpen();
+
+            if ( !filesToSend.empty() )
+            {
+                client.execSend( filesToSend );
+            }
         }
         else
         {
@@ -165,9 +203,14 @@ bool WinpinatorApp::OnInit()
     }
     else
     {
-        if ( m_settings.openWindowOnStart )
+        if ( m_settings.openWindowOnStart || !filesToSend.empty() )
         {
             showMainFrame();
+
+            if ( !filesToSend.empty() )
+            {
+                processSendFiles( filesToSend );
+            }
         }
     }
     
@@ -306,6 +349,21 @@ void WinpinatorApp::onOpenSaveFolder( wxCommandEvent& event )
     };
 
     wxExecute( command, wxEXEC_ASYNC, NULL );
+}
+
+void WinpinatorApp::onSendFiles( gui::ArrayEvent& event )
+{
+    std::vector<wxString> items = event.getArray<wxString>();
+    processSendFiles( items );
+}
+
+void WinpinatorApp::processSendFiles( const std::vector<wxString>& list )
+{
+    if ( m_topLvl )
+    {
+        m_topLvl->putOnTop();
+        m_topLvl->setTransferList( list );
+    }
 }
 
 void WinpinatorApp::onStateChanged()
