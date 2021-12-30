@@ -18,7 +18,7 @@
 
 # Setup compressor
 SetCompressor /SOLID lzma
-SetCompressorDictSize 32
+SetCompressorDictSize 64
 SetDatablockOptimize on
 
 # Setup NSIS
@@ -47,6 +47,7 @@ VIProductVersion "${Version1}.${Version2}.${Version3}.${Version4}"
 !endif
 
 InstallDirRegKey HKLM ${REG_KEY} "InstallLocation_${ARCH}"
+
 
 # Setup MUI2
 
@@ -88,6 +89,10 @@ InstallDirRegKey HKLM ${REG_KEY} "InstallLocation_${ARCH}"
 # MUI pages
 
 Var StartMenuDir
+Var ins86_1
+Var ins64_1
+Var ins86_2
+Var ins64_2
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "gpl-3.0.rtf"
@@ -116,22 +121,308 @@ LangString DESKTOP_SHORTCUT ${LANG_POLISH} "Utwórz skrót na pulpicie"
 LangString RELEASE_NOTES ${LANG_ENGLISH} "Show Release notes"
 LangString RELEASE_NOTES ${LANG_POLISH} "Pokaż informacje o wydaniu"
 
+LangString SECTION_WINPINATOR ${LANG_ENGLISH} "Winpinator"
+LangString SECTION_WINPINATOR ${LANG_POLISH} "Winpinator"
+LangString DESC_WINPINATOR ${LANG_ENGLISH} "Winpinator application with all dependencies"
+LangString DESC_WINPINATOR ${LANG_POLISH} "Aplikacja Winpinator wraz z zależnościami"
+
+LangString SECTION_VCREDIST ${LANG_ENGLISH} "Runtime libraries"
+LangString SECTION_VCREDIST ${LANG_POLISH} "Biblioteki uruchomieniowe"
+LangString DESC_VCREDIST ${LANG_ENGLISH} "Microsoft Visual C++ 2015-2022 runtime libraries"
+LangString DESC_VCREDIST ${LANG_POLISH} "Biblioteki uruchomieniowe Microsoft Visual C++ 2015-2022"
+
+LangString SECTION_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Create desktop shortcut"
+LangString SECTION_DESKTOP_SHORTCUT ${LANG_POLISH} "Utwórz skrót na pulpicie"
+LangString DESC_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Creates a shortcut to Winpinator on Desktop"
+LangString DESC_DESKTOP_SHORTCUT ${LANG_POLISH} "Tworzy skrót do Winpinatora na pulpicie"
+
+LangString SECTION_INTEGRATE ${LANG_ENGLISH} "Explorer integration"
+LangString SECTION_INTEGRATE ${LANG_POLISH} "Integracja z Eksploratorem"
+LangString DESC_INTEGRATE ${LANG_ENGLISH} "Insert shortcut to Winpinator into 'Send to' menu"
+LangString DESC_INTEGRATE ${LANG_POLISH} 'Wstaw skrót do Winpinatora do menu "Wyślij do"'
+
+LangString UNDESC_WINPINATOR ${LANG_ENGLISH} "Uninstall Winpinator but don't remove any data"
+LangString UNDESC_WINPINATOR ${LANG_POLISH} "Odinstaluj Winpinatora, ale pozostaw wszelkie dane"
+
+LangString UNSECTION_USERDATA ${LANG_ENGLISH} "Remove user data"
+LangString UNSECTION_USERDATA ${LANG_POLISH} "Usuń dane użytkownika"
+LangString UNDESC_USERDATA ${LANG_ENGLISH} "Additionally wipe all user data from computer"
+LangString UNDESC_USERDATA ${LANG_POLISH} "Dodatkowo usuń wszystkie dane użytkownika z komputera"
+
+LangString DOWNLOADING ${LANG_ENGLISH} "Downloading"
+LangString DOWNLOADING ${LANG_POLISH} "Pobieranie"
+
+LangString DOWNLOAD_FINISHED ${LANG_ENGLISH} "Download finished."
+LangString DOWNLOAD_FINISHED ${LANG_POLISH} "Pobieranie ukończone."
+
+LangString VCREDIST_FAILED ${LANG_ENGLISH} "Can't download Microsoft Visual C++ runtime libraries. Winpinator won't work. Download"
+LangString VCREDIST_FAILED2 ${LANG_ENGLISH} "and install them manually."
+LangString VCREDIST_FAILED ${LANG_POLISH} "Nie można pobrać bibliotek uruchomieniowych Microsoft Visual C++. Winpinator nie będzie działał. Pobierz"
+LangString VCREDIST_FAILED2 ${LANG_POLISH} "i zainstaluj je manualnie."
+
+LangString DIRECTORY_NOT_EMPTY ${LANG_ENGLISH} "Installation directory is not empty. Its content is to be entirely removed. Are you sure you want to continue?"
+LangString DIRECTORY_NOT_EMPTY ${LANG_POLISH} "Folder instalacji nie jest pusty. Instalacja spowoduje usunięcie całej jego zawartości. Czy chcesz kontynuować?"
+
+LangString ABORT_WRONG_DIR ${LANG_ENGLISH} "Can't install in this directory."
+LangString ABORT_WRONG_DIR ${LANG_POLISH} "Nie można zainstalować w tym folderze."
+
+LangString ADD_REMOVE ${LANG_ENGLISH} "Add information to 'Add or remove programs' window"
+LangString ADD_REMOVE ${LANG_POLISH} 'Dodaj informacje do okna "Dodaj lub usuń programy"'
+
+LangString STARTMENU ${LANG_ENGLISH} "Optionally create Start Menu shortcut"
+LangString STARTMENU ${LANG_POLISH} "Opcjonalnie utwórz skrót w Menu Start"
+
+LangString UNNAME ${LANG_ENGLISH} "Uninstall ${SOFTWARE_NAME}"
+LangString UNNAME ${LANG_POLISH} "Odinstaluj ${SOFTWARE_NAME}"
+
+LangString CREATING_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Creating Desktop shortcut"
+LangString CREATING_DESKTOP_SHORTCUT ${LANG_POLISH} "Tworzenie skrótu na Pulpicie"
+
+LangString INTEGRATING ${LANG_ENGLISH} "Adding Winpinator to 'Send to' list"
+LangString INTEGRATING ${LANG_POLISH} 'Dodawanie Winpinatora do listy "Wyślij do"'
+
+LangString UN_WRONG_DIR ${LANG_ENGLISH} "Winpinator does not appear to be installed in this directory. Are you sure you want to continue?"
+LangString UN_WRONG_DIR ${LANG_POLISH} "Wygląda na to, że Winpinator nie jest zainstalowany w tym folderze. Czy na pewno chcesz kontynuować?"
+
+LangString UNABORT ${LANG_ENGLISH} "Uninstallation aborted."
+LangString UNABORT ${LANG_POLISH} "Deinstalacja przerwana."
+
+LangString UNWRONG_INSTDIR ${LANG_ENGLISH} "We're not uninstalling from the original install location. Do not remove entry from 'Add or remove programs'"
+LangString UNWRONG_INSTDIR ${LANG_POLISH} 'Winpinator nie jest odinstalowywany z oryginalnej ścieżki instalacji. Nie usuwaj wpisu z listy "Dodaj lub usuń programy"'
+
+
+Section "!$(SECTION_WINPINATOR)" WINPINATOR
+  SectionIn RO
+
+  IfFileExists "$INSTDIR\*.*" directory_exists
+    CreateDirectory $INSTDIR
+
+  directory_exists:
+  Push $INSTDIR
+  Call isEmptyDir
+  Pop $0
+
+  ${If} $0 == "1"
+    Goto install
+  ${Else}
+    IfFileExists "$INSTDIR\Winpinator.exe" install
+    MessageBox MB_YESNO|MB_ICONEXCLAMATION "$(DIRECTORY_NOT_EMPTY)" /SD IDNO IDYES continue IDNO abort
+      continue:
+        RMDir /r $INSTDIR
+        CreateDirectory $INSTDIR
+        Goto install
+      abort:
+        Abort "$(ABORT_WRONG_DIR)"
+  ${EndIf}
+
+  install:
+  SetOutPath $INSTDIR
+  File "${RELEASE_FOLDER}\Winpinator.exe"
+  File "${RELEASE_FOLDER}\Languages.xml"
+  File "${RELEASE_FOLDER}\LICENSE.html"
+  File "${RELEASE_FOLDER}\LICENSE.rtf"
+  File "${RELEASE_FOLDER}\RELEASE NOTES.txt"
+  File "${RELEASE_FOLDER}\*.dll"
+
+  SetOutPath $INSTDIR\flags
+  File "${RELEASE_FOLDER}\flags\*"
+
+  SetOutPath $INSTDIR\locales
+  File /r "${RELEASE_FOLDER}\locales\*"
+SectionEnd
+
+Section -AddOrRemovePrograms
+  DetailPrint "$(ADD_REMOVE)"
+	
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"DisplayName" "${SOFTWARE_NAME}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"UninstallString" "$\"$INSTDIR\uninstall.exe$\""
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"InstallLocation" "$\"$INSTDIR$\""
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"DisplayIcon" "$\"$INSTDIR\${SOFTWARE_NAME}.exe$\""
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"Publisher" "Łukasz Świszcz"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"DisplayVersion" "${Version1}.${Version2}.${Version3}"
+	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"VersionMajor" "${Version1}"
+	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"VersionMinor" "${Version2}"
+	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"NoModify" "1"
+	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"NoRepair" "1"
+
+	${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+	IntFmt $0 "0x%08X" $0
+	
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+		"EstimatedSize" "$0"
+SectionEnd
+
+Section -StartMenu
+  SetOutPath "$INSTDIR"
+  DetailPrint "$(STARTMENU)"
+
+  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+	CreateDirectory "$SMPrograms\$StartMenuDir"
+	CreateShortCut "$SMPROGRAMS\$StartMenuDir\${SOFTWARE_NAME}.lnk" "$INSTDIR\Winpinator.exe"
+	CreateShortCut "$SMPROGRAMS\$StartMenuDir\$(UNNAME).lnk" "$INSTDIR\uninstall.exe"
+	!insertmacro MUI_STARTMENU_WRITE_END
+SectionEnd
+
+Section -Uninstaller
+  SetOutPath "$INSTDIR"
+  WriteUninstaller "uninstall.exe"
+
+  WriteRegStr HKLM ${REG_KEY} "InstallLocation_${ARCH}" $INSTDIR
+
+  ${RefreshShellIcons}
+SectionEnd
+
+Section "$(SECTION_VCREDIST)" VCREDIST
+  SectionIn RO
+
+  SetOutPath "$INSTDIR\redist"
+  AddSize 13800
+
+!if ARCH == "x64"
+  DetailPrint "$(DOWNLOADING) https://aka.ms/vs/17/release/vc_redist.x64.exe"
+  inetc::get /silent "https://aka.ms/vs/17/release/vc_redist.x64.exe" "$INSTDIR\redist\vc_redist.x64.exe" /end
+  Pop $0
+
+  ${If} $0 == "OK"
+    DetailPrint "$(DOWNLOAD_FINISHED)"
+    ExecWait "$INSTDIR\redist\vc_redist.x86.exe /q /norestart"
+  ${Else}
+    DetailPrint "$(VCREDIST_FAILED) https://aka.ms/vs/17/release/vc_redist.x64.exe $(VCREDIST_FAILED2)"
+    MessageBox MB_ICONEXCLAMATION "$(VCREDIST_FAILED) https://aka.ms/vs/17/release/vc_redist.x64.exe $(VCREDIST_FAILED2)"
+  ${EndIf}
+!else
+  DetailPrint "$(DOWNLOADING) https://aka.ms/vs/17/release/vc_redist.x86.exe"
+  inetc::get /silent "https://aka.ms/vs/17/release/vc_redist.x86.exe" "$INSTDIR\redist\vc_redist.x86.exe" /end
+  Pop $0
+
+  ${If} $0 == "OK"
+    DetailPrint "$(DOWNLOAD_FINISHED)"
+    ExecWait "$INSTDIR\redist\vc_redist.x64.exe /q /norestart"
+  ${Else}
+    DetailPrint "$(VCREDIST_FAILED) https://aka.ms/vs/17/release/vc_redist.x86.exe $(VCREDIST_FAILED2)"
+    MessageBox MB_ICONEXCLAMATION "$(VCREDIST_FAILED) https://aka.ms/vs/17/release/vc_redist.x86.exe $(VCREDIST_FAILED2)"
+  ${EndIf}
+!endif
+SectionEnd
+
+Section "$(SECTION_DESKTOP_SHORTCUT)" DESKTOP_SHORTCUT
+  DetailPrint "$(CREATING_DESKTOP_SHORTCUT)"
+  CreateShortCut "$DESKTOP\${SOFTWARE_NAME}.lnk" "$INSTDIR\${SOFTWARE_NAME}.exe"
+SectionEnd
+
+Section "$(SECTION_INTEGRATE)" INTEGRATE
+  DetailPrint "$(INTEGRATING)"
+  CreateShortCut "$APPDATA\Microsoft\Windows\SendTo\Winpinator.lnk" "$INSTDIR\${SOFTWARE_NAME}.exe"
+SectionEnd
+
+# Uninstaller sections
+
+Section "!un.$(SECTION_WINPINATOR)" UNWINPINATOR
+  SectionIn RO
+
+  IfFileExists "$INSTDIR\${SOFTWARE_NAME}.exe" uninstall
+    MessageBox MB_ICONEXCLAMATION|MB_YESNO "$(UN_WRONG_DIR)" IDYES uninstall
+    Abort "$(UNABORT)"
+
+  uninstall:
+  Delete "$INSTDIR\Winpinator.exe"
+  Delete "$INSTDIR\Languages.xml"
+  Delete "$INSTDIR\LICENSE.html"
+  Delete "$INSTDIR\LICENSE.rtf"
+  Delete "$INSTDIR\RELEASE NOTES.txt"
+  Delete "$INSTDIR\*.dll"
+
+  RMDir /r "$INSTDIR\flags"
+  RMDir /r "$INSTDIR\locales"
+
+  Delete "$INSTDIR\uninstall.exe"
+
+  RMDir $INSTDIR
+
+  DeleteRegKey HKLM ${REG_KEY}
+SectionEnd
+
+Section -un.StartMenu
+  !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuDir
+  Delete "$SMPROGRAMS\$StartMenuDir\*.lnk"
+  RMDir "$SMPROGRAMS\$StartMenuDir"
+SectionEnd
+
+Section -un.AddOrRemovePrograms
+  # Ensure that we're uninstalling from the same INSTDIR
+  ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" "InstallLocation"
+
+  ${If} $0 == "$\"$INSTDIR$\""
+    DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}"
+  ${Else}
+    DetailPrint "$(UNWRONG_INSTDIR)"
+  ${EndIf}
+SectionEnd
+
+Section "un.$(UNSECTION_USERDATA)" UNUSERDATA
+  # Delete user config
+  DeleteRegKey HKCU "Software\Winpinator"
+
+  # Delete APPDATA folder
+  RMDIR /r "$APPDATA\Winpinator"
+SectionEnd
+
+
 # View language selector on start
 Function .onInit
     !insertmacro MUI_LANGDLL_DISPLAY
 
-    # Retrieve last install dir from registry
-    ReadRegStr $0 HKLM ${REG_KEY} "InstallLocation"
-    StrLen $1 $0
-    IntCmp $1 5 done done
-        IntOp $2 $1 - 2
-        StrCpy $INSTDIR $0 $2 1
-    done:
+    # Check if MSVCP is installed
+    ReadRegDword $ins64_1 HKLM "SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Installed"
+    ReadRegDword $ins64_2 HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Installed"
+    ReadRegDword $ins86_1 HKLM "SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Installed"
+    ReadRegDword $ins86_2 HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Installed"
+
+    # TODO: Change "0" to "1"
+!if ARCH == "x64"
+    ${If} $ins64_1 == "1"
+    ${OrIf} $ins64_2 == "1"
+      !insertmacro UnselectSection ${VCREDIST}
+    ${EndIf}
+!else
+    ${If} $ins86_1 == "1"
+    ${OrIf} $ins86_2 == "1"
+      !insertmacro UnselectSection ${VCREDIST}
+    ${EndIf}
+!endif
+
+  !insertmacro UnselectSection ${DESKTOP_SHORTCUT}
 FunctionEnd
 
-Section "DUMMY"
-    # todo
-SectionEnd
+Function un.onInit
+  !insertmacro MUI_UNGETLANGUAGE
+
+  !insertmacro UnselectSection ${UNUSERDATA}
+FunctionEnd
+
+# Section descriptions
+!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+  !insertmacro MUI_DESCRIPTION_TEXT ${WINPINATOR} $(DESC_WINPINATOR)
+  !insertmacro MUI_DESCRIPTION_TEXT ${VCREDIST} $(DESC_VCREDIST)
+  !insertmacro MUI_DESCRIPTION_TEXT ${DESKTOP_SHORTCUT} $(DESC_DESKTOP_SHORTCUT)
+  !insertmacro MUI_DESCRIPTION_TEXT ${INTEGRATE} $(DESC_INTEGRATE)
+!insertmacro MUI_FUNCTION_DESCRIPTION_END
+
+!insertmacro MUI_UNFUNCTION_DESCRIPTION_BEGIN
+  !insertmacro MUI_DESCRIPTION_TEXT ${UNWINPINATOR} $(UNDESC_WINPINATOR)
+  !insertmacro MUI_DESCRIPTION_TEXT ${UNUSERDATA} $(UNDESC_USERDATA)
+!insertmacro MUI_UNFUNCTION_DESCRIPTION_END
+
 
 # https://nsis.sourceforge.io/Check_if_dir_is_empty
 Function isEmptyDir

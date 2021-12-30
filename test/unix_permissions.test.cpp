@@ -99,6 +99,9 @@ TEST_F( UnixPermissionsTest, expectElfHeaderDetectingWorks )
     data = "";
     EXPECT_FALSE( UnixPermissions::checkElfHeader( data.data(), data.size() ) );
 
+    data = "chomik dzungarski";
+    EXPECT_FALSE( UnixPermissions::checkElfHeader( data.data(), data.size() ) );
+
     data = "fguhsdfuhghuidfhguihuisdfgh";
     EXPECT_FALSE( UnixPermissions::checkElfHeader( data.data(), data.size() ) );
 
