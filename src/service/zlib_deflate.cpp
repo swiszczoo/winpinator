@@ -67,7 +67,7 @@ std::string ZlibDeflate::decompress( const std::string& input )
     }
 
     uint32_t bufferSize = std::min( (unsigned long long)m_maxChunk, 
-        input.size() * ZLIB_MAX_COMPRESSION_FACTOR );
+        (unsigned long long)input.size() * ZLIB_MAX_COMPRESSION_FACTOR );
     decompressed.resize( bufferSize );
 
     stream.avail_out = bufferSize;

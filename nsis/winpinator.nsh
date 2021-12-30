@@ -8,10 +8,12 @@
 
 # Setup some constants
 !define SETUP_NAME "winpinator_setup"
-!define RELEASE_FOLDER "..\vs16\x64\Deploy"
 !define SOFTWARE_NAME "Winpinator"
-!define ARCH "x64"
 !define REG_KEY "Software\Winpinator"
+
+!ifndef RELEASE_FOLDER
+!define RELEASE_FOLDER "..\vs16\x64\Deploy"
+!endif
 
 # Retrieve the version of Winpinator we're building this installer for
 !getdllversion "${RELEASE_FOLDER}\Winpinator.exe" Version
@@ -33,7 +35,7 @@ ShowInstDetails show
 VIAddVersionKey "ProductName" "${SOFTWARE_NAME} Installer"
 VIAddVersionKey "Comments" "${SOFTWARE_NAME} Installer"
 VIAddVersionKey "CompanyName" "Łukasz Świszcz"
-VIAddVersionKey "LegalCopyright" "(C) 2021-2022 Łukasz Świszcz"
+VIAddVersionKey "LegalCopyright" "Copyright (C) 2021-2022 Łukasz Świszcz"
 VIAddVersionKey "FileDescription" "${SOFTWARE_NAME} Installer"
 VIAddVersionKey "FileVersion" "${Version1}.${Version2}.${Version3}.${Version4}"
 VIAddVersionKey "ProductVersion" "${Version1}.${Version2}.${Version3}.${Version4}"
