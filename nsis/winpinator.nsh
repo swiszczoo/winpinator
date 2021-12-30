@@ -42,10 +42,10 @@ VIAddVersionKey "ProductVersion" "${Version1}.${Version2}.${Version3}.${Version4
 VIProductVersion "${Version1}.${Version2}.${Version3}.${Version4}"
 
 # Setup install location
-!if ARCH == "x64"
-    InstallDir "$PROGRAMFILES32\${SOFTWARE_NAME}"
-!else
+!if ${ARCH} == "x64"
     InstallDir "$PROGRAMFILES64\${SOFTWARE_NAME}"
+!else
+    InstallDir "$PROGRAMFILES32\${SOFTWARE_NAME}"
 !endif
 
 InstallDirRegKey HKLM ${REG_KEY} "InstallLocation_${ARCH}"
@@ -236,31 +236,31 @@ SectionEnd
 Section -AddOrRemovePrograms
   DetailPrint "$(ADD_REMOVE)"
 	
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
-		"DisplayName" "${SOFTWARE_NAME}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
+		"DisplayName" "${SOFTWARE_NAME} (${ARCH})"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"UninstallString" "$\"$INSTDIR\uninstall.exe$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"InstallLocation" "$\"$INSTDIR$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"DisplayIcon" "$\"$INSTDIR\${SOFTWARE_NAME}.exe$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"Publisher" "Łukasz Świszcz"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"DisplayVersion" "${Version1}.${Version2}.${Version3}"
-	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"VersionMajor" "${Version1}"
-	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"VersionMinor" "${Version2}"
-	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"NoModify" "1"
-	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegDword HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"NoRepair" "1"
 
 	${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
 	IntFmt $0 "0x%08X" $0
 	
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" \
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"EstimatedSize" "$0"
 SectionEnd
 
@@ -270,7 +270,7 @@ Section -StartMenu
 
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
 	CreateDirectory "$SMPrograms\$StartMenuDir"
-	CreateShortCut "$SMPROGRAMS\$StartMenuDir\${SOFTWARE_NAME}.lnk" "$INSTDIR\Winpinator.exe"
+	CreateShortCut "$SMPROGRAMS\$StartMenuDir\${SOFTWARE_NAME} (${ARCH}).lnk" "$INSTDIR\Winpinator.exe"
 	CreateShortCut "$SMPROGRAMS\$StartMenuDir\$(UNNAME).lnk" "$INSTDIR\uninstall.exe"
 	!insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
@@ -290,14 +290,14 @@ Section "$(SECTION_VCREDIST)" VCREDIST
   SetOutPath "$INSTDIR\redist"
   AddSize 13800
 
-!if ARCH == "x64"
+!if ${ARCH} == "x64"
   DetailPrint "$(DOWNLOADING) https://aka.ms/vs/17/release/vc_redist.x64.exe"
   inetc::get /silent "https://aka.ms/vs/17/release/vc_redist.x64.exe" "$INSTDIR\redist\vc_redist.x64.exe" /end
   Pop $0
 
   ${If} $0 == "OK"
     DetailPrint "$(DOWNLOAD_FINISHED)"
-    ExecWait "$INSTDIR\redist\vc_redist.x86.exe /q /norestart"
+    ExecWait "$INSTDIR\redist\vc_redist.x64.exe /q /norestart"
   ${Else}
     DetailPrint "$(VCREDIST_FAILED) https://aka.ms/vs/17/release/vc_redist.x64.exe $(VCREDIST_FAILED2)"
     MessageBox MB_ICONEXCLAMATION "$(VCREDIST_FAILED) https://aka.ms/vs/17/release/vc_redist.x64.exe $(VCREDIST_FAILED2)"
@@ -309,7 +309,7 @@ Section "$(SECTION_VCREDIST)" VCREDIST
 
   ${If} $0 == "OK"
     DetailPrint "$(DOWNLOAD_FINISHED)"
-    ExecWait "$INSTDIR\redist\vc_redist.x64.exe /q /norestart"
+    ExecWait "$INSTDIR\redist\vc_redist.x86.exe /q /norestart"
   ${Else}
     DetailPrint "$(VCREDIST_FAILED) https://aka.ms/vs/17/release/vc_redist.x86.exe $(VCREDIST_FAILED2)"
     MessageBox MB_ICONEXCLAMATION "$(VCREDIST_FAILED) https://aka.ms/vs/17/release/vc_redist.x86.exe $(VCREDIST_FAILED2)"
@@ -346,6 +346,7 @@ Section "!un.$(SECTION_WINPINATOR)" UNWINPINATOR
 
   RMDir /r "$INSTDIR\flags"
   RMDir /r "$INSTDIR\locales"
+  RMDIR /r "$INSTDIR\redist"
 
   Delete "$INSTDIR\uninstall.exe"
 
@@ -360,12 +361,16 @@ Section -un.StartMenu
   RMDir "$SMPROGRAMS\$StartMenuDir"
 SectionEnd
 
+Section -un.Integrate
+  Delete "$APPDATA\Microsoft\Windows\SendTo\Winpinator.lnk"
+SectionEnd
+
 Section -un.AddOrRemovePrograms
   # Ensure that we're uninstalling from the same INSTDIR
-  ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}" "InstallLocation"
+  ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" "InstallLocation"
 
   ${If} $0 == "$\"$INSTDIR$\""
-    DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}"
+    DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}"
   ${Else}
     DetailPrint "$(UNWRONG_INSTDIR)"
   ${EndIf}
@@ -390,8 +395,7 @@ Function .onInit
     ReadRegDword $ins86_1 HKLM "SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Installed"
     ReadRegDword $ins86_2 HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Installed"
 
-    # TODO: Change "0" to "1"
-!if ARCH == "x64"
+!if ${ARCH} == "x64"
     ${If} $ins64_1 == "1"
     ${OrIf} $ins64_2 == "1"
       !insertmacro UnselectSection ${VCREDIST}
