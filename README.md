@@ -50,8 +50,16 @@ Winpinator makes use of wxWidgets' built-in gettext implementation, so it should
 ```
     <Language code="[ISO language code, e.g de_DE]" name="[Local name of the language, e.g. Deutsch]" flag="[flag filename, e.g. de.png]" 
 ```
+Remember that you can also localize the installer by inserting a line
+```
+!insertmacro MUI_LANGUAGE "[Language name in English]"
+```
+and then translating all the lines right below, starting with `LangString`.
+
 After finishing a translation and adding this line to `Languages.xml`, please submit a Pull Request.
 
 ## License
 
 GNU General Public License version 3, available [here](https://www.gnu.org/licenses/gpl-3.0.html)
+
+
