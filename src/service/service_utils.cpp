@@ -6,6 +6,7 @@
 #include <chrono>
 
 #include <Windows.h>
+#include <LM.h>
 
 #define SECURITY_WIN32
 #include <security.h>
@@ -25,22 +26,22 @@ std::string Utils::getHostname()
 
 std::wstring Utils::getUserFullName()
 {
-    ULONG size = 0;
-    GetUserNameExW( NameDisplay, NULL, &size );
+    std::wstring result;
 
-    if ( size == 0 )
+    result = Utils::getFullNameFromGetUserNameEx();
+    if ( !result.empty() )
     {
-        return L"";
+        return result;
     }
 
-    wchar_t* buffer = new wchar_t[size];
-    GetUserNameExW( NameDisplay, buffer, &size );
-
-    std::wstring result( buffer );
-
-    delete[] buffer;
-
-    return result;
+    result = Utils::getFullNameFromNetUserGetInfo();
+    if ( !result.empty() )
+    {
+        return result;
+    }
+    
+    // Otherwise, fall back to short name
+    return Utils::getUserShortName();
 }
 
 std::wstring Utils::getUserShortName()
@@ -144,6 +145,61 @@ int64_t Utils::getMonotonicTime()
 wxString Utils::makeIntResource( int resource )
 {
     return wxString::Format( "#%d", resource );
+}
+
+std::wstring Utils::getFullNameFromGetUserNameEx()
+{
+    ULONG size = 0;
+    GetUserNameExW( NameDisplay, NULL, &size );
+
+    if ( size == 0 )
+    {
+        return L"";
+    }
+
+    wchar_t* buffer = new wchar_t[size];
+    buffer[0] = NULL;
+    GetUserNameExW( NameDisplay, buffer, &size );
+
+    std::wstring result( buffer );
+
+    delete[] buffer;
+
+    return result;
+}
+
+std::wstring Utils::getFullNameFromNetUserGetInfo()
+{
+    ULONG size = 0;
+    GetUserNameExW( NameSamCompatible, NULL, &size );
+
+    if ( size == 0 ) 
+    {
+        return L"";
+    }
+
+    wchar_t* buffer = new wchar_t[size];
+    buffer[0] = NULL;
+    GetUserNameExW( NameSamCompatible, buffer, &size );
+
+    if ( !buffer[0] )
+    {
+        return L"";
+    }
+
+    LPUSER_INFO_10 p_ui10 = 0;
+    if ( NetUserGetInfo( NULL, buffer, 10, (LPBYTE*)&p_ui10 ) == NERR_Success )
+    {
+        std::wstring fullname = p_ui10->usri10_full_name;
+
+        NetApiBufferFree( p_ui10 );
+
+        return fullname;
+    }
+    else
+    {
+        return L"";
+    }
 }
 
 };
