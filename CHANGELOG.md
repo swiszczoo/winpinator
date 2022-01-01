@@ -1,4 +1,13 @@
-# Release 0.1.0
+# CHANGELOG
+
+## Release 0.1.1
+
+This release is just a small fix of full names not appearing under some circumstances on some Windows machines.
+
+**Fixes**:
+- A bug that prevents user's full name from being properly read on some machines
+
+## Release 0.1.0
 
 This is the first version of Winpinator. It already supports 
 most of the planned features, however, it might be a little

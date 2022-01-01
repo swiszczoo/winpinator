@@ -866,7 +866,7 @@ void TransferManager::processStartTransfer( const std::string& remoteId,
 
         wxLogDebug( "TransferManager: starting transfer!" );
 
-        info->stub->experimental_async()->StartTransfer( ctx.get(), request.get(),
+        info->stub->async()->StartTransfer( ctx.get(), request.get(),
             reactor.get() );
         reactor->start();
     }
@@ -1150,7 +1150,7 @@ void TransferManager::doSendRequestAfterCrawling( TransferOpPtr op,
 
     if ( remote->stub )
     {
-        remote->stub->experimental_async()->ProcessTransferOpRequest(
+        remote->stub->async()->ProcessTransferOpRequest(
             ctx.get(), request.get(), response.get(),
             [this, ctx, request, response]( grpc::Status status ) {
 

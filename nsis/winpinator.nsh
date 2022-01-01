@@ -271,7 +271,7 @@ Section -StartMenu
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
 	CreateDirectory "$SMPrograms\$StartMenuDir"
 	CreateShortCut "$SMPROGRAMS\$StartMenuDir\${SOFTWARE_NAME} (${ARCH}).lnk" "$INSTDIR\Winpinator.exe"
-	CreateShortCut "$SMPROGRAMS\$StartMenuDir\$(UNNAME).lnk" "$INSTDIR\uninstall.exe"
+	CreateShortCut "$SMPROGRAMS\$StartMenuDir\$(UNNAME) (${ARCH}).lnk" "$INSTDIR\uninstall.exe"
 	!insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
 
@@ -357,7 +357,7 @@ SectionEnd
 
 Section -un.StartMenu
   !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuDir
-  Delete "$SMPROGRAMS\$StartMenuDir\*.lnk"
+  Delete "$SMPROGRAMS\$StartMenuDir\*(${ARCH}).lnk"
   RMDir "$SMPROGRAMS\$StartMenuDir"
 SectionEnd
 

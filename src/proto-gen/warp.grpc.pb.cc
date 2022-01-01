@@ -35,32 +35,32 @@ static const char* Warp_method_names[] = {
 
 std::unique_ptr< Warp::Stub> Warp::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< Warp::Stub> stub(new Warp::Stub(channel));
+  std::unique_ptr< Warp::Stub> stub(new Warp::Stub(channel, options));
   return stub;
 }
 
-Warp::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_CheckDuplexConnection_(Warp_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_WaitingForDuplex_(Warp_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetRemoteMachineInfo_(Warp_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetRemoteMachineAvatar_(Warp_method_names[3], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_ProcessTransferOpRequest_(Warp_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_PauseTransferOp_(Warp_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_StartTransfer_(Warp_method_names[6], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_CancelTransferOpRequest_(Warp_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_StopTransfer_(Warp_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Ping_(Warp_method_names[9], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+Warp::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_CheckDuplexConnection_(Warp_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_WaitingForDuplex_(Warp_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetRemoteMachineInfo_(Warp_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetRemoteMachineAvatar_(Warp_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_ProcessTransferOpRequest_(Warp_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_PauseTransferOp_(Warp_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_StartTransfer_(Warp_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_CancelTransferOpRequest_(Warp_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_StopTransfer_(Warp_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Ping_(Warp_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Warp::Stub::CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::HaveDuplex* response) {
   return ::grpc::internal::BlockingUnaryCall< ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CheckDuplexConnection_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)> f) {
+void Warp::Stub::async::CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CheckDuplexConnection_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::async::CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CheckDuplexConnection_, context, request, response, reactor);
 }
 
@@ -79,11 +79,11 @@ void Warp::Stub::experimental_async::CheckDuplexConnection(::grpc::ClientContext
   return ::grpc::internal::BlockingUnaryCall< ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_WaitingForDuplex_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)> f) {
+void Warp::Stub::async::WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::LookupName, ::HaveDuplex, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_WaitingForDuplex_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::async::WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_WaitingForDuplex_, context, request, response, reactor);
 }
 
@@ -102,11 +102,11 @@ void Warp::Stub::experimental_async::WaitingForDuplex(::grpc::ClientContext* con
   return ::grpc::internal::BlockingUnaryCall< ::LookupName, ::RemoteMachineInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetRemoteMachineInfo_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, std::function<void(::grpc::Status)> f) {
+void Warp::Stub::async::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::LookupName, ::RemoteMachineInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetRemoteMachineInfo_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::async::GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetRemoteMachineInfo_, context, request, response, reactor);
 }
 
@@ -125,7 +125,7 @@ void Warp::Stub::experimental_async::GetRemoteMachineInfo(::grpc::ClientContext*
   return ::grpc::internal::ClientReaderFactory< ::RemoteMachineAvatar>::Create(channel_.get(), rpcmethod_GetRemoteMachineAvatar_, context, request);
 }
 
-void Warp::Stub::experimental_async::GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::experimental::ClientReadReactor< ::RemoteMachineAvatar>* reactor) {
+void Warp::Stub::async::GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::ClientReadReactor< ::RemoteMachineAvatar>* reactor) {
   ::grpc::internal::ClientCallbackReaderFactory< ::RemoteMachineAvatar>::Create(stub_->channel_.get(), stub_->rpcmethod_GetRemoteMachineAvatar_, context, request, reactor);
 }
 
@@ -141,11 +141,11 @@ void Warp::Stub::experimental_async::GetRemoteMachineAvatar(::grpc::ClientContex
   return ::grpc::internal::BlockingUnaryCall< ::TransferOpRequest, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ProcessTransferOpRequest_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+void Warp::Stub::async::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::TransferOpRequest, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ProcessTransferOpRequest_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::async::ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ProcessTransferOpRequest_, context, request, response, reactor);
 }
 
@@ -164,11 +164,11 @@ void Warp::Stub::experimental_async::ProcessTransferOpRequest(::grpc::ClientCont
   return ::grpc::internal::BlockingUnaryCall< ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_PauseTransferOp_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+void Warp::Stub::async::PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PauseTransferOp_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::async::PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PauseTransferOp_, context, request, response, reactor);
 }
 
@@ -187,7 +187,7 @@ void Warp::Stub::experimental_async::PauseTransferOp(::grpc::ClientContext* cont
   return ::grpc::internal::ClientReaderFactory< ::FileChunk>::Create(channel_.get(), rpcmethod_StartTransfer_, context, request);
 }
 
-void Warp::Stub::experimental_async::StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::experimental::ClientReadReactor< ::FileChunk>* reactor) {
+void Warp::Stub::async::StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::ClientReadReactor< ::FileChunk>* reactor) {
   ::grpc::internal::ClientCallbackReaderFactory< ::FileChunk>::Create(stub_->channel_.get(), stub_->rpcmethod_StartTransfer_, context, request, reactor);
 }
 
@@ -203,11 +203,11 @@ void Warp::Stub::experimental_async::StartTransfer(::grpc::ClientContext* contex
   return ::grpc::internal::BlockingUnaryCall< ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CancelTransferOpRequest_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+void Warp::Stub::async::CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::OpInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelTransferOpRequest_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::async::CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelTransferOpRequest_, context, request, response, reactor);
 }
 
@@ -226,11 +226,11 @@ void Warp::Stub::experimental_async::CancelTransferOpRequest(::grpc::ClientConte
   return ::grpc::internal::BlockingUnaryCall< ::StopInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_StopTransfer_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+void Warp::Stub::async::StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::StopInfo, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StopTransfer_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::async::StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StopTransfer_, context, request, response, reactor);
 }
 
@@ -249,11 +249,11 @@ void Warp::Stub::experimental_async::StopTransfer(::grpc::ClientContext* context
   return ::grpc::internal::BlockingUnaryCall< ::LookupName, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Ping_, context, request, response);
 }
 
-void Warp::Stub::experimental_async::Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
+void Warp::Stub::async::Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::LookupName, ::VoidType, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Ping_, context, request, response, std::move(f));
 }
 
-void Warp::Stub::experimental_async::Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Warp::Stub::async::Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Ping_, context, request, response, reactor);
 }
 
@@ -451,23 +451,23 @@ static const char* WarpRegistration_method_names[] = {
 
 std::unique_ptr< WarpRegistration::Stub> WarpRegistration::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< WarpRegistration::Stub> stub(new WarpRegistration::Stub(channel));
+  std::unique_ptr< WarpRegistration::Stub> stub(new WarpRegistration::Stub(channel, options));
   return stub;
 }
 
-WarpRegistration::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_RequestCertificate_(WarpRegistration_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+WarpRegistration::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_RequestCertificate_(WarpRegistration_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status WarpRegistration::Stub::RequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::RegResponse* response) {
   return ::grpc::internal::BlockingUnaryCall< ::RegRequest, ::RegResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RequestCertificate_, context, request, response);
 }
 
-void WarpRegistration::Stub::experimental_async::RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, std::function<void(::grpc::Status)> f) {
+void WarpRegistration::Stub::async::RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, std::function<void(::grpc::Status)> f) {
   ::grpc::internal::CallbackUnaryCall< ::RegRequest, ::RegResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RequestCertificate_, context, request, response, std::move(f));
 }
 
-void WarpRegistration::Stub::experimental_async::RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void WarpRegistration::Stub::async::RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RequestCertificate_, context, request, response, reactor);
 }
 
