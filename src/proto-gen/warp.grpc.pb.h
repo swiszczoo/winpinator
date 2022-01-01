@@ -7,7 +7,6 @@
 #include "warp.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -120,81 +119,37 @@ class Warp final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>> PrepareAsyncPing(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::VoidType>>(PrepareAsyncPingRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Sender methods
       // api v1 duplex method (ping style)
       virtual void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // api v2 duplex method (block/future)
       virtual void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       virtual void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::ClientReadReactor< ::RemoteMachineAvatar>* reactor) = 0;
-      #else
-      virtual void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::experimental::ClientReadReactor< ::RemoteMachineAvatar>* reactor) = 0;
-      #endif
       virtual void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       virtual void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Receiver methods
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::ClientReadReactor< ::FileChunk>* reactor) = 0;
-      #else
-      virtual void StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::experimental::ClientReadReactor< ::FileChunk>* reactor) = 0;
-      #endif
       // Both
       virtual void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       virtual void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       virtual void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>* AsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>* PrepareAsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::HaveDuplex>* AsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) = 0;
@@ -220,7 +175,7 @@ class Warp final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::HaveDuplex* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>> AsyncCheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HaveDuplex>>(AsyncCheckDuplexConnectionRaw(context, request, cq));
@@ -295,78 +250,38 @@ class Warp final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>> PrepareAsyncPing(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::VoidType>>(PrepareAsyncPingRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CheckDuplexConnection(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void WaitingForDuplex(::grpc::ClientContext* context, const ::LookupName* request, ::HaveDuplex* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetRemoteMachineInfo(::grpc::ClientContext* context, const ::LookupName* request, ::RemoteMachineInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::ClientReadReactor< ::RemoteMachineAvatar>* reactor) override;
-      #else
-      void GetRemoteMachineAvatar(::grpc::ClientContext* context, const ::LookupName* request, ::grpc::experimental::ClientReadReactor< ::RemoteMachineAvatar>* reactor) override;
-      #endif
       void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ProcessTransferOpRequest(::grpc::ClientContext* context, const ::TransferOpRequest* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void PauseTransferOp(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::ClientReadReactor< ::FileChunk>* reactor) override;
-      #else
-      void StartTransfer(::grpc::ClientContext* context, const ::OpInfo* request, ::grpc::experimental::ClientReadReactor< ::FileChunk>* reactor) override;
-      #endif
       void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CancelTransferOpRequest(::grpc::ClientContext* context, const ::OpInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void StopTransfer(::grpc::ClientContext* context, const ::StopInfo* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void Ping(::grpc::ClientContext* context, const ::LookupName* request, ::VoidType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::HaveDuplex>* AsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::HaveDuplex>* PrepareAsyncCheckDuplexConnectionRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::HaveDuplex>* AsyncWaitingForDuplexRaw(::grpc::ClientContext* context, const ::LookupName& request, ::grpc::CompletionQueue* cq) override;
@@ -624,36 +539,22 @@ class Warp final {
   };
   typedef WithAsyncMethod_CheckDuplexConnection<WithAsyncMethod_WaitingForDuplex<WithAsyncMethod_GetRemoteMachineInfo<WithAsyncMethod_GetRemoteMachineAvatar<WithAsyncMethod_ProcessTransferOpRequest<WithAsyncMethod_PauseTransferOp<WithAsyncMethod_StartTransfer<WithAsyncMethod_CancelTransferOpRequest<WithAsyncMethod_StopTransfer<WithAsyncMethod_Ping<Service > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CheckDuplexConnection : public BaseClass {
+  class WithCallbackMethod_CheckDuplexConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CheckDuplexConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_CheckDuplexConnection() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::LookupName, ::HaveDuplex>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::LookupName* request, ::HaveDuplex* response) { return this->CheckDuplexConnection(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::LookupName* request, ::HaveDuplex* response) { return this->CheckDuplexConnection(context, request, response); }));}
     void SetMessageAllocatorFor_CheckDuplexConnection(
-        ::grpc::experimental::MessageAllocator< ::LookupName, ::HaveDuplex>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::LookupName, ::HaveDuplex>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::LookupName, ::HaveDuplex>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CheckDuplexConnection() override {
+    ~WithCallbackMethod_CheckDuplexConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -661,46 +562,26 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CheckDuplexConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CheckDuplexConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_WaitingForDuplex : public BaseClass {
+  class WithCallbackMethod_WaitingForDuplex : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_WaitingForDuplex() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_WaitingForDuplex() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::LookupName, ::HaveDuplex>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::LookupName* request, ::HaveDuplex* response) { return this->WaitingForDuplex(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::LookupName* request, ::HaveDuplex* response) { return this->WaitingForDuplex(context, request, response); }));}
     void SetMessageAllocatorFor_WaitingForDuplex(
-        ::grpc::experimental::MessageAllocator< ::LookupName, ::HaveDuplex>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::LookupName, ::HaveDuplex>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::LookupName, ::HaveDuplex>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_WaitingForDuplex() override {
+    ~WithCallbackMethod_WaitingForDuplex() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -708,46 +589,26 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* WaitingForDuplex(
-      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* WaitingForDuplex(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::HaveDuplex* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetRemoteMachineInfo : public BaseClass {
+  class WithCallbackMethod_GetRemoteMachineInfo : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetRemoteMachineInfo() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_GetRemoteMachineInfo() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::LookupName, ::RemoteMachineInfo>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::LookupName* request, ::RemoteMachineInfo* response) { return this->GetRemoteMachineInfo(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::LookupName* request, ::RemoteMachineInfo* response) { return this->GetRemoteMachineInfo(context, request, response); }));}
     void SetMessageAllocatorFor_GetRemoteMachineInfo(
-        ::grpc::experimental::MessageAllocator< ::LookupName, ::RemoteMachineInfo>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::LookupName, ::RemoteMachineInfo>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::LookupName, ::RemoteMachineInfo>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetRemoteMachineInfo() override {
+    ~WithCallbackMethod_GetRemoteMachineInfo() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -755,37 +616,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetRemoteMachineInfo(
-      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetRemoteMachineInfo(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::RemoteMachineInfo* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetRemoteMachineAvatar : public BaseClass {
+  class WithCallbackMethod_GetRemoteMachineAvatar : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetRemoteMachineAvatar() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_GetRemoteMachineAvatar() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackServerStreamingHandler< ::LookupName, ::RemoteMachineAvatar>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::LookupName* request) { return this->GetRemoteMachineAvatar(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::LookupName* request) { return this->GetRemoteMachineAvatar(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_GetRemoteMachineAvatar() override {
+    ~WithCallbackMethod_GetRemoteMachineAvatar() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -793,46 +638,26 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::RemoteMachineAvatar>* GetRemoteMachineAvatar(
-      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::RemoteMachineAvatar>* GetRemoteMachineAvatar(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ProcessTransferOpRequest : public BaseClass {
+  class WithCallbackMethod_ProcessTransferOpRequest : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ProcessTransferOpRequest() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_ProcessTransferOpRequest() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::TransferOpRequest, ::VoidType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::TransferOpRequest* request, ::VoidType* response) { return this->ProcessTransferOpRequest(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::TransferOpRequest* request, ::VoidType* response) { return this->ProcessTransferOpRequest(context, request, response); }));}
     void SetMessageAllocatorFor_ProcessTransferOpRequest(
-        ::grpc::experimental::MessageAllocator< ::TransferOpRequest, ::VoidType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::TransferOpRequest, ::VoidType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::TransferOpRequest, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ProcessTransferOpRequest() override {
+    ~WithCallbackMethod_ProcessTransferOpRequest() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -840,46 +665,26 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ProcessTransferOpRequest(
-      ::grpc::CallbackServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ProcessTransferOpRequest(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::TransferOpRequest* /*request*/, ::VoidType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_PauseTransferOp : public BaseClass {
+  class WithCallbackMethod_PauseTransferOp : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_PauseTransferOp() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_PauseTransferOp() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::OpInfo, ::VoidType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::OpInfo* request, ::VoidType* response) { return this->PauseTransferOp(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::OpInfo* request, ::VoidType* response) { return this->PauseTransferOp(context, request, response); }));}
     void SetMessageAllocatorFor_PauseTransferOp(
-        ::grpc::experimental::MessageAllocator< ::OpInfo, ::VoidType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::OpInfo, ::VoidType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::OpInfo, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_PauseTransferOp() override {
+    ~WithCallbackMethod_PauseTransferOp() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -887,37 +692,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PauseTransferOp(
-      ::grpc::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PauseTransferOp(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_StartTransfer : public BaseClass {
+  class WithCallbackMethod_StartTransfer : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_StartTransfer() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_StartTransfer() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackServerStreamingHandler< ::OpInfo, ::FileChunk>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::OpInfo* request) { return this->StartTransfer(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::OpInfo* request) { return this->StartTransfer(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_StartTransfer() override {
+    ~WithCallbackMethod_StartTransfer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -925,46 +714,26 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::FileChunk>* StartTransfer(
-      ::grpc::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::FileChunk>* StartTransfer(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CancelTransferOpRequest : public BaseClass {
+  class WithCallbackMethod_CancelTransferOpRequest : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CancelTransferOpRequest() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_CancelTransferOpRequest() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::OpInfo, ::VoidType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::OpInfo* request, ::VoidType* response) { return this->CancelTransferOpRequest(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::OpInfo* request, ::VoidType* response) { return this->CancelTransferOpRequest(context, request, response); }));}
     void SetMessageAllocatorFor_CancelTransferOpRequest(
-        ::grpc::experimental::MessageAllocator< ::OpInfo, ::VoidType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::OpInfo, ::VoidType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::OpInfo, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CancelTransferOpRequest() override {
+    ~WithCallbackMethod_CancelTransferOpRequest() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -972,46 +741,26 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CancelTransferOpRequest(
-      ::grpc::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CancelTransferOpRequest(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::OpInfo* /*request*/, ::VoidType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_StopTransfer : public BaseClass {
+  class WithCallbackMethod_StopTransfer : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_StopTransfer() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_StopTransfer() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::StopInfo, ::VoidType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::StopInfo* request, ::VoidType* response) { return this->StopTransfer(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::StopInfo* request, ::VoidType* response) { return this->StopTransfer(context, request, response); }));}
     void SetMessageAllocatorFor_StopTransfer(
-        ::grpc::experimental::MessageAllocator< ::StopInfo, ::VoidType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::StopInfo, ::VoidType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::StopInfo, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_StopTransfer() override {
+    ~WithCallbackMethod_StopTransfer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1019,46 +768,26 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* StopTransfer(
-      ::grpc::CallbackServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* StopTransfer(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::StopInfo* /*request*/, ::VoidType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Ping : public BaseClass {
+  class WithCallbackMethod_Ping : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Ping() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_Ping() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::LookupName, ::VoidType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::LookupName* request, ::VoidType* response) { return this->Ping(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::LookupName* request, ::VoidType* response) { return this->Ping(context, request, response); }));}
     void SetMessageAllocatorFor_Ping(
-        ::grpc::experimental::MessageAllocator< ::LookupName, ::VoidType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::LookupName, ::VoidType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::LookupName, ::VoidType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Ping() override {
+    ~WithCallbackMethod_Ping() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1066,20 +795,11 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Ping(
-      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Ping(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::LookupName* /*request*/, ::VoidType* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_CheckDuplexConnection<ExperimentalWithCallbackMethod_WaitingForDuplex<ExperimentalWithCallbackMethod_GetRemoteMachineInfo<ExperimentalWithCallbackMethod_GetRemoteMachineAvatar<ExperimentalWithCallbackMethod_ProcessTransferOpRequest<ExperimentalWithCallbackMethod_PauseTransferOp<ExperimentalWithCallbackMethod_StartTransfer<ExperimentalWithCallbackMethod_CancelTransferOpRequest<ExperimentalWithCallbackMethod_StopTransfer<ExperimentalWithCallbackMethod_Ping<Service > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_CheckDuplexConnection<ExperimentalWithCallbackMethod_WaitingForDuplex<ExperimentalWithCallbackMethod_GetRemoteMachineInfo<ExperimentalWithCallbackMethod_GetRemoteMachineAvatar<ExperimentalWithCallbackMethod_ProcessTransferOpRequest<ExperimentalWithCallbackMethod_PauseTransferOp<ExperimentalWithCallbackMethod_StartTransfer<ExperimentalWithCallbackMethod_CancelTransferOpRequest<ExperimentalWithCallbackMethod_StopTransfer<ExperimentalWithCallbackMethod_Ping<Service > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_CheckDuplexConnection<WithCallbackMethod_WaitingForDuplex<WithCallbackMethod_GetRemoteMachineInfo<WithCallbackMethod_GetRemoteMachineAvatar<WithCallbackMethod_ProcessTransferOpRequest<WithCallbackMethod_PauseTransferOp<WithCallbackMethod_StartTransfer<WithCallbackMethod_CancelTransferOpRequest<WithCallbackMethod_StopTransfer<WithCallbackMethod_Ping<Service > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CheckDuplexConnection : public BaseClass {
    private:
@@ -1451,27 +1171,17 @@ class Warp final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CheckDuplexConnection : public BaseClass {
+  class WithRawCallbackMethod_CheckDuplexConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CheckDuplexConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_CheckDuplexConnection() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckDuplexConnection(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckDuplexConnection(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CheckDuplexConnection() override {
+    ~WithRawCallbackMethod_CheckDuplexConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1479,37 +1189,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CheckDuplexConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CheckDuplexConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_WaitingForDuplex : public BaseClass {
+  class WithRawCallbackMethod_WaitingForDuplex : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_WaitingForDuplex() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_WaitingForDuplex() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->WaitingForDuplex(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->WaitingForDuplex(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_WaitingForDuplex() override {
+    ~WithRawCallbackMethod_WaitingForDuplex() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1517,37 +1211,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* WaitingForDuplex(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* WaitingForDuplex(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetRemoteMachineInfo : public BaseClass {
+  class WithRawCallbackMethod_GetRemoteMachineInfo : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetRemoteMachineInfo() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_GetRemoteMachineInfo() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetRemoteMachineInfo(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetRemoteMachineInfo(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetRemoteMachineInfo() override {
+    ~WithRawCallbackMethod_GetRemoteMachineInfo() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1555,37 +1233,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetRemoteMachineInfo(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetRemoteMachineInfo(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetRemoteMachineAvatar : public BaseClass {
+  class WithRawCallbackMethod_GetRemoteMachineAvatar : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetRemoteMachineAvatar() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_GetRemoteMachineAvatar() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->GetRemoteMachineAvatar(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->GetRemoteMachineAvatar(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetRemoteMachineAvatar() override {
+    ~WithRawCallbackMethod_GetRemoteMachineAvatar() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1593,37 +1255,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* GetRemoteMachineAvatar(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* GetRemoteMachineAvatar(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ProcessTransferOpRequest : public BaseClass {
+  class WithRawCallbackMethod_ProcessTransferOpRequest : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ProcessTransferOpRequest() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_ProcessTransferOpRequest() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ProcessTransferOpRequest(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ProcessTransferOpRequest(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ProcessTransferOpRequest() override {
+    ~WithRawCallbackMethod_ProcessTransferOpRequest() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1631,37 +1277,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ProcessTransferOpRequest(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ProcessTransferOpRequest(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_PauseTransferOp : public BaseClass {
+  class WithRawCallbackMethod_PauseTransferOp : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_PauseTransferOp() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_PauseTransferOp() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PauseTransferOp(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PauseTransferOp(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_PauseTransferOp() override {
+    ~WithRawCallbackMethod_PauseTransferOp() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1669,37 +1299,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PauseTransferOp(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PauseTransferOp(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_StartTransfer : public BaseClass {
+  class WithRawCallbackMethod_StartTransfer : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_StartTransfer() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_StartTransfer() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->StartTransfer(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->StartTransfer(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_StartTransfer() override {
+    ~WithRawCallbackMethod_StartTransfer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1707,37 +1321,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* StartTransfer(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* StartTransfer(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CancelTransferOpRequest : public BaseClass {
+  class WithRawCallbackMethod_CancelTransferOpRequest : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CancelTransferOpRequest() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_CancelTransferOpRequest() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CancelTransferOpRequest(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CancelTransferOpRequest(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CancelTransferOpRequest() override {
+    ~WithRawCallbackMethod_CancelTransferOpRequest() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1745,37 +1343,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CancelTransferOpRequest(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CancelTransferOpRequest(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_StopTransfer : public BaseClass {
+  class WithRawCallbackMethod_StopTransfer : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_StopTransfer() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_StopTransfer() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StopTransfer(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StopTransfer(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_StopTransfer() override {
+    ~WithRawCallbackMethod_StopTransfer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1783,37 +1365,21 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* StopTransfer(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* StopTransfer(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_Ping : public BaseClass {
+  class WithRawCallbackMethod_Ping : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_Ping() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_Ping() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Ping(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Ping(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_Ping() override {
+    ~WithRawCallbackMethod_Ping() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1821,14 +1387,8 @@ class Warp final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Ping(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Ping(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CheckDuplexConnection : public BaseClass {
@@ -2120,30 +1680,22 @@ class WarpRegistration final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>> PrepareAsyncRequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>>(PrepareAsyncRequestCertificateRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       virtual void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>* AsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::RegResponse>* PrepareAsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status RequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::RegResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegResponse>> AsyncRequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegResponse>>(AsyncRequestCertificateRaw(context, request, cq));
@@ -2151,26 +1703,22 @@ class WarpRegistration final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegResponse>> PrepareAsyncRequestCertificate(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegResponse>>(PrepareAsyncRequestCertificateRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void RequestCertificate(::grpc::ClientContext* context, const ::RegRequest* request, ::RegResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::RegResponse>* AsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::RegResponse>* PrepareAsyncRequestCertificateRaw(::grpc::ClientContext* context, const ::RegRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_RequestCertificate_;
@@ -2205,36 +1753,22 @@ class WarpRegistration final {
   };
   typedef WithAsyncMethod_RequestCertificate<Service > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_RequestCertificate : public BaseClass {
+  class WithCallbackMethod_RequestCertificate : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_RequestCertificate() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_RequestCertificate() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::RegRequest, ::RegResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::RegRequest* request, ::RegResponse* response) { return this->RequestCertificate(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::RegRequest* request, ::RegResponse* response) { return this->RequestCertificate(context, request, response); }));}
     void SetMessageAllocatorFor_RequestCertificate(
-        ::grpc::experimental::MessageAllocator< ::RegRequest, ::RegResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::RegRequest, ::RegResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::RegRequest, ::RegResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_RequestCertificate() override {
+    ~WithCallbackMethod_RequestCertificate() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2242,20 +1776,11 @@ class WarpRegistration final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* RequestCertificate(
-      ::grpc::CallbackServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* RequestCertificate(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::RegRequest* /*request*/, ::RegResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_RequestCertificate<Service > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_RequestCertificate<Service > ExperimentalCallbackService;
+  typedef WithCallbackMethod_RequestCertificate<Service > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_RequestCertificate : public BaseClass {
    private:
@@ -2294,27 +1819,17 @@ class WarpRegistration final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_RequestCertificate : public BaseClass {
+  class WithRawCallbackMethod_RequestCertificate : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_RequestCertificate() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_RequestCertificate() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RequestCertificate(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RequestCertificate(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_RequestCertificate() override {
+    ~WithRawCallbackMethod_RequestCertificate() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2322,14 +1837,8 @@ class WarpRegistration final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* RequestCertificate(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* RequestCertificate(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_RequestCertificate : public BaseClass {

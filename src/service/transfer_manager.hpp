@@ -92,7 +92,7 @@ public:
 
 private:
     class StartTransferReactor 
-        : public grpc::experimental::ClientReadReactor<FileChunk>
+        : public grpc::ClientReadReactor<FileChunk>
     {
     public:
         void setInstance( std::shared_ptr<StartTransferReactor> selfPtr );

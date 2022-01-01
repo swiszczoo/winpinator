@@ -404,7 +404,7 @@ void RemoteHandler::updateRemoteMachineInfo()
     request->set_id( m_ident );
     request->set_readable_name( Utils::getHostname() );
 
-    m_info->stub->experimental_async()->GetRemoteMachineInfo( ctx.get(),
+    m_info->stub->async()->GetRemoteMachineInfo( ctx.get(),
         request.get(), response.get(),
         [this, ctx, request, response]( grpc::Status status ) {
             if ( status.ok() )
@@ -433,7 +433,7 @@ void RemoteHandler::updateRemoteMachineAvatar()
     request->set_id( m_ident );
     request->set_readable_name( Utils::getHostname() );
 
-    class Reader : public grpc::experimental::ClientReadReactor<RemoteMachineAvatar>
+    class Reader : public grpc::ClientReadReactor<RemoteMachineAvatar>
     {
     public:
         Reader( RemoteInfoPtr info, std::function<void( RemoteInfoPtr )> edit )
@@ -509,7 +509,7 @@ void RemoteHandler::updateRemoteMachineAvatar()
     responseReader->setInstance( responseReader );
     responseReader->setRefs( ctx, request );
 
-    m_info->stub->experimental_async()->GetRemoteMachineAvatar( ctx.get(),
+    m_info->stub->async()->GetRemoteMachineAvatar( ctx.get(),
         request.get(), responseReader.get() );
 
     responseReader->start();
@@ -532,7 +532,7 @@ std::future<bool> RemoteHandler::waitForDuplex( int timeout )
     std::shared_ptr<std::promise<bool>> result
         = std::make_shared<std::promise<bool>>();
 
-    m_info->stub->experimental_async()->WaitingForDuplex( ctx.get(),
+    m_info->stub->async()->WaitingForDuplex( ctx.get(),
         request.get(), response.get(),
         [this, ctx, request, response, result]( grpc::Status status ) {
             result->set_value( status.ok() );
