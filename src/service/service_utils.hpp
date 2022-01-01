@@ -21,6 +21,10 @@ public:
     static int64_t getMonotonicTime();
 
     static wxString makeIntResource( int resource );
+
+private:
+    static std::wstring getFullNameFromGetUserNameEx();
+    static std::wstring getFullNameFromNetUserGetInfo();
 };
 
 };
