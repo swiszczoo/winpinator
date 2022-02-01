@@ -92,9 +92,17 @@ InstallDirRegKey HKLM ${REG_KEY} "InstallLocation_${ARCH}"
 
 Var StartMenuDir
 Var ins86_1
+Var ins86_1_maj
+Var ins86_1_min
 Var ins64_1
+Var ins64_1_maj
+Var ins64_1_min
 Var ins86_2
+Var ins86_2_maj
+Var ins86_2_min
 Var ins64_2
+Var ins64_2_maj
+Var ins64_2_min
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "gpl-3.0.rtf"
@@ -389,20 +397,46 @@ SectionEnd
 Function .onInit
     !insertmacro MUI_LANGDLL_DISPLAY
 
-    # Check if MSVCP is installed
+    # Check if appropriate MSVCP version is installed
     ReadRegDword $ins64_1 HKLM "SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Installed"
+    ReadRegDword $ins64_1_maj HKLM "SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Major"
+    ReadRegDword $ins64_1_min HKLM "SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Minor"
+
     ReadRegDword $ins64_2 HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Installed"
+    ReadRegDword $ins64_2_maj HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Major"
+    ReadRegDword $ins64_2_min HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" "Minor"
+
+
     ReadRegDword $ins86_1 HKLM "SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Installed"
+    ReadRegDword $ins86_1_maj HKLM "SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Major"
+    ReadRegDword $ins86_1_min HKLM "SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Minor"
+
     ReadRegDword $ins86_2 HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Installed"
+    ReadRegDword $ins86_2_maj HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Major"
+    ReadRegDword $ins86_2_min HKLM "SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86" "Minor"
 
 !if ${ARCH} == "x64"
     ${If} $ins64_1 == "1"
-    ${OrIf} $ins64_2 == "1"
+    ${AndIf} $ins64_1_maj == "14"
+    ${AndIf} $ins64_1_min >= "30"
+      !insertmacro UnselectSection ${VCREDIST}
+    ${EndIf}
+
+    ${If} $ins64_2 == "1"
+    ${AndIf} $ins64_2_maj == "14"
+    ${AndIf} $ins64_2_min >= "30"
       !insertmacro UnselectSection ${VCREDIST}
     ${EndIf}
 !else
     ${If} $ins86_1 == "1"
-    ${OrIf} $ins86_2 == "1"
+    ${AndIf} $ins86_1_maj == "14"
+    ${AndIf} $ins86_1_min >= "30"
+      !insertmacro UnselectSection ${VCREDIST}
+    ${EndIf}
+    
+    ${If} $ins86_2 == "1"
+    ${AndIf} $ins86_2_maj == "14"
+    ${AndIf} $ins86_2_min >= "30"
       !insertmacro UnselectSection ${VCREDIST}
     ${EndIf}
 !endif
