@@ -1,6 +1,7 @@
 #include "account_picture_extractor.hpp"
 
 #include <wx/filename.h>
+#include <wx/log.h>
 #include <wx/mstream.h>
 #include <wx/msw/registry.h>
 #include <wx/utils.h>
@@ -30,6 +31,8 @@ AccountPictureExtractor::AccountPictureExtractor()
 
 bool AccountPictureExtractor::process()
 {
+    wxLogNull logNull;
+
     if ( tryExtractingFromSystemRegistry() )
     {
         return true;
@@ -67,6 +70,12 @@ bool AccountPictureExtractor::tryExtractingFromUserRegistry()
     }
 
     if ( !key.Open( wxRegKey::AccessMode::Read ) )
+    {
+        m_error = ExtractorError::REG_KEY_NOT_FOUND;
+        return false;
+    }
+
+    if ( !key.HasValue( "SourceId" ) )
     {
         m_error = ExtractorError::REG_KEY_NOT_FOUND;
         return false;
@@ -180,12 +189,18 @@ bool AccountPictureExtractor::tryExtractingFromUserRegistry()
 
 bool AccountPictureExtractor::tryExtractingFromSystemRegistry()
 {
-    wxString regKey = wxString::Format( 
+    wxString regKey = wxString::Format(
         AccountPictureExtractor::SYSTEM_KEY_NAME, getCurrentUserSID() );
 
     wxRegKey key( wxRegKey::HKLM, regKey );
 
     if ( !key.Exists() )
+    {
+        m_error = ExtractorError::REG_KEY_NOT_FOUND;
+        return false;
+    }
+
+    if ( !key.HasValue( "Image48" ) || !key.HasValue( "Image240" ) )
     {
         m_error = ExtractorError::REG_KEY_NOT_FOUND;
         return false;
