@@ -1,3 +1,13 @@
+Release 0.1.2
+===============
+This release fixes some Winpinator bugs:
+- Installer now checks for Microsoft Visual C++ Redistributable
+  version and forces an update if it's too old
+- No more error boxes show up when Winpinator fails to find 
+  the account picture
+- Settings are now saved immediately after clicking OK in the
+  "Preferences" dialog box
+
 Release 0.1.1
 ===============
 This release is just a small fix of full names not appearing 
