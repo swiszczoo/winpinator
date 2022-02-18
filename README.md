@@ -1,6 +1,8 @@
 # Winpinator
 
-**Winpinator** is an unofficial Windows port of [Warpinator](https://github.com/linuxmint/warpinator), rewritten from scratch in C++. It supports the gRPC based protocol of its Linux equivalent, as well as zeroconf/mDNS based service discovery. Due to the fact that Windows uses a completely different filesystem, some Warpinator features have to be emulated, e.g. sending filesystem permissions along with the files.
+![[GitHub release (latest by date)](https://github.com/swiszczoo/winpinator/releases)](https://img.shields.io/github/v/release/swiszczoo/winpinator?style=for-the-badge) ![License](https://img.shields.io/github/license/swiszczoo/winpinator?style=for-the-badge) ![GitHub issues](https://img.shields.io/github/issues/swiszczoo/winpinator?style=for-the-badge) 
+
+**Winpinator** is an unofficial Windows port of [Warpinator](https://github.com/linuxmint/warpinator), rewritten from scratch in C++. It supports the gRPC based protocol of its Linux equivalent, as well as zeroconf/mDNS based service discovery. Due to the fact that Windows has a completely different filesystem, some Warpinator features have to be emulated, e.g. sending filesystem permissions along with the files.
 
 Winpinator should integrate well into Windows ecosystem by supporting drag-and-drop and appearing in Windows Explorer's *Send to* context menu.
 
