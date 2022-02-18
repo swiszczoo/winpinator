@@ -1,6 +1,6 @@
 {
   "name": "winpinator",
-  "version-string": "0.1.1",
+  "version-string": "0.1.2",
   "description": "An unofficial port of Warpinator from Linux Mint for Windows",
   "dependencies": [
     "cpp-base64",
