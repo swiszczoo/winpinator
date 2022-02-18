@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-27 23:10+0100\n"
+"POT-Creation-Date: 2022-02-18 19:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -505,7 +505,7 @@ msgid "Send a folder..."
 msgstr ""
 
 #: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:261
-#: .\gui\settings_dialog.cpp:537
+#: .\gui\settings_dialog.cpp:538
 msgid "Clear history"
 msgstr ""
 
@@ -526,7 +526,7 @@ msgstr ""
 msgid "Are you sure you want to clear entire history for this device?"
 msgstr ""
 
-#: .\gui\page_transferlist.cpp:263 .\gui\settings_dialog.cpp:539
+#: .\gui\page_transferlist.cpp:263 .\gui\settings_dialog.cpp:540
 msgid "This operation cannot be undone!"
 msgstr ""
 
@@ -702,7 +702,7 @@ msgstr ""
 msgid "Automatic"
 msgstr ""
 
-#: .\gui\settings_dialog.cpp:536
+#: .\gui\settings_dialog.cpp:537
 msgid "Are you sure you want to clear all history?"
 msgstr ""
 
@@ -798,83 +798,91 @@ msgid_plural "Send %d elements..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\gui\winpinator_frame.cpp:21
+#: .\gui\winpinator_frame.cpp:23
 msgid "Winpinator"
 msgstr ""
 
 #. TRANSLATORS: format string
-#: .\gui\winpinator_frame.cpp:68 .\gui\winpinator_frame.cpp:321
+#: .\gui\winpinator_frame.cpp:71 .\gui\winpinator_frame.cpp:328
 #, c-format
 msgid "IP: %s"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:72 .\gui\winpinator_frame.cpp:305
-#: .\gui\winpinator_frame.cpp:316
+#: .\gui\winpinator_frame.cpp:75 .\gui\winpinator_frame.cpp:312
+#: .\gui\winpinator_frame.cpp:323
 msgid "Offline!"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:137
+#: .\gui\winpinator_frame.cpp:138
 msgid "&Open save folder...\tCtrl+O"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:138 .\tray_icon.cpp:81
+#: .\gui\winpinator_frame.cpp:139 .\tray_icon.cpp:81
 msgid "Open the incoming files folder in Explorer"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:139
+#: .\gui\winpinator_frame.cpp:140
 msgid "&Preferences..."
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:140
+#: .\gui\winpinator_frame.cpp:141
 msgid "Adjust app preferences"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:142
+#: .\gui\winpinator_frame.cpp:143
 msgid "E&xit\tAlt+F4"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:143
+#: .\gui\winpinator_frame.cpp:144
 msgid "Close this window but let Winpinator run in background"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:145
+#: .\gui\winpinator_frame.cpp:146
 msgid "Exit and &stop the service\tCtrl+Alt+F4"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:146
+#: .\gui\winpinator_frame.cpp:147
 msgid "Exit Winpinator and stop being visible to other computers"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:148
+#: .\gui\winpinator_frame.cpp:149
 msgid "&File"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:151
+#: .\gui\winpinator_frame.cpp:152
 msgid "&Help topics...\tF1"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:152
+#: .\gui\winpinator_frame.cpp:153
 msgid "Show help and documentation of Winpinator"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:153
+#: .\gui\winpinator_frame.cpp:154
 msgid "&What's new?..."
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:154
+#: .\gui\winpinator_frame.cpp:155
 msgid "Show release notes"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:155
+#: .\gui\winpinator_frame.cpp:156
 msgid "&About Winpinator..."
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:156
+#: .\gui\winpinator_frame.cpp:157
 msgid "Show credits dialog"
 msgstr ""
 
-#: .\gui\winpinator_frame.cpp:158
+#: .\gui\winpinator_frame.cpp:159
 msgid "&Help"
+msgstr ""
+
+#: .\gui\winpinator_frame.cpp:262
+msgid "Sorry, but Winpinator help is not available yet."
+msgstr ""
+
+#: .\gui\winpinator_frame.cpp:263
+msgid "Help not available"
 msgstr ""
 
 #: .\service\notification_accept_files.cpp:91
@@ -938,7 +946,7 @@ msgstr ""
 msgid "Transfer between you and %s has finished successfully!"
 msgstr ""
 
-#: .\service\service_utils.cpp:97
+#: .\service\service_utils.cpp:98
 msgid "Unknown OS"
 msgstr ""
 
