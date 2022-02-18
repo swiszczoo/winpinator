@@ -367,7 +367,7 @@ void SettingsDialog::updateHistoryButtons()
     {
         m_historyRemove->Disable();
     }
-    
+
     m_historyClear->Enable( m_historyList->GetItemCount() > 0 );
 }
 
@@ -503,6 +503,7 @@ void SettingsDialog::fillInterfaces()
 void SettingsDialog::onSaveSettings( wxCommandEvent& event )
 {
     saveSettings();
+    writeSettingsToConfigBase();
     event.Skip();
 }
 
@@ -518,7 +519,7 @@ void SettingsDialog::onHistorySelectionChanged( wxListEvent& event )
 
 void SettingsDialog::onHistoryRemove( wxCommandEvent& event )
 {
-    int selmark = m_historyList->GetNextItem( 
+    int selmark = m_historyList->GetNextItem(
         -1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED );
 
     if ( selmark >= 0 )
@@ -543,7 +544,7 @@ void SettingsDialog::onHistoryClear( wxCommandEvent& event )
     {
         auto serv = Globals::get()->getWinpinatorServiceInstance();
         serv->getDb()->removeAllTargets();
-        
+
         fillHistoryList();
     }
 }
@@ -568,4 +569,15 @@ std::unique_ptr<wxBitmap> SettingsDialog::loadScaledFlag(
         img.Scale( newWidth, newHeight, wxIMAGE_QUALITY_BICUBIC ) );
     return bitmap;
 }
+
+void SettingsDialog::writeSettingsToConfigBase()
+{
+    wxConfigBase* confbase = GetApp().m_config.get();
+
+    if ( confbase )
+    {
+        GetApp().m_settings.saveTo( confbase );
+    }
+}
+
 };

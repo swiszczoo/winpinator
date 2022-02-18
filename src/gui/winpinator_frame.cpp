@@ -60,6 +60,7 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     m_statusBar->SetStatusWidths( m_statusBar->GetFieldsCount(), statusWidths );
 
     srv::WinpinatorService* serv = Globals::get()->getWinpinatorServiceInstance();
+    observeService( Globals::get()->getWinpinatorServiceInstance() );
 
     m_statusBar->SetStatusText( serv->getDisplayName(), 0 );
 
@@ -75,8 +76,6 @@ WinpinatorFrame::WinpinatorFrame( wxWindow* parent )
     }
 
     SetStatusBar( m_statusBar );
-
-    observeService( Globals::get()->getWinpinatorServiceInstance() );
 
     // onAboutSelected();
 

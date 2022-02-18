@@ -91,6 +91,7 @@ private:
 
     void updateState();
     std::unique_ptr<wxBitmap> loadScaledFlag( const wxString& path, int height );
+    void writeSettingsToConfigBase();
 };
 
 };
