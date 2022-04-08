@@ -1,6 +1,8 @@
 # Winpinator
 
-**Winpinator** is an unofficial Windows port of [Warpinator](https://github.com/linuxmint/warpinator), rewritten from scratch in C++. It supports the gRPC based protocol of its Linux equivalent, as well as zeroconf/mDNS based service discovery. Due to the fact that Windows has a totally different filesystem, some Warpinator features have to be emulated, e.g. sending filesystem permissions along with the files.
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/swiszczoo/winpinator?style=for-the-badge)](https://github.com/swiszczoo/winpinator/releases) [![License](https://img.shields.io/github/license/swiszczoo/winpinator?style=for-the-badge)](https://github.com/swiszczoo/winpinator/blob/master/COPYING.md) [![GitHub issues](https://img.shields.io/github/issues/swiszczoo/winpinator?style=for-the-badge)](https://github.com/swiszczoo/winpinator/issues)
+
+**Winpinator** is an unofficial Windows port of [Warpinator](https://github.com/linuxmint/warpinator), rewritten from scratch in C++. It supports the gRPC based protocol of its Linux equivalent, as well as zeroconf/mDNS based service discovery. Due to the fact that Windows has a completely different filesystem, some Warpinator features have to be emulated, e.g. sending filesystem permissions along with the files.
 
 Winpinator should integrate well into Windows ecosystem by supporting drag-and-drop and appearing in Windows Explorer's *Send to* context menu.
 
@@ -29,7 +31,7 @@ As for now, Visual Studio 2019 is used to compile binaries. Any newer version of
 
 ### Dependencies
 
-Dependencies of Winpinator are managed by vcpkg, but vcpkg is optional. Currently, Winpinator depends on following libraries and tools:
+Dependencies of Winpinator are managed by vcpkg, but using vcpkg during compilation is optional. In that case all header and lib files have to be installed manually. Currently, Winpinator depends on the following libraries and tools:
 
 + [cpp-base64](https://github.com/ReneNyffenegger/cpp-base64)
 + [grpc library](https://github.com/grpc/grpc) and protobuf compiler
@@ -46,17 +48,17 @@ Winpinator uses NSIS as its install system. Currently, only one additional NSIS 
 
 ## Translations
 
-Winpinator makes use of wxWidgets' built-in gettext implementation, so it should be localizable using standard set of gettext tools (like [Poedit](https://poedit.net/)). POT template file is available at [po/winpinator.pot](po/winpinator.pot). To make language appear in preferences, an additional line is required to be added in [res/to_copy/Languages.xml](res/to_copy/Languages.xml). Its format is:
+Winpinator makes use of wxWidgets' built-in gettext implementation, so it should be localizable using standard set of gettext tools (like [Poedit](https://poedit.net/)). POT template file is available at [po/winpinator.pot](po/winpinator.pot). To make the language appear in preferences, an additional line is required to be added in [res/to_copy/Languages.xml](res/to_copy/Languages.xml). Its format is:
 ```
     <Language code="[ISO language code, e.g de_DE]" name="[Local name of the language, e.g. Deutsch]" flag="[flag filename, e.g. de.png]" 
 ```
-Remember that you can also localize the installer by inserting a line
+Remember that you should also localize the installer by inserting a line
 ```
 !insertmacro MUI_LANGUAGE "[Language name in English]"
 ```
 and then translating all the lines right below, starting with `LangString`.
 
-After finishing a translation and adding this line to `Languages.xml`, please submit a Pull Request.
+After translating all the strings and adding that line to `Languages.xml`, please submit a Pull Request.
 
 ## License
 
