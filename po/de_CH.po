@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-18 19:12+0100\n"
-"PO-Revision-Date: 2022-04-08 13:26+0300\n"
+"PO-Revision-Date: 2022-04-08 16:57+0200\n"
+"Last-Translator: BeSe <BeSe@gmx.ch>\n"
 "Language-Team: \n"
+"Language: de_CH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.3\n"
-"Last-Translator: \n"
-"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #. TRANSLATORS: This XML is loaded into wxRichTextCtrl in "About" section
 #: .\gui\about_dialog.cpp:18
@@ -131,7 +131,7 @@ msgstr ""
 "    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI"
 "\">\n"
 "      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
-"fontface=\"Segoe UI\">About</text>\n"
+"fontface=\"Segoe UI\">&#220;ber</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI"
 "\">\n"
@@ -142,30 +142,30 @@ msgstr ""
 "      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\">"
 "\"Winpinator \"</text>\n"
 "      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI"
-"\">est un portage Windows non officiel d'un outil de transfert de fichiers "
-"Linux appelé Warpinator. Il fournit toutes les fonctionnalités de son "
-"équivalent Linux, cependant, Windows utilise son propre système de fichiers "
-"appelé NTFS et est généralement différent au niveau de l'architecture, donc "
-"Winpinator doit émuler certaines fonctionnalités de Linux, comme le système "
-"de permission. Winpinator devrait fonctionner sans problème, il utilise le "
-"réseau zeroconf, c'est-à-dire le protocole mDNS, mais certains paramètres de "
-"pare-feu peuvent l'empêcher de communiquer avec le reste du réseau.</text>\n"
+"\">ist eine inoffizielle Windows-Portierung eines Linux-"
+"Datei&#252;bertragungstools namens Warpinator. Es bietet alle Funktionen seines "
+"Linux-&#196;quivalents, Windows verwendet jedoch sein eigenes Dateisystem namens "
+"NTFS und ist im Allgemeinen architektonisch anders, daher muss Winpinator "
+"einige Linux-Funktionen wie das Berechtigungssystem emulieren. Winpinator "
+"sollte sofort einsatzbereit sein, es nutzt das Zeroconf-Netzwerk, dh das "
+"mDNS-Protokoll, aber einige Firewall-Einstellungen k&#246;nnten es daran hindern, "
+"mit dem Rest des Netzwerks zu kommunizieren.</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
 "      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">L'objectif principal "
-"du projet était de créer un outil offrant un aspect et la convivialité de "
-"Windows. L'interface utilise donc l'habillage système par défaut et prend en "
-"charge le glisser-déposer..</text>\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">Das Hauptziel des "
+"Projekts bestand darin, ein Tool zu erstellen, das ein nat&#252;rliches Windows-"
+"Benutzererlebnis bietet und Ziehen-und-Fallenlassen (Drag-and-Drop) "
+"unterst&#252;tzt.</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
 "      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
 "      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
-"fontface=\"Segoe UI\">Librairies utilisées</text>\n"
+"fontface=\"Segoe UI\">Gebrauchte Bibliotheken</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
 "      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
@@ -175,81 +175,81 @@ msgstr ""
 "bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
 "1\">\n"
 "      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI"
-"\">wxWidgets - en tant que cadre général, pour fournir une apparence et la "
-"convivialité de Windows.</text>\n"
+"\">wxWidgets - als allgemeines Framework, um ein nat&#252;rliches Windows-"
+"Benutzererlebnis bereitzustellen</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
 "bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
 "1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">gRPC et protobuf - "
-"pour supporter le protocole du Warpinator officiel</text>\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">gRPC und protobuf - "
+"um das Protokoll des offiziellen Warpinators zu unterst&#252;tzen</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
 "bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
 "1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sodium - pour crypter "
-"et décrypter des clés RSA avec la clé symétrique du groupe</text>\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sodium - zum "
+"Verschl&#252;sseln und Entschl&#252;sseln von RSA-Schl&#252;sseln mit dem symmetrischen "
+"Gruppenschl&#252;ssel</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
 "bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
 "1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">openssl - pour "
-"générer des clés PEM sécurisées</text>\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">openssl - um sichere "
+"PEM-Schl&#252;ssel zu generieren</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
 "bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
 "1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sqlite3 - pour "
-"stocker des données persistantes, par exemple l'historique des transferts</"
-"text>\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sqlite3 - um "
+"persistente Daten zu speichern, z. B. den &#220;bertragungsverlauf</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
 "bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
 "1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">zlib - pour supporter "
-"la compression des transferts (une des plus récentes fonctionnalités de "
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">zlib - zur "
+"Unterst&#252;tzung der &#220;bertragungskomprimierung (eines der neueren Features von "
 "Warpinator)</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
 "bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
 "1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">wintoast - pour "
-"afficher les notifications de toast</text>\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">wintoast - um "
+"Toastbenachrichtigungen anzuzeigen</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
 "bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
 "1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">cpp-base64 - pour "
-"convertir les clés binaires en texte et vice versa</text>\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">cpp-base64 - zum "
+"Konvertieren von Bin&#228;rsch&#252;lsseln in Text und umgekehrt</text>\n"
 "    </paragraph>\n"
 "  </paragraphlayout>\n"
 "</richtext>\n"
 
 #: .\gui\about_dialog.cpp:108
 msgid "About Winpinator..."
-msgstr "A propos de Winpinator..."
+msgstr "Über Winpinator..."
 
 #: .\gui\about_dialog.cpp:201
 msgid "Could not load About section."
-msgstr "Impossible de charger la section A Propos."
+msgstr "Der Abschnitt \"Über\" konnte nicht geladen werden."
 
 #: .\gui\about_dialog.cpp:208
 msgid "About"
-msgstr "A Propos"
+msgstr "Über"
 
 #: .\gui\about_dialog.cpp:224
 msgid "License"
-msgstr "Licence"
+msgstr "Lizenz"
 
 #: .\gui\about_dialog.cpp:239
 msgid "License file could not be loaded."
-msgstr "Le fichier de licence n'a pas pu être chargé."
+msgstr "Lizenzdatei konnte nicht geladen werden."
 
 #. TRANSLATORS: version string (e.g. "ver. 1.2.3")
 #: .\gui\about_dialog.cpp:265
 #, c-format
 msgid "ver. %s"
-msgstr "ver. %s"
+msgstr "Ver. %s"
 
 #: .\gui\file_list_dialog.cpp:16
 msgid ""
@@ -257,186 +257,185 @@ msgid ""
 "received within the transfer you've selected. The list might be incomplete "
 "if the transfer has been interrupted or failed in a different way."
 msgstr ""
-"La liste ci-dessous contient tous les fichiers qui ont été enregistrés comme "
-"étant envoyés/reçus dans le cadre du transfert que vous avez sélectionné. La "
-"liste peut être incomplète si le transfert a été interrompu ou a échoué "
-"d'une autre manière."
+"Die folgende Liste enthält alle mit dem gewählten Transfer erfolgreich "
+"übertragenen Dateien. Die Liste kann unvollständig sein, wenn die "
+"Übertragung unterbrochen wurde oder auf andere Weise fehlgeschlagen ist."
 
 #: .\gui\file_list_dialog.cpp:22
 msgid "List of transferred files"
-msgstr "Liste des fichiers transférés"
+msgstr "Liste der übertragenen Dateien"
 
 #: .\gui\file_list_dialog.cpp:31
 msgid "Close"
-msgstr "Fermer"
+msgstr "Schließen"
 
 #: .\gui\file_list_dialog.cpp:94
 msgid "File name"
-msgstr "Nom du fichier"
+msgstr "Dateiname"
 
 #: .\gui\file_list_dialog.cpp:96
 msgid "File type"
-msgstr "Type du fichier"
+msgstr "Dateityp"
 
 #: .\gui\file_list_dialog.cpp:98
 msgid "Relative path"
-msgstr "Chemin relatif"
+msgstr "Relativer Pfad"
 
 #: .\gui\file_list_dialog.cpp:100
 msgid "Absolute path"
-msgstr "Chemin absolu"
+msgstr "Absoluter Pfad"
 
 #: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:293
 msgid "Folder"
-msgstr "Dossier"
+msgstr "Ordner"
 
 #: .\gui\file_list_dialog.cpp:178 .\gui\file_list_dialog.cpp:187
 #: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:282
 msgid "File"
-msgstr "Fichier"
+msgstr "Datei"
 
 #: .\gui\file_list_dialog.cpp:227
 msgid "Copy file name..."
-msgstr "Copier le nom du fichier..."
+msgstr "Kopiere Dateiname..."
 
 #: .\gui\file_list_dialog.cpp:228
 msgid "Copy file type..."
-msgstr "Copier le type de fichier..."
+msgstr "Kopiere Dateityp..."
 
 #: .\gui\file_list_dialog.cpp:229
 msgid "Copy relative path..."
-msgstr "Copier le chemin relatif..."
+msgstr "Kopiere relativen Pfad..."
 
 #: .\gui\file_list_dialog.cpp:230
 msgid "Copy absolute path..."
-msgstr "Copier le chemin absolu..."
+msgstr "Kopiere absoluten Pfad..."
 
 #: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:383
 msgid "Type:"
-msgstr "Type:"
+msgstr "Typ:"
 
 #: .\gui\history_element_finished.cpp:121 .\gui\history_element_pending.cpp:384
 msgid "Total size:"
-msgstr "Taille Totale:"
+msgstr "Gesamtgrösse:"
 
 #: .\gui\history_element_finished.cpp:157
 msgid "Date and time:"
-msgstr "Date et heure:"
+msgstr "Datum und Zeit:"
 
 #: .\gui\history_element_finished.cpp:173
 msgid "%Y-%m-%d %I:%M %p"
-msgstr "%d.%m.%Y %H:%M"
+msgstr "%Y-%m-%d %I:%M %p"
 
 #: .\gui\history_element_finished.cpp:188
 msgid "&Open "
-msgstr "&Ouvrir "
+msgstr "&Öffnen "
 
 #: .\gui\history_element_finished.cpp:189
 msgid "Show in &Explorer..."
-msgstr "Voir dans l’explorateur de fichier..."
+msgstr "Im &Explorer anzeigen..."
 
 #: .\gui\history_element_finished.cpp:190
 msgid "Show &list of transferred files..."
-msgstr "Montrer la &liste des éléments transférés..."
+msgstr "Zeige &Liste der übertragenen Dateien an..."
 
 #: .\gui\history_element_finished.cpp:192
 msgid "&Remove from history"
-msgstr "&Supprimer de l'historique"
+msgstr "Entfe&rne aus dem Verlauf"
 
 #: .\gui\history_element_finished.cpp:261
 msgid ""
 "Files and directories from this transfer no longer exist on the hard drive."
 msgstr ""
-"Les fichiers et répertoires de ce transfert n'existent plus sur le disque "
-"dur."
+"Dateien und Ordner dieses Transfers existieren nicht mehr auf dem "
+"Massenspeicher."
 
 #: .\gui\history_element_finished.cpp:263
 msgid "Can't show element"
-msgstr "Impossible de montrer l'élément"
+msgstr "Element kann nicht angezeigt werden"
 
 #: .\gui\history_element_finished.cpp:355
 msgid "Completed"
-msgstr "Terminé"
+msgstr "Beendet"
 
 #: .\gui\history_element_finished.cpp:357
 msgid "Cancelled"
-msgstr "Annulé"
+msgstr "Abgebrochen"
 
 #: .\gui\history_element_finished.cpp:359
 msgid "Error occurred"
-msgstr "Une erreur s'est produite"
+msgstr "Fehler aufgetreten"
 
 #: .\gui\history_element_finished.cpp:361 .\gui\utils.cpp:146
 msgid "Unknown"
-msgstr "Inconnu"
+msgstr "Unbekannt"
 
 #: .\gui\history_element_finished.cpp:449
 msgid "Selected element no longer exists on the hard drive."
-msgstr "L'élément sélectionné n'existe plus sur le disque dur."
+msgstr "Ausgewähltes Element existiert nicht mehr auf dem Massenspeicher."
 
 #: .\gui\history_element_finished.cpp:450
 msgid "Can't open element"
-msgstr "Impossible d'ouvrir l'élément"
+msgstr "Element kann nicht geöffnet werden"
 
 #: .\gui\history_element_pending.cpp:57
 msgid "Over&write"
-msgstr "&Ecraser"
+msgstr "Über&schreiben"
 
 #: .\gui\history_element_pending.cpp:60
 msgid "&Cancel"
-msgstr "&Annuler"
+msgstr "Abbre&chen"
 
 #: .\gui\history_element_pending.cpp:63
 msgid "&Accept"
-msgstr "&Accepter"
+msgstr "&Akzeptieren"
 
 #: .\gui\history_element_pending.cpp:66
 msgid "&Decline"
-msgstr "&Refuser"
+msgstr "Ab&lehnen"
 
 #: .\gui\history_element_pending.cpp:72
 msgid "&Stop"
-msgstr "&Stop"
+msgstr "&Stoppen"
 
 #: .\gui\history_element_pending.cpp:176
 msgid "calculating remaining time"
-msgstr "calcule le temps restant"
+msgstr "berechne Restzeit"
 
 #: .\gui\history_element_pending.cpp:180
 msgid "a few seconds remaining"
-msgstr "quelques secondes restantes"
+msgstr "noch einige Sekunden übrig"
 
 #: .\gui\history_element_pending.cpp:185
 #, c-format
 msgid "%d sec remaining"
 msgid_plural "%d secs remaining"
-msgstr[0] "%d seconde restante"
-msgstr[1] "%d secondes restantes"
+msgstr[0] "%d Sek. übrig"
+msgstr[1] "%d Sek. übrig"
 
 #: .\gui\history_element_pending.cpp:193
 #, c-format
 msgid "%d min remaining"
 msgid_plural "%d mins remaining"
-msgstr[0] "%d minute restante"
-msgstr[1] "%d minutes restantes"
+msgstr[0] "%d Min. übrig"
+msgstr[1] "%d Min. übrig"
 
 #: .\gui\history_element_pending.cpp:201
 #, c-format
 msgid "%d hour remaining"
 msgid_plural "%d hours remaining"
-msgstr[0] "%d heure restante"
-msgstr[1] "%d heures restantes"
+msgstr[0] "%d Std. übrig"
+msgstr[1] "%d Std. übrig"
 
 #: .\gui\history_element_pending.cpp:209
 #, c-format
 msgid "%d day remaining"
 msgid_plural "%d days remaining"
-msgstr[0] "%d jour restant"
-msgstr[1] "%d jours restants"
+msgstr[0] "%d Tag übrig"
+msgstr[1] "%d Tage übrig"
 
 #: .\gui\history_element_pending.cpp:214
 msgid "many days remaining"
-msgstr "plusieurs jours restants"
+msgstr "viele Tage übrig"
 
 #. TRANSLATORS: this is a format string for transfer speed,
 #. the %s part will be replaced with appropriate file size equivalent,
@@ -451,137 +450,134 @@ msgstr "%s/s"
 #: .\gui\history_element_pending.cpp:226
 #, c-format
 msgid "%s of %s ἢ %s ἢ %s"
-msgstr "%s sur %s ἢ %s ἢ %s"
+msgstr "%s von %s ἢ %s ἢ %s"
 
 #: .\gui\history_element_pending.cpp:250
 msgid "999.9MB of 999.9MB ἢ 999.9MB/s ἢ a few seconds remaining"
-msgstr "999.9MB sur 999.9MB ἢ 999.9MB/s ἢ quelques secondes restantes"
+msgstr "999.9MB von 999.9MB ἢ 999.9MB/s ἢ noch einige Sekunden übrig"
 
 #. TRANSLATORS: %s stands for full name of the peer
 #: .\gui\history_element_pending.cpp:281
 #, c-format
 msgid "%s is sending you files:"
-msgstr "%s vous envoie des fichiers:"
+msgstr "%s sendet Dir Dateien:"
 
 #. TRANSLATORS: %s stands for full name of the peer
 #: .\gui\history_element_pending.cpp:292
 #, c-format
 msgid "Awaiting approval from %s..."
-msgstr "En attente de confirmation de %s..."
+msgstr "Warte auf Bestätigung von %s..."
 
 #: .\gui\history_element_pending.cpp:300
 msgid "Scanning for files..."
-msgstr "Recherche de fichiers..."
+msgstr "Suche nach Dateien..."
 
 #: .\gui\history_element_pending.cpp:310
 msgid "This request will overwrite one or more files!"
-msgstr "Cette demande va écraser un ou plusieurs fichiers !"
+msgstr "Dieser Transfer wird eine oder mehrere Dateien überschreiben!"
 
 #: .\gui\history_element_pending.cpp:320
 msgid "R&esume"
-msgstr "&Reprendre"
+msgstr "Forts&etzen"
 
 #: .\gui\history_element_pending.cpp:332
 msgid "&Pause"
-msgstr "&Pause"
+msgstr "&Pausieren"
 
 #: .\gui\history_element_pending.cpp:344
 msgid "Not enough disk space! Files cannot be received!"
-msgstr ""
-"Pas assez d'espace disponible ! Les fichiers ne peuvent pas être reçus !"
+msgstr "Nicht genügend Speicherplatz! Dateien können nicht empfangen werden!"
 
 #: .\gui\history_item_icon.cpp:149 .\gui\history_item_icon.cpp:274
 msgid "Empty"
-msgstr "Vide"
+msgstr "Leer"
 
 #: .\gui\history_item_icon.cpp:175 .\service\notification_accept_files.cpp:107
 #, c-format
 msgid "%d element"
 msgid_plural "%d elements"
-msgstr[0] "%d élément"
-msgstr[1] "%d éléments"
+msgstr[0] "%d Element"
+msgstr[1] "%d Elemente"
 
 #: .\gui\history_item_icon.cpp:179
 #, c-format
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] "%d fichier"
-msgstr[1] "%d fichiers"
+msgstr[0] "%d Datei"
+msgstr[1] "%d Dateien"
 
 #: .\gui\history_item_icon.cpp:182
 #, c-format
 msgid "%d folder"
 msgid_plural "%d folders"
-msgstr[0] "%d dossier"
-msgstr[1] "%d dossiers"
+msgstr[0] "%d Ordner"
+msgstr[1] "%d Ordner"
 
 #. TRANSLATORS: format string, e.g. <2 folders> and <5 files>
 #: .\gui\history_item_icon.cpp:198
 #, c-format
 msgid "%s and %s"
-msgstr "%s et %s"
+msgstr "%s und %s"
 
 #: .\gui\history_item_icon.cpp:268
 msgid "Calculating"
-msgstr "En cours de calcul"
+msgstr "Berechne"
 
 #: .\gui\history_item_icon.cpp:286
 msgid "Multiple files"
-msgstr "Plusieurs fichiers"
+msgstr "Mehrere Dateien"
 
 #: .\gui\history_item_icon.cpp:297
 msgid "Multiple folders"
-msgstr "Plusieurs dossiers"
+msgstr "Mehrere Ordner"
 
 #: .\gui\history_item_icon.cpp:302
 msgid "Mixed elements"
-msgstr "Éléments mixtes"
+msgstr "Uneinheitliche Elemente"
 
 #: .\gui\host_listbox.cpp:159
 msgid "Hostname:"
-msgstr "Nom de l'hôte :"
+msgstr "Hostname:"
 
 #: .\gui\host_listbox.cpp:160
 msgid "IP Address:"
-msgstr "Adresse IP :"
+msgstr "IP Adresse:"
 
 #: .\gui\host_listbox.cpp:183
 msgid "OS:"
-msgstr "Système d'exploitation :"
+msgstr "Betriebssystem:"
 
 #: .\gui\host_listbox.cpp:184
 msgid "Connection:"
-msgstr "Connexion:"
+msgstr "Verbindung:"
 
 #: .\gui\page_error.cpp:13
 msgid "A fatal error occurred while trying to start the service!"
-msgstr ""
-"Une erreur fatale s'est produite lors de la tentative de démarrage du "
-"service !"
+msgstr "Ein fataler Fehler ist beim Starten des Service aufgetreten!"
 
 #: .\gui\page_error.cpp:53 .\gui\page_nohosts.cpp:36
 msgid "Try again"
-msgstr "Réessayer"
+msgstr "Nochmal versuchen"
 
 #: .\gui\page_error.cpp:59
 msgid "Open settings"
-msgstr "Ouvrir les réglages"
+msgstr "Einstellungen öffnen"
 
 #: .\gui\page_error.cpp:130
 msgid "No error."
-msgstr "Pas d'erreur."
+msgstr "Kein Fehler."
 
 #: .\gui\page_error.cpp:133
 msgid "Unknown error!"
-msgstr "Erreur inconnue !"
+msgstr "Unbekannter Fehler!"
 
 #: .\gui\page_error.cpp:137
 msgid ""
 "Can't create mDNS server! Maybe another running app is holding exclusive "
 "access to appropriate port?"
 msgstr ""
-"Impossible de créer un serveur mDNS ! Peut-être qu'une autre application en "
-"cours d'exécution détient un accès exclusif au port approprié ?"
+"Kann keinen mDNS-Server erzeugen! Ev. blockiert eine andere laufende App den "
+"entsprechenden Port?"
 
 #: .\gui\page_error.cpp:142
 msgid ""
@@ -589,11 +585,10 @@ msgid ""
 "another instance of Winpinator running on your computer, e.g. started by "
 "another user? You can always try to change ports in the settings."
 msgstr ""
-"Impossible de créer le service d'enregistrement (pour le mode de "
-"compatibilité). Peut-être y a-t-il une autre instance de Winpinator en cours "
-"d'exécution sur votre ordinateur, par exemple lancée par un autre "
-"utilisateur ? Vous pouvez toujours essayer de changer les ports dans les "
-"paramètres."
+"Kann keinen Registrations-Service (für den Kompatibilitätsmodus) erzeugen. "
+"Ev. läuft eine andere Instanz von Winpinator auf dem Computer, z.B. von "
+"einem anderen Konto Gestartete? Sie können versuchen, die Ports in den "
+"Einstellungen zu ändern."
 
 #: .\gui\page_error.cpp:149
 msgid ""
@@ -601,10 +596,9 @@ msgid ""
 "Winpinator running on your computer, e.g. started by another user? You can "
 "always try to change ports in the settings."
 msgstr ""
-"Impossible de créer le service d'enregistrement. Peut-être y a-t-il une "
-"autre instance de Winpinator en cours d'exécution sur votre ordinateur, par "
-"exemple lancée par un autre utilisateur ? Vous pouvez toujours essayer de "
-"changer les ports dans les paramètres."
+"Kann keinen Registrations-Service erzeugen. Ev. läuft eine andere Instanz "
+"von Winpinator auf dem Computer, z.B. von einem anderen Konto Gestartete? "
+"Sie können versuchen, die Ports in den Einstellungen zu ändern."
 
 #: .\gui\page_error.cpp:156
 msgid ""
@@ -612,396 +606,394 @@ msgid ""
 "running on your computer, e.g. started by another user? You can always try "
 "to change ports in the settings."
 msgstr ""
-"Impossible de créer le service principal. Peut-être y a-t-il une autre "
-"instance de Winpinator en cours d'exécution sur votre ordinateur, par "
-"exemple lancée par un autre utilisateur ? Vous pouvez toujours essayer de "
-"changer les ports dans les paramètres."
+"Kann keinen Haupt-Service erzeugen. Ev. läuft eine andere Instanz von "
+"Winpinator auf dem Computer, z.B. von einem anderen Konto Gestartete? Sie "
+"können versuchen, die Ports in den Einstellungen zu ändern."
 
 #: .\gui\page_error.cpp:163
 msgid ""
 "Output directory you provided in the settings does not exist. Winpinator "
 "failed to create one."
 msgstr ""
-"Le répertoire de sortie que vous avez fourni dans les paramètres n'existe "
-"pas. Winpinator n'a pas réussi à en créer un."
+"Der in den Einstellungen festgelegte Speicher-Ordner existiert nicht. "
+"Winpinator konnte ihn nicht erzeugen."
 
 #: .\gui\page_error.cpp:169
 msgid "Missing description"
-msgstr "Description manquante"
+msgstr "Fehlende Beschreibung"
 
 #: .\gui\page_hostlist.cpp:20
 msgid ""
 "Below is a list of currently available computers. Select the one you want to "
 "transfer your files to."
 msgstr ""
-"Vous trouverez ci-dessous une liste des ordinateurs actuellement "
-"disponibles.\n"
-"Sélectionnez celui vers lequel vous souhaitez transférer vos fichiers."
+"Unten sind die jetzt verfügbaren Geräte aufgelistet. Wähle dasjenige aus, an "
+"das Du Dateien senden willst."
 
 #: .\gui\page_hostlist.cpp:24
 msgid ""
 "Below is a list of currently available computers.\n"
 "Select the one you want to transfer your files to."
 msgstr ""
-"Vous trouverez ci-dessous une liste des ordinateurs actuellement "
-"disponibles.\n"
-"Sélectionnez celui vers lequel vous souhaitez transférer vos fichiers."
+"Unten sind die jetzt verfügbaren Geräte aufgelistet.\n"
+"Wähle dasjenige aus, an das Du Dateien senden willst."
 
 #: .\gui\page_hostlist.cpp:50
 msgid "Select where to send your files"
-msgstr "Sélectionnez où envoyer vos fichiers"
+msgstr "Wähle aus, wohin die Dateien zu senden sind"
 
 #: .\gui\page_hostlist.cpp:62
 msgid "Refresh list"
-msgstr "Rafraîchir la liste"
+msgstr "Liste aktualisieren"
 
 #: .\gui\page_hostlist.cpp:78
 msgid "Searching for computers on your network..."
-msgstr "Recherche d'autres ordinateurs sur votre réseau..."
+msgstr "Suche Geräte in Deinem Netzwerk..."
 
 #: .\gui\page_hostlist.cpp:83
 msgid "&Next >"
-msgstr "&Suivant >"
+msgstr "&Weiter >"
 
 #: .\gui\page_hostlist.cpp:346
 msgid "Data unavailable"
-msgstr "Données non disponible"
+msgstr "Fehlende Daten"
 
 #: .\gui\page_hostlist.cpp:355
 msgid "Loading..."
-msgstr "Chargement..."
+msgstr "Lade..."
 
 #: .\gui\page_nohosts.cpp:11
 msgid "There are no other computers found on your network..."
-msgstr "Il n'y a pas d'autres ordinateurs sur votre réseau..."
+msgstr "Es wurden keine anderen Geräte in Deinem Netzwerk gefunden..."
 
 #: .\gui\page_offline.cpp:10
 msgid "It seems you're offline! Check your LAN connection..."
-msgstr "Il semble que vous soyez hors ligne ! Vérifiez votre connexion LAN..."
+msgstr ""
+"Dein Geräte scheint keine Netzwerkverbindung zu haben! Bitte überprüfe "
+"Diese..."
 
 #: .\gui\page_starting.cpp:22
 msgid "Starting Winpinator..."
-msgstr "Démarrage de Winpinator..."
+msgstr "Starte Winpinator..."
 
 #: .\gui\page_transferlist.cpp:37
 msgid "Select files or directories to start transfer"
-msgstr "Sélectionnez les fichiers ou les répertoires à transférer"
+msgstr "Selektiere Dateien und/oder Ordner um einen Transfer zu starten"
 
 #: .\gui\page_transferlist.cpp:43
 msgid ""
 "Drop elements you want to send into the box below or click one of the "
 "buttons."
 msgstr ""
-"Déposez les éléments que vous souhaitez envoyer dans la boîte ci-dessous ou "
-"cliquez sur l'un des boutons."
+"Ziehe die zu sendenden Elemente in die Box unten oder klicke einen der "
+"Knöpfe."
 
 #: .\gui\page_transferlist.cpp:49
 msgid "Go back"
-msgstr "Retourner"
+msgstr "Zurück"
 
 #: .\gui\page_transferlist.cpp:55
 msgid "Send file(s)..."
-msgstr "Envoyer fichier(s)..."
+msgstr "Sende Datei(en)..."
 
 #: .\gui\page_transferlist.cpp:59
 msgid "Send a folder..."
-msgstr "Envoyer un dossier..."
+msgstr "Sende einen Ordner..."
 
 #: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:261
 #: .\gui\settings_dialog.cpp:538
 msgid "Clear history"
-msgstr "Supprimer l'historique"
+msgstr "Lösche Verlauf"
 
 #: .\gui\page_transferlist.cpp:205
 msgid "Select files to send..."
-msgstr "Sélectionnez les fichiers à envoyer..."
+msgstr "Selektiere Dateien zum Senden..."
 
 #. TRANSLATORS: wildcard format: type1|filter1;type2|filter2;...
 #: .\gui\page_transferlist.cpp:207
 msgid "All files (*.*)|*.*"
-msgstr "Tous les fichiers (*.*)|*.*"
+msgstr "Alle Dateien (*.*)|*.*"
 
 #: .\gui\page_transferlist.cpp:233
 msgid "Select directories to send..."
-msgstr "Sélectionnez les dossiers à envoyer..."
+msgstr "Selektiere Ordner zum Senden..."
 
 #: .\gui\page_transferlist.cpp:260
 msgid "Are you sure you want to clear entire history for this device?"
-msgstr "Êtes-vous sûr de vouloir effacer tout l'historique de cet appareil ?"
+msgstr ""
+"Bist Du sicher, dass Du den ganzen Verlauf für dieses Gerät löschen möchtest?"
 
 #: .\gui\page_transferlist.cpp:263 .\gui\settings_dialog.cpp:540
 msgid "This operation cannot be undone!"
-msgstr "Cette opération ne peut être annulée !"
+msgstr "Dieser Vorgang kann nicht rückgängig gemacht werden!"
 
 #: .\gui\permission_picker.cpp:32
 msgid "Read"
-msgstr "Lire"
+msgstr "Lesen"
 
 #: .\gui\permission_picker.cpp:34
 msgid "Write"
-msgstr "Ecrire"
+msgstr "Schreiben"
 
 #: .\gui\permission_picker.cpp:36
 msgid "Execute"
-msgstr "Exécuter"
+msgstr "Ausführen"
 
 #: .\gui\permission_picker.cpp:39
 msgid "Owner"
-msgstr "Propriétaire"
+msgstr "BesitzerIn"
 
 #: .\gui\permission_picker.cpp:45
 msgid "Group"
-msgstr "Groupe"
+msgstr "Gruppe"
 
 #: .\gui\permission_picker.cpp:51
 msgid "Others"
-msgstr "Autres"
+msgstr "Andere"
 
 #: .\gui\settings_dialog.cpp:17
 msgid "Preferences"
-msgstr "Préférences"
+msgstr "Einstellungen"
 
 #: .\gui\settings_dialog.cpp:35
 msgid "General"
-msgstr "Général"
+msgstr "Allgemein"
 
 #: .\gui\settings_dialog.cpp:36
 msgid "Unix permissions"
-msgstr "Permissions Unix"
+msgstr "Unix-Berechtigungen"
 
 #: .\gui\settings_dialog.cpp:37
 msgid "History"
-msgstr "Historique"
+msgstr "Verlauf"
 
 #: .\gui\settings_dialog.cpp:38
 msgid "Connection"
-msgstr "Connexion"
+msgstr "Verbindung"
 
 #: .\gui\settings_dialog.cpp:79
 msgid "Interface"
-msgstr "Interface"
+msgstr "Bedienoberfläche"
 
 #: .\gui\settings_dialog.cpp:85
 msgid "Language (requires restart to take effect):"
-msgstr "Langue (nécessite un redémarrage pour prendre effet) :"
+msgstr "Sprache (nach einem Programm-Neustart ist die Sprache umgestellt):"
 
 #: .\gui\settings_dialog.cpp:102
 msgid "Desktop"
-msgstr "Bureau"
+msgstr "Desktop"
 
 #: .\gui\settings_dialog.cpp:107
 msgid "Start with main window open"
-msgstr "Démarrer avec la fenêtre principale ouverte"
+msgstr "Starte mit geöffnetem Hauptfenster"
 
 #: .\gui\settings_dialog.cpp:113
 msgid "Start automatically (on system startup)"
-msgstr "Démarrage automatique (au démarrage du système)"
+msgstr "Automatischer Start (beim Systemstart)"
 
 #: .\gui\settings_dialog.cpp:119
 msgid "Do not show main window on system startup"
-msgstr "Ne pas afficher la fenêtre principale au démarrage du système"
+msgstr "Zeige das Hauptfenster beim Systemstart nicht an"
 
 #: .\gui\settings_dialog.cpp:129
 msgid "File transfers"
-msgstr "Transferts de fichiers"
+msgstr "Dateiübertragung"
 
 #: .\gui\settings_dialog.cpp:134
 msgid "Use compression (if available)"
-msgstr "Utiliser compression (si disponible)"
+msgstr "Benutze Kompression (falls verfügbar)"
 
 #: .\gui\settings_dialog.cpp:140
 msgid "Compression level:"
-msgstr "Niveau de compression :"
+msgstr "Kompressions-Grad:"
 
 #: .\gui\settings_dialog.cpp:148
 msgid "Location for received files:"
-msgstr "Location des fichiers reçus :"
+msgstr "Speicher-Ordner für empfangene Dateien:"
 
 #: .\gui\settings_dialog.cpp:159
 msgid "Require approval before accepting files"
-msgstr "Demander confirmation avant d'accepter des fichiers"
+msgstr "EmpfängerIn muss Transfer bestätigen"
 
 #: .\gui\settings_dialog.cpp:165
 msgid "Require approval when files would be overwritten"
-msgstr "Demander confirmation lorsque des fichiers sont écrasés"
+msgstr "Überschreiben von Dateien bestätigen"
 
 #: .\gui\settings_dialog.cpp:171
 msgid "Preserve zone information in incoming files"
-msgstr "Préserver les informations sur les zones dans les fichiers entrants"
+msgstr "Bewahre Zonen-Informationen bei empfangenen Dateien"
 
 #: .\gui\settings_dialog.cpp:189
 msgid "File permissions:"
-msgstr "Permissions de fichier :"
+msgstr "Datei-Berechtigungen:"
 
 #: .\gui\settings_dialog.cpp:196
 msgid "Executable permissions:"
-msgstr "Permissions de l'exécutable :"
+msgstr "Ausführungs-Berechtigung:"
 
 #: .\gui\settings_dialog.cpp:203
 msgid "Folder permissions:"
-msgstr "Permissions des dossiers :"
+msgstr "Ordner-Berechtigung:"
 
 #: .\gui\settings_dialog.cpp:218
 msgid "Transfer history"
-msgstr "Historique des transferts"
+msgstr "Transfer-Verlauf"
 
 #: .\gui\settings_dialog.cpp:223
 msgid "Warning! Every action you perform on this page is irreversible!"
-msgstr ""
-"Attention ! Toutes les actions que vous effectuez sur cette page sont "
-"irréversibles !"
+msgstr "Warnung! Alle Aktionen auf dieser Seite sind irreversibel!"
 
 #: .\gui\settings_dialog.cpp:233
 msgid "Hostname"
-msgstr "Nom de l'hôte"
+msgstr "Hostname"
 
 #: .\gui\settings_dialog.cpp:234
 msgid "Full name"
-msgstr "Nom entier"
+msgstr "Ganzer Name"
 
 #: .\gui\settings_dialog.cpp:235
 msgid "IP address"
-msgstr "Adresse IP"
+msgstr "IP-Adresse"
 
 #: .\gui\settings_dialog.cpp:236
 msgid "OS"
-msgstr "Système d'exploitation"
+msgstr "Betriebssystem"
 
 #: .\gui\settings_dialog.cpp:237
 msgid "Transfers registered"
-msgstr "Transferts enregistrés"
+msgstr "Anz. Transfers"
 
 #: .\gui\settings_dialog.cpp:247
 msgid "Remove selected"
-msgstr "Supprimer la sélection"
+msgstr "Selektierte löschen"
 
 #: .\gui\settings_dialog.cpp:249
 msgid "Clear all history"
-msgstr "Supprimer tout l'historique"
+msgstr "Ganzen Verlauf löschen"
 
 #: .\gui\settings_dialog.cpp:271
 msgid "Identification"
-msgstr "Identification"
+msgstr "Identifikation"
 
 #: .\gui\settings_dialog.cpp:277
 msgid "Group code:"
-msgstr "Code groupe:"
+msgstr "Gruppen-Code:"
 
 #: .\gui\settings_dialog.cpp:292
 msgid "Network"
-msgstr "Réseau"
+msgstr "Netzwerk"
 
 #: .\gui\settings_dialog.cpp:297
 msgid "Network interface to use:"
-msgstr "Interface réseau à utiliser :"
+msgstr "Benutze Netzwerk-Schnittstelle:"
 
 #: .\gui\settings_dialog.cpp:312
 msgid "Incoming port for transfers:"
-msgstr "Port d'entrée pour les transferts :"
+msgstr "Port für Transfer-Eingang:"
 
 #: .\gui\settings_dialog.cpp:321
 msgid "Incoming port for registration:"
-msgstr "Port d'entrée pour l'enregistrement :"
+msgstr "Port für Registrations-Eingang:"
 
 #: .\gui\settings_dialog.cpp:471
 msgid "Automatic"
-msgstr "Automatique"
+msgstr "Automatisch"
 
 #: .\gui\settings_dialog.cpp:537
 msgid "Are you sure you want to clear all history?"
-msgstr "Êtes-vous sûr de vouloir supprimer tout l'historique ?"
+msgstr "Bist Du sicher, dass Du den ganzen Verlauf löschen möchtest?"
 
 #: .\gui\transfer_history.cpp:20
 msgid "Soon in the future"
-msgstr "Bientôt"
+msgstr "Bald"
 
 #: .\gui\transfer_history.cpp:21
 msgid "Today"
-msgstr "Aujourd'hui"
+msgstr "Heute"
 
 #: .\gui\transfer_history.cpp:22
 msgid "Yesterday"
-msgstr "Hier"
+msgstr "Gestern"
 
 #: .\gui\transfer_history.cpp:23
 msgid "Earlier this week"
-msgstr "Plus tôt cette semaine"
+msgstr "Früher in dieser Woche"
 
 #: .\gui\transfer_history.cpp:24
 msgid "Last week"
-msgstr "La semaine dernière"
+msgstr "Letzte Woche"
 
 #: .\gui\transfer_history.cpp:25
 msgid "Earlier this month"
-msgstr "Plus tôt ce mois-ci"
+msgstr "Früher in diesem Monat"
 
 #: .\gui\transfer_history.cpp:26
 msgid "Last month"
-msgstr "Le moins dernier"
+msgstr "Letzten Monat"
 
 #: .\gui\transfer_history.cpp:27
 msgid "Earlier this year"
-msgstr "Plus tôt cette année"
+msgstr "Früher in diesem Jahr"
 
 #: .\gui\transfer_history.cpp:28
 msgid "Last year"
-msgstr "L'année dernière"
+msgstr "Letztes Jahr"
 
 #: .\gui\transfer_history.cpp:29
 msgid "A long time ago"
-msgstr "Il y a lontemps"
+msgstr "Vor langer Zeit"
 
 #: .\gui\transfer_history.cpp:48
 msgid "There is no transfer history for this device..."
-msgstr "Il n'y a pas d'historique de transfert pour cet appareil..."
+msgstr "Es gibt keinen Verlauf für dieses Gerät..."
 
 #: .\gui\transfer_history.cpp:60
 msgid "In progress"
-msgstr "En cours"
+msgstr "In Arbeit"
 
 #: .\gui\transfer_history.cpp:559
 #, c-format
 msgid "In progress (%d)"
-msgstr "En cours (%d)"
+msgstr "In Arbeit (%d)"
 
 #: .\gui\utils.cpp:133
 msgid "Offline"
-msgstr "Hors Ligne"
+msgstr "Offline"
 
 #: .\gui\utils.cpp:135
 msgid "Registration in progress..."
-msgstr "Enregistrement en cours..."
+msgstr "Am Registrieren..."
 
 #: .\gui\utils.cpp:137
 msgid "Connecting..."
-msgstr "Connexion..."
+msgstr "Verbinden..."
 
 #: .\gui\utils.cpp:139
 msgid "Host unreachable"
-msgstr "Hôte inaccessible"
+msgstr "Host unerreichbar"
 
 #: .\gui\utils.cpp:141
 msgid "Establishing duplex connection..."
-msgstr "Établissement de la connexion duplex..."
+msgstr "Duplex Verbindung herstellen..."
 
 #: .\gui\utils.cpp:143
 msgid "Ready"
-msgstr "Prêt"
+msgstr "Bereit"
 
 #: .\gui\utils.cpp:195
 msgid "Calculating..."
-msgstr "En cours de calcul..."
+msgstr "Berechne..."
 
 #: .\gui\winpinator_banner.cpp:174
 msgid "Share your files across the LAN"
-msgstr "Partagez vos fichiers sur le réseau local"
+msgstr "Teile Deine Dateien via LAN"
 
 #: .\gui\winpinator_banner.cpp:178
 #, c-format
 msgid "Send %d element..."
 msgid_plural "Send %d elements..."
-msgstr[0] "Envoyer %d élément..."
-msgstr[1] "Envoyer %d éléments..."
+msgstr[0] "Sende %d Element..."
+msgstr[1] "Sende %d Elemente..."
 
 #: .\gui\winpinator_frame.cpp:23
 msgid "Winpinator"
@@ -1016,99 +1008,98 @@ msgstr "IP: %s"
 #: .\gui\winpinator_frame.cpp:75 .\gui\winpinator_frame.cpp:312
 #: .\gui\winpinator_frame.cpp:323
 msgid "Offline!"
-msgstr "Hors Ligne!"
+msgstr "Offline!"
 
 #: .\gui\winpinator_frame.cpp:138
 msgid "&Open save folder...\tCtrl+O"
-msgstr "&Ouvrir le dossier de sauvegarde...\tCtrl+O"
+msgstr "Öffne Speicher-&Ordner...\tCtrl+O"
 
 #: .\gui\winpinator_frame.cpp:139 .\tray_icon.cpp:81
 msgid "Open the incoming files folder in Explorer"
-msgstr "Ouvrez le dossier des fichiers entrants dans l'explorateur de fichiers"
+msgstr "Öffne den Speicher-Ordner im Explorer"
 
 #: .\gui\winpinator_frame.cpp:140
 msgid "&Preferences..."
-msgstr "&Préférences..."
+msgstr "&Einstellungen..."
 
 #: .\gui\winpinator_frame.cpp:141
 msgid "Adjust app preferences"
-msgstr "Ajuster les préférences de l'application"
+msgstr "App-Einstellungen anpassen"
 
 #: .\gui\winpinator_frame.cpp:143
 msgid "E&xit\tAlt+F4"
-msgstr "&Exit\tAlt+F4"
+msgstr "&Beenden\tAlt+F4"
 
 #: .\gui\winpinator_frame.cpp:144
 msgid "Close this window but let Winpinator run in background"
-msgstr ""
-"Fermez cette fenêtre mais laissez Winpinator fonctionner en arrière-plan"
+msgstr "Schliesse dieses Fenster aber Winpinator läuft im Hintergrund weiter"
 
 #: .\gui\winpinator_frame.cpp:146
 msgid "Exit and &stop the service\tCtrl+Alt+F4"
-msgstr "Quitter et arrêter le service\tCtrl+Alt+F4"
+msgstr "Beende App und Hintergrund-&Service\tCtrl+Alt+F4"
 
 #: .\gui\winpinator_frame.cpp:147
 msgid "Exit Winpinator and stop being visible to other computers"
-msgstr "Quitter Winpinator et ne plus être visible par les autres ordinateurs"
+msgstr "Beende Winpinator und beende die Sichtbarkeit für andere Geräte"
 
 #: .\gui\winpinator_frame.cpp:149
 msgid "&File"
-msgstr "&Fichier"
+msgstr "&Datei"
 
 #: .\gui\winpinator_frame.cpp:152
 msgid "&Help topics...\tF1"
-msgstr "&Sujets d'aide...\tF1"
+msgstr "&Hilfe-Themen...\tF1"
 
 #: .\gui\winpinator_frame.cpp:153
 msgid "Show help and documentation of Winpinator"
-msgstr "Afficher l'aide et la documentation de Winpinator"
+msgstr "Zeige die Hilfe und Dokumentation von Winpinator"
 
 #: .\gui\winpinator_frame.cpp:154
 msgid "&What's new?..."
-msgstr "&Quoi de nouveau?..."
+msgstr "&Neuigkeiten?..."
 
 #: .\gui\winpinator_frame.cpp:155
 msgid "Show release notes"
-msgstr "Voir les notes de version"
+msgstr "Zeige die Versions-Hinweise"
 
 #: .\gui\winpinator_frame.cpp:156
 msgid "&About Winpinator..."
-msgstr "&A propos de Winpinator..."
+msgstr "&Über Winpinator..."
 
 #: .\gui\winpinator_frame.cpp:157
 msgid "Show credits dialog"
-msgstr "Afficher les crédits"
+msgstr "Zeige das AutorInnen- und Mitwirkenden-Dialogfeld"
 
 #: .\gui\winpinator_frame.cpp:159
 msgid "&Help"
-msgstr "&Aide"
+msgstr "&Hilfe"
 
 #: .\gui\winpinator_frame.cpp:262
 msgid "Sorry, but Winpinator help is not available yet."
-msgstr "Désolé, mais l'aide de Winpinator n'est pas encore disponible."
+msgstr "Leider ist die Winpinator-Hilfe noch nicht verfügbar."
 
 #: .\gui\winpinator_frame.cpp:263
 msgid "Help not available"
-msgstr "Aide non disponible"
+msgstr "Hilfe nicht verfügbar"
 
 #: .\service\notification_accept_files.cpp:91
 msgid "Incoming files"
-msgstr "Fichiers entrants"
+msgstr "Eingehende Dateien"
 
 #: .\service\notification_accept_files.cpp:100
 #, c-format
 msgid "%s is sending you a folder \"%s\""
-msgstr "%s vous envoie un dossier \"%s\"."
+msgstr "%s sendet Dir den Ordner \"%s\""
 
 #: .\service\notification_accept_files.cpp:110
 #, c-format
 msgid "%s is sending you %s"
-msgstr "%s vous envoie %s"
+msgstr "%s sendet Dir %s"
 
 #: .\service\notification_accept_files.cpp:116
 #, c-format
 msgid "%s is sending you a file \"%s\""
-msgstr "%s vous envoie un fichier \"%s\""
+msgstr "%s sendet Dir die Datei \"%s\""
 
 #. TRANSLATORS: this string is appended to notification message
 #. if overwrite is needed, e.g.
@@ -1116,74 +1107,74 @@ msgstr "%s vous envoie un fichier \"%s\""
 #. The initial dot is necessary.
 #: .\service\notification_accept_files.cpp:126
 msgid ". Accepting this transfer will overwrite some files!"
-msgstr ". Accepter ce transfert écrasera certains fichiers !"
+msgstr ". Annehmen dieses Transfers überschreibt Dateien!"
 
 #: .\service\notification_accept_files.cpp:134
 msgid "Overwrite"
-msgstr "Ecraser"
+msgstr "Überschreiben"
 
 #: .\service\notification_accept_files.cpp:135
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Abbrechen"
 
 #: .\service\notification_accept_files.cpp:139
 msgid "Accept"
-msgstr "Accepter"
+msgstr "Annehmen"
 
 #: .\service\notification_accept_files.cpp:140
 msgid "Decline"
-msgstr "Refuser"
+msgstr "Ablehnen"
 
 #: .\service\notification_transfer_failed.cpp:33
 msgid "Transfer failure"
-msgstr "Échec du transfert"
+msgstr "Transfer-Fehler"
 
 #: .\service\notification_transfer_failed.cpp:37
 #, c-format
 msgid "Some transfers between you and %s have failed unexpectedly!"
-msgstr "Certains transferts entre vous et %s ont échoué de façon inattendue !"
+msgstr "Einige Transfers zwischen Dir und %s sind unerwartet fehlgeschlagen!"
 
 #: .\service\notification_transfer_succeeded.cpp:19
 msgid "Transfer success"
-msgstr "Succès du transfert"
+msgstr "Transfer erfolgreich"
 
 #: .\service\notification_transfer_succeeded.cpp:23
 #, c-format
 msgid "Transfer between you and %s has finished successfully!"
-msgstr "Le transfert entre vous et %s s'est terminé avec succès !"
+msgstr "Transfer zwischen Dir und %s war erfolgreich!"
 
 #: .\service\service_utils.cpp:98
 msgid "Unknown OS"
-msgstr "Système d'exploitation inconnu"
+msgstr "Unbekanntes Betriebssystem"
 
 #: .\tray_icon.cpp:34
 msgid "Winpinator (Error!)"
-msgstr "Winpinator (Erreur!)"
+msgstr "Winpinator (Fehler!)"
 
 #: .\tray_icon.cpp:42
 msgid "Winpinator (Waiting...)"
-msgstr "Winpinator (En attente...)"
+msgstr "Winpinator (wartend...)"
 
 #: .\tray_icon.cpp:50
 msgid "Winpinator (Running)"
-msgstr "Winpinator (En cours d'exécution)"
+msgstr "Winpinator (arbeitend)"
 
 #: .\tray_icon.cpp:77
 msgid "&Restore window"
-msgstr "&Restaurer la fenêtre"
+msgstr "&Fenster wiederherstellen"
 
 #: .\tray_icon.cpp:78
 msgid "Restore main app window"
-msgstr "Restaurer la fenêtre principale du programme"
+msgstr "Haupt-Fenster wiederherstellen"
 
 #: .\tray_icon.cpp:80
 msgid "&Open save folder"
-msgstr "&Ouvrir dossier sauvergardé"
+msgstr "Speicher-&Ordner öffnen"
 
 #: .\tray_icon.cpp:82
 msgid "E&xit"
-msgstr "&Quitter"
+msgstr "&Beenden"
 
 #: .\tray_icon.cpp:83
 msgid "Exit Winpinator and stop background service"
-msgstr "Quitter Winpinator et arrêter le service d'arrière-plan"
+msgstr "Beende Winpinator und Hintergrund-Service"
