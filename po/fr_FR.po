@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.3\n"
 "Last-Translator: \n"
-"Language: fr\n"
+"Language: fr_FR\n"
 
 #. TRANSLATORS: This XML is loaded into wxRichTextCtrl in "About" section
 #: .\gui\about_dialog.cpp:18
