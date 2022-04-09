@@ -1,0 +1,176 @@
+name: Build Winpinator
+on: [push]
+env:
+  VCPKG_DEFAULT_BINARY_CACHE: C:\vcpkgcache
+  VCPKG_BINARY_SOURCES: files,C:\vcpkgcache
+
+jobs:
+  build_and_test_x64:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Setup vcpkg binary cache
+        id: cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            C:\vcpkgcache
+            C:\vcpkg\downloads
+          key: ${{ runner.os }}-vcpkg-cache-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-cache-
+            ${{ runner.os }}-vcpkg-
+            ${{ runner.os }}-
+      
+      - name: Create vcpkg binary cache dir if it doesn't exist
+        shell: pwsh
+        run: New-Item -ItemType Directory -Force -Path $env:VCPKG_DEFAULT_BINARY_CACHE
+
+      - name: Install deps
+        run: |
+          nuget restore vs16/Winpinator.sln
+          bootstrap-vcpkg
+          vcpkg integrate install
+          vcpkg install --triplet=x64-windows
+
+      - name: Upload vcpkg cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: martijnhols/actions-cache/save@v3
+        with:
+          path: |
+            C:\vcpkgcache
+            C:\vcpkg\downloads
+          key: ${{ steps.cache.outputs.primary-key }}
+
+      - name: Build project
+        run: msbuild /m vs16/Winpinator.sln /p:Platform=x64 /p:Configuration=Deploy
+
+      - name: Run tests
+        run: vs16/x64/Deploy/test.exe
+
+      - name: Remove OBJ files from compilation directory
+        run: rm vs16/x64/Deploy/*.obj
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: x64
+          path: vs16/x64/Deploy/
+
+  deploy_x64:
+    needs: build_and_test_x64
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: x64
+          path: vs16/x64/Deploy/
+
+      - name: Install NSIS
+        run: choco install nsis
+
+      - name: Build installer
+        run: |
+          cd nsis
+          makensis x64.nsi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: installer_x64
+          path: nsis/build
+        
+  build_and_test_x86:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Setup vcpkg binary cache
+        id: cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            C:\vcpkgcache
+            C:\vcpkg\downloads
+          key: ${{ runner.os }}-vcpkg-cache-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-cache-
+            ${{ runner.os }}-vcpkg-
+            ${{ runner.os }}-
+      
+      - name: Create vcpkg binary cache dir if it doesn't exist
+        shell: pwsh
+        run: New-Item -ItemType Directory -Force -Path $env:VCPKG_DEFAULT_BINARY_CACHE
+
+      - name: Install deps
+        run: |
+          nuget restore vs16/Winpinator.sln
+          bootstrap-vcpkg
+          vcpkg integrate install
+          vcpkg install --triplet=x86-windows
+
+      - name: Upload vcpkg cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: martijnhols/actions-cache/save@v3
+        with:
+          path: |
+            C:\vcpkgcache
+            C:\vcpkg\downloads
+          key: ${{ steps.cache.outputs.primary-key }}
+
+      - name: Build project
+        run: msbuild /m vs16/Winpinator.sln /p:Platform=x86 /p:Configuration=Deploy
+
+      - name: Run tests
+        run: vs16/Deploy/test.exe
+
+      - name: Remove OBJ files from compilation directory
+        run: rm vs16/Deploy/*.obj
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: x86
+          path: vs16/Deploy/
+
+  deploy_x86:
+    needs: build_and_test_x86
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: x86
+          path: vs16/Deploy/
+
+      - name: Install NSIS
+        run: choco install nsis
+
+      - name: Build installer
+        run: |
+          cd nsis
+          makensis x86.nsi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: installer_x86
+          path: nsis/build
+
+  
