@@ -5,6 +5,7 @@ env:
   VCPKG_BINARY_SOURCES: files,C:\vcpkgcache
 
 jobs:
+# x64 jobs
   build_and_test_x64:
     runs-on: windows-latest
     steps:
@@ -88,7 +89,8 @@ jobs:
         with:
           name: installer_x64
           path: nsis/build
-        
+      
+# x86 jobs:
   build_and_test_x86:
     runs-on: windows-latest
     steps:
