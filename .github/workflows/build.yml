@@ -15,6 +15,11 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
 
+      - name: Pull newest vcpkg ports
+        run: |
+          cd C:\vcpkg
+          git pull
+
       - name: Setup vcpkg binary cache
         id: cache
         uses: martijnhols/actions-cache/restore@v3
@@ -22,9 +27,9 @@ jobs:
           path: |
             C:\vcpkgcache
             C:\vcpkg\downloads
-          key: ${{ runner.os }}-vcpkg-cache-${{ github.sha }}
+          key: ${{ runner.os }}-vcpkg-cache-x64-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-vcpkg-cache-
+            ${{ runner.os }}-vcpkg-cache-x64
             ${{ runner.os }}-vcpkg-
             ${{ runner.os }}-
       
@@ -100,6 +105,11 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
 
+      - name: Pull newest vcpkg ports
+        run: |
+          cd C:\vcpkg
+          git pull
+
       - name: Setup vcpkg binary cache
         id: cache
         uses: martijnhols/actions-cache/restore@v3
@@ -107,9 +117,9 @@ jobs:
           path: |
             C:\vcpkgcache
             C:\vcpkg\downloads
-          key: ${{ runner.os }}-vcpkg-cache-${{ github.sha }}
+          key: ${{ runner.os }}-vcpkg-cache-x86-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-vcpkg-cache-
+            ${{ runner.os }}-vcpkg-cache-x86-
             ${{ runner.os }}-vcpkg-
             ${{ runner.os }}-
       
