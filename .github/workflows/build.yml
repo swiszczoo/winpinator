@@ -86,10 +86,10 @@ jobs:
 
       - name: Install inetc for NSIS
         run: |
-          xcopy "nsis/plugins/inetc/Contrib" "C:/Program Files (x86)/NSIS/Contrib" /f /s /e /y /I
-          xcopy "nsis/plugins/inetc/Docs" "C:/Program Files (x86)/NSIS/Docs" /f /s /e /y /I
-          xcopy "nsis/plugins/inetc/Examples" "C:/Program Files (x86)/NSIS/Examples" /f /s /e /y /I
-          xcopy "nsis/plugins/inetc/Plugins" "C:/Program Files (x86)/NSIS/Plugins" /f /s /e /y /I
+          xcopy "nsis\plugins\inetc\Contrib" "C:\Program Files (x86)\NSIS\Contrib" /f /s /e /y /I
+          xcopy "nsis\plugins\inetc\Docs" "C:\Program Files (x86)\NSIS\Docs" /f /s /e /y /I
+          xcopy "nsis\plugins\inetc\Examples" "C:\Program Files (x86)\NSIS\Examples" /f /s /e /y /I
+          xcopy "nsis\plugins\inetc\Plugins" "C:\Program Files (x86)\NSIS\Plugins" /f /s /e /y /I
 
       - name: Build installer
         run: |
@@ -183,10 +183,10 @@ jobs:
 
       - name: Install inetc for NSIS
         run: |
-          xcopy "nsis/plugins/inetc/Contrib" "C:/Program Files (x86)/NSIS/Contrib" /f /s /e /y /I
-          xcopy "nsis/plugins/inetc/Docs" "C:/Program Files (x86)/NSIS/Docs" /f /s /e /y /I
-          xcopy "nsis/plugins/inetc/Examples" "C:/Program Files (x86)/NSIS/Examples" /f /s /e /y /I
-          xcopy "nsis/plugins/inetc/Plugins" "C:/Program Files (x86)/NSIS/Plugins" /f /s /e /y /I
+          xcopy "nsis\plugins\inetc\Contrib" "C:\Program Files (x86)\NSIS\Contrib" /f /s /e /y /I
+          xcopy "nsis\plugins\inetc\Docs" "C:\Program Files (x86)\NSIS\Docs" /f /s /e /y /I
+          xcopy "nsis\plugins\inetc\Examples" "C:\Program Files (x86)\NSIS\Examples" /f /s /e /y /I
+          xcopy "nsis\plugins\inetc\Plugins" "C:\Program Files (x86)\NSIS\Plugins" /f /s /e /y /I
 
       - name: Build installer
         run: |
