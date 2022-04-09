@@ -148,8 +148,9 @@ bool AuthManager::processRemoteCert( std::string hostname,
         return false;
     }
 
-    serverData.erase( std::remove_if( serverData.begin(), 
-        serverData.end(), std::isspace ), serverData.end() );
+    serverData.erase( std::remove_if( serverData.begin(),
+                          serverData.end(), std::isspace ),
+        serverData.end() );
 
     std::string decoded = base64_decode( serverData );
     std::string codeUtf8 = wxString( m_code ).utf8_string();
@@ -231,7 +232,7 @@ void AuthManager::loadKeyfile()
 
     m_keyfile = std::make_unique<wxFileConfig>(
         wxEmptyString, wxEmptyString,
-        m_path, wxEmptyString, 
+        m_path, wxEmptyString,
         wxCONFIG_USE_LOCAL_FILE );
 
     m_keyfile->DisableAutoSave();
@@ -318,7 +319,7 @@ void AuthManager::makeKeyCertPair()
 
     X509_gmtime_adj( X509_get_notBefore( builder ), -24 * 60 * 60 );
     X509_gmtime_adj( X509_get_notAfter( builder ), AuthManager::EXPIRE_TIME );
-    
+
     AuthManager::setRandomSerialNumber( builder );
 
     X509_set_pubkey( builder, pkey );
@@ -334,11 +335,11 @@ void AuthManager::makeKeyCertPair()
     }
 
     BIO* serPrivateKeyBio = BIO_new( BIO_s_mem() );
-    PEM_write_bio_PKCS8PrivateKey( serPrivateKeyBio, pkey, 
-        NULL, NULL, NULL, NULL, NULL);
+    PEM_write_bio_PKCS8PrivateKey( serPrivateKeyBio, pkey,
+        NULL, NULL, NULL, NULL, NULL );
 
     char* serPrivateKeyBuf;
-    int serPrivateKeySize = BIO_get_mem_data( serPrivateKeyBio, 
+    int serPrivateKeySize = BIO_get_mem_data( serPrivateKeyBio,
         &serPrivateKeyBuf );
 
     std::string serPrivateKey( serPrivateKeyBuf, serPrivateKeySize );
@@ -349,7 +350,7 @@ void AuthManager::makeKeyCertPair()
     PEM_write_bio_X509( serPublicKeyBio, builder );
 
     char* serPublicKeyBuf;
-    int serPublicKeySize = BIO_get_mem_data( serPublicKeyBio, 
+    int serPublicKeySize = BIO_get_mem_data( serPublicKeyBio,
         &serPublicKeyBuf );
 
     std::string serPublicKey( serPublicKeyBuf, serPublicKeySize );
@@ -375,20 +376,37 @@ std::string AuthManager::ipPairToString( const zc::MdnsIpPair& pair )
 
 EVP_PKEY* AuthManager::generateKey()
 {
-    EVP_PKEY* pkey = EVP_PKEY_new();
+    static const unsigned int BITS = 2048;
+    static const unsigned int RSA_EXP = RSA_F4;
 
-    if ( !pkey )
+    EVP_PKEY* pkey = NULL;
+
+    EVP_PKEY_CTX* pctx = EVP_PKEY_CTX_new_from_name( NULL, "RSA", NULL );
+
+    if ( !pctx )
     {
         return NULL;
     }
 
-    RSA* rsa = RSA_generate_key( 2048, 65537, NULL, NULL );
-    if ( !EVP_PKEY_assign_RSA( pkey, rsa ) )
+    if ( EVP_PKEY_keygen_init( pctx ) <= 0 )
     {
-        EVP_PKEY_free( pkey );
+        EVP_PKEY_CTX_free( pctx );
         return NULL;
     }
 
+    if ( EVP_PKEY_CTX_set_rsa_keygen_bits( pctx, BITS ) <= 0 )
+    {
+        EVP_PKEY_CTX_free( pctx );
+        return NULL;
+    }
+
+    if ( EVP_PKEY_generate( pctx, &pkey ) <= 0 )
+    {
+        EVP_PKEY_CTX_free( pctx );
+        return NULL;
+    }
+
+    EVP_PKEY_CTX_free( pctx );
     return pkey;
 }
 
