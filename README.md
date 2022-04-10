@@ -50,11 +50,11 @@ Winpinator uses NSIS as its install system. Currently, only one additional NSIS 
 
 Winpinator makes use of wxWidgets' built-in gettext implementation, so it should be localizable using standard set of gettext tools (like [Poedit](https://poedit.net/)). POT template file is available at [po/winpinator.pot](po/winpinator.pot). To make the language appear in preferences, an additional line is required to be added in [res/to_copy/Languages.xml](res/to_copy/Languages.xml). Its format is:
 ```
-    <Language code="[ISO language code, e.g de_DE]" name="[Local name of the language, e.g. Deutsch]" flag="[flag filename, e.g. de.png]" 
+    <Language code="[ISO language code, e.g. de_DE]" name="[Local name of the language, e.g. Deutsch]" flag="[flag filename, e.g. de.png]" />
 ```
 Remember that you should also localize the installer by inserting a line
 ```
-!insertmacro MUI_LANGUAGE "[Language name in English]"
+!insertmacro MUI_LANGUAGE "[Language name in English, e.g. German]"
 ```
 and then translating all the lines right below, starting with `LangString`.
 
