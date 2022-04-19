@@ -120,83 +120,111 @@ Var ins64_2_min
 
 # MUI languages
 
+!insertmacro MUI_LANGUAGE "Croatian"
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "Polish"
 
 # Multilingual strings
 
+LangString DESKTOP_SHORTCUT ${LANG_CROATIAN} "Stvori prečac radne površine"
 LangString DESKTOP_SHORTCUT ${LANG_ENGLISH} "Create Desktop shortcut"
 LangString DESKTOP_SHORTCUT ${LANG_POLISH} "Utwórz skrót na pulpicie"
 
+LangString RELEASE_NOTES ${LANG_CROATIAN} "Prikaži bilješke izdanja"
 LangString RELEASE_NOTES ${LANG_ENGLISH} "Show Release notes"
 LangString RELEASE_NOTES ${LANG_POLISH} "Pokaż informacje o wydaniu"
 
+LangString SECTION_WINPINATOR ${LANG_CROATIAN} "Winpinator"
 LangString SECTION_WINPINATOR ${LANG_ENGLISH} "Winpinator"
 LangString SECTION_WINPINATOR ${LANG_POLISH} "Winpinator"
+LangString DESC_WINPINATOR ${LANG_CROATIAN} "Winpinator aplikacija sa svim potrebnim bibliotekama"
 LangString DESC_WINPINATOR ${LANG_ENGLISH} "Winpinator application with all dependencies"
 LangString DESC_WINPINATOR ${LANG_POLISH} "Aplikacja Winpinator wraz z zależnościami"
 
+LangString SECTION_VCREDIST ${LANG_CROATIAN} "Bibliteke radnog procesa"
 LangString SECTION_VCREDIST ${LANG_ENGLISH} "Runtime libraries"
 LangString SECTION_VCREDIST ${LANG_POLISH} "Biblioteki uruchomieniowe"
+LangString DESC_VCREDIST ${LANG_CROATIAN} "Microsoft Visual C++ 2015-2022 biblioteke radnog procesa"
 LangString DESC_VCREDIST ${LANG_ENGLISH} "Microsoft Visual C++ 2015-2022 runtime libraries"
 LangString DESC_VCREDIST ${LANG_POLISH} "Biblioteki uruchomieniowe Microsoft Visual C++ 2015-2022"
 
+LangString SECTION_DESKTOP_SHORTCUT ${LANG_CROATIAN} "Stvori prečac radne površine"
 LangString SECTION_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Create desktop shortcut"
 LangString SECTION_DESKTOP_SHORTCUT ${LANG_POLISH} "Utwórz skrót na pulpicie"
+LangString DESC_DESKTOP_SHORTCUT ${LANG_CROATIAN} "Stvara Winpinator prečac radne površine"
 LangString DESC_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Creates a shortcut to Winpinator on Desktop"
 LangString DESC_DESKTOP_SHORTCUT ${LANG_POLISH} "Tworzy skrót do Winpinatora na pulpicie"
 
+LangString SECTION_INTEGRATE ${LANG_CROATIAN} "Integracija u Eksplorer"
 LangString SECTION_INTEGRATE ${LANG_ENGLISH} "Explorer integration"
 LangString SECTION_INTEGRATE ${LANG_POLISH} "Integracja z Eksploratorem"
+LangString DESC_INTEGRATE ${LANG_CROATIAN} "Umetni Winpinator prečac u 'Pošalji' izbornik"
 LangString DESC_INTEGRATE ${LANG_ENGLISH} "Insert shortcut to Winpinator into 'Send to' menu"
 LangString DESC_INTEGRATE ${LANG_POLISH} 'Wstaw skrót do Winpinatora do menu "Wyślij do"'
 
+LangString UNDESC_WINPINATOR ${LANG_CROATIAN} "Deinstaliraj Winpinator ali nemoj ukloniti podatke"
 LangString UNDESC_WINPINATOR ${LANG_ENGLISH} "Uninstall Winpinator but don't remove any data"
 LangString UNDESC_WINPINATOR ${LANG_POLISH} "Odinstaluj Winpinatora, ale pozostaw wszelkie dane"
 
+LangString UNSECTION_USERDATA ${LANG_CROATIAN} "Ukloni podatke korisnika"
 LangString UNSECTION_USERDATA ${LANG_ENGLISH} "Remove user data"
 LangString UNSECTION_USERDATA ${LANG_POLISH} "Usuń dane użytkownika"
+LangString UNDESC_USERDATA ${LANG_CROATIAN} "Dodatno ukloni sve korisničke podatke s računala"
 LangString UNDESC_USERDATA ${LANG_ENGLISH} "Additionally wipe all user data from computer"
 LangString UNDESC_USERDATA ${LANG_POLISH} "Dodatkowo usuń wszystkie dane użytkownika z komputera"
 
+LangString DOWNLOADING ${LANG_CROATIAN} "Preuzimanje"
 LangString DOWNLOADING ${LANG_ENGLISH} "Downloading"
 LangString DOWNLOADING ${LANG_POLISH} "Pobieranie"
 
+LangString DOWNLOAD_FINISHED ${LANG_CROATIAN} "Preuzimanje završeno."
 LangString DOWNLOAD_FINISHED ${LANG_ENGLISH} "Download finished."
 LangString DOWNLOAD_FINISHED ${LANG_POLISH} "Pobieranie ukończone."
 
+LangString VCREDIST_FAILED ${LANG_CROATIAN} "Nemoguće preuzimanje Microsoft Visual C++ bibliotekte radnog procesa. Winpinator neće raditi. Preuzmite"
+LangString VCREDIST_FAILED2 ${LANG_CROATIAN} "i instalirajte ručno."
 LangString VCREDIST_FAILED ${LANG_ENGLISH} "Can't download Microsoft Visual C++ runtime libraries. Winpinator won't work. Download"
 LangString VCREDIST_FAILED2 ${LANG_ENGLISH} "and install them manually."
 LangString VCREDIST_FAILED ${LANG_POLISH} "Nie można pobrać bibliotek uruchomieniowych Microsoft Visual C++. Winpinator nie będzie działał. Pobierz"
 LangString VCREDIST_FAILED2 ${LANG_POLISH} "i zainstaluj je manualnie."
 
+LangString DIRECTORY_NOT_EMPTY ${LANG_CROATIAN} "Direktorij instalacije nije prazan. Njegov sadržaj će biti uklonjen. Sigurno želite nastaviti?"
 LangString DIRECTORY_NOT_EMPTY ${LANG_ENGLISH} "Installation directory is not empty. Its content is to be entirely removed. Are you sure you want to continue?"
 LangString DIRECTORY_NOT_EMPTY ${LANG_POLISH} "Folder instalacji nie jest pusty. Instalacja spowoduje usunięcie całej jego zawartości. Czy chcesz kontynuować?"
 
+LangString ABORT_WRONG_DIR ${LANG_CROATIAN} "Nemoguća instalacija u ovaj direktorij."
 LangString ABORT_WRONG_DIR ${LANG_ENGLISH} "Can't install in this directory."
 LangString ABORT_WRONG_DIR ${LANG_POLISH} "Nie można zainstalować w tym folderze."
 
+LangString ADD_REMOVE ${LANG_CROATIAN} "Dodaj informaciju u 'Dodaj ili ukloni programe' prozor"
 LangString ADD_REMOVE ${LANG_ENGLISH} "Add information to 'Add or remove programs' window"
 LangString ADD_REMOVE ${LANG_POLISH} 'Dodaj informacje do okna "Dodaj lub usuń programy"'
 
+LangString STARTMENU ${LANG_CROATIAN} "Neobavezno stvori prečace Start izbornika"
 LangString STARTMENU ${LANG_ENGLISH} "Optionally create Start Menu shortcut"
 LangString STARTMENU ${LANG_POLISH} "Opcjonalnie utwórz skrót w Menu Start"
 
+LangString UNNAME ${LANG_CROATIAN} "Deinstaliraj ${SOFTWARE_NAME}"
 LangString UNNAME ${LANG_ENGLISH} "Uninstall ${SOFTWARE_NAME}"
 LangString UNNAME ${LANG_POLISH} "Odinstaluj ${SOFTWARE_NAME}"
 
+LangString CREATING_DESKTOP_SHORTCUT ${LANG_CROATIAN} "Stvaranje prečaca radne površine"
 LangString CREATING_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Creating Desktop shortcut"
 LangString CREATING_DESKTOP_SHORTCUT ${LANG_POLISH} "Tworzenie skrótu na Pulpicie"
 
+LangString INTEGRATING ${LANG_CROATIAN} "Dodavanje Winpinator na 'Pošalji' popis"
 LangString INTEGRATING ${LANG_ENGLISH} "Adding Winpinator to 'Send to' list"
 LangString INTEGRATING ${LANG_POLISH} 'Dodawanie Winpinatora do listy "Wyślij do"'
 
+LangString UN_WRONG_DIR ${LANG_CROATIAN} "Čini se da Winpinator nije instaliran u ovaj direktorij. Sigurno želite nastaviti?"
 LangString UN_WRONG_DIR ${LANG_ENGLISH} "Winpinator does not appear to be installed in this directory. Are you sure you want to continue?"
 LangString UN_WRONG_DIR ${LANG_POLISH} "Wygląda na to, że Winpinator nie jest zainstalowany w tym folderze. Czy na pewno chcesz kontynuować?"
 
+LangString UNABORT ${LANG_CROATIAN} "Deinstalacija je prekinuta."
 LangString UNABORT ${LANG_ENGLISH} "Uninstallation aborted."
 LangString UNABORT ${LANG_POLISH} "Deinstalacja przerwana."
 
+LangString UNWRONG_INSTDIR ${LANG_CROATIAN} "Ne deinstalira se iz izvorne lokacije instalacije. Ne uklanjaj stavku iz 'Dodaj ili ukloni programe'"
 LangString UNWRONG_INSTDIR ${LANG_ENGLISH} "We're not uninstalling from the original install location. Do not remove entry from 'Add or remove programs'"
 LangString UNWRONG_INSTDIR ${LANG_POLISH} 'Winpinator nie jest odinstalowywany z oryginalnej ścieżki instalacji. Nie usuwaj wpisu z listy "Dodaj lub usuń programy"'
 
