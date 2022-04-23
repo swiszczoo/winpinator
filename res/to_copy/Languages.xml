@@ -5,5 +5,6 @@
     <Language code="de_CH" name="Deutsch (Schweiz)" flag="ch.png" />
     <Language code="fr_FR" name="Français" flag="fr.png" />
     <Language code="hr_HR" name="Hrvatski" flag="hr.png" />
+    <Language code="nl_NL" name="Nederlands" flag="nl.png" />
     <Language code="pl_PL" name="Polski" flag="pl.png" />
 </Languages>
