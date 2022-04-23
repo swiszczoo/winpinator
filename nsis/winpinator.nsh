@@ -264,6 +264,7 @@ LangString UNWRONG_INSTDIR ${LANG_GERMAN} "Deinstallation erfolgt nicht vom ursp
 
 Section "!$(SECTION_WINPINATOR)" WINPINATOR
   SectionIn RO
+  SetShellVarContext all
 
   IfFileExists "$INSTDIR\*.*" directory_exists
     CreateDirectory $INSTDIR
@@ -304,6 +305,7 @@ SectionEnd
 
 Section -AddOrRemovePrograms
   DetailPrint "$(ADD_REMOVE)"
+  SetShellVarContext all
 	
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" \
 		"DisplayName" "${SOFTWARE_NAME} (${ARCH})"
@@ -334,6 +336,7 @@ Section -AddOrRemovePrograms
 SectionEnd
 
 Section -StartMenu
+  SetShellVarContext all
   SetOutPath "$INSTDIR"
   DetailPrint "$(STARTMENU)"
 
@@ -345,6 +348,7 @@ Section -StartMenu
 SectionEnd
 
 Section -Uninstaller
+  SetShellVarContext all
   SetOutPath "$INSTDIR"
   WriteUninstaller "uninstall.exe"
 
@@ -355,6 +359,7 @@ SectionEnd
 
 Section "$(SECTION_VCREDIST)" VCREDIST
   SectionIn RO
+  SetShellVarContext all
 
   SetOutPath "$INSTDIR\redist"
   AddSize 13800
@@ -387,11 +392,13 @@ Section "$(SECTION_VCREDIST)" VCREDIST
 SectionEnd
 
 Section "$(SECTION_DESKTOP_SHORTCUT)" DESKTOP_SHORTCUT
+  SetShellVarContext all
   DetailPrint "$(CREATING_DESKTOP_SHORTCUT)"
   CreateShortCut "$DESKTOP\${SOFTWARE_NAME}.lnk" "$INSTDIR\${SOFTWARE_NAME}.exe"
 SectionEnd
 
 Section "$(SECTION_INTEGRATE)" INTEGRATE
+  SetShellVarContext all
   DetailPrint "$(INTEGRATING)"
   CreateShortCut "$APPDATA\Microsoft\Windows\SendTo\Winpinator.lnk" "$INSTDIR\${SOFTWARE_NAME}.exe"
 SectionEnd
@@ -399,6 +406,7 @@ SectionEnd
 # Uninstaller sections
 
 Section "!un.$(SECTION_WINPINATOR)" UNWINPINATOR
+  SetShellVarContext all
   SectionIn RO
 
   IfFileExists "$INSTDIR\${SOFTWARE_NAME}.exe" uninstall
@@ -425,16 +433,19 @@ Section "!un.$(SECTION_WINPINATOR)" UNWINPINATOR
 SectionEnd
 
 Section -un.StartMenu
+  SetShellVarContext all
   !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuDir
   Delete "$SMPROGRAMS\$StartMenuDir\*(${ARCH}).lnk"
   RMDir "$SMPROGRAMS\$StartMenuDir"
 SectionEnd
 
 Section -un.Integrate
+  SetShellVarContext all
   Delete "$APPDATA\Microsoft\Windows\SendTo\Winpinator.lnk"
 SectionEnd
 
 Section -un.AddOrRemovePrograms
+  SetShellVarContext all
   # Ensure that we're uninstalling from the same INSTDIR
   ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${SOFTWARE_NAME}_${ARCH}" "InstallLocation"
 
@@ -446,6 +457,7 @@ Section -un.AddOrRemovePrograms
 SectionEnd
 
 Section "un.$(UNSECTION_USERDATA)" UNUSERDATA
+  SetShellVarContext current
   # Delete user config
   DeleteRegKey HKCU "Software\Winpinator"
 
