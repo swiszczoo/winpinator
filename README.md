@@ -27,7 +27,7 @@ Winpinator should integrate well into Windows ecosystem by supporting drag-and-d
 
 ## Building
 
-As for now, Visual Studio 2019 is used to compile binaries. Any newer version of VS should work, but is not actively tested. C++14 is used to develop the software.
+As for now, Visual Studio 2022 is used to compile binaries. Any newer version of VS should work, but is not actively tested. C++14 is used to develop the software.
 
 ### Dependencies
 
