@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Languages>
     <Language code="en_US" name="English (United States)" flag="us.png" />
-	<Language code="de_DE" name="Deutsch" flag="de.png" />
-	<Language code="de_CH" name="Deutsch (Schweiz)" flag="ch.png" />
-	<Language code="fr_FR" name="Français" flag="fr.png" />
+    <Language code="de_DE" name="Deutsch" flag="de.png" />
+    <Language code="de_CH" name="Deutsch (Schweiz)" flag="ch.png" />
+    <Language code="fr_FR" name="Français" flag="fr.png" />
+    <Language code="hr_HR" name="Hrvatski" flag="hr.png" />
     <Language code="pl_PL" name="Polski" flag="pl.png" />
 </Languages>
