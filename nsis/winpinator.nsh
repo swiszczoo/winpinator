@@ -194,7 +194,7 @@ LangString DIRECTORY_NOT_EMPTY ${LANG_SIMPCHINESE} "安装目录不是空文件�
 
 LangString ABORT_WRONG_DIR ${LANG_ENGLISH} "Can't install in this directory."
 LangString ABORT_WRONG_DIR ${LANG_POLISH} "Nie można zainstalować w tym folderze."
-LangString ABORT_WRONG_DIR ${LANG_SIMPCHINESE} "无法在安装到该目录。"
+LangString ABORT_WRONG_DIR ${LANG_SIMPCHINESE} "无法安装到该目录。"
 
 LangString ADD_REMOVE ${LANG_ENGLISH} "Add information to 'Add or remove programs' window"
 LangString ADD_REMOVE ${LANG_POLISH} 'Dodaj informacje do okna "Dodaj lub usuń programy"'
@@ -202,7 +202,7 @@ LangString ADD_REMOVE ${LANG_SIMPCHINESE} '添加信息到“添加或删除程�
 
 LangString STARTMENU ${LANG_ENGLISH} "Optionally create Start Menu shortcut"
 LangString STARTMENU ${LANG_POLISH} "Opcjonalnie utwórz skrót w Menu Start"
-LangString STARTMENU ${LANG_SIMPCHINESE} "可选创建开始菜单快捷方式"
+LangString STARTMENU ${LANG_SIMPCHINESE} "创建开始菜单快捷方式（可选）"
 
 LangString UNNAME ${LANG_ENGLISH} "Uninstall ${SOFTWARE_NAME}"
 LangString UNNAME ${LANG_POLISH} "Odinstaluj ${SOFTWARE_NAME}"

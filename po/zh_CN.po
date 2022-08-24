@@ -622,7 +622,7 @@ msgid ""
 "transfer your files to."
 msgstr ""
 "下面是当前可用计算机的列表。"
-"选择一个向其传输文件。"
+"选择想要向其发送文件的计算机。"
 
 #: .\gui\page_hostlist.cpp:24
 msgid ""
@@ -630,7 +630,7 @@ msgid ""
 "Select the one you want to transfer your files to."
 msgstr ""
 "下面是当前可用计算机的列表。\n"
-"选择一个向其传输文件。"
+"选择想要向其发送文件的计算机。"
 
 #: .\gui\page_hostlist.cpp:50
 msgid "Select where to send your files"
