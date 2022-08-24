@@ -221,23 +221,23 @@ msgstr ""
 
 #: .\gui\about_dialog.cpp:108
 msgid "About Winpinator..."
-msgstr "About Winpinator..."
+msgstr "关于 Winpinator..."
 
 #: .\gui\about_dialog.cpp:201
 msgid "Could not load About section."
-msgstr "Could not load About section."
+msgstr "无法加载“关于”部分"
 
 #: .\gui\about_dialog.cpp:208
 msgid "About"
-msgstr "About"
+msgstr "关于"
 
 #: .\gui\about_dialog.cpp:224
 msgid "License"
-msgstr "License"
+msgstr "许可证"
 
 #: .\gui\about_dialog.cpp:239
 msgid "License file could not be loaded."
-msgstr "License file could not be loaded."
+msgstr "无法加载许可证文件。"
 
 #. TRANSLATORS: version string (e.g. "ver. 1.2.3")
 #: .\gui\about_dialog.cpp:265
@@ -257,64 +257,64 @@ msgstr ""
 
 #: .\gui\file_list_dialog.cpp:22
 msgid "List of transferred files"
-msgstr "List of transferred files"
+msgstr "已传输文件列表"
 
 #: .\gui\file_list_dialog.cpp:31
 msgid "Close"
-msgstr "Close"
+msgstr "关闭"
 
 #: .\gui\file_list_dialog.cpp:94
 msgid "File name"
-msgstr "File name"
+msgstr "文件名"
 
 #: .\gui\file_list_dialog.cpp:96
 msgid "File type"
-msgstr "File type"
+msgstr "文件类型"
 
 #: .\gui\file_list_dialog.cpp:98
 msgid "Relative path"
-msgstr "Relative path"
+msgstr "相对路径"
 
 #: .\gui\file_list_dialog.cpp:100
 msgid "Absolute path"
-msgstr "Absolute path"
+msgstr "绝对路径"
 
 #: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:293
 msgid "Folder"
-msgstr "Folder"
+msgstr "文件夹"
 
 #: .\gui\file_list_dialog.cpp:178 .\gui\file_list_dialog.cpp:187
 #: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:282
 msgid "File"
-msgstr "File"
+msgstr "文件"
 
 #: .\gui\file_list_dialog.cpp:227
 msgid "Copy file name..."
-msgstr "Copy file name..."
+msgstr "复制文件名..."
 
 #: .\gui\file_list_dialog.cpp:228
 msgid "Copy file type..."
-msgstr "Copy file type..."
+msgstr "复制文件类型..."
 
 #: .\gui\file_list_dialog.cpp:229
 msgid "Copy relative path..."
-msgstr "Copy relative path..."
+msgstr "复制相对路径..."
 
 #: .\gui\file_list_dialog.cpp:230
 msgid "Copy absolute path..."
-msgstr "Copy absolute path..."
+msgstr "复制绝对路径..."
 
 #: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:383
 msgid "Type:"
-msgstr "Type:"
+msgstr "类型:"
 
 #: .\gui\history_element_finished.cpp:121 .\gui\history_element_pending.cpp:384
 msgid "Total size:"
-msgstr "Total size:"
+msgstr "总大小:"
 
 #: .\gui\history_element_finished.cpp:157
 msgid "Date and time:"
-msgstr "Date and time:"
+msgstr "时间和日期:"
 
 #: .\gui\history_element_finished.cpp:173
 msgid "%Y-%m-%d %I:%M %p"
@@ -322,19 +322,19 @@ msgstr "%Y-%m-%d %I:%M %p"
 
 #: .\gui\history_element_finished.cpp:188
 msgid "&Open "
-msgstr "&Open "
+msgstr "打开 (&O) "
 
 #: .\gui\history_element_finished.cpp:189
 msgid "Show in &Explorer..."
-msgstr "Show in &Explorer..."
+msgstr "在资源管理器中显示 (&E)..."
 
 #: .\gui\history_element_finished.cpp:190
 msgid "Show &list of transferred files..."
-msgstr "Show &list of transferred files..."
+msgstr "显示已传输文件列表 (&L)..."
 
 #: .\gui\history_element_finished.cpp:192
 msgid "&Remove from history"
-msgstr "&Remove from history"
+msgstr "从历史记录中删除 (&R)"
 
 #: .\gui\history_element_finished.cpp:261
 msgid ""
@@ -348,11 +348,11 @@ msgstr "Can't show element"
 
 #: .\gui\history_element_finished.cpp:355
 msgid "Completed"
-msgstr "Completed"
+msgstr "已完成"
 
 #: .\gui\history_element_finished.cpp:357
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "已取消"
 
 #: .\gui\history_element_finished.cpp:359
 msgid "Error occurred"
@@ -360,7 +360,7 @@ msgstr "Error occurred"
 
 #: .\gui\history_element_finished.cpp:361 .\gui\utils.cpp:146
 msgid "Unknown"
-msgstr "Unknown"
+msgstr "未知"
 
 #: .\gui\history_element_finished.cpp:449
 msgid "Selected element no longer exists on the hard drive."
@@ -376,27 +376,27 @@ msgstr "Over&write"
 
 #: .\gui\history_element_pending.cpp:60
 msgid "&Cancel"
-msgstr "&Cancel"
+msgstr "取消 (&C)"
 
 #: .\gui\history_element_pending.cpp:63
 msgid "&Accept"
-msgstr "&Accept"
+msgstr "接受 (&A)"
 
 #: .\gui\history_element_pending.cpp:66
 msgid "&Decline"
-msgstr "&Decline"
+msgstr "拒绝 (&D)"
 
 #: .\gui\history_element_pending.cpp:72
 msgid "&Stop"
-msgstr "&Stop"
+msgstr "停止 (&S)"
 
 #: .\gui\history_element_pending.cpp:176
 msgid "calculating remaining time"
-msgstr "calculating remaining time"
+msgstr "正在计算剩余时间"
 
 #: .\gui\history_element_pending.cpp:180
 msgid "a few seconds remaining"
-msgstr "a few seconds remaining"
+msgstr "还剩数秒"
 
 #: .\gui\history_element_pending.cpp:185
 #, c-format
