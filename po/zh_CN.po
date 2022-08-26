@@ -1,0 +1,1185 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-18 19:12+0100\n"
+"PO-Revision-Date: 2022-02-18 19:12+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. TRANSLATORS: This XML is loaded into wxRichTextCtrl in "About" section
+#: .\gui\about_dialog.cpp:18
+msgid ""
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"<richtext version=\"1.0.0.0\" xmlns=\"http://www.wxwidgets.org\">\n"
+"  <paragraphlayout textcolor=\"#000000\" fontpointsize=\"12\" fontfamily="
+"\"72\" fontstyle=\"90\" fontweight=\"400\" fontunderlined=\"0\" fontface="
+"\"Times New Roman\" alignment=\"1\" parspacingafter=\"10\" parspacingbefore="
+"\"0\" linespacing=\"10\" margin-left=\"10,4098\" margin-right=\"10,4098\" "
+"margin-top=\"10,4098\" margin-bottom=\"10,4098\">\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI"
+"\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">About</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI"
+"\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\"></"
+"text>\n"
+"    </paragraph>\n"
+"    <paragraph>\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\">"
+"\"Winpinator \"</text>\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI\">is "
+"an unofficial Windows port of a Linux file transfer tool called Warpinator. "
+"It provides all features of its Linux equivalent, however, Windows uses its "
+"own filesystem called NTFS and is generally architecturally different, hence "
+"Winpinator has to emulate some Linux features, like permission system. "
+"Winpinator should work out-of-the-box, it makes use of zeroconf networking, "
+"i.e. mDNS protocol, but some firewall settings might prevent it from "
+"communicating with the rest of the network.</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">The main goal of the "
+"project was to create a tool that provides native Windows look-and-feel, so "
+"the interface uses default system skin and supports drag-and-drop.</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">Used libraries</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI"
+"\">wxWidgets - as a general framework, to provide native Windows look-and-"
+"feel</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">gRPC and protobuf - "
+"to support the protocol of official Warpinator</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sodium - to encrypt "
+"and decrypt RSA keys with the symmetric group key</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">openssl - to generate "
+"safe PEM keys</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sqlite3 - to store "
+"persistent data, e.g. transfer history</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">zlib - to support "
+"transfer compression (one of the newer features of Warpinator)</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">wintoast - to display "
+"toast notifications</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">cpp-base64 - to "
+"convert binary keys to text and vice versa</text>\n"
+"    </paragraph>\n"
+"  </paragraphlayout>\n"
+"</richtext>\n"
+msgstr ""
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"<richtext version=\"1.0.0.0\" xmlns=\"http://www.wxwidgets.org\">\n"
+"  <paragraphlayout textcolor=\"#000000\" fontpointsize=\"12\" fontfamily="
+"\"72\" fontstyle=\"90\" fontweight=\"400\" fontunderlined=\"0\" fontface="
+"\"Times New Roman\" alignment=\"1\" parspacingafter=\"10\" parspacingbefore="
+"\"0\" linespacing=\"10\" margin-left=\"10,4098\" margin-right=\"10,4098\" "
+"margin-top=\"10,4098\" margin-bottom=\"10,4098\">\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI"
+"\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">About</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI"
+"\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\"></"
+"text>\n"
+"    </paragraph>\n"
+"    <paragraph>\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\">"
+"\"Winpinator \"</text>\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI\">is "
+"an unofficial Windows port of a Linux file transfer tool called Warpinator. "
+"It provides all features of its Linux equivalent, however, Windows uses its "
+"own filesystem called NTFS and is generally architecturally different, hence "
+"Winpinator has to emulate some Linux features, like permission system. "
+"Winpinator should work out-of-the-box, it makes use of zeroconf networking, "
+"i.e. mDNS protocol, but some firewall settings might prevent it from "
+"communicating with the rest of the network.</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">The main goal of the "
+"project was to create a tool that provides native Windows look-and-feel, so "
+"the interface uses default system skin and supports drag-and-drop.</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">Used libraries</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI"
+"\">wxWidgets - as a general framework, to provide native Windows look-and-"
+"feel</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">gRPC and protobuf - "
+"to support the protocol of official Warpinator</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sodium - to encrypt "
+"and decrypt RSA keys with the symmetric group key</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">openssl - to generate "
+"safe PEM keys</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sqlite3 - to store "
+"persistent data, e.g. transfer history</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">zlib - to support "
+"transfer compression (one of the newer features of Warpinator)</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">wintoast - to display "
+"toast notifications</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">cpp-base64 - to "
+"convert binary keys to text and vice versa</text>\n"
+"    </paragraph>\n"
+"  </paragraphlayout>\n"
+"</richtext>\n"
+
+#: .\gui\about_dialog.cpp:108
+msgid "About Winpinator..."
+msgstr "关于 Winpinator..."
+
+#: .\gui\about_dialog.cpp:201
+msgid "Could not load About section."
+msgstr "无法加载“关于”部分"
+
+#: .\gui\about_dialog.cpp:208
+msgid "About"
+msgstr "关于"
+
+#: .\gui\about_dialog.cpp:224
+msgid "License"
+msgstr "许可证"
+
+#: .\gui\about_dialog.cpp:239
+msgid "License file could not be loaded."
+msgstr "无法加载许可证文件。"
+
+#. TRANSLATORS: version string (e.g. "ver. 1.2.3")
+#: .\gui\about_dialog.cpp:265
+#, c-format
+msgid "ver. %s"
+msgstr "ver. %s"
+
+#: .\gui\file_list_dialog.cpp:16
+msgid ""
+"The list below contains all files that were registered as being sent/"
+"received within the transfer you've selected. The list might be incomplete "
+"if the transfer has been interrupted or failed in a different way."
+msgstr ""
+"下面的列表包含了所选传输事件中发送或接收过的所有文件。"
+"如果发生过传输中断或失败，"
+"该列表可能不完整。"
+
+#: .\gui\file_list_dialog.cpp:22
+msgid "List of transferred files"
+msgstr "传输文件列表"
+
+#: .\gui\file_list_dialog.cpp:31
+msgid "Close"
+msgstr "关闭"
+
+#: .\gui\file_list_dialog.cpp:94
+msgid "File name"
+msgstr "文件名"
+
+#: .\gui\file_list_dialog.cpp:96
+msgid "File type"
+msgstr "文件类型"
+
+#: .\gui\file_list_dialog.cpp:98
+msgid "Relative path"
+msgstr "相对路径"
+
+#: .\gui\file_list_dialog.cpp:100
+msgid "Absolute path"
+msgstr "绝对路径"
+
+#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:293
+msgid "Folder"
+msgstr "文件夹"
+
+#: .\gui\file_list_dialog.cpp:178 .\gui\file_list_dialog.cpp:187
+#: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:282
+msgid "File"
+msgstr "文件"
+
+#: .\gui\file_list_dialog.cpp:227
+msgid "Copy file name..."
+msgstr "复制文件名..."
+
+#: .\gui\file_list_dialog.cpp:228
+msgid "Copy file type..."
+msgstr "复制文件类型..."
+
+#: .\gui\file_list_dialog.cpp:229
+msgid "Copy relative path..."
+msgstr "复制相对路径..."
+
+#: .\gui\file_list_dialog.cpp:230
+msgid "Copy absolute path..."
+msgstr "复制绝对路径..."
+
+#: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:383
+msgid "Type:"
+msgstr "类型:"
+
+#: .\gui\history_element_finished.cpp:121 .\gui\history_element_pending.cpp:384
+msgid "Total size:"
+msgstr "总大小:"
+
+#: .\gui\history_element_finished.cpp:157
+msgid "Date and time:"
+msgstr "时间和日期:"
+
+#: .\gui\history_element_finished.cpp:173
+msgid "%Y-%m-%d %I:%M %p"
+msgstr "%Y-%m-%d %I:%M %p"
+
+#: .\gui\history_element_finished.cpp:188
+msgid "&Open "
+msgstr "打开 (&O) "
+
+#: .\gui\history_element_finished.cpp:189
+msgid "Show in &Explorer..."
+msgstr "在资源管理器中显示 (&E)..."
+
+#: .\gui\history_element_finished.cpp:190
+msgid "Show &list of transferred files..."
+msgstr "显示传输文件列表 (&L)..."
+
+#: .\gui\history_element_finished.cpp:192
+msgid "&Remove from history"
+msgstr "从历史记录中删除 (&R)"
+
+#: .\gui\history_element_finished.cpp:261
+msgid ""
+"Files and directories from this transfer no longer exist on the hard drive."
+msgstr ""
+"无法在硬盘上找到来自该传输对象的文件或文件夹"
+
+#: .\gui\history_element_finished.cpp:263
+msgid "Can't show element"
+msgstr "无法显示该对象"
+
+#: .\gui\history_element_finished.cpp:355
+msgid "Completed"
+msgstr "已完成"
+
+#: .\gui\history_element_finished.cpp:357
+msgid "Cancelled"
+msgstr "已取消"
+
+#: .\gui\history_element_finished.cpp:359
+msgid "Error occurred"
+msgstr "发生错误"
+
+#: .\gui\history_element_finished.cpp:361 .\gui\utils.cpp:146
+msgid "Unknown"
+msgstr "未知"
+
+#: .\gui\history_element_finished.cpp:449
+msgid "Selected element no longer exists on the hard drive."
+msgstr "硬盘上找不到所选对象，可能已经被移动或删除。"
+
+#: .\gui\history_element_finished.cpp:450
+msgid "Can't open element"
+msgstr "无法打开对象"
+
+#: .\gui\history_element_pending.cpp:57
+msgid "Over&write"
+msgstr "覆盖 (&W)"
+
+#: .\gui\history_element_pending.cpp:60
+msgid "&Cancel"
+msgstr "取消 (&C)"
+
+#: .\gui\history_element_pending.cpp:63
+msgid "&Accept"
+msgstr "接受 (&A)"
+
+#: .\gui\history_element_pending.cpp:66
+msgid "&Decline"
+msgstr "拒绝 (&D)"
+
+#: .\gui\history_element_pending.cpp:72
+msgid "&Stop"
+msgstr "停止 (&S)"
+
+#: .\gui\history_element_pending.cpp:176
+msgid "calculating remaining time"
+msgstr "正在计算剩余时间"
+
+#: .\gui\history_element_pending.cpp:180
+msgid "a few seconds remaining"
+msgstr "接近完成"
+
+#: .\gui\history_element_pending.cpp:185
+#, c-format
+msgid "%d sec remaining"
+msgid_plural "%d secs remaining"
+msgstr[0] "还有 %d 秒"
+msgstr[1] "还有 %d 秒"
+
+#: .\gui\history_element_pending.cpp:193
+#, c-format
+msgid "%d min remaining"
+msgid_plural "%d mins remaining"
+msgstr[0] "还有 %d 分钟"
+msgstr[1] "还有 %d 分钟"
+
+#: .\gui\history_element_pending.cpp:201
+#, c-format
+msgid "%d hour remaining"
+msgid_plural "%d hours remaining"
+msgstr[0] "还有 %d 小时"
+msgstr[1] "还有 %d 小时"
+
+#: .\gui\history_element_pending.cpp:209
+#, c-format
+msgid "%d day remaining"
+msgid_plural "%d days remaining"
+msgstr[0] "还有 %d 天"
+msgstr[1] "还有 %d 天"
+
+#: .\gui\history_element_pending.cpp:214
+msgid "many days remaining"
+msgstr "还有很多天"
+
+#. TRANSLATORS: this is a format string for transfer speed,
+#. the %s part will be replaced with appropriate file size equivalent,
+#. e.g. 25,4MB or 32,6KB
+#: .\gui\history_element_pending.cpp:220
+#, c-format
+msgid "%s/s"
+msgstr "%s/s"
+
+#. TRANSLATORS: the subsequent %s placeholders stand for:
+#. current sent bytes, transfer total size, transfer speed, remaining time
+#: .\gui\history_element_pending.cpp:226
+#, c-format
+msgid "%s of %s ἢ %s ἢ %s"
+msgstr "%s， 总大小 %s ἢ %s ἢ %s"
+
+#: .\gui\history_element_pending.cpp:250
+msgid "999.9MB of 999.9MB ἢ 999.9MB/s ἢ a few seconds remaining"
+msgstr "999.9MB， 总大小 999.9MB ἢ 999.9MB/s ἢ 接近完成"
+
+#. TRANSLATORS: %s stands for full name of the peer
+#: .\gui\history_element_pending.cpp:281
+#, c-format
+msgid "%s is sending you files:"
+msgstr "%s 正在向你发送文件:"
+
+#. TRANSLATORS: %s stands for full name of the peer
+#: .\gui\history_element_pending.cpp:292
+#, c-format
+msgid "Awaiting approval from %s..."
+msgstr "等待 %s 的传输许可..."
+
+#: .\gui\history_element_pending.cpp:300
+msgid "Scanning for files..."
+msgstr "正在扫描文件..."
+
+#: .\gui\history_element_pending.cpp:310
+msgid "This request will overwrite one or more files!"
+msgstr "该请求会覆盖一个或更多文件！"
+
+#: .\gui\history_element_pending.cpp:320
+msgid "R&esume"
+msgstr "恢复 (&E)"
+
+#: .\gui\history_element_pending.cpp:332
+msgid "&Pause"
+msgstr "暂停 (&P)"
+
+#: .\gui\history_element_pending.cpp:344
+msgid "Not enough disk space! Files cannot be received!"
+msgstr "存储空间不足！无法接收文件！"
+
+#: .\gui\history_item_icon.cpp:149 .\gui\history_item_icon.cpp:274
+msgid "Empty"
+msgstr "空"
+
+#: .\gui\history_item_icon.cpp:175 .\service\notification_accept_files.cpp:107
+#, c-format
+msgid "%d element"
+msgid_plural "%d elements"
+msgstr[0] "%d 个对象"
+msgstr[1] "%d 个对象"
+
+#: .\gui\history_item_icon.cpp:179
+#, c-format
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "%d 个文件"
+msgstr[1] "%d 个文件"
+
+#: .\gui\history_item_icon.cpp:182
+#, c-format
+msgid "%d folder"
+msgid_plural "%d folders"
+msgstr[0] "%d 个文件夹"
+msgstr[1] "%d 个文件夹"
+
+#. TRANSLATORS: format string, e.g. <2 folders> and <5 files>
+#: .\gui\history_item_icon.cpp:198
+#, c-format
+msgid "%s and %s"
+msgstr "%s 和 %s"
+
+#: .\gui\history_item_icon.cpp:268
+msgid "Calculating"
+msgstr "计算中"
+
+#: .\gui\history_item_icon.cpp:286
+msgid "Multiple files"
+msgstr "多个文件"
+
+#: .\gui\history_item_icon.cpp:297
+msgid "Multiple folders"
+msgstr "多个文件夹"
+
+#: .\gui\history_item_icon.cpp:302
+msgid "Mixed elements"
+msgstr "混合的对象种类"
+
+#: .\gui\host_listbox.cpp:159
+msgid "Hostname:"
+msgstr "主机名："
+
+#: .\gui\host_listbox.cpp:160
+msgid "IP Address:"
+msgstr "IP 地址："
+
+#: .\gui\host_listbox.cpp:183
+msgid "OS:"
+msgstr "操作系统："
+
+#: .\gui\host_listbox.cpp:184
+msgid "Connection:"
+msgstr "连接状态："
+
+#: .\gui\page_error.cpp:13
+msgid "A fatal error occurred while trying to start the service!"
+msgstr "试图启动服务时发生了一个致命错误！"
+
+#: .\gui\page_error.cpp:53 .\gui\page_nohosts.cpp:36
+msgid "Try again"
+msgstr "重试"
+
+#: .\gui\page_error.cpp:59
+msgid "Open settings"
+msgstr "打开设置"
+
+#: .\gui\page_error.cpp:130
+msgid "No error."
+msgstr "没有错误。"
+
+#: .\gui\page_error.cpp:133
+msgid "Unknown error!"
+msgstr "未知错误！"
+
+#: .\gui\page_error.cpp:137
+msgid ""
+"Can't create mDNS server! Maybe another running app is holding exclusive "
+"access to appropriate port?"
+msgstr ""
+"无法创建 mDNS 服务器! 可能其它应用正在占用"
+"当前端口？"
+
+#: .\gui\page_error.cpp:142
+msgid ""
+"Can't create registration service (for compatibility mode). Maybe there's "
+"another instance of Winpinator running on your computer, e.g. started by "
+"another user? You can always try to change ports in the settings."
+msgstr ""
+"无法创建注册服务（兼容模式）。可能 "
+"该计算机上正在运行另一个 Winpinator 实例，比如"
+"该计算机上的其他用户启动了一个 Winpinator 实例。你也可以尝试在设置中修改端口号"
+
+#: .\gui\page_error.cpp:149
+msgid ""
+"Can't create registration service. Maybe there's another instance of "
+"Winpinator running on your computer, e.g. started by another user? You can "
+"always try to change ports in the settings."
+msgstr ""
+"无法创建注册服务。可能 "
+"该计算机上正在运行另一个 Winpinator 实例，比如"
+"该计算机上的其他用户启动了一个 Winpinator 实例。你也可以尝试在设置中修改端口号"
+
+#: .\gui\page_error.cpp:156
+msgid ""
+"Can't create main service. Maybe there's another instance of Winpinator "
+"running on your computer, e.g. started by another user? You can always try "
+"to change ports in the settings."
+msgstr ""
+"无法创建主服务。可能 "
+"该计算机上正在运行另一个 Winpinator 实例，比如"
+"该计算机上的其他用户启动了一个 Winpinator 实例。你也可以尝试在设置中修改端口号"
+
+#: .\gui\page_error.cpp:163
+msgid ""
+"Output directory you provided in the settings does not exist. Winpinator "
+"failed to create one."
+msgstr ""
+"设置的输出目录不存在。"
+"Winpinator 无法创建该目录。"
+
+#: .\gui\page_error.cpp:169
+msgid "Missing description"
+msgstr "缺少描述"
+
+#: .\gui\page_hostlist.cpp:20
+msgid ""
+"Below is a list of currently available computers. Select the one you want to "
+"transfer your files to."
+msgstr ""
+"下面是当前可用计算机的列表。"
+"选择想要向其发送文件的计算机。"
+
+#: .\gui\page_hostlist.cpp:24
+msgid ""
+"Below is a list of currently available computers.\n"
+"Select the one you want to transfer your files to."
+msgstr ""
+"下面是当前可用计算机的列表。\n"
+"选择想要向其发送文件的计算机。"
+
+#: .\gui\page_hostlist.cpp:50
+msgid "Select where to send your files"
+msgstr "选择向谁发送文件"
+
+#: .\gui\page_hostlist.cpp:62
+msgid "Refresh list"
+msgstr "刷新列表"
+
+#: .\gui\page_hostlist.cpp:78
+msgid "Searching for computers on your network..."
+msgstr "正在你的网络上搜索计算机..."
+
+#: .\gui\page_hostlist.cpp:83
+msgid "&Next >"
+msgstr "下一页 (&N) >"
+
+#: .\gui\page_hostlist.cpp:346
+msgid "Data unavailable"
+msgstr "数据不可用"
+
+#: .\gui\page_hostlist.cpp:355
+msgid "Loading..."
+msgstr "加载中..."
+
+#: .\gui\page_nohosts.cpp:11
+msgid "There are no other computers found on your network..."
+msgstr "在你的网络上没有找到其他的计算机..."
+
+#: .\gui\page_offline.cpp:10
+msgid "It seems you're offline! Check your LAN connection..."
+msgstr "看上去你离线了！检查你的局域网连接..."
+
+#: .\gui\page_starting.cpp:22
+msgid "Starting Winpinator..."
+msgstr "正在启动 Winpinator..."
+
+#: .\gui\page_transferlist.cpp:37
+msgid "Select files or directories to start transfer"
+msgstr "选择要传输的文件或文件夹"
+
+#: .\gui\page_transferlist.cpp:43
+msgid ""
+"Drop elements you want to send into the box below or click one of the "
+"buttons."
+msgstr ""
+"拖动想要发送的文件或文件夹到下面的区域，或点击按钮"
+"选择文件。"
+
+#: .\gui\page_transferlist.cpp:49
+msgid "Go back"
+msgstr "返回"
+
+#: .\gui\page_transferlist.cpp:55
+msgid "Send file(s)..."
+msgstr "发送文件..."
+
+#: .\gui\page_transferlist.cpp:59
+msgid "Send a folder..."
+msgstr "发送一个文件夹..."
+
+#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:261
+#: .\gui\settings_dialog.cpp:538
+msgid "Clear history"
+msgstr "清除历史纪录"
+
+#: .\gui\page_transferlist.cpp:205
+msgid "Select files to send..."
+msgstr "选择要发送的文件..."
+
+#. TRANSLATORS: wildcard format: type1|filter1;type2|filter2;...
+#: .\gui\page_transferlist.cpp:207
+msgid "All files (*.*)|*.*"
+msgstr "所有文件 (*.*)|*.*"
+
+#: .\gui\page_transferlist.cpp:233
+msgid "Select directories to send..."
+msgstr "选择要发送的文件夹..."
+
+#: .\gui\page_transferlist.cpp:260
+msgid "Are you sure you want to clear entire history for this device?"
+msgstr "确认要删除该设备的所有历史纪录？"
+
+#: .\gui\page_transferlist.cpp:263 .\gui\settings_dialog.cpp:540
+msgid "This operation cannot be undone!"
+msgstr "该操作无法撤销！"
+
+#: .\gui\permission_picker.cpp:32
+msgid "Read"
+msgstr "可读"
+
+#: .\gui\permission_picker.cpp:34
+msgid "Write"
+msgstr "可写"
+
+#: .\gui\permission_picker.cpp:36
+msgid "Execute"
+msgstr "可执行"
+
+#: .\gui\permission_picker.cpp:39
+msgid "Owner"
+msgstr "所有者"
+
+#: .\gui\permission_picker.cpp:45
+msgid "Group"
+msgstr "用户组"
+
+#: .\gui\permission_picker.cpp:51
+msgid "Others"
+msgstr "其他"
+
+#: .\gui\settings_dialog.cpp:17
+msgid "Preferences"
+msgstr "偏好设置"
+
+#: .\gui\settings_dialog.cpp:35
+msgid "General"
+msgstr "常规"
+
+#: .\gui\settings_dialog.cpp:36
+msgid "Unix permissions"
+msgstr "Unix 权限"
+
+#: .\gui\settings_dialog.cpp:37
+msgid "History"
+msgstr "历史记录"
+
+#: .\gui\settings_dialog.cpp:38
+msgid "Connection"
+msgstr "连接"
+
+#: .\gui\settings_dialog.cpp:79
+msgid "Interface"
+msgstr "用户界面"
+
+#: .\gui\settings_dialog.cpp:85
+msgid "Language (requires restart to take effect):"
+msgstr "语言（重启服务后生效）"
+
+#: .\gui\settings_dialog.cpp:102
+msgid "Desktop"
+msgstr "桌面"
+
+#: .\gui\settings_dialog.cpp:107
+msgid "Start with main window open"
+msgstr "启动时显示主窗口"
+
+#: .\gui\settings_dialog.cpp:113
+msgid "Start automatically (on system startup)"
+msgstr "开机自启"
+
+#: .\gui\settings_dialog.cpp:119
+msgid "Do not show main window on system startup"
+msgstr "开机自启时不显示主窗口"
+
+#: .\gui\settings_dialog.cpp:129
+msgid "File transfers"
+msgstr "文件传输"
+
+#: .\gui\settings_dialog.cpp:134
+msgid "Use compression (if available)"
+msgstr "使用压缩传输（如果可用）"
+
+#: .\gui\settings_dialog.cpp:140
+msgid "Compression level:"
+msgstr "压缩等级:"
+
+#: .\gui\settings_dialog.cpp:148
+msgid "Location for received files:"
+msgstr "已接收文件的保存位置："
+
+#: .\gui\settings_dialog.cpp:159
+msgid "Require approval before accepting files"
+msgstr "接收文件时需要确认"
+
+#: .\gui\settings_dialog.cpp:165
+msgid "Require approval when files would be overwritten"
+msgstr "覆盖文件时需要确认"
+
+#: .\gui\settings_dialog.cpp:171
+msgid "Preserve zone information in incoming files"
+msgstr "在传入文件中保存区域信息（用于标记外来文件）"
+
+#: .\gui\settings_dialog.cpp:189
+msgid "File permissions:"
+msgstr "文件权限："
+
+#: .\gui\settings_dialog.cpp:196
+msgid "Executable permissions:"
+msgstr "执行权限："
+
+#: .\gui\settings_dialog.cpp:203
+msgid "Folder permissions:"
+msgstr "目录权限："
+
+#: .\gui\settings_dialog.cpp:218
+msgid "Transfer history"
+msgstr "传输历史"
+
+#: .\gui\settings_dialog.cpp:223
+msgid "Warning! Every action you perform on this page is irreversible!"
+msgstr "警告！在此页面上执行的每个动作都是不可逆的！"
+
+#: .\gui\settings_dialog.cpp:233
+msgid "Hostname"
+msgstr "主机名"
+
+#: .\gui\settings_dialog.cpp:234
+msgid "Full name"
+msgstr "全名"
+
+#: .\gui\settings_dialog.cpp:235
+msgid "IP address"
+msgstr "IP 地址"
+
+#: .\gui\settings_dialog.cpp:236
+msgid "OS"
+msgstr "操作系统"
+
+#: .\gui\settings_dialog.cpp:237
+msgid "Transfers registered"
+msgstr "历史记录中的传输次数"
+
+#: .\gui\settings_dialog.cpp:247
+msgid "Remove selected"
+msgstr "删除所选"
+
+#: .\gui\settings_dialog.cpp:249
+msgid "Clear all history"
+msgstr "清除全部历史记录"
+
+#: .\gui\settings_dialog.cpp:271
+msgid "Identification"
+msgstr "标识"
+
+#: .\gui\settings_dialog.cpp:277
+msgid "Group code:"
+msgstr "分组代码："
+
+#: .\gui\settings_dialog.cpp:292
+msgid "Network"
+msgstr "网络"
+
+#: .\gui\settings_dialog.cpp:297
+msgid "Network interface to use:"
+msgstr "使用该网络接口："
+
+#: .\gui\settings_dialog.cpp:312
+msgid "Incoming port for transfers:"
+msgstr "用于传输的传入端口："
+
+#: .\gui\settings_dialog.cpp:321
+msgid "Incoming port for registration:"
+msgstr "用于注册的传入端口："
+
+#: .\gui\settings_dialog.cpp:471
+msgid "Automatic"
+msgstr "自动选择"
+
+#: .\gui\settings_dialog.cpp:537
+msgid "Are you sure you want to clear all history?"
+msgstr "确定要清除全部历史记录吗?"
+
+#: .\gui\transfer_history.cpp:20
+msgid "Soon in the future"
+msgstr "不久的未来"
+
+#: .\gui\transfer_history.cpp:21
+msgid "Today"
+msgstr "今天"
+
+#: .\gui\transfer_history.cpp:22
+msgid "Yesterday"
+msgstr "昨天"
+
+#: .\gui\transfer_history.cpp:23
+msgid "Earlier this week"
+msgstr "本周早些时候"
+
+#: .\gui\transfer_history.cpp:24
+msgid "Last week"
+msgstr "上周"
+
+#: .\gui\transfer_history.cpp:25
+msgid "Earlier this month"
+msgstr "这个月的早些时候"
+
+#: .\gui\transfer_history.cpp:26
+msgid "Last month"
+msgstr "上个月"
+
+#: .\gui\transfer_history.cpp:27
+msgid "Earlier this year"
+msgstr "今年的早些时候"
+
+#: .\gui\transfer_history.cpp:28
+msgid "Last year"
+msgstr "去年"
+
+#: .\gui\transfer_history.cpp:29
+msgid "A long time ago"
+msgstr "很久以前"
+
+#: .\gui\transfer_history.cpp:48
+msgid "There is no transfer history for this device..."
+msgstr "该设备没有传输历史..."
+
+#: .\gui\transfer_history.cpp:60
+msgid "In progress"
+msgstr "正在处理"
+
+#: .\gui\transfer_history.cpp:559
+#, c-format
+msgid "In progress (%d)"
+msgstr "处理中 (%d)"
+
+#: .\gui\utils.cpp:133
+msgid "Offline"
+msgstr "离线"
+
+#: .\gui\utils.cpp:135
+msgid "Registration in progress..."
+msgstr "正在注册..."
+
+#: .\gui\utils.cpp:137
+msgid "Connecting..."
+msgstr "连接中..."
+
+#: .\gui\utils.cpp:139
+msgid "Host unreachable"
+msgstr "无法访问主机"
+
+#: .\gui\utils.cpp:141
+msgid "Establishing duplex connection..."
+msgstr "正在建立双向连接..."
+
+#: .\gui\utils.cpp:143
+msgid "Ready"
+msgstr "准备"
+
+#: .\gui\utils.cpp:195
+msgid "Calculating..."
+msgstr "计算中..."
+
+#: .\gui\winpinator_banner.cpp:174
+msgid "Share your files across the LAN"
+msgstr "通过局域网分享文件"
+
+#: .\gui\winpinator_banner.cpp:178
+#, c-format
+msgid "Send %d element..."
+msgid_plural "Send %d elements..."
+msgstr[0] "发送 %d 个项目..."
+msgstr[1] "发送 %d 个项目..."
+
+#: .\gui\winpinator_frame.cpp:23
+msgid "Winpinator"
+msgstr "Winpinator"
+
+#. TRANSLATORS: format string
+#: .\gui\winpinator_frame.cpp:71 .\gui\winpinator_frame.cpp:328
+#, c-format
+msgid "IP: %s"
+msgstr "IP: %s"
+
+#: .\gui\winpinator_frame.cpp:75 .\gui\winpinator_frame.cpp:312
+#: .\gui\winpinator_frame.cpp:323
+msgid "Offline!"
+msgstr "离线！"
+
+#: .\gui\winpinator_frame.cpp:138
+msgid "&Open save folder...\tCtrl+O"
+msgstr "打开保存的文件夹 (&O)...\tCtrl+O"
+
+#: .\gui\winpinator_frame.cpp:139 .\tray_icon.cpp:81
+msgid "Open the incoming files folder in Explorer"
+msgstr "在资源管理器中打开的传入文件夹"
+
+#: .\gui\winpinator_frame.cpp:140
+msgid "&Preferences..."
+msgstr "偏好设置 (&P)..."
+
+#: .\gui\winpinator_frame.cpp:141
+msgid "Adjust app preferences"
+msgstr "修改应用偏好设置"
+
+#: .\gui\winpinator_frame.cpp:143
+msgid "E&xit\tAlt+F4"
+msgstr "退出 (&X)\tAlt+F4"
+
+#: .\gui\winpinator_frame.cpp:144
+msgid "Close this window but let Winpinator run in background"
+msgstr "关闭此窗口，Winpinator 将在后台运行"
+
+#: .\gui\winpinator_frame.cpp:146
+msgid "Exit and &stop the service\tCtrl+Alt+F4"
+msgstr "退出并停止服务 (&S)\tCtrl+Alt+F4"
+
+#: .\gui\winpinator_frame.cpp:147
+msgid "Exit Winpinator and stop being visible to other computers"
+msgstr "退出 Winpinator 并停止对其他计算机可见"
+
+#: .\gui\winpinator_frame.cpp:149
+msgid "&File"
+msgstr "文件 (&F)"
+
+#: .\gui\winpinator_frame.cpp:152
+msgid "&Help topics...\tF1"
+msgstr "帮助主题 (&H)...\tF1"
+
+#: .\gui\winpinator_frame.cpp:153
+msgid "Show help and documentation of Winpinator"
+msgstr "显示 Winpinator 的帮助和文档"
+
+#: .\gui\winpinator_frame.cpp:154
+msgid "&What's new?..."
+msgstr "新增功能？(&W)..."
+
+#: .\gui\winpinator_frame.cpp:155
+msgid "Show release notes"
+msgstr "显示发行说明"
+
+#: .\gui\winpinator_frame.cpp:156
+msgid "&About Winpinator..."
+msgstr "关于 Winpinator (&A)..."
+
+#: .\gui\winpinator_frame.cpp:157
+msgid "Show credits dialog"
+msgstr "显示致谢对话框"
+
+#: .\gui\winpinator_frame.cpp:159
+msgid "&Help"
+msgstr "帮助 (&H)"
+
+#: .\gui\winpinator_frame.cpp:262
+msgid "Sorry, but Winpinator help is not available yet."
+msgstr "很抱歉，Winpinator 的帮助功能还不可用。"
+
+#: .\gui\winpinator_frame.cpp:263
+#| msgid "Data unavailable"
+msgid "Help not available"
+msgstr "“帮助”不可用"
+
+#: .\service\notification_accept_files.cpp:91
+msgid "Incoming files"
+msgstr "正在传入的文件"
+
+#: .\service\notification_accept_files.cpp:100
+#, c-format
+msgid "%s is sending you a folder \"%s\""
+msgstr "%s 正在向你发送文件夹 \"%s\""
+
+#: .\service\notification_accept_files.cpp:110
+#, c-format
+msgid "%s is sending you %s"
+msgstr "%s 正在向你发送 %s"
+
+#: .\service\notification_accept_files.cpp:116
+#, c-format
+msgid "%s is sending you a file \"%s\""
+msgstr "%s 正在向你发送文件 \"%s\""
+
+#. TRANSLATORS: this string is appended to notification message
+#. if overwrite is needed, e.g.
+#. "A is sending you 5 files. Accepting this transfer..."
+#. The initial dot is necessary.
+#: .\service\notification_accept_files.cpp:126
+msgid ". Accepting this transfer will overwrite some files!"
+msgstr "。 允许本次传输将会覆盖一些文件！"
+
+#: .\service\notification_accept_files.cpp:134
+msgid "Overwrite"
+msgstr "覆盖"
+
+#: .\service\notification_accept_files.cpp:135
+msgid "Cancel"
+msgstr "取消"
+
+#: .\service\notification_accept_files.cpp:139
+msgid "Accept"
+msgstr "接受"
+
+#: .\service\notification_accept_files.cpp:140
+msgid "Decline"
+msgstr "拒绝"
+
+#: .\service\notification_transfer_failed.cpp:33
+msgid "Transfer failure"
+msgstr "传输失败"
+
+#: .\service\notification_transfer_failed.cpp:37
+#, c-format
+msgid "Some transfers between you and %s have failed unexpectedly!"
+msgstr "与 %s 的一些传输因为意外而失败！"
+
+#: .\service\notification_transfer_succeeded.cpp:19
+msgid "Transfer success"
+msgstr "传输成功"
+
+#: .\service\notification_transfer_succeeded.cpp:23
+#, c-format
+msgid "Transfer between you and %s has finished successfully!"
+msgstr "与 %s 的传输已成功！"
+
+#: .\service\service_utils.cpp:98
+msgid "Unknown OS"
+msgstr "未知操作系统"
+
+#: .\tray_icon.cpp:34
+msgid "Winpinator (Error!)"
+msgstr "Winpinator（出错！）"
+
+#: .\tray_icon.cpp:42
+msgid "Winpinator (Waiting...)"
+msgstr "Winpinator（等待...）"
+
+#: .\tray_icon.cpp:50
+msgid "Winpinator (Running)"
+msgstr "Winpinator（运行中）"
+
+#: .\tray_icon.cpp:77
+msgid "&Restore window"
+msgstr "还原窗口 (&R)"
+
+#: .\tray_icon.cpp:78
+msgid "Restore main app window"
+msgstr "还原应用窗口"
+
+#: .\tray_icon.cpp:80
+msgid "&Open save folder"
+msgstr "打开保存文件夹 (&O)"
+
+#: .\tray_icon.cpp:82
+msgid "E&xit"
+msgstr "退出 (&X)"
+
+#: .\tray_icon.cpp:83
+msgid "Exit Winpinator and stop background service"
+msgstr "退出 Winpinator 并停止后台服务"
+
+#~ msgid ""
+#~ "Winpinator is an unofficial port of an excellent file transfer tool "
+#~ "Warpinator for Windows"
+#~ msgstr ""
+#~ "Winpinator is an unofficial port of an excellent file transfer tool "
+#~ "Warpinator for Windows"
+
+#~ msgid "©2021 Łukasz Świszcz"
+#~ msgstr "©2021 Łukasz Świszcz"
+
+#~ msgid "List"
+#~ msgstr "List"

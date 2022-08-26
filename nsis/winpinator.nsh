@@ -122,83 +122,111 @@ Var ins64_2_min
 
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "Polish"
+!insertmacro MUI_LANGUAGE "SimpChinese"
 
 # Multilingual strings
 
 LangString DESKTOP_SHORTCUT ${LANG_ENGLISH} "Create Desktop shortcut"
 LangString DESKTOP_SHORTCUT ${LANG_POLISH} "Utwórz skrót na pulpicie"
+LangString DESKTOP_SHORTCUT ${LANG_SIMPCHINESE} "创建桌面快捷方式"
 
 LangString RELEASE_NOTES ${LANG_ENGLISH} "Show Release notes"
 LangString RELEASE_NOTES ${LANG_POLISH} "Pokaż informacje o wydaniu"
+LangString RELEASE_NOTES ${LANG_SIMPCHINESE} "显示发行说明"
 
 LangString SECTION_WINPINATOR ${LANG_ENGLISH} "Winpinator"
 LangString SECTION_WINPINATOR ${LANG_POLISH} "Winpinator"
+LangString SECTION_WINPINATOR ${LANG_SIMPCHINESE} "Winpinator"
 LangString DESC_WINPINATOR ${LANG_ENGLISH} "Winpinator application with all dependencies"
 LangString DESC_WINPINATOR ${LANG_POLISH} "Aplikacja Winpinator wraz z zależnościami"
+LangString DESC_WINPINATOR ${LANG_SIMPCHINESE} "Winpinator 应用及其所有依赖"
 
 LangString SECTION_VCREDIST ${LANG_ENGLISH} "Runtime libraries"
 LangString SECTION_VCREDIST ${LANG_POLISH} "Biblioteki uruchomieniowe"
+LangString SECTION_VCREDIST ${LANG_SIMPCHINESE} "运行时库"
 LangString DESC_VCREDIST ${LANG_ENGLISH} "Microsoft Visual C++ 2015-2022 runtime libraries"
 LangString DESC_VCREDIST ${LANG_POLISH} "Biblioteki uruchomieniowe Microsoft Visual C++ 2015-2022"
+LangString DESC_VCREDIST ${LANG_SIMPCHINESE} "Microsoft Visual C++ 2015-2022 runtime libraries"
 
 LangString SECTION_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Create desktop shortcut"
 LangString SECTION_DESKTOP_SHORTCUT ${LANG_POLISH} "Utwórz skrót na pulpicie"
+LangString SECTION_DESKTOP_SHORTCUT ${LANG_SIMPCHINESE} "创建桌面快捷方式"
 LangString DESC_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Creates a shortcut to Winpinator on Desktop"
 LangString DESC_DESKTOP_SHORTCUT ${LANG_POLISH} "Tworzy skrót do Winpinatora na pulpicie"
+LangString DESC_DESKTOP_SHORTCUT ${LANG_SIMPCHINESE} "在桌面创建一个 Winpinator 的快捷方式"
 
 LangString SECTION_INTEGRATE ${LANG_ENGLISH} "Explorer integration"
 LangString SECTION_INTEGRATE ${LANG_POLISH} "Integracja z Eksploratorem"
+LangString SECTION_INTEGRATE ${LANG_SIMPCHINESE} "资源管理器集成"
 LangString DESC_INTEGRATE ${LANG_ENGLISH} "Insert shortcut to Winpinator into 'Send to' menu"
 LangString DESC_INTEGRATE ${LANG_POLISH} 'Wstaw skrót do Winpinatora do menu "Wyślij do"'
+LangString DESC_INTEGRATE ${LANG_SIMPCHINESE} '将 Winpinator 快捷方式加入到“发送到”菜单'
 
 LangString UNDESC_WINPINATOR ${LANG_ENGLISH} "Uninstall Winpinator but don't remove any data"
 LangString UNDESC_WINPINATOR ${LANG_POLISH} "Odinstaluj Winpinatora, ale pozostaw wszelkie dane"
+LangString UNDESC_WINPINATOR ${LANG_SIMPCHINESE} "卸载 Winpinator 但是不删除任何数据"
 
 LangString UNSECTION_USERDATA ${LANG_ENGLISH} "Remove user data"
 LangString UNSECTION_USERDATA ${LANG_POLISH} "Usuń dane użytkownika"
+LangString UNSECTION_USERDATA ${LANG_SIMPCHINESE} "删除用户数据"
 LangString UNDESC_USERDATA ${LANG_ENGLISH} "Additionally wipe all user data from computer"
 LangString UNDESC_USERDATA ${LANG_POLISH} "Dodatkowo usuń wszystkie dane użytkownika z komputera"
+LangString UNDESC_USERDATA ${LANG_SIMPCHINESE} "同时从计算机删除所有用户数据"
 
 LangString DOWNLOADING ${LANG_ENGLISH} "Downloading"
 LangString DOWNLOADING ${LANG_POLISH} "Pobieranie"
+LangString DOWNLOADING ${LANG_SIMPCHINESE} "下载中"
 
 LangString DOWNLOAD_FINISHED ${LANG_ENGLISH} "Download finished."
 LangString DOWNLOAD_FINISHED ${LANG_POLISH} "Pobieranie ukończone."
+LangString DOWNLOAD_FINISHED ${LANG_SIMPCHINESE} "下载完成。"
 
 LangString VCREDIST_FAILED ${LANG_ENGLISH} "Can't download Microsoft Visual C++ runtime libraries. Winpinator won't work. Download"
 LangString VCREDIST_FAILED2 ${LANG_ENGLISH} "and install them manually."
 LangString VCREDIST_FAILED ${LANG_POLISH} "Nie można pobrać bibliotek uruchomieniowych Microsoft Visual C++. Winpinator nie będzie działał. Pobierz"
 LangString VCREDIST_FAILED2 ${LANG_POLISH} "i zainstaluj je manualnie."
+LangString VCREDIST_FAILED ${LANG_SIMPCHINESE} "无法下载 Microsoft Visual C++ runtime libraries。 Winpinator 将无法运行。下载"
+LangString VCREDIST_FAILED2 ${LANG_SIMPCHINESE} "并手动安装。"
 
 LangString DIRECTORY_NOT_EMPTY ${LANG_ENGLISH} "Installation directory is not empty. Its content is to be entirely removed. Are you sure you want to continue?"
 LangString DIRECTORY_NOT_EMPTY ${LANG_POLISH} "Folder instalacji nie jest pusty. Instalacja spowoduje usunięcie całej jego zawartości. Czy chcesz kontynuować?"
+LangString DIRECTORY_NOT_EMPTY ${LANG_SIMPCHINESE} "安装目录不是空文件夹。其中的文件将被完全删除。你确定要继续吗？"
 
 LangString ABORT_WRONG_DIR ${LANG_ENGLISH} "Can't install in this directory."
 LangString ABORT_WRONG_DIR ${LANG_POLISH} "Nie można zainstalować w tym folderze."
+LangString ABORT_WRONG_DIR ${LANG_SIMPCHINESE} "无法安装到该目录。"
 
 LangString ADD_REMOVE ${LANG_ENGLISH} "Add information to 'Add or remove programs' window"
 LangString ADD_REMOVE ${LANG_POLISH} 'Dodaj informacje do okna "Dodaj lub usuń programy"'
+LangString ADD_REMOVE ${LANG_SIMPCHINESE} '添加信息到“添加或删除程序”窗口'
 
 LangString STARTMENU ${LANG_ENGLISH} "Optionally create Start Menu shortcut"
 LangString STARTMENU ${LANG_POLISH} "Opcjonalnie utwórz skrót w Menu Start"
+LangString STARTMENU ${LANG_SIMPCHINESE} "创建开始菜单快捷方式（可选）"
 
 LangString UNNAME ${LANG_ENGLISH} "Uninstall ${SOFTWARE_NAME}"
 LangString UNNAME ${LANG_POLISH} "Odinstaluj ${SOFTWARE_NAME}"
+LangString UNNAME ${LANG_SIMPCHINESE} "卸载 ${SOFTWARE_NAME}"
 
 LangString CREATING_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Creating Desktop shortcut"
 LangString CREATING_DESKTOP_SHORTCUT ${LANG_POLISH} "Tworzenie skrótu na Pulpicie"
+LangString CREATING_DESKTOP_SHORTCUT ${LANG_SIMPCHINESE} "创建桌面快捷方式"
 
 LangString INTEGRATING ${LANG_ENGLISH} "Adding Winpinator to 'Send to' list"
 LangString INTEGRATING ${LANG_POLISH} 'Dodawanie Winpinatora do listy "Wyślij do"'
+LangString INTEGRATING ${LANG_SIMPCHINESE} '添加 Winpinator 到“发送到”列表'
 
 LangString UN_WRONG_DIR ${LANG_ENGLISH} "Winpinator does not appear to be installed in this directory. Are you sure you want to continue?"
 LangString UN_WRONG_DIR ${LANG_POLISH} "Wygląda na to, że Winpinator nie jest zainstalowany w tym folderze. Czy na pewno chcesz kontynuować?"
+LangString UN_WRONG_DIR ${LANG_SIMPCHINESE} "Winpinator 似乎没有安装到该目录。要继续吗？"
 
 LangString UNABORT ${LANG_ENGLISH} "Uninstallation aborted."
 LangString UNABORT ${LANG_POLISH} "Deinstalacja przerwana."
+LangString UNABORT ${LANG_SIMPCHINESE} "卸载终止。"
 
 LangString UNWRONG_INSTDIR ${LANG_ENGLISH} "We're not uninstalling from the original install location. Do not remove entry from 'Add or remove programs'"
 LangString UNWRONG_INSTDIR ${LANG_POLISH} 'Winpinator nie jest odinstalowywany z oryginalnej ścieżki instalacji. Nie usuwaj wpisu z listy "Dodaj lub usuń programy"'
+LangString UNWRONG_INSTDIR ${LANG_SIMPCHINESE} "正在从非原始安装目录卸载。不要从“添加或删除程序”删除条目"
 
 
 Section "!$(SECTION_WINPINATOR)" WINPINATOR

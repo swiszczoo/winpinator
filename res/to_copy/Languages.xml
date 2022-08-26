@@ -2,4 +2,5 @@
 <Languages>
     <Language code="en_US" name="English (United States)" flag="us.png" />
     <Language code="pl_PL" name="Polski" flag="pl.png" />
+    <Language code="zh_CN" name="简体中文" flag="cn.png" />
 </Languages>
