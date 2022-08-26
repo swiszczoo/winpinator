@@ -398,7 +398,7 @@ msgstr "正在计算剩余时间"
 
 #: .\gui\history_element_pending.cpp:180
 msgid "a few seconds remaining"
-msgstr "还有几秒"
+msgstr "接近完成"
 
 #: .\gui\history_element_pending.cpp:185
 #, c-format
@@ -449,7 +449,7 @@ msgstr "%s， 总大小 %s ἢ %s ἢ %s"
 
 #: .\gui\history_element_pending.cpp:250
 msgid "999.9MB of 999.9MB ἢ 999.9MB/s ἢ a few seconds remaining"
-msgstr "999.9MB， 总大小 999.9MB ἢ 999.9MB/s ἢ 还有几秒"
+msgstr "999.9MB， 总大小 999.9MB ἢ 999.9MB/s ἢ 接近完成"
 
 #. TRANSLATORS: %s stands for full name of the peer
 #: .\gui\history_element_pending.cpp:281
