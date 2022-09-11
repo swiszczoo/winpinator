@@ -1,0 +1,1168 @@
+# Czech translation
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-18 19:12+0100\n"
+"PO-Revision-Date: 2022-09-11 18:23+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#. TRANSLATORS: This XML is loaded into wxRichTextCtrl in "About" section
+#: .\gui\about_dialog.cpp:18
+msgid ""
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"<richtext version=\"1.0.0.0\" xmlns=\"http://www.wxwidgets.org\">\n"
+"  <paragraphlayout textcolor=\"#000000\" fontpointsize=\"12\" fontfamily="
+"\"72\" fontstyle=\"90\" fontweight=\"400\" fontunderlined=\"0\" fontface="
+"\"Times New Roman\" alignment=\"1\" parspacingafter=\"10\" parspacingbefore="
+"\"0\" linespacing=\"10\" margin-left=\"10,4098\" margin-right=\"10,4098\" "
+"margin-top=\"10,4098\" margin-bottom=\"10,4098\">\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI"
+"\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">About</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI"
+"\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\"></"
+"text>\n"
+"    </paragraph>\n"
+"    <paragraph>\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\">"
+"\"Winpinator \"</text>\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI\">is "
+"an unofficial Windows port of a Linux file transfer tool called Warpinator. "
+"It provides all features of its Linux equivalent, however, Windows uses its "
+"own filesystem called NTFS and is generally architecturally different, hence "
+"Winpinator has to emulate some Linux features, like permission system. "
+"Winpinator should work out-of-the-box, it makes use of zeroconf networking, "
+"i.e. mDNS protocol, but some firewall settings might prevent it from "
+"communicating with the rest of the network.</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">The main goal of the "
+"project was to create a tool that provides native Windows look-and-feel, so "
+"the interface uses default system skin and supports drag-and-drop.</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">Used libraries</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI"
+"\">wxWidgets - as a general framework, to provide native Windows look-and-"
+"feel</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">gRPC and protobuf - "
+"to support the protocol of official Warpinator</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sodium - to encrypt "
+"and decrypt RSA keys with the symmetric group key</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">openssl - to generate "
+"safe PEM keys</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sqlite3 - to store "
+"persistent data, e.g. transfer history</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">zlib - to support "
+"transfer compression (one of the newer features of Warpinator)</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">wintoast - to display "
+"toast notifications</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">cpp-base64 - to "
+"convert binary keys to text and vice versa</text>\n"
+"    </paragraph>\n"
+"  </paragraphlayout>\n"
+"</richtext>\n"
+msgstr ""
+"<?xml version=“1.0” encoding=“UTF-8”?>\n"
+"<richtext version=“1.0.0.0” xmlns=“http://www.wxwidgets.org”>\n"
+"  <paragraphlayout textcolor=“#000000” fontpointsize=“12” fontfamily=“72” "
+"fontstyle=“90” fontweight=“400” fontunderlined=“0” fontface=“Times New "
+"Roman” alignment=“1” parspacingafter=“10” parspacingbefore=“0” "
+"linespacing=“10” margin-left=“10,4098” margin-right=“10,4098” margin-"
+"top=“10,4098” margin-bottom=“10,4098”>\n"
+"    <paragraph fontpointsize=“10” fontweight=“700” fontface=“Segoe UI”>\n"
+"      <text fontpointsize=“15” fontstyle=“93” fontweight=“700” "
+"fontface=“Segoe UI”>O</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontpointsize=“10” fontweight=“700” fontface=“Segoe UI”>\n"
+"      <text fontpointsize=“10” fontweight=“700” fontface=“Segoe UI”></text>\n"
+"    </paragraph>\n"
+"    <paragraph>\n"
+"      <text fontpointsize=“10” fontweight=“700” fontface=“Segoe "
+"UI”>”Winpinatoru “</text>\n"
+"      <text fontpointsize=“10” fontweight=“400” fontface=“Segoe UI”> Je to "
+"neoficiální port na Windows Linuxové aplikace pro přenos souborů zvané "
+"Warpinator. Nabízí všechny funkce jeho Linuxové předlohy, nicméně Windows "
+"používá svůj vlastní souborový systém, NTFS, který je architektonicky "
+"odlišný, a proto musí Winpinator emulovat některé funkce Linuxu, například "
+"systém oprávnění. Winpinator by měl fungovat ihned po spuštění. Využívá zero-"
+"configuration networking, tj. mDNS protokol. Ale  některá nastavení "
+"firewallu můžou znemožnit komunikaci se zbytkem sítě. </text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”> Hlavním cílem projektu "
+"bylo vytvořit nástroj, který nabídne nativní Windows vzhled tak, že rozhraní "
+"využívá výchozích systémových prvků spolu s funkcí drag-and- drop (táhni a "
+"pusť)</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400”>\n"
+"      <text fontpointsize=“15” fontstyle=“93” fontweight=“700” "
+"fontface=“Segoe UI”>Použité knihovny</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400”>\n"
+"      <text fontpointsize=“15” fontstyle=“93” fontweight=“700” "
+"fontface=“Segoe UI”></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400” leftindent=“60” leftsubindent=“60” "
+"bulletstyle=“512” bulletname=“standard/circle” liststyle=“Bullet List 1”>\n"
+"      <text fontpointsize=“10” fontweight=“400” fontface=“Segoe "
+"UI”>wxWidgets - jako hlavní pracovní rozhrní, podpora nativního Windows "
+"vzhledu</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400” leftindent=“60” leftsubindent=“60” "
+"bulletstyle=“512” bulletname=“standard/circle” liststyle=“Bullet List 1”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”>gRPC a protobuf - pro "
+"podporu protokolů oficiálního Warpinatoru</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400” leftindent=“60” leftsubindent=“60” "
+"bulletstyle=“512” bulletname=“standard/circle” liststyle=“Bullet List 1”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”>sodium - pro šifrování a "
+"dešifrování RSA klíčů se symetrickou skupinou klíčů</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400” leftindent=“60” leftsubindent=“60” "
+"bulletstyle=“512” bulletname=“standard/circle” liststyle=“Bullet List 1”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”>openssl - pro bezpečné "
+"generování REM klíčů</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400” leftindent=“60” leftsubindent=“60” "
+"bulletstyle=“512” bulletname=“standard/circle” liststyle=“Bullet List 1”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”>sqlite3 - pro ukládání "
+"trvalých dat, např. historie přenosů</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400” leftindent=“60” leftsubindent=“60” "
+"bulletstyle=“512” bulletname=“standard/circle” liststyle=“Bullet List 1”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”>zlib - pro podporu "
+"komprese přenosu (jedna z novějších funkcí Warpinatoru)</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400” leftindent=“60” leftsubindent=“60” "
+"bulletstyle=“512” bulletname=“standard/circle” liststyle=“Bullet List 1”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”>wintoast - pro "
+"zobrazování oznámení</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=“400” leftindent=“60” leftsubindent=“60” "
+"bulletstyle=“512” bulletname=“standard/circle” liststyle=“Bullet List 1”>\n"
+"      <text fontpointsize=“10” fontface=“Segoe UI”>cpp-base64 - pro převod "
+"binárních klíčů na text a naopak</text>\n"
+"    </paragraph>\n"
+"  </paragraphlayout>\n"
+"</richtext>\n"
+
+#: .\gui\about_dialog.cpp:108
+msgid "About Winpinator..."
+msgstr "O Winpinatoru…"
+
+#: .\gui\about_dialog.cpp:201
+msgid "Could not load About section."
+msgstr "Nepodařilo se načíst sekci „O projektu”."
+
+#: .\gui\about_dialog.cpp:208
+msgid "About"
+msgstr "O projektu"
+
+#: .\gui\about_dialog.cpp:224
+msgid "License"
+msgstr "Licence"
+
+#: .\gui\about_dialog.cpp:239
+msgid "License file could not be loaded."
+msgstr "Licenční soubor se nepodařilo načíst."
+
+#. TRANSLATORS: version string (e.g. "ver. 1.2.3")
+#: .\gui\about_dialog.cpp:265
+#, c-format
+msgid "ver. %s"
+msgstr "ver. %s"
+
+#: .\gui\file_list_dialog.cpp:16
+msgid ""
+"The list below contains all files that were registered as being sent/"
+"received within the transfer you've selected. The list might be incomplete "
+"if the transfer has been interrupted or failed in a different way."
+msgstr ""
+"Níže uvedený seznam obsahuje všechny soubory, které byly zaregistrovány jako "
+"odeslané/přijaté v rámci vybraného přenosu. Seznam může být neúplný, pokud "
+"byl přenos přerušen nebo selhal jiným způsobem."
+
+#: .\gui\file_list_dialog.cpp:22
+msgid "List of transferred files"
+msgstr "Seznam přenesených souborů"
+
+#: .\gui\file_list_dialog.cpp:31
+msgid "Close"
+msgstr "Zavřít"
+
+#: .\gui\file_list_dialog.cpp:94
+msgid "File name"
+msgstr "Název souboru"
+
+#: .\gui\file_list_dialog.cpp:96
+msgid "File type"
+msgstr "Formát souboru"
+
+#: .\gui\file_list_dialog.cpp:98
+msgid "Relative path"
+msgstr "Relativní cesta"
+
+#: .\gui\file_list_dialog.cpp:100
+msgid "Absolute path"
+msgstr "Absolutní cesta"
+
+#: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:293
+msgid "Folder"
+msgstr "Složka"
+
+#: .\gui\file_list_dialog.cpp:178 .\gui\file_list_dialog.cpp:187
+#: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:282
+msgid "File"
+msgstr "Soubor"
+
+#: .\gui\file_list_dialog.cpp:227
+msgid "Copy file name..."
+msgstr "Kopírovat jméno souboru…"
+
+#: .\gui\file_list_dialog.cpp:228
+msgid "Copy file type..."
+msgstr "Kopírovat formát souboru…"
+
+#: .\gui\file_list_dialog.cpp:229
+msgid "Copy relative path..."
+msgstr "Kopírovat relativní cestu…"
+
+#: .\gui\file_list_dialog.cpp:230
+msgid "Copy absolute path..."
+msgstr "Kopírovat absolutní cestu…"
+
+#: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:383
+msgid "Type:"
+msgstr "Formát:"
+
+#: .\gui\history_element_finished.cpp:121 .\gui\history_element_pending.cpp:384
+msgid "Total size:"
+msgstr "Celková velikost:"
+
+#: .\gui\history_element_finished.cpp:157
+msgid "Date and time:"
+msgstr "Datum a čas:"
+
+#: .\gui\history_element_finished.cpp:173
+msgid "%Y-%m-%d %I:%M %p"
+msgstr "%d.%m. %Y - %H:%M"
+
+#: .\gui\history_element_finished.cpp:188
+msgid "&Open "
+msgstr "&Otevřít "
+
+#: .\gui\history_element_finished.cpp:189
+msgid "Show in &Explorer..."
+msgstr "Otevři v &Průzkumíku…"
+
+#: .\gui\history_element_finished.cpp:190
+msgid "Show &list of transferred files..."
+msgstr "Zobraz &seznam přenesených souborů…"
+
+#: .\gui\history_element_finished.cpp:192
+msgid "&Remove from history"
+msgstr "&Vymazat z historie"
+
+#: .\gui\history_element_finished.cpp:261
+msgid ""
+"Files and directories from this transfer no longer exist on the hard drive."
+msgstr "Soubory a adresáře z tohoto přenosu už nejsou na pevném disku."
+
+#: .\gui\history_element_finished.cpp:263
+msgid "Can't show element"
+msgstr "Položku nelze zobrazit"
+
+#: .\gui\history_element_finished.cpp:355
+msgid "Completed"
+msgstr "Hotovo"
+
+#: .\gui\history_element_finished.cpp:357
+msgid "Cancelled"
+msgstr "Zrušeno"
+
+#: .\gui\history_element_finished.cpp:359
+msgid "Error occurred"
+msgstr "Vyskytla se chyba"
+
+#: .\gui\history_element_finished.cpp:361 .\gui\utils.cpp:146
+msgid "Unknown"
+msgstr "Neznámé"
+
+#: .\gui\history_element_finished.cpp:449
+msgid "Selected element no longer exists on the hard drive."
+msgstr "Vybraná položka už není na pevném disku."
+
+#: .\gui\history_element_finished.cpp:450
+msgid "Can't open element"
+msgstr "Položku nelze otevřít"
+
+#: .\gui\history_element_pending.cpp:57
+msgid "Over&write"
+msgstr "Znovu&piš"
+
+#: .\gui\history_element_pending.cpp:60
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: .\gui\history_element_pending.cpp:63
+msgid "&Accept"
+msgstr "&Přijmout"
+
+#: .\gui\history_element_pending.cpp:66
+msgid "&Decline"
+msgstr "&Odmítnout"
+
+#: .\gui\history_element_pending.cpp:72
+msgid "&Stop"
+msgstr "&Zastavit"
+
+#: .\gui\history_element_pending.cpp:176
+msgid "calculating remaining time"
+msgstr "vypočítávání zbývajícího času"
+
+#: .\gui\history_element_pending.cpp:180
+msgid "a few seconds remaining"
+msgstr "zbývá jen pár sekund"
+
+#: .\gui\history_element_pending.cpp:185
+#, c-format
+msgid "%d sec remaining"
+msgid_plural "%d secs remaining"
+msgstr[0] "zbývá %d sekunda"
+msgstr[1] "zbývají %d sekundy"
+msgstr[2] "zbývá %d sekund"
+
+#: .\gui\history_element_pending.cpp:193
+#, c-format
+msgid "%d min remaining"
+msgid_plural "%d mins remaining"
+msgstr[0] "zbývá %d minuta"
+msgstr[1] "zbývají %d minuty"
+msgstr[2] "zbývá %d minut"
+
+#: .\gui\history_element_pending.cpp:201
+#, c-format
+msgid "%d hour remaining"
+msgid_plural "%d hours remaining"
+msgstr[0] "zbývá %d hodina"
+msgstr[1] "zbývájí %d hodiny"
+msgstr[2] "zbývá %d hodin"
+
+#: .\gui\history_element_pending.cpp:209
+#, c-format
+msgid "%d day remaining"
+msgid_plural "%d days remaining"
+msgstr[0] "zbývá %d den"
+msgstr[1] "zbývájí %d dny"
+msgstr[2] "zbývá %d dní"
+
+#: .\gui\history_element_pending.cpp:214
+msgid "many days remaining"
+msgstr "zbývá mnoho dní"
+
+#. TRANSLATORS: this is a format string for transfer speed,
+#. the %s part will be replaced with appropriate file size equivalent,
+#. e.g. 25,4MB or 32,6KB
+#: .\gui\history_element_pending.cpp:220
+#, c-format
+msgid "%s/s"
+msgstr "%s/s"
+
+#. TRANSLATORS: the subsequent %s placeholders stand for:
+#. current sent bytes, transfer total size, transfer speed, remaining time
+#: .\gui\history_element_pending.cpp:226
+#, c-format
+msgid "%s of %s ἢ %s ἢ %s"
+msgstr "%s z %s ἢ %s ἢ %s"
+
+#: .\gui\history_element_pending.cpp:250
+msgid "999.9MB of 999.9MB ἢ 999.9MB/s ἢ a few seconds remaining"
+msgstr "999.9MB z 999.9MB ἢ 999.9MB/s ἢ zbývá jen pár sekund"
+
+#. TRANSLATORS: %s stands for full name of the peer
+#: .\gui\history_element_pending.cpp:281
+#, c-format
+msgid "%s is sending you files:"
+msgstr "%s vám posílá soubor:"
+
+#. TRANSLATORS: %s stands for full name of the peer
+#: .\gui\history_element_pending.cpp:292
+#, c-format
+msgid "Awaiting approval from %s..."
+msgstr "Čeká se na schválení od %s…"
+
+#: .\gui\history_element_pending.cpp:300
+msgid "Scanning for files..."
+msgstr "Hledání souborů…"
+
+#: .\gui\history_element_pending.cpp:310
+msgid "This request will overwrite one or more files!"
+msgstr "Tento požadavek přepíše jeden nebo více soubor!"
+
+#: .\gui\history_element_pending.cpp:320
+msgid "R&esume"
+msgstr "Znovu&spustit"
+
+#: .\gui\history_element_pending.cpp:332
+msgid "&Pause"
+msgstr "&Pozastavit"
+
+#: .\gui\history_element_pending.cpp:344
+msgid "Not enough disk space! Files cannot be received!"
+msgstr "Není dostatek místa na disku! Soubor není možné přijmout!"
+
+#: .\gui\history_item_icon.cpp:149 .\gui\history_item_icon.cpp:274
+msgid "Empty"
+msgstr "Prázdné"
+
+#: .\gui\history_item_icon.cpp:175 .\service\notification_accept_files.cpp:107
+#, c-format
+msgid "%d element"
+msgid_plural "%d elements"
+msgstr[0] "%d prvek"
+msgstr[1] "%d prvky"
+msgstr[2] "%d prvků"
+
+#: .\gui\history_item_icon.cpp:179
+#, c-format
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "%d soubor"
+msgstr[1] "%d soubory"
+msgstr[2] "%d souborů"
+
+#: .\gui\history_item_icon.cpp:182
+#, c-format
+msgid "%d folder"
+msgid_plural "%d folders"
+msgstr[0] "%d složka"
+msgstr[1] "%d složky"
+msgstr[2] "%d složek"
+
+#. TRANSLATORS: format string, e.g. <2 folders> and <5 files>
+#: .\gui\history_item_icon.cpp:198
+#, c-format
+msgid "%s and %s"
+msgstr "%s a %s"
+
+#: .\gui\history_item_icon.cpp:268
+msgid "Calculating"
+msgstr "Vypočítává se"
+
+#: .\gui\history_item_icon.cpp:286
+msgid "Multiple files"
+msgstr "Více souborů"
+
+#: .\gui\history_item_icon.cpp:297
+msgid "Multiple folders"
+msgstr "Více složek"
+
+#: .\gui\history_item_icon.cpp:302
+msgid "Mixed elements"
+msgstr "Smíšené prvky"
+
+#: .\gui\host_listbox.cpp:159
+msgid "Hostname:"
+msgstr "Název:"
+
+#: .\gui\host_listbox.cpp:160
+msgid "IP Address:"
+msgstr "IP Adresa:"
+
+#: .\gui\host_listbox.cpp:183
+msgid "OS:"
+msgstr "OS:"
+
+#: .\gui\host_listbox.cpp:184
+msgid "Connection:"
+msgstr "Připojení:"
+
+#: .\gui\page_error.cpp:13
+msgid "A fatal error occurred while trying to start the service!"
+msgstr "Vyskytla se chyba při pokusu spustit službu!"
+
+#: .\gui\page_error.cpp:53 .\gui\page_nohosts.cpp:36
+msgid "Try again"
+msgstr "Zkuste znovu"
+
+#: .\gui\page_error.cpp:59
+msgid "Open settings"
+msgstr "Otevřít nastavení"
+
+#: .\gui\page_error.cpp:130
+msgid "No error."
+msgstr "Žádné chyby."
+
+#: .\gui\page_error.cpp:133
+msgid "Unknown error!"
+msgstr "Neznámá chyba!"
+
+#: .\gui\page_error.cpp:137
+msgid ""
+"Can't create mDNS server! Maybe another running app is holding exclusive "
+"access to appropriate port?"
+msgstr ""
+"Není možné vytvořit mDNS server! Možná si další spuštěná aplikace drží "
+"výhradný přístup k příslušnému portu?"
+
+#: .\gui\page_error.cpp:142
+msgid ""
+"Can't create registration service (for compatibility mode). Maybe there's "
+"another instance of Winpinator running on your computer, e.g. started by "
+"another user? You can always try to change ports in the settings."
+msgstr ""
+"Nelze vytvořit službu registrace (z důvodu režimu kompatibility). Možná je "
+"na vašem počítači spuštěna jiná instance programu Winpinator, např. spuštěná "
+"jiným uživatelem? Vždy můžete zkusit změnit porty v nastavení."
+
+#: .\gui\page_error.cpp:149
+msgid ""
+"Can't create registration service. Maybe there's another instance of "
+"Winpinator running on your computer, e.g. started by another user? You can "
+"always try to change ports in the settings."
+msgstr ""
+"Nelze vytvořit registrační službu. Možná je na vašem počítači spuštěna jiná "
+"instance Winpinatoru, např. spuštěná jiným uživatelem? Vždy můžete zkusit "
+"změnit porty v nastavení."
+
+#: .\gui\page_error.cpp:156
+msgid ""
+"Can't create main service. Maybe there's another instance of Winpinator "
+"running on your computer, e.g. started by another user? You can always try "
+"to change ports in the settings."
+msgstr ""
+"Nelze vytvořit hlavní službu. Možná je na vašem počítači spuštěna jiná "
+"instance Winpinatoru, např. spuštěná jiným uživatelem? Vždy můžete zkusit "
+"změnit porty v nastavení."
+
+#: .\gui\page_error.cpp:163
+msgid ""
+"Output directory you provided in the settings does not exist. Winpinator "
+"failed to create one."
+msgstr ""
+"Výstupní adresář, který jste zadali v nastavení, neexistuje. Winpinator ho "
+"nedokázal vytvořit."
+
+#: .\gui\page_error.cpp:169
+msgid "Missing description"
+msgstr "Chybějící popis"
+
+#: .\gui\page_hostlist.cpp:20
+msgid ""
+"Below is a list of currently available computers. Select the one you want to "
+"transfer your files to."
+msgstr ""
+"Níže je uveden seznam aktuálně dostupných počítačů. Vyberte ten, na který "
+"chcete přenést své soubory."
+
+#: .\gui\page_hostlist.cpp:24
+msgid ""
+"Below is a list of currently available computers.\n"
+"Select the one you want to transfer your files to."
+msgstr ""
+"Níže je uveden seznam aktuálně dostupných počítačů.\n"
+"Vyberte ten, na který chcete přenést své soubory."
+
+#: .\gui\page_hostlist.cpp:50
+msgid "Select where to send your files"
+msgstr "Vyberte, kam chcete soubory odeslat"
+
+#: .\gui\page_hostlist.cpp:62
+msgid "Refresh list"
+msgstr "Obnovit seznam"
+
+#: .\gui\page_hostlist.cpp:78
+msgid "Searching for computers on your network..."
+msgstr "Vyhledávání počítačů v síti…"
+
+#: .\gui\page_hostlist.cpp:83
+msgid "&Next >"
+msgstr "&Další >"
+
+#: .\gui\page_hostlist.cpp:346
+msgid "Data unavailable"
+msgstr "Data nejsou dostupná"
+
+#: .\gui\page_hostlist.cpp:355
+msgid "Loading..."
+msgstr "Načítání…"
+
+#: .\gui\page_nohosts.cpp:11
+msgid "There are no other computers found on your network..."
+msgstr "Ve vaší síti nejsou žádné další počítače…"
+
+#: .\gui\page_offline.cpp:10
+msgid "It seems you're offline! Check your LAN connection..."
+msgstr "Zdá se, že jsi offline! Zkontroluj své LAN připojení…"
+
+#: .\gui\page_starting.cpp:22
+msgid "Starting Winpinator..."
+msgstr "Spuštění Winpinatoru…"
+
+#: .\gui\page_transferlist.cpp:37
+msgid "Select files or directories to start transfer"
+msgstr "Výběr souborů nebo adresářů pro zahájení přenosu"
+
+#: .\gui\page_transferlist.cpp:43
+msgid ""
+"Drop elements you want to send into the box below or click one of the "
+"buttons."
+msgstr "Výběr souborů nebo adresářů pro zahájení přenosu."
+
+#: .\gui\page_transferlist.cpp:49
+msgid "Go back"
+msgstr "Jít zpět"
+
+#: .\gui\page_transferlist.cpp:55
+msgid "Send file(s)..."
+msgstr "Odeslat soubor(y)…"
+
+#: .\gui\page_transferlist.cpp:59
+msgid "Send a folder..."
+msgstr "Odeslat složku…"
+
+#: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:261
+#: .\gui\settings_dialog.cpp:538
+msgid "Clear history"
+msgstr "Vymazat historii"
+
+#: .\gui\page_transferlist.cpp:205
+msgid "Select files to send..."
+msgstr "Vyber soubory k odeslání…"
+
+#. TRANSLATORS: wildcard format: type1|filter1;type2|filter2;...
+#: .\gui\page_transferlist.cpp:207
+msgid "All files (*.*)|*.*"
+msgstr "Všechny soubory (*.*)|*.*"
+
+#: .\gui\page_transferlist.cpp:233
+msgid "Select directories to send..."
+msgstr "Vyberte adresáře, které chcete odeslat…"
+
+#: .\gui\page_transferlist.cpp:260
+msgid "Are you sure you want to clear entire history for this device?"
+msgstr "Opravdu chcete vymazat celou historii tohoto zařízení?"
+
+#: .\gui\page_transferlist.cpp:263 .\gui\settings_dialog.cpp:540
+msgid "This operation cannot be undone!"
+msgstr "Tuto operaci nelze vrátit zpět!"
+
+#: .\gui\permission_picker.cpp:32
+msgid "Read"
+msgstr "Číst"
+
+#: .\gui\permission_picker.cpp:34
+msgid "Write"
+msgstr "Zapisovat"
+
+#: .\gui\permission_picker.cpp:36
+msgid "Execute"
+msgstr "Vykonat"
+
+#: .\gui\permission_picker.cpp:39
+msgid "Owner"
+msgstr "Vlastník"
+
+#: .\gui\permission_picker.cpp:45
+msgid "Group"
+msgstr "Skupina"
+
+#: .\gui\permission_picker.cpp:51
+msgid "Others"
+msgstr "Jiní"
+
+#: .\gui\settings_dialog.cpp:17
+msgid "Preferences"
+msgstr "Předvolby"
+
+#: .\gui\settings_dialog.cpp:35
+msgid "General"
+msgstr "Obecné"
+
+#: .\gui\settings_dialog.cpp:36
+msgid "Unix permissions"
+msgstr "Unixová oprávnění"
+
+#: .\gui\settings_dialog.cpp:37
+msgid "History"
+msgstr "Historie"
+
+#: .\gui\settings_dialog.cpp:38
+msgid "Connection"
+msgstr "Připojení"
+
+#: .\gui\settings_dialog.cpp:79
+msgid "Interface"
+msgstr "Rozhraní"
+
+#: .\gui\settings_dialog.cpp:85
+msgid "Language (requires restart to take effect):"
+msgstr "Jazyk (změna vyžaduje restart):"
+
+#: .\gui\settings_dialog.cpp:102
+msgid "Desktop"
+msgstr "Plocha"
+
+#: .\gui\settings_dialog.cpp:107
+msgid "Start with main window open"
+msgstr "Spuštění s otevřeným hlavním oknem"
+
+#: .\gui\settings_dialog.cpp:113
+msgid "Start automatically (on system startup)"
+msgstr "Automatické spuštění (při spuštění systému)"
+
+#: .\gui\settings_dialog.cpp:119
+msgid "Do not show main window on system startup"
+msgstr "Nezobrazovat hlavní okno při spuštění systému"
+
+#: .\gui\settings_dialog.cpp:129
+msgid "File transfers"
+msgstr "Přenos souborů"
+
+#: .\gui\settings_dialog.cpp:134
+msgid "Use compression (if available)"
+msgstr "Použití komprese (je-li k dispozici)"
+
+#: .\gui\settings_dialog.cpp:140
+msgid "Compression level:"
+msgstr "Úroveň komprese:"
+
+#: .\gui\settings_dialog.cpp:148
+msgid "Location for received files:"
+msgstr "Umístění přijatých souborů:"
+
+#: .\gui\settings_dialog.cpp:159
+msgid "Require approval before accepting files"
+msgstr "Vyžadovat schválení před přijetím souborů"
+
+#: .\gui\settings_dialog.cpp:165
+msgid "Require approval when files would be overwritten"
+msgstr "Vyžadovat schválení při přepisu souborů"
+
+#: .\gui\settings_dialog.cpp:171
+msgid "Preserve zone information in incoming files"
+msgstr "Zachování informací o zóně v příchozích souborech"
+
+#: .\gui\settings_dialog.cpp:189
+msgid "File permissions:"
+msgstr "Oprávnění k souborům:"
+
+#: .\gui\settings_dialog.cpp:196
+msgid "Executable permissions:"
+msgstr "Oprávnění ke spuštění:"
+
+#: .\gui\settings_dialog.cpp:203
+msgid "Folder permissions:"
+msgstr "Oprávnění složky:"
+
+#: .\gui\settings_dialog.cpp:218
+msgid "Transfer history"
+msgstr "Historie přenosu"
+
+#: .\gui\settings_dialog.cpp:223
+msgid "Warning! Every action you perform on this page is irreversible!"
+msgstr "Pozor! Každá akce, kterou provedete na této stránce, je nevratná!"
+
+#: .\gui\settings_dialog.cpp:233
+msgid "Hostname"
+msgstr "Název"
+
+#: .\gui\settings_dialog.cpp:234
+msgid "Full name"
+msgstr "Celý název"
+
+#: .\gui\settings_dialog.cpp:235
+msgid "IP address"
+msgstr "IP adresa"
+
+#: .\gui\settings_dialog.cpp:236
+msgid "OS"
+msgstr "OS"
+
+#: .\gui\settings_dialog.cpp:237
+msgid "Transfers registered"
+msgstr "Registrované převody"
+
+#: .\gui\settings_dialog.cpp:247
+msgid "Remove selected"
+msgstr "Odstranění vybraných"
+
+#: .\gui\settings_dialog.cpp:249
+msgid "Clear all history"
+msgstr "Vymazat veškerou historii"
+
+#: .\gui\settings_dialog.cpp:271
+msgid "Identification"
+msgstr "Identifikace"
+
+#: .\gui\settings_dialog.cpp:277
+msgid "Group code:"
+msgstr "Kód skupiny:"
+
+#: .\gui\settings_dialog.cpp:292
+msgid "Network"
+msgstr "Síť"
+
+#: .\gui\settings_dialog.cpp:297
+msgid "Network interface to use:"
+msgstr "Síťové rozhraní, které se má použít:"
+
+#: .\gui\settings_dialog.cpp:312
+msgid "Incoming port for transfers:"
+msgstr "Příchozí port pro přenosy:"
+
+#: .\gui\settings_dialog.cpp:321
+msgid "Incoming port for registration:"
+msgstr "Příchozí port pro registraci:"
+
+#: .\gui\settings_dialog.cpp:471
+msgid "Automatic"
+msgstr "Automatické"
+
+#: .\gui\settings_dialog.cpp:537
+msgid "Are you sure you want to clear all history?"
+msgstr "Určitě chcete vymazat celou historii?"
+
+#: .\gui\transfer_history.cpp:20
+msgid "Soon in the future"
+msgstr "Brzy v budoucnosti"
+
+#: .\gui\transfer_history.cpp:21
+msgid "Today"
+msgstr "Dnes"
+
+#: .\gui\transfer_history.cpp:22
+msgid "Yesterday"
+msgstr "Včera"
+
+#: .\gui\transfer_history.cpp:23
+msgid "Earlier this week"
+msgstr "Začátkem tohoto týdne"
+
+#: .\gui\transfer_history.cpp:24
+msgid "Last week"
+msgstr "Minulý týden"
+
+#: .\gui\transfer_history.cpp:25
+msgid "Earlier this month"
+msgstr "Začátkem tohoto měsíce"
+
+#: .\gui\transfer_history.cpp:26
+msgid "Last month"
+msgstr "Minulý měsíc"
+
+#: .\gui\transfer_history.cpp:27
+msgid "Earlier this year"
+msgstr "Na začátku letošního roku"
+
+#: .\gui\transfer_history.cpp:28
+msgid "Last year"
+msgstr "Na začátku letošního roku"
+
+#: .\gui\transfer_history.cpp:29
+msgid "A long time ago"
+msgstr "Před dlouhou dobou"
+
+#: .\gui\transfer_history.cpp:48
+msgid "There is no transfer history for this device..."
+msgstr "Pro toto zařízení není k dispozici žádná historie přenosů…"
+
+#: .\gui\transfer_history.cpp:60
+msgid "In progress"
+msgstr "Probíhá"
+
+#: .\gui\transfer_history.cpp:559
+#, c-format
+msgid "In progress (%d)"
+msgstr "Probíhá (%d)"
+
+#: .\gui\utils.cpp:133
+msgid "Offline"
+msgstr "Offline"
+
+#: .\gui\utils.cpp:135
+msgid "Registration in progress..."
+msgstr "Registrace probíhá…"
+
+#: .\gui\utils.cpp:137
+msgid "Connecting..."
+msgstr "Připojení…"
+
+#: .\gui\utils.cpp:139
+msgid "Host unreachable"
+msgstr "Nedostupný"
+
+#: .\gui\utils.cpp:141
+msgid "Establishing duplex connection..."
+msgstr "Navázání duplexního spojení…"
+
+#: .\gui\utils.cpp:143
+msgid "Ready"
+msgstr "Připraveno"
+
+#: .\gui\utils.cpp:195
+msgid "Calculating..."
+msgstr "Výpočet…"
+
+#: .\gui\winpinator_banner.cpp:174
+msgid "Share your files across the LAN"
+msgstr "Sdílení souborů v síti LAN"
+
+#: .\gui\winpinator_banner.cpp:178
+#, c-format
+msgid "Send %d element..."
+msgid_plural "Send %d elements..."
+msgstr[0] "Odeslat %d prvek…"
+msgstr[1] "Odeslat %d prveky…"
+msgstr[2] "Odeslat %d prvků…"
+
+#: .\gui\winpinator_frame.cpp:23
+msgid "Winpinator"
+msgstr "Winpinator"
+
+#. TRANSLATORS: format string
+#: .\gui\winpinator_frame.cpp:71 .\gui\winpinator_frame.cpp:328
+#, c-format
+msgid "IP: %s"
+msgstr "IP: %s"
+
+#: .\gui\winpinator_frame.cpp:75 .\gui\winpinator_frame.cpp:312
+#: .\gui\winpinator_frame.cpp:323
+msgid "Offline!"
+msgstr "Offline!"
+
+#: .\gui\winpinator_frame.cpp:138
+msgid "&Open save folder...\tCtrl+O"
+msgstr "&Otevřít složku pro ukládání…\tCtrl+O"
+
+#: .\gui\winpinator_frame.cpp:139 .\tray_icon.cpp:81
+msgid "Open the incoming files folder in Explorer"
+msgstr "Otevření složky příchozích souborů v Průzkumníku"
+
+#: .\gui\winpinator_frame.cpp:140
+msgid "&Preferences..."
+msgstr "&Předvolby…"
+
+#: .\gui\winpinator_frame.cpp:141
+msgid "Adjust app preferences"
+msgstr "Úprava předvoleb aplikace"
+
+#: .\gui\winpinator_frame.cpp:143
+msgid "E&xit\tAlt+F4"
+msgstr "Ode&jít\tAlt+F4"
+
+#: .\gui\winpinator_frame.cpp:144
+msgid "Close this window but let Winpinator run in background"
+msgstr "Zavřete toto okno, ale nechte Winpinator běžet na pozadí"
+
+#: .\gui\winpinator_frame.cpp:146
+msgid "Exit and &stop the service\tCtrl+Alt+F4"
+msgstr "Ukončení a &zastavení služby\tCtrl+Alt+F4"
+
+#: .\gui\winpinator_frame.cpp:147
+msgid "Exit Winpinator and stop being visible to other computers"
+msgstr ""
+"Ukončit aplikaci Winpinator a přestat být viditelný pro ostatní počítače"
+
+#: .\gui\winpinator_frame.cpp:149
+msgid "&File"
+msgstr "&Soubor"
+
+#: .\gui\winpinator_frame.cpp:152
+msgid "&Help topics...\tF1"
+msgstr "&Témata nápovědy…\tF1"
+
+#: .\gui\winpinator_frame.cpp:153
+msgid "Show help and documentation of Winpinator"
+msgstr "Zobrazit nápovědu a dokumentaci Winpinatoru"
+
+#: .\gui\winpinator_frame.cpp:154
+msgid "&What's new?..."
+msgstr "&Co je nového?…"
+
+#: .\gui\winpinator_frame.cpp:155
+msgid "Show release notes"
+msgstr "Zobrazit poznámky k vydání"
+
+#: .\gui\winpinator_frame.cpp:156
+msgid "&About Winpinator..."
+msgstr "&O Winpinatoru…"
+
+#: .\gui\winpinator_frame.cpp:157
+msgid "Show credits dialog"
+msgstr "Zobrazit dialogové okno se zásluhami"
+
+#: .\gui\winpinator_frame.cpp:159
+msgid "&Help"
+msgstr "&Nápověda"
+
+#: .\gui\winpinator_frame.cpp:262
+msgid "Sorry, but Winpinator help is not available yet."
+msgstr ""
+"Je nám líto, ale nápověda k aplikaci Winpinator zatím není k dispozici."
+
+#: .\gui\winpinator_frame.cpp:263
+msgid "Help not available"
+msgstr "Nápověda není k dispozici"
+
+#: .\service\notification_accept_files.cpp:91
+msgid "Incoming files"
+msgstr "Příchozí soubory"
+
+#: .\service\notification_accept_files.cpp:100
+#, c-format
+msgid "%s is sending you a folder \"%s\""
+msgstr "%s vám posílá složku “%s”"
+
+#: .\service\notification_accept_files.cpp:110
+#, c-format
+msgid "%s is sending you %s"
+msgstr "%s vám posílá %s"
+
+#: .\service\notification_accept_files.cpp:116
+#, c-format
+msgid "%s is sending you a file \"%s\""
+msgstr "%s vám posílá soubor “%s”"
+
+#. TRANSLATORS: this string is appended to notification message
+#. if overwrite is needed, e.g.
+#. "A is sending you 5 files. Accepting this transfer..."
+#. The initial dot is necessary.
+#: .\service\notification_accept_files.cpp:126
+msgid ". Accepting this transfer will overwrite some files!"
+msgstr ". Přijetím tohoto přenosu dojde k přepsání některých souborů!"
+
+#: .\service\notification_accept_files.cpp:134
+msgid "Overwrite"
+msgstr "Přepsat"
+
+#: .\service\notification_accept_files.cpp:135
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: .\service\notification_accept_files.cpp:139
+msgid "Accept"
+msgstr "Přijmout"
+
+#: .\service\notification_accept_files.cpp:140
+msgid "Decline"
+msgstr "Odmítnout"
+
+#: .\service\notification_transfer_failed.cpp:33
+msgid "Transfer failure"
+msgstr "Selhání přenosu"
+
+#: .\service\notification_transfer_failed.cpp:37
+#, c-format
+msgid "Some transfers between you and %s have failed unexpectedly!"
+msgstr "Některé přenosy mezi vámi a %s neočekávaně selhaly!"
+
+#: .\service\notification_transfer_succeeded.cpp:19
+msgid "Transfer success"
+msgstr "Úspěšný přestup"
+
+#: .\service\notification_transfer_succeeded.cpp:23
+#, c-format
+msgid "Transfer between you and %s has finished successfully!"
+msgstr "Přenos mezi vámi a %s byl úspěšně dokončen!"
+
+#: .\service\service_utils.cpp:98
+msgid "Unknown OS"
+msgstr "Neznámý OS"
+
+#: .\tray_icon.cpp:34
+msgid "Winpinator (Error!)"
+msgstr "Winpinator (Chyba!)"
+
+#: .\tray_icon.cpp:42
+msgid "Winpinator (Waiting...)"
+msgstr "Winpinator (čeká…)"
+
+#: .\tray_icon.cpp:50
+msgid "Winpinator (Running)"
+msgstr "Winpinator (běží)"
+
+#: .\tray_icon.cpp:77
+msgid "&Restore window"
+msgstr "&Obnovit okno"
+
+#: .\tray_icon.cpp:78
+msgid "Restore main app window"
+msgstr "Obnovit hlavní okno aplikace"
+
+#: .\tray_icon.cpp:80
+msgid "&Open save folder"
+msgstr "&Otevřít složku pro ukládání"
+
+#: .\tray_icon.cpp:82
+msgid "E&xit"
+msgstr "Od&ejít"
+
+#: .\tray_icon.cpp:83
+msgid "Exit Winpinator and stop background service"
+msgstr "Ukončit Winpinator a zastavit služby na pozadí"
