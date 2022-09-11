@@ -122,83 +122,111 @@ Var ins64_2_min
 
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "Polish"
+!insertmacro MUI_LANGUAGE "Czech"
 
 # Multilingual strings
 
 LangString DESKTOP_SHORTCUT ${LANG_ENGLISH} "Create Desktop shortcut"
 LangString DESKTOP_SHORTCUT ${LANG_POLISH} "Utwórz skrót na pulpicie"
+LangString DESKTOP_SHORTCUT ${LANG_CZECH} "Vytvořit zástupce na ploše"
 
 LangString RELEASE_NOTES ${LANG_ENGLISH} "Show Release notes"
 LangString RELEASE_NOTES ${LANG_POLISH} "Pokaż informacje o wydaniu"
+LangString RELEASE_NOTES ${LANG_CZECH} "Zobrazit poznámky k vydání"
 
 LangString SECTION_WINPINATOR ${LANG_ENGLISH} "Winpinator"
 LangString SECTION_WINPINATOR ${LANG_POLISH} "Winpinator"
+LangString SECTION_WINPINATOR ${LANG_CZECH "Winpinator"
 LangString DESC_WINPINATOR ${LANG_ENGLISH} "Winpinator application with all dependencies"
 LangString DESC_WINPINATOR ${LANG_POLISH} "Aplikacja Winpinator wraz z zależnościami"
+LangString DESC_WINPINATOR ${LANG_CZECH} "Aplikace Winpinator se všemi závislostmi"
 
 LangString SECTION_VCREDIST ${LANG_ENGLISH} "Runtime libraries"
 LangString SECTION_VCREDIST ${LANG_POLISH} "Biblioteki uruchomieniowe"
+LangString SECTION_VCREDIST ${LANG_CZECH} "Spouštěcí knihovny"
 LangString DESC_VCREDIST ${LANG_ENGLISH} "Microsoft Visual C++ 2015-2022 runtime libraries"
 LangString DESC_VCREDIST ${LANG_POLISH} "Biblioteki uruchomieniowe Microsoft Visual C++ 2015-2022"
+LangString DESC_VCREDIST ${LANG_C|ZECH} "Microsoft Visual C++ 2015-2022 spouštěcí knihovny"
 
 LangString SECTION_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Create desktop shortcut"
 LangString SECTION_DESKTOP_SHORTCUT ${LANG_POLISH} "Utwórz skrót na pulpicie"
+LangString SECTION_DESKTOP_SHORTCUT ${LANG_CZECH} "Vytvořit zástupce na ploše"
 LangString DESC_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Creates a shortcut to Winpinator on Desktop"
 LangString DESC_DESKTOP_SHORTCUT ${LANG_POLISH} "Tworzy skrót do Winpinatora na pulpicie"
+LangString DESC_DESKTOP_SHORTCUT ${LANG_CZECH} "Vytvoří zástupce aplikace Winpinator na ploše"
 
 LangString SECTION_INTEGRATE ${LANG_ENGLISH} "Explorer integration"
 LangString SECTION_INTEGRATE ${LANG_POLISH} "Integracja z Eksploratorem"
+LangString SECTION_INTEGRATE ${LANG_CZECH} "Integrace Průzkumníka"
 LangString DESC_INTEGRATE ${LANG_ENGLISH} "Insert shortcut to Winpinator into 'Send to' menu"
 LangString DESC_INTEGRATE ${LANG_POLISH} 'Wstaw skrót do Winpinatora do menu "Wyślij do"'
+LangString DESC_INTEGRATE ${LANG_CZECH} "Vložit zástupce Winpinatoru do nabídky "Odeslat do"."
 
 LangString UNDESC_WINPINATOR ${LANG_ENGLISH} "Uninstall Winpinator but don't remove any data"
 LangString UNDESC_WINPINATOR ${LANG_POLISH} "Odinstaluj Winpinatora, ale pozostaw wszelkie dane"
+LangString UNDESC_WINPINATOR ${LANG_CZECH} "Odinstalujte Winpinator, ale neodstraňte žádná data"
 
 LangString UNSECTION_USERDATA ${LANG_ENGLISH} "Remove user data"
 LangString UNSECTION_USERDATA ${LANG_POLISH} "Usuń dane użytkownika"
+LangString UNSECTION_USERDATA ${LANG_CZECH} "Odstranění uživatelských dat"
 LangString UNDESC_USERDATA ${LANG_ENGLISH} "Additionally wipe all user data from computer"
 LangString UNDESC_USERDATA ${LANG_POLISH} "Dodatkowo usuń wszystkie dane użytkownika z komputera"
+LangString UNDESC_USERDATA ${LANG_CZECH} "Dodatečně vymažte všechna uživatelská data z počítače"
 
 LangString DOWNLOADING ${LANG_ENGLISH} "Downloading"
 LangString DOWNLOADING ${LANG_POLISH} "Pobieranie"
+LangString DOWNLOADING ${LANG_CZECH} "Stahování"
 
 LangString DOWNLOAD_FINISHED ${LANG_ENGLISH} "Download finished."
 LangString DOWNLOAD_FINISHED ${LANG_POLISH} "Pobieranie ukończone."
+LangString DOWNLOAD_FINISHED ${LANG_CZECH} "Stažení dokončeno."
 
 LangString VCREDIST_FAILED ${LANG_ENGLISH} "Can't download Microsoft Visual C++ runtime libraries. Winpinator won't work. Download"
 LangString VCREDIST_FAILED2 ${LANG_ENGLISH} "and install them manually."
 LangString VCREDIST_FAILED ${LANG_POLISH} "Nie można pobrać bibliotek uruchomieniowych Microsoft Visual C++. Winpinator nie będzie działał. Pobierz"
 LangString VCREDIST_FAILED2 ${LANG_POLISH} "i zainstaluj je manualnie."
+LangString VCREDIST_FAILED ${LANG_CZECH} "Nelze stáhnout běhové knihovny Microsoft Visual C++. Winpinator nebude fungovat. Stáhnout"
+LangString VCREDIST_FAILED2 ${LANG_CZECH} "a nainstalovat je ručně."
 
 LangString DIRECTORY_NOT_EMPTY ${LANG_ENGLISH} "Installation directory is not empty. Its content is to be entirely removed. Are you sure you want to continue?"
 LangString DIRECTORY_NOT_EMPTY ${LANG_POLISH} "Folder instalacji nie jest pusty. Instalacja spowoduje usunięcie całej jego zawartości. Czy chcesz kontynuować?"
+LangString DIRECTORY_NOT_EMPTY ${LANG_CZECH} "Instalační adresář není prázdný. Jeho obsah je třeba zcela odstranit. Jste si jisti, že chcete pokračovat?"
 
 LangString ABORT_WRONG_DIR ${LANG_ENGLISH} "Can't install in this directory."
 LangString ABORT_WRONG_DIR ${LANG_POLISH} "Nie można zainstalować w tym folderze."
+LangString ABORT_WRONG_DIR ${LANG_CZECH} "Do tohoto adresáře nelze nainstalovat."
 
 LangString ADD_REMOVE ${LANG_ENGLISH} "Add information to 'Add or remove programs' window"
 LangString ADD_REMOVE ${LANG_POLISH} 'Dodaj informacje do okna "Dodaj lub usuń programy"'
+LangString ADD_REMOVE ${LANG_CZECH} "Přidání informací do okna "Přidat nebo odebrat programy""
 
 LangString STARTMENU ${LANG_ENGLISH} "Optionally create Start Menu shortcut"
 LangString STARTMENU ${LANG_POLISH} "Opcjonalnie utwórz skrót w Menu Start"
+LangString STARTMENU ${LANG_CZECH} "Volitelně vytvořit zástupce v nabídce Start"
 
 LangString UNNAME ${LANG_ENGLISH} "Uninstall ${SOFTWARE_NAME}"
 LangString UNNAME ${LANG_POLISH} "Odinstaluj ${SOFTWARE_NAME}"
+LangString UNNAME ${LANG_CZECH} "Odinstaluj ${SOFTWARE_NAME}"
 
 LangString CREATING_DESKTOP_SHORTCUT ${LANG_ENGLISH} "Creating Desktop shortcut"
 LangString CREATING_DESKTOP_SHORTCUT ${LANG_POLISH} "Tworzenie skrótu na Pulpicie"
+LangString CREATING_DESKTOP_SHORTCUT ${LANG_CZECH} "Vytvoření zástupce na ploše"
 
 LangString INTEGRATING ${LANG_ENGLISH} "Adding Winpinator to 'Send to' list"
 LangString INTEGRATING ${LANG_POLISH} 'Dodawanie Winpinatora do listy "Wyślij do"'
+LangString INTEGRATING ${LANG_CZECH} "Přidání aplikace Winpinator do seznamu "Odeslat""
 
 LangString UN_WRONG_DIR ${LANG_ENGLISH} "Winpinator does not appear to be installed in this directory. Are you sure you want to continue?"
 LangString UN_WRONG_DIR ${LANG_POLISH} "Wygląda na to, że Winpinator nie jest zainstalowany w tym folderze. Czy na pewno chcesz kontynuować?"
+LangString UN_WRONG_DIR ${LANG_CZECH} "Zdá se, že Winpinator není v tomto adresáři nainstalován. Určitě chcete pokračovat?"
 
 LangString UNABORT ${LANG_ENGLISH} "Uninstallation aborted."
 LangString UNABORT ${LANG_POLISH} "Deinstalacja przerwana."
+LangString UNABORT ${LANG_CZECH} "Odinstalace byla přerušena."
 
 LangString UNWRONG_INSTDIR ${LANG_ENGLISH} "We're not uninstalling from the original install location. Do not remove entry from 'Add or remove programs'"
 LangString UNWRONG_INSTDIR ${LANG_POLISH} 'Winpinator nie jest odinstalowywany z oryginalnej ścieżki instalacji. Nie usuwaj wpisu z listy "Dodaj lub usuń programy"'
+LangString UNWRONG_INSTDIR ${LANG_CZECH} "Neodinstalováváme z původního umístění instalace. Neodstraňujte položku z "Přidat nebo odebrat programy"."
 
 
 Section "!$(SECTION_WINPINATOR)" WINPINATOR
