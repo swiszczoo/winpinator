@@ -7,4 +7,5 @@
     <Language code="hr_HR" name="Hrvatski" flag="hr.png" />
     <Language code="nl_NL" name="Nederlands" flag="nl.png" />
     <Language code="pl_PL" name="Polski" flag="pl.png" />
+    <Language code="es_AR" name="Español (Argentina)" flag="ar.png" />
 </Languages>
