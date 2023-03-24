@@ -1,284 +1,437 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR <szemcse1@gmail.com>, 2023.03.24. 9:30.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-18 19:12+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2023-03-24 09:32+0100\n"
+"Last-Translator: László Viktor <szemcse1@gmail.com>\n"
+"Language-Team: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #. TRANSLATORS: This XML is loaded into wxRichTextCtrl in "About" section
 #: .\gui\about_dialog.cpp:18
 msgid ""
 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 "<richtext version=\"1.0.0.0\" xmlns=\"http://www.wxwidgets.org\">\n"
-"  <paragraphlayout textcolor=\"#000000\" fontpointsize=\"12\" fontfamily=\"72\" fontstyle=\"90\" fontweight=\"400\" fontunderlined=\"0\" fontface=\"Times New Roman\" alignment=\"1\" parspacingafter=\"10\" parspacingbefore=\"0\" linespacing=\"10\" margin-left=\"10,4098\" margin-right=\"10,4098\" margin-top=\"10,4098\" margin-bottom=\"10,4098\">\n"
-"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\">\n"
-"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" fontface=\"Segoe UI\">About</text>\n"
+"  <paragraphlayout textcolor=\"#000000\" fontpointsize=\"12\" "
+"fontfamily=\"72\" fontstyle=\"90\" fontweight=\"400\" fontunderlined=\"0\" "
+"fontface=\"Times New Roman\" alignment=\"1\" parspacingafter=\"10\" "
+"parspacingbefore=\"0\" linespacing=\"10\" margin-left=\"10,4098\" margin-"
+"right=\"10,4098\" margin-top=\"10,4098\" margin-bottom=\"10,4098\">\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe "
+"UI\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">About</text>\n"
 "    </paragraph>\n"
-"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\">\n"
-"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\"></text>\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe "
+"UI\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\"></"
+"text>\n"
 "    </paragraph>\n"
 "    <paragraph>\n"
-"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\">\"Winpinator \"</text>\n"
-"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI\">is an unofficial Windows port of a Linux file transfer tool called Warpinator. It provides all features of its Linux equivalent, however, Windows uses its own filesystem called NTFS and is generally architecturally different, hence Winpinator has to emulate some Linux features, like permission system. Winpinator should work out-of-the-box, it makes use of zeroconf networking, i.e. mDNS protocol, but some firewall settings might prevent it from communicating with the rest of the network.</text>\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe "
+"UI\">\"Winpinator \"</text>\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI\">is "
+"an unofficial Windows port of a Linux file transfer tool called Warpinator. "
+"It provides all features of its Linux equivalent, however, Windows uses its "
+"own filesystem called NTFS and is generally architecturally different, hence "
+"Winpinator has to emulate some Linux features, like permission system. "
+"Winpinator should work out-of-the-box, it makes use of zeroconf networking, "
+"i.e. mDNS protocol, but some firewall settings might prevent it from "
+"communicating with the rest of the network.</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
 "      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">The main goal of the project was to create a tool that provides native Windows look-and-feel, so the interface uses default system skin and supports drag-and-drop.</text>\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">The main goal of the "
+"project was to create a tool that provides native Windows look-and-feel, so "
+"the interface uses default system skin and supports drag-and-drop.</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
 "      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
-"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" fontface=\"Segoe UI\">Used libraries</text>\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">Used libraries</text>\n"
 "    </paragraph>\n"
 "    <paragraph fontweight=\"400\">\n"
-"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" fontface=\"Segoe UI\"></text>\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\"></text>\n"
 "    </paragraph>\n"
-"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List 1\">\n"
-"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI\">wxWidgets - as a general framework, to provide native Windows look-and-feel</text>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe "
+"UI\">wxWidgets - as a general framework, to provide native Windows look-and-"
+"feel</text>\n"
 "    </paragraph>\n"
-"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List 1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">gRPC and protobuf - to support the protocol of official Warpinator</text>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">gRPC and protobuf - "
+"to support the protocol of official Warpinator</text>\n"
 "    </paragraph>\n"
-"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List 1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sodium - to encrypt and decrypt RSA keys with the symmetric group key</text>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sodium - to encrypt "
+"and decrypt RSA keys with the symmetric group key</text>\n"
 "    </paragraph>\n"
-"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List 1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">openssl - to generate safe PEM keys</text>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">openssl - to generate "
+"safe PEM keys</text>\n"
 "    </paragraph>\n"
-"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List 1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sqlite3 - to store persistent data, e.g. transfer history</text>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sqlite3 - to store "
+"persistent data, e.g. transfer history</text>\n"
 "    </paragraph>\n"
-"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List 1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">zlib - to support transfer compression (one of the newer features of Warpinator)</text>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">zlib - to support "
+"transfer compression (one of the newer features of Warpinator)</text>\n"
 "    </paragraph>\n"
-"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List 1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">wintoast - to display toast notifications</text>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">wintoast - to display "
+"toast notifications</text>\n"
 "    </paragraph>\n"
-"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List 1\">\n"
-"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">cpp-base64 - to convert binary keys to text and vice versa</text>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">cpp-base64 - to "
+"convert binary keys to text and vice versa</text>\n"
 "    </paragraph>\n"
 "  </paragraphlayout>\n"
 "</richtext>\n"
 msgstr ""
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"<richtext version=\"1.0.0.0\" xmlns=\"http://www.wxwidgets.org\">\n"
+"  <paragraphlayout textcolor=\"#000000\" fontpointsize=\"12\" "
+"fontfamily=\"72\" fontstyle=\"90\" fontweight=\"400\" fontunderlined=\"0\" "
+"fontface=\"Times New Roman\" alignment=\"1\" parspacingafter=\"10\" "
+"parspacingbefore=\"0\" linespacing=\"10\" margin-left=\"10,4098\" margin-"
+"right=\"10,4098\" margin-top=\"10,4098\" margin-bottom=\"10,4098\">\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe "
+"UI\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">Névjegy</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe "
+"UI\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe UI\"></"
+"text>\n"
+"    </paragraph>\n"
+"    <paragraph>\n"
+"      <text fontpointsize=\"10\" fontweight=\"700\" fontface=\"Segoe "
+"UI\">\"Winpinator \"</text>\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe UI\">a "
+"Warpinator nevű Linux fájlátviteli eszköz nem hivatalos Windows-portja. Ez "
+"biztosítja a Linux megfelelőjének minden funkcióját, azonban a Windows saját "
+"fájlrendszerét használja, az NTFS-t, ami általában eltérő felépítésű, ezért "
+"a Winpinatornak emulálnia kell néhány Linux-szolgáltatást, például az "
+"engedélyrendszert. A Winpinatornak azonnal működnie kell, használja a "
+"zeroconf hálózatot, azaz az mDNS protokollt, viszont egyes tűzfalbeállítások "
+"megakadályozhatják, hogy kommunikáljon a hálózat többi részével.</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">A projekt fő célja "
+"egy olyan eszköz létrehozása volt, amely natív Windows megjelenést biztosít, "
+"így a felület az alapértelmezett rendszerfelszínt használja, és támogatja a "
+"fogd és vidd funkciót.</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\">Használt könyvtárak</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\">\n"
+"      <text fontpointsize=\"15\" fontstyle=\"93\" fontweight=\"700\" "
+"fontface=\"Segoe UI\"></text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontweight=\"400\" fontface=\"Segoe "
+"UI\">wxWidgetek - általános keret, hogy a Windows natív megjelenését és "
+"hangulatát biztosítsa</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">gRPC és protobuf - a "
+"hivatalos Warpinator protokolljának támogatására</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sodium - az RSA "
+"kulcsok titkosítása és visszafejtése a szimmetrikus csoportkulccsal</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">openssl -biztonságos "
+"PEM-kulcsok létrehozásához</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">sqlite3 - tartós "
+"adatok tárolására, pl. átviteli előzmények</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">zlib - az átviteli "
+"tömörítés támogatására (a Warpinator egyik újabb funkciója)</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">wintoast - "
+"értesítések megjelenítéséhez</text>\n"
+"    </paragraph>\n"
+"    <paragraph fontweight=\"400\" leftindent=\"60\" leftsubindent=\"60\" "
+"bulletstyle=\"512\" bulletname=\"standard/circle\" liststyle=\"Bullet List "
+"1\">\n"
+"      <text fontpointsize=\"10\" fontface=\"Segoe UI\">cpp-base64 - a "
+"bináris kulcsok szöveggé alakításához és fordítva</text>\n"
+"    </paragraph>\n"
+"  </paragraphlayout>\n"
+"</richtext>\n"
 
 #: .\gui\about_dialog.cpp:108
 msgid "About Winpinator..."
-msgstr ""
+msgstr "Winpinator névjegy..."
 
 #: .\gui\about_dialog.cpp:201
 msgid "Could not load About section."
-msgstr ""
+msgstr "Nem sikerült betölteni a Névjegy szakaszt."
 
 #: .\gui\about_dialog.cpp:208
 msgid "About"
-msgstr ""
+msgstr "Névjegy"
 
 #: .\gui\about_dialog.cpp:224
 msgid "License"
-msgstr ""
+msgstr "Licensz"
 
 #: .\gui\about_dialog.cpp:239
 msgid "License file could not be loaded."
-msgstr ""
+msgstr "A licenszfájlt nem sikerült betölteni."
 
 #. TRANSLATORS: version string (e.g. "ver. 1.2.3")
 #: .\gui\about_dialog.cpp:265
 #, c-format
 msgid "ver. %s"
-msgstr ""
+msgstr "ver. %s"
 
 #: .\gui\file_list_dialog.cpp:16
-msgid "The list below contains all files that were registered as being sent/received within the transfer you've selected. The list might be incomplete if the transfer has been interrupted or failed in a different way."
+msgid ""
+"The list below contains all files that were registered as being sent/"
+"received within the transfer you've selected. The list might be incomplete "
+"if the transfer has been interrupted or failed in a different way."
 msgstr ""
+"Az alábbi lista tartalmazza az összes olyan fájlt, amelyet a kiválasztott "
+"átvitel során küldésként/fogadottként regisztráltak. A lista hiányos lehet, "
+"ha az átvitel megszakadt vagy más módon meghiúsult."
 
 #: .\gui\file_list_dialog.cpp:22
 msgid "List of transferred files"
-msgstr ""
+msgstr "Az átvitt fájlok listája"
 
 #: .\gui\file_list_dialog.cpp:31
 msgid "Close"
-msgstr ""
+msgstr "Bezárás"
 
 #: .\gui\file_list_dialog.cpp:94
 msgid "File name"
-msgstr ""
+msgstr "Fájl név"
 
 #: .\gui\file_list_dialog.cpp:96
 msgid "File type"
-msgstr ""
+msgstr "Fájl típus"
 
 #: .\gui\file_list_dialog.cpp:98
 msgid "Relative path"
-msgstr ""
+msgstr "Relatív elérési útvonal"
 
 #: .\gui\file_list_dialog.cpp:100
 msgid "Absolute path"
-msgstr ""
+msgstr "Abszolút elérési útvonal"
 
 #: .\gui\file_list_dialog.cpp:170 .\gui\history_item_icon.cpp:293
 msgid "Folder"
-msgstr ""
+msgstr "Mappa"
 
 #: .\gui\file_list_dialog.cpp:178 .\gui\file_list_dialog.cpp:187
 #: .\gui\file_list_dialog.cpp:193 .\gui\history_item_icon.cpp:282
 msgid "File"
-msgstr ""
+msgstr "Fájl"
 
 #: .\gui\file_list_dialog.cpp:227
 msgid "Copy file name..."
-msgstr ""
+msgstr "Fájl név másolása..."
 
 #: .\gui\file_list_dialog.cpp:228
 msgid "Copy file type..."
-msgstr ""
+msgstr "Fájltípus másolása..."
 
 #: .\gui\file_list_dialog.cpp:229
 msgid "Copy relative path..."
-msgstr ""
+msgstr "Relatív elérési útvonal másolása..."
 
 #: .\gui\file_list_dialog.cpp:230
 msgid "Copy absolute path..."
-msgstr ""
+msgstr "Abszolút elérési útvonal másolása..."
 
 #: .\gui\history_element_finished.cpp:120 .\gui\history_element_pending.cpp:383
 msgid "Type:"
-msgstr ""
+msgstr "Típus:"
 
 #: .\gui\history_element_finished.cpp:121 .\gui\history_element_pending.cpp:384
 msgid "Total size:"
-msgstr ""
+msgstr "Teljes méret:"
 
 #: .\gui\history_element_finished.cpp:157
 msgid "Date and time:"
-msgstr ""
+msgstr "Dátum és idő:"
 
 #: .\gui\history_element_finished.cpp:173
 msgid "%Y-%m-%d %I:%M %p"
-msgstr ""
+msgstr "%Y-%m-%d %I:%M %p"
 
 #: .\gui\history_element_finished.cpp:188
 msgid "&Open "
-msgstr ""
+msgstr "&Megnyitás "
 
 #: .\gui\history_element_finished.cpp:189
 msgid "Show in &Explorer..."
-msgstr ""
+msgstr "Megjelenítés az &Intézőben..."
 
 #: .\gui\history_element_finished.cpp:190
 msgid "Show &list of transferred files..."
-msgstr ""
+msgstr "Átvitt fájlok &listájának megjelenítése..."
 
 #: .\gui\history_element_finished.cpp:192
 msgid "&Remove from history"
-msgstr ""
+msgstr "&Előzmények eltávolítása"
 
 #: .\gui\history_element_finished.cpp:261
-msgid "Files and directories from this transfer no longer exist on the hard drive."
+msgid ""
+"Files and directories from this transfer no longer exist on the hard drive."
 msgstr ""
+"Az átvitelből származó fájlok és könyvtárak már nem léteznek a merevlemezen."
 
 #: .\gui\history_element_finished.cpp:263
 msgid "Can't show element"
-msgstr ""
+msgstr "Az elem nem jeleníthető meg"
 
 #: .\gui\history_element_finished.cpp:355
 msgid "Completed"
-msgstr ""
+msgstr "Befejezve"
 
 #: .\gui\history_element_finished.cpp:357
 msgid "Cancelled"
-msgstr ""
+msgstr "Törölve"
 
 #: .\gui\history_element_finished.cpp:359
 msgid "Error occurred"
-msgstr ""
+msgstr "Hiba történt"
 
 #: .\gui\history_element_finished.cpp:361 .\gui\utils.cpp:146
 msgid "Unknown"
-msgstr ""
+msgstr "Ismeretlen"
 
 #: .\gui\history_element_finished.cpp:449
 msgid "Selected element no longer exists on the hard drive."
-msgstr ""
+msgstr "A kiválasztott elem már nem létezik a merevlemezen."
 
 #: .\gui\history_element_finished.cpp:450
 msgid "Can't open element"
-msgstr ""
+msgstr "Az elem nem nyitható meg"
 
 #: .\gui\history_element_pending.cpp:57
 msgid "Over&write"
-msgstr ""
+msgstr "&Felülír"
 
 #: .\gui\history_element_pending.cpp:60
 msgid "&Cancel"
-msgstr ""
+msgstr "&Mégse"
 
 #: .\gui\history_element_pending.cpp:63
 msgid "&Accept"
-msgstr ""
+msgstr "&Elfogad"
 
 #: .\gui\history_element_pending.cpp:66
 msgid "&Decline"
-msgstr ""
+msgstr "E&lutasít"
 
 #: .\gui\history_element_pending.cpp:72
 msgid "&Stop"
-msgstr ""
+msgstr "&Stop"
 
 #: .\gui\history_element_pending.cpp:176
 msgid "calculating remaining time"
-msgstr ""
+msgstr "a hátralévő idő kiszámítása"
 
 #: .\gui\history_element_pending.cpp:180
 msgid "a few seconds remaining"
-msgstr ""
+msgstr "néhány másodperc van hátra"
 
 #: .\gui\history_element_pending.cpp:185
 #, c-format
 msgid "%d sec remaining"
 msgid_plural "%d secs remaining"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d másodperc van hátra"
+msgstr[1] "%d másodperc van hátra"
 
 #: .\gui\history_element_pending.cpp:193
 #, c-format
 msgid "%d min remaining"
 msgid_plural "%d mins remaining"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d perc van hátra"
+msgstr[1] "%d perc van hátra"
 
 #: .\gui\history_element_pending.cpp:201
 #, c-format
 msgid "%d hour remaining"
 msgid_plural "%d hours remaining"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d óra van hátra"
+msgstr[1] "%d óra van hátra"
 
 #: .\gui\history_element_pending.cpp:209
 #, c-format
 msgid "%d day remaining"
 msgid_plural "%d days remaining"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d nap van hátra"
+msgstr[1] "%d nap van hátra"
 
 #: .\gui\history_element_pending.cpp:214
 msgid "many days remaining"
-msgstr ""
+msgstr "pár nap van még hátra"
 
 #. TRANSLATORS: this is a format string for transfer speed,
 #. the %s part will be replaced with appropriate file size equivalent,
@@ -286,623 +439,664 @@ msgstr ""
 #: .\gui\history_element_pending.cpp:220
 #, c-format
 msgid "%s/s"
-msgstr ""
+msgstr "%s/s"
 
 #. TRANSLATORS: the subsequent %s placeholders stand for:
 #. current sent bytes, transfer total size, transfer speed, remaining time
 #: .\gui\history_element_pending.cpp:226
 #, c-format
 msgid "%s of %s ἢ %s ἢ %s"
-msgstr ""
+msgstr "%s of %s ἢ %s ἢ %s"
 
 #: .\gui\history_element_pending.cpp:250
 msgid "999.9MB of 999.9MB ἢ 999.9MB/s ἢ a few seconds remaining"
-msgstr ""
+msgstr "999.9MB / 999.9MB ἢ 999.9MB/s ἢ néhány másodperc van még hátra"
 
 #. TRANSLATORS: %s stands for full name of the peer
 #: .\gui\history_element_pending.cpp:281
 #, c-format
 msgid "%s is sending you files:"
-msgstr ""
+msgstr "%s fájlokat küld neked:"
 
 #. TRANSLATORS: %s stands for full name of the peer
 #: .\gui\history_element_pending.cpp:292
 #, c-format
 msgid "Awaiting approval from %s..."
-msgstr ""
+msgstr "%s jóváhagyásra vár..."
 
 #: .\gui\history_element_pending.cpp:300
 msgid "Scanning for files..."
-msgstr ""
+msgstr "Fájlok keresése..."
 
 #: .\gui\history_element_pending.cpp:310
 msgid "This request will overwrite one or more files!"
-msgstr ""
+msgstr "Ez a kérelem felülír egy vagy több fájlt!"
 
 #: .\gui\history_element_pending.cpp:320
 msgid "R&esume"
-msgstr ""
+msgstr "&Visszatérés"
 
 #: .\gui\history_element_pending.cpp:332
 msgid "&Pause"
-msgstr ""
+msgstr "&Megszakítás"
 
 #: .\gui\history_element_pending.cpp:344
 msgid "Not enough disk space! Files cannot be received!"
-msgstr ""
+msgstr "Nincs elég hely a lemezen! A fájlok nem fogadhatók!"
 
 #: .\gui\history_item_icon.cpp:149 .\gui\history_item_icon.cpp:274
 msgid "Empty"
-msgstr ""
+msgstr "Üres"
 
 #: .\gui\history_item_icon.cpp:175 .\service\notification_accept_files.cpp:107
 #, c-format
 msgid "%d element"
 msgid_plural "%d elements"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d elem"
+msgstr[1] "%d elem"
 
 #: .\gui\history_item_icon.cpp:179
 #, c-format
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d fájl"
+msgstr[1] "%d fájl"
 
 #: .\gui\history_item_icon.cpp:182
 #, c-format
 msgid "%d folder"
 msgid_plural "%d folders"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d könyvtár"
+msgstr[1] "%d könyvtár"
 
 #. TRANSLATORS: format string, e.g. <2 folders> and <5 files>
 #: .\gui\history_item_icon.cpp:198
 #, c-format
 msgid "%s and %s"
-msgstr ""
+msgstr "%s és %s"
 
 #: .\gui\history_item_icon.cpp:268
 msgid "Calculating"
-msgstr ""
+msgstr "Számítás"
 
 #: .\gui\history_item_icon.cpp:286
 msgid "Multiple files"
-msgstr ""
+msgstr "Több fájl"
 
 #: .\gui\history_item_icon.cpp:297
 msgid "Multiple folders"
-msgstr ""
+msgstr "Több könyvtár"
 
 #: .\gui\history_item_icon.cpp:302
 msgid "Mixed elements"
-msgstr ""
+msgstr "Több elem"
 
 #: .\gui\host_listbox.cpp:159
 msgid "Hostname:"
-msgstr ""
+msgstr "Szervernév:"
 
 #: .\gui\host_listbox.cpp:160
 msgid "IP Address:"
-msgstr ""
+msgstr "IP cím:"
 
 #: .\gui\host_listbox.cpp:183
 msgid "OS:"
-msgstr ""
+msgstr "OS:"
 
 #: .\gui\host_listbox.cpp:184
 msgid "Connection:"
-msgstr ""
+msgstr "Kapcsolat:"
 
 #: .\gui\page_error.cpp:13
 msgid "A fatal error occurred while trying to start the service!"
-msgstr ""
+msgstr "Végzetes hiba történt a szolgáltatás indításakor!"
 
 #: .\gui\page_error.cpp:53 .\gui\page_nohosts.cpp:36
 msgid "Try again"
-msgstr ""
+msgstr "Próbáljuk újra"
 
 #: .\gui\page_error.cpp:59
 msgid "Open settings"
-msgstr ""
+msgstr "Beállítások megnyitása"
 
 #: .\gui\page_error.cpp:130
 msgid "No error."
-msgstr ""
+msgstr "Nincs hiba."
 
 #: .\gui\page_error.cpp:133
 msgid "Unknown error!"
-msgstr ""
+msgstr "Ismeretlen hiba!"
 
 #: .\gui\page_error.cpp:137
-msgid "Can't create mDNS server! Maybe another running app is holding exclusive access to appropriate port?"
+msgid ""
+"Can't create mDNS server! Maybe another running app is holding exclusive "
+"access to appropriate port?"
 msgstr ""
+"Nem lehet mDNS-kiszolgálót létrehozni! Lehet, hogy egy másik futó alkalmazás "
+"rendelkezik kizárólagos hozzáféréssel a megfelelő porthoz?"
 
 #: .\gui\page_error.cpp:142
-msgid "Can't create registration service (for compatibility mode). Maybe there's another instance of Winpinator running on your computer, e.g. started by another user? You can always try to change ports in the settings."
+msgid ""
+"Can't create registration service (for compatibility mode). Maybe there's "
+"another instance of Winpinator running on your computer, e.g. started by "
+"another user? You can always try to change ports in the settings."
 msgstr ""
+"Nem lehet regisztrációs szolgáltatást létrehozni (kompatibilitási módhoz). "
+"Lehet, hogy a számítógépen fut egy másik Winpinator példány, pl. egy másik "
+"felhasználó indította el esetleg? A beállításokban megpróbálhatjuk "
+"megváltoztatni a portokat."
 
 #: .\gui\page_error.cpp:149
-msgid "Can't create registration service. Maybe there's another instance of Winpinator running on your computer, e.g. started by another user? You can always try to change ports in the settings."
+msgid ""
+"Can't create registration service. Maybe there's another instance of "
+"Winpinator running on your computer, e.g. started by another user? You can "
+"always try to change ports in the settings."
 msgstr ""
+"Nem lehet regisztrációs szolgáltatást létrehozni. Lehet, hogy a számítógépen "
+"fut egy másik Winpinator példány, pl. egy másik felhasználó indította el "
+"esetleg? A beállításokban megpróbálhatjuk megváltoztatni a portokat."
 
 #: .\gui\page_error.cpp:156
-msgid "Can't create main service. Maybe there's another instance of Winpinator running on your computer, e.g. started by another user? You can always try to change ports in the settings."
+msgid ""
+"Can't create main service. Maybe there's another instance of Winpinator "
+"running on your computer, e.g. started by another user? You can always try "
+"to change ports in the settings."
 msgstr ""
+"A fő szolgáltatást nem lehet létrehozni. Lehet, hogy a számítógépen fut egy "
+"másik Winpinator példány, pl. egy másik felhasználó indította el esetleg? A "
+"beállításokban megpróbálhatjuk megváltoztatni a portokat."
 
 #: .\gui\page_error.cpp:163
-msgid "Output directory you provided in the settings does not exist. Winpinator failed to create one."
+msgid ""
+"Output directory you provided in the settings does not exist. Winpinator "
+"failed to create one."
 msgstr ""
+"A beállításokban megadott kimeneti könyvtár nem létezik. A Winpinator nem "
+"tudta létrehozni."
 
 #: .\gui\page_error.cpp:169
 msgid "Missing description"
-msgstr ""
+msgstr "Hiányzó leírás"
 
 #: .\gui\page_hostlist.cpp:20
-msgid "Below is a list of currently available computers. Select the one you want to transfer your files to."
+msgid ""
+"Below is a list of currently available computers. Select the one you want to "
+"transfer your files to."
 msgstr ""
+"Az alábbiakban a jelenleg elérhető számítógépek listája található. Válasszuk "
+"ki azt, amelyre át szeretnénk vinni a fájlokat."
 
 #: .\gui\page_hostlist.cpp:24
 msgid ""
 "Below is a list of currently available computers.\n"
 "Select the one you want to transfer your files to."
 msgstr ""
+"Az alábbiakban a jelenleg elérhető számítógépek listája található.\n"
+"Válasszuk ki azt, amelyre át szeretnénk vinni a fájlokat."
 
 #: .\gui\page_hostlist.cpp:50
 msgid "Select where to send your files"
-msgstr ""
+msgstr "Válasszuk ki, hová küldjük el a fájljainkat"
 
 #: .\gui\page_hostlist.cpp:62
 msgid "Refresh list"
-msgstr ""
+msgstr "Lista frissítése"
 
 #: .\gui\page_hostlist.cpp:78
 msgid "Searching for computers on your network..."
-msgstr ""
+msgstr "Számítógépek keresése a hálózaton..."
 
 #: .\gui\page_hostlist.cpp:83
 msgid "&Next >"
-msgstr ""
+msgstr "&Következő >"
 
 #: .\gui\page_hostlist.cpp:346
 msgid "Data unavailable"
-msgstr ""
+msgstr "Adatok nem állnak rendelkezésre"
 
 #: .\gui\page_hostlist.cpp:355
 msgid "Loading..."
-msgstr ""
+msgstr "Betöltés..."
 
 #: .\gui\page_nohosts.cpp:11
 msgid "There are no other computers found on your network..."
-msgstr ""
+msgstr "Nem található más számítógép a hálózaton..."
 
 #: .\gui\page_offline.cpp:10
 msgid "It seems you're offline! Check your LAN connection..."
-msgstr ""
+msgstr "Úgy tűnik, offline vagy! Ellenőrizzük le a LAN-kapcsolatot..."
 
 #: .\gui\page_starting.cpp:22
 msgid "Starting Winpinator..."
-msgstr ""
+msgstr "Winpinator indítása..."
 
 #: .\gui\page_transferlist.cpp:37
 msgid "Select files or directories to start transfer"
-msgstr ""
+msgstr "Válasszuk ki a fájlokat vagy könyvtárakat az átvitel megkezdéséhez"
 
 #: .\gui\page_transferlist.cpp:43
-msgid "Drop elements you want to send into the box below or click one of the buttons."
+msgid ""
+"Drop elements you want to send into the box below or click one of the "
+"buttons."
 msgstr ""
+"Dobjuk az elküldeni kívánt elemeket az alábbi mezőbe, vagy kattintsunk az "
+"egyik gombra."
 
 #: .\gui\page_transferlist.cpp:49
 msgid "Go back"
-msgstr ""
+msgstr "Vissza"
 
 #: .\gui\page_transferlist.cpp:55
 msgid "Send file(s)..."
-msgstr ""
+msgstr "Fájl(ok) küldése..."
 
 #: .\gui\page_transferlist.cpp:59
 msgid "Send a folder..."
-msgstr ""
+msgstr "Mappa küldése..."
 
 #: .\gui\page_transferlist.cpp:65 .\gui\page_transferlist.cpp:261
 #: .\gui\settings_dialog.cpp:538
 msgid "Clear history"
-msgstr ""
+msgstr "Előzmények törlése"
 
 #: .\gui\page_transferlist.cpp:205
 msgid "Select files to send..."
-msgstr ""
+msgstr "Küldendő fájlok kiválasztása..."
 
 #. TRANSLATORS: wildcard format: type1|filter1;type2|filter2;...
 #: .\gui\page_transferlist.cpp:207
 msgid "All files (*.*)|*.*"
-msgstr ""
+msgstr "Minden fájl (*.*)|*.*"
 
 #: .\gui\page_transferlist.cpp:233
 msgid "Select directories to send..."
-msgstr ""
+msgstr "Válasszuk ki a küldendő könyvtárakat..."
 
 #: .\gui\page_transferlist.cpp:260
 msgid "Are you sure you want to clear entire history for this device?"
-msgstr ""
+msgstr "Biztosan törljük az eszköz teljes előzményét?"
 
 #: .\gui\page_transferlist.cpp:263 .\gui\settings_dialog.cpp:540
 msgid "This operation cannot be undone!"
-msgstr ""
+msgstr "Ez a művelet nem vonható vissza!"
 
 #: .\gui\permission_picker.cpp:32
 msgid "Read"
-msgstr ""
+msgstr "Olvasás"
 
 #: .\gui\permission_picker.cpp:34
 msgid "Write"
-msgstr ""
+msgstr "Írás"
 
 #: .\gui\permission_picker.cpp:36
 msgid "Execute"
-msgstr ""
+msgstr "Végrehajtás"
 
 #: .\gui\permission_picker.cpp:39
 msgid "Owner"
-msgstr ""
+msgstr "Tulajdonos"
 
 #: .\gui\permission_picker.cpp:45
 msgid "Group"
-msgstr ""
+msgstr "Csoport"
 
 #: .\gui\permission_picker.cpp:51
 msgid "Others"
-msgstr ""
+msgstr "Egyéb"
 
 #: .\gui\settings_dialog.cpp:17
 msgid "Preferences"
-msgstr ""
+msgstr "Beállítások"
 
 #: .\gui\settings_dialog.cpp:35
 msgid "General"
-msgstr ""
+msgstr "Általános"
 
 #: .\gui\settings_dialog.cpp:36
 msgid "Unix permissions"
-msgstr ""
+msgstr "Unix engedélyek"
 
 #: .\gui\settings_dialog.cpp:37
 msgid "History"
-msgstr ""
+msgstr "Történet"
 
 #: .\gui\settings_dialog.cpp:38
 msgid "Connection"
-msgstr ""
+msgstr "Kapcsolat"
 
 #: .\gui\settings_dialog.cpp:79
 msgid "Interface"
-msgstr ""
+msgstr "Felület"
 
 #: .\gui\settings_dialog.cpp:85
 msgid "Language (requires restart to take effect):"
-msgstr ""
+msgstr "Nyelv (újraindítás szükséges, hogy életbe lépjen):"
 
 #: .\gui\settings_dialog.cpp:102
 msgid "Desktop"
-msgstr ""
+msgstr "Asztal"
 
 #: .\gui\settings_dialog.cpp:107
 msgid "Start with main window open"
-msgstr ""
+msgstr "Indulás a főablak megnyitásával"
 
 #: .\gui\settings_dialog.cpp:113
 msgid "Start automatically (on system startup)"
-msgstr ""
+msgstr "Automatikus indítás (a rendszer indításakor)"
 
 #: .\gui\settings_dialog.cpp:119
 msgid "Do not show main window on system startup"
-msgstr ""
+msgstr "Ne jelenjen meg a főablak a rendszer indításakor"
 
 #: .\gui\settings_dialog.cpp:129
 msgid "File transfers"
-msgstr ""
+msgstr "Fájlátvitel"
 
 #: .\gui\settings_dialog.cpp:134
 msgid "Use compression (if available)"
-msgstr ""
+msgstr "Tömörítés használata (ha elérhető)"
 
 #: .\gui\settings_dialog.cpp:140
 msgid "Compression level:"
-msgstr ""
+msgstr "Tömörítési szint:"
 
 #: .\gui\settings_dialog.cpp:148
 msgid "Location for received files:"
-msgstr ""
+msgstr "A fogadott fájlok helye:"
 
 #: .\gui\settings_dialog.cpp:159
 msgid "Require approval before accepting files"
-msgstr ""
+msgstr "Fogadott fájlok jóváhagyása szükséges"
 
 #: .\gui\settings_dialog.cpp:165
 msgid "Require approval when files would be overwritten"
-msgstr ""
+msgstr "Fájlok felülírásához jóváhagyása szükséges"
 
 #: .\gui\settings_dialog.cpp:171
 msgid "Preserve zone information in incoming files"
-msgstr ""
+msgstr "A zónainformációk megőrzése a bejövő fájlokban"
 
 #: .\gui\settings_dialog.cpp:189
 msgid "File permissions:"
-msgstr ""
+msgstr "Fájlengedélyek:"
 
 #: .\gui\settings_dialog.cpp:196
 msgid "Executable permissions:"
-msgstr ""
+msgstr "Végrehajtható engedélyek:"
 
 #: .\gui\settings_dialog.cpp:203
 msgid "Folder permissions:"
-msgstr ""
+msgstr "Mappa engedélyei:"
 
 #: .\gui\settings_dialog.cpp:218
 msgid "Transfer history"
-msgstr ""
+msgstr "Átviteli előzmények"
 
 #: .\gui\settings_dialog.cpp:223
 msgid "Warning! Every action you perform on this page is irreversible!"
 msgstr ""
+"Figyelem! Minden művelet, amit ezen az oldalon hajt végre, "
+"visszafordíthatatlan!"
 
 #: .\gui\settings_dialog.cpp:233
 msgid "Hostname"
-msgstr ""
+msgstr "Szervernév"
 
 #: .\gui\settings_dialog.cpp:234
 msgid "Full name"
-msgstr ""
+msgstr "Teljes név"
 
 #: .\gui\settings_dialog.cpp:235
 msgid "IP address"
-msgstr ""
+msgstr "IP cím"
 
 #: .\gui\settings_dialog.cpp:236
 msgid "OS"
-msgstr ""
+msgstr "OS"
 
 #: .\gui\settings_dialog.cpp:237
 msgid "Transfers registered"
-msgstr ""
+msgstr "Regisztrált átvitelek"
 
 #: .\gui\settings_dialog.cpp:247
 msgid "Remove selected"
-msgstr ""
+msgstr "Kiválasztás megszüntetése"
 
 #: .\gui\settings_dialog.cpp:249
 msgid "Clear all history"
-msgstr ""
+msgstr "Az összes előzmény törlése"
 
 #: .\gui\settings_dialog.cpp:271
 msgid "Identification"
-msgstr ""
+msgstr "Azonosítás"
 
 #: .\gui\settings_dialog.cpp:277
 msgid "Group code:"
-msgstr ""
+msgstr "Csoport kód:"
 
 #: .\gui\settings_dialog.cpp:292
 msgid "Network"
-msgstr ""
+msgstr "Hálózat"
 
 #: .\gui\settings_dialog.cpp:297
 msgid "Network interface to use:"
-msgstr ""
+msgstr "Használható hálózati interfész:"
 
 #: .\gui\settings_dialog.cpp:312
 msgid "Incoming port for transfers:"
-msgstr ""
+msgstr "Bejövő port az átvitelhez:"
 
 #: .\gui\settings_dialog.cpp:321
 msgid "Incoming port for registration:"
-msgstr ""
+msgstr "Bejövő port a regisztrációhoz:"
 
 #: .\gui\settings_dialog.cpp:471
 msgid "Automatic"
-msgstr ""
+msgstr "Automatikus"
 
 #: .\gui\settings_dialog.cpp:537
 msgid "Are you sure you want to clear all history?"
-msgstr ""
+msgstr "Biztosan törljük az összes előzményt?"
 
 #: .\gui\transfer_history.cpp:20
 msgid "Soon in the future"
-msgstr ""
+msgstr "Hamarosan"
 
 #: .\gui\transfer_history.cpp:21
 msgid "Today"
-msgstr ""
+msgstr "Ma"
 
 #: .\gui\transfer_history.cpp:22
 msgid "Yesterday"
-msgstr ""
+msgstr "Tegnap"
 
 #: .\gui\transfer_history.cpp:23
 msgid "Earlier this week"
-msgstr ""
+msgstr "Korábban, ezen a héten"
 
 #: .\gui\transfer_history.cpp:24
 msgid "Last week"
-msgstr ""
+msgstr "Múlt héten"
 
 #: .\gui\transfer_history.cpp:25
 msgid "Earlier this month"
-msgstr ""
+msgstr "Korábban, ebben a hónapban"
 
 #: .\gui\transfer_history.cpp:26
 msgid "Last month"
-msgstr ""
+msgstr "Múlt hónapban"
 
 #: .\gui\transfer_history.cpp:27
 msgid "Earlier this year"
-msgstr ""
+msgstr "Korábban, ebben az évben"
 
 #: .\gui\transfer_history.cpp:28
 msgid "Last year"
-msgstr ""
+msgstr "Tavaly"
 
 #: .\gui\transfer_history.cpp:29
 msgid "A long time ago"
-msgstr ""
+msgstr "Régebben"
 
 #: .\gui\transfer_history.cpp:48
 msgid "There is no transfer history for this device..."
-msgstr ""
+msgstr "Nincs átviteli előzmény ehhez az eszközhöz..."
 
 #: .\gui\transfer_history.cpp:60
 msgid "In progress"
-msgstr ""
+msgstr "Folyamatban"
 
 #: .\gui\transfer_history.cpp:559
 #, c-format
 msgid "In progress (%d)"
-msgstr ""
+msgstr "Folyamatban (%d)"
 
 #: .\gui\utils.cpp:133
 msgid "Offline"
-msgstr ""
+msgstr "Nem elérhető"
 
 #: .\gui\utils.cpp:135
 msgid "Registration in progress..."
-msgstr ""
+msgstr "Regisztráció folyamatban..."
 
 #: .\gui\utils.cpp:137
 msgid "Connecting..."
-msgstr ""
+msgstr "Csatlakozás..."
 
 #: .\gui\utils.cpp:139
 msgid "Host unreachable"
-msgstr ""
+msgstr "A házigazda nem elérhető"
 
 #: .\gui\utils.cpp:141
 msgid "Establishing duplex connection..."
-msgstr ""
+msgstr "Duplex kapcsolat létrehozása..."
 
 #: .\gui\utils.cpp:143
 msgid "Ready"
-msgstr ""
+msgstr "Kész"
 
 #: .\gui\utils.cpp:195
 msgid "Calculating..."
-msgstr ""
+msgstr "Számítás..."
 
 #: .\gui\winpinator_banner.cpp:174
 msgid "Share your files across the LAN"
-msgstr ""
+msgstr "Osszuk meg fájljainkat a LAN-on keresztül"
 
 #: .\gui\winpinator_banner.cpp:178
 #, c-format
 msgid "Send %d element..."
 msgid_plural "Send %d elements..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d elem küldése..."
+msgstr[1] "%d elem küldése..."
 
 #: .\gui\winpinator_frame.cpp:23
 msgid "Winpinator"
-msgstr ""
+msgstr "Winpinator"
 
 #. TRANSLATORS: format string
 #: .\gui\winpinator_frame.cpp:71 .\gui\winpinator_frame.cpp:328
 #, c-format
 msgid "IP: %s"
-msgstr ""
+msgstr "IP: %s"
 
 #: .\gui\winpinator_frame.cpp:75 .\gui\winpinator_frame.cpp:312
 #: .\gui\winpinator_frame.cpp:323
 msgid "Offline!"
-msgstr ""
+msgstr "Nem elérhető!"
 
 #: .\gui\winpinator_frame.cpp:138
 msgid "&Open save folder...\tCtrl+O"
-msgstr ""
+msgstr "&Mentési mappa megnyitása...\tCtrl+O"
 
 #: .\gui\winpinator_frame.cpp:139 .\tray_icon.cpp:81
 msgid "Open the incoming files folder in Explorer"
-msgstr ""
+msgstr "Nyissa meg a bejövő fájlok mappáját az Intézőben"
 
 #: .\gui\winpinator_frame.cpp:140
 msgid "&Preferences..."
-msgstr ""
+msgstr "&Beállítások..."
 
 #: .\gui\winpinator_frame.cpp:141
 msgid "Adjust app preferences"
-msgstr ""
+msgstr "Alkalmazás beállításainak módosítása"
 
 #: .\gui\winpinator_frame.cpp:143
 msgid "E&xit\tAlt+F4"
-msgstr ""
+msgstr "K&ilépés\tAlt+F4"
 
 #: .\gui\winpinator_frame.cpp:144
 msgid "Close this window but let Winpinator run in background"
 msgstr ""
+"Zárja be ezt az ablakot, de hagyja, hogy a Winpinator fusson a háttérben"
 
 #: .\gui\winpinator_frame.cpp:146
 msgid "Exit and &stop the service\tCtrl+Alt+F4"
-msgstr ""
+msgstr "Kilépés és a &szolgáltatás leállítása\tCtrl+Alt+F4"
 
 #: .\gui\winpinator_frame.cpp:147
 msgid "Exit Winpinator and stop being visible to other computers"
 msgstr ""
+"Lépjen ki a Winpinatorból, és ne legyen látható más számítógépek számára"
 
 #: .\gui\winpinator_frame.cpp:149
 msgid "&File"
-msgstr ""
+msgstr "&Fájl"
 
 #: .\gui\winpinator_frame.cpp:152
 msgid "&Help topics...\tF1"
-msgstr ""
+msgstr "&Segítő témakörök...\tF1"
 
 #: .\gui\winpinator_frame.cpp:153
 msgid "Show help and documentation of Winpinator"
-msgstr ""
+msgstr "Mutassa meg a Winpinator súgóját és dokumentációját"
 
 #: .\gui\winpinator_frame.cpp:154
 msgid "&What's new?..."
-msgstr ""
+msgstr "&Mik az újdonságok?..."
 
 #: .\gui\winpinator_frame.cpp:155
 msgid "Show release notes"
-msgstr ""
+msgstr "Kiadási megjegyzések megjelenítése"
 
 #: .\gui\winpinator_frame.cpp:156
 msgid "&About Winpinator..."
-msgstr ""
+msgstr "&Winpinator névjegye..."
 
 #: .\gui\winpinator_frame.cpp:157
 msgid "Show credits dialog"
-msgstr ""
+msgstr "Stáblista megjelenítése"
 
 #: .\gui\winpinator_frame.cpp:159
 msgid "&Help"
-msgstr ""
+msgstr "&Segítség"
 
 #: .\gui\winpinator_frame.cpp:262
 msgid "Sorry, but Winpinator help is not available yet."
-msgstr ""
+msgstr "Sajnáljuk, de a Winpinator súgója még nem érhető el."
 
 #: .\gui\winpinator_frame.cpp:263
 msgid "Help not available"
-msgstr ""
+msgstr "A segítség nem elérhető"
 
 #: .\service\notification_accept_files.cpp:91
 msgid "Incoming files"
-msgstr ""
+msgstr "Bejövő fájlok"
 
 #: .\service\notification_accept_files.cpp:100
 #, c-format
 msgid "%s is sending you a folder \"%s\""
-msgstr ""
+msgstr "%s mappát küld \"%s\""
 
 #: .\service\notification_accept_files.cpp:110
 #, c-format
 msgid "%s is sending you %s"
-msgstr ""
+msgstr "%s küld %s"
 
 #: .\service\notification_accept_files.cpp:116
 #, c-format
 msgid "%s is sending you a file \"%s\""
-msgstr ""
+msgstr "%s fájlt küld \"%s\""
 
 #. TRANSLATORS: this string is appended to notification message
 #. if overwrite is needed, e.g.
@@ -910,74 +1104,74 @@ msgstr ""
 #. The initial dot is necessary.
 #: .\service\notification_accept_files.cpp:126
 msgid ". Accepting this transfer will overwrite some files!"
-msgstr ""
+msgstr ". Az átvitel elfogadása felülír néhány fájlt!"
 
 #: .\service\notification_accept_files.cpp:134
 msgid "Overwrite"
-msgstr ""
+msgstr "Felülírás"
 
 #: .\service\notification_accept_files.cpp:135
 msgid "Cancel"
-msgstr ""
+msgstr "Mégse"
 
 #: .\service\notification_accept_files.cpp:139
 msgid "Accept"
-msgstr ""
+msgstr "Elfogadás"
 
 #: .\service\notification_accept_files.cpp:140
 msgid "Decline"
-msgstr ""
+msgstr "Elutasítás"
 
 #: .\service\notification_transfer_failed.cpp:33
 msgid "Transfer failure"
-msgstr ""
+msgstr "Átviteli hiba"
 
 #: .\service\notification_transfer_failed.cpp:37
 #, c-format
 msgid "Some transfers between you and %s have failed unexpectedly!"
-msgstr ""
+msgstr "Néhány átvitel %s és köztem váratlanul meghiúsult!"
 
 #: .\service\notification_transfer_succeeded.cpp:19
 msgid "Transfer success"
-msgstr ""
+msgstr "Sikeres átvitel"
 
 #: .\service\notification_transfer_succeeded.cpp:23
 #, c-format
 msgid "Transfer between you and %s has finished successfully!"
-msgstr ""
+msgstr "%s és köztem az átvitel sikeresen befejeződött!"
 
 #: .\service\service_utils.cpp:98
 msgid "Unknown OS"
-msgstr ""
+msgstr "Ismeretlen OS"
 
 #: .\tray_icon.cpp:34
 msgid "Winpinator (Error!)"
-msgstr ""
+msgstr "Winpinator (Hiba!)"
 
 #: .\tray_icon.cpp:42
 msgid "Winpinator (Waiting...)"
-msgstr ""
+msgstr "Winpinator (Várakozás...)"
 
 #: .\tray_icon.cpp:50
 msgid "Winpinator (Running)"
-msgstr ""
+msgstr "Winpinator (Fut)"
 
 #: .\tray_icon.cpp:77
 msgid "&Restore window"
-msgstr ""
+msgstr "&Ablak visszaállítása"
 
 #: .\tray_icon.cpp:78
 msgid "Restore main app window"
-msgstr ""
+msgstr "Az alkalmazás főablakának visszaállítása"
 
 #: .\tray_icon.cpp:80
 msgid "&Open save folder"
-msgstr ""
+msgstr "&Mentési mappa megnyitása"
 
 #: .\tray_icon.cpp:82
 msgid "E&xit"
-msgstr ""
+msgstr "K&ilépés"
 
 #: .\tray_icon.cpp:83
 msgid "Exit Winpinator and stop background service"
-msgstr ""
+msgstr "Kilépés a Winpinatorból, és a háttérszolgáltatás leállítása"
